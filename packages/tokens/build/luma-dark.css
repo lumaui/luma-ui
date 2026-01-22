@@ -1,0 +1,29 @@
+/* Luma Design System - Dark Theme */
+.dark {
+  --luma-color-primary: oklch(0.64 0.12 230);
+  --luma-color-primary-hover: oklch(0.58 0.11 230);
+  --luma-color-primary-active: oklch(0.52 0.1 230);
+  --luma-color-surface-base: oklch(0.15 0.005 0);
+  --luma-color-text-primary: oklch(0.98 0.002 0);
+  --luma-color-text-secondary: oklch(0.65 0.01 0);
+  --luma-button-primary-bg: oklch(0.64 0.12 230);
+  --luma-button-primary-bg-hover: oklch(0.69 0.12 230);
+  --luma-button-primary-bg-active: oklch(0.74 0.13 230);
+  --luma-button-primary-text: oklch(0.1 0 0);
+  --luma-button-outline-border: oklch(0.65 0.01 0);
+  --luma-button-outline-border-hover: oklch(0.98 0.002 0);
+  --luma-button-outline-bg-hover: oklch(0.20 0.01 230);
+  --luma-button-outline-text: oklch(0.98 0.002 0);
+  --luma-button-ghost-bg: rgba(0, 0, 0, 0);
+  --luma-button-ghost-bg-hover: oklch(0.20 0.01 230);
+  --luma-button-ghost-text: oklch(0.98 0.002 0);
+  --luma-button-danger-bg: oklch(0.60 0.24 25);
+  --luma-button-danger-bg-hover: oklch(0.65 0.25 25);
+  --luma-button-danger-bg-active: oklch(0.70 0.26 25);
+  --luma-button-danger-text: oklch(0.1 0 0);
+  --luma-button-focus-ring-color: oklch(0.64 0.12 230 / 0.25);
+  --luma-card-background: oklch(0.17 0 0);
+  --luma-card-gradient-from: oklch(0.25 0.01 0 / 0.6);
+  --luma-card-gradient-to: oklch(0.2 0.008 0 / 0.6);
+  --luma-badge-bg: oklch(0.64 0.12 230 / 0.15);
+}

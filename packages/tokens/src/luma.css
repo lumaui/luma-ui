@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+@theme {
+  /* Luma UI Design Tokens */
+
+  /* Colors - Primary */
+  --luma-color-primary: oklch(0.54 0.1 230);
+  --luma-color-primary-hover: oklch(0.49 0.09 230);
+  --luma-color-primary-active: oklch(0.44 0.08 230);
+
+  /* Colors - Surface */
+  --luma-color-surface-base: oklch(0.98 0 0);
+
+  /* Colors - Text */
+  --luma-color-text-primary: oklch(0.2 0.005 0);
+  --luma-color-text-secondary: oklch(0.5 0.01 0);
+
+  /* Colors - Card */
+  --luma-card-background: oklch(0.99 0 0);
+  --luma-card-gradient-from: oklch(0.92 0.005 0 / 0.6);
+  --luma-card-gradient-to: oklch(0.96 0.003 0 / 0.6);
+
+  /* Colors - Badge */
+  --luma-color-badge: var(--luma-color-primary);
+  --luma-color-badge-bg: oklch(0.54 0.1 230 / 0.1);
+
+  /* Font Family */
+  --luma-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Font Sizes */
+  --luma-text-sm: 0.75rem;
+  --luma-text-base: 1rem;
+  --luma-text-lg: 1.875rem;
+
+  /* Font Weights */
+  --luma-font-weight-regular: 400;
+  --luma-font-weight-medium: 500;
+  --luma-font-weight-semibold: 600;
+
+  /* Line Heights */
+  --luma-line-height-snug: 1.375;
+  --luma-line-height-relaxed: 1.625;
+  --luma-line-height-none: 1;
+
+  /* Spacing */
+  --luma-spacing-xs: 0.25rem;
+  --luma-spacing-sm: 0.5rem;
+  --luma-spacing-md: 1rem;
+  --luma-spacing-lg: 1.5rem;
+  --luma-spacing-xl: 2.5rem;
+  --luma-card-padding: 1.5rem;
+
+  /* Border Radius */
+  --radius-luma-sm: 6px;
+  --radius-luma-md: 10px;
+  --radius-luma-lg: 18px;
+  --radius-luma-full: 9999px;
+
+  /* Transitions */
+  --luma-duration-fast: 150ms;
+  --luma-duration-base: 200ms;
+  --luma-transition-ease: ease-out;
+
+  /* Badge */
+  --luma-badge-padding-x: 0.625rem;
+  --luma-badge-padding-y: 0.25rem;
+  --luma-badge-font-size: var(--luma-text-sm);
+  --luma-badge-font-weight: var(--luma-font-weight-medium);
+
+  /* Card */
+  --luma-card-border-width: 1px;
+
+  /* Button Tokens */
+  /* Primary */
+  --luma-button-primary-bg: oklch(0.54 0.1 230);
+  --luma-button-primary-bg-hover: oklch(0.49 0.09 230);
+  --luma-button-primary-bg-active: oklch(0.44 0.08 230);
+  --luma-button-primary-text: oklch(1 0 0);
+
+  /* Outline */
+  --luma-button-outline-border: oklch(0.5 0.01 0);
+  --luma-button-outline-border-hover: oklch(0.2 0.005 0);
+  --luma-button-outline-bg-hover: oklch(0.96 0.01 230);
+  --luma-button-outline-text: oklch(0.2 0.005 0);
+
+  /* Ghost */
+  --luma-button-ghost-bg: transparent;
+  --luma-button-ghost-bg-hover: oklch(0.96 0.01 230);
+  --luma-button-ghost-text: oklch(0.2 0.005 0);
+
+  /* Danger */
+  --luma-button-danger-bg: oklch(0.55 0.22 25);
+  --luma-button-danger-bg-hover: oklch(0.50 0.20 25);
+  --luma-button-danger-bg-active: oklch(0.45 0.18 25);
+  --luma-button-danger-text: oklch(1 0 0);
+
+  /* Button Layout */
+  --luma-button-padding-x-sm: 1rem;
+  --luma-button-padding-y-sm: 0.5rem;
+  --luma-button-padding-x-md: 1.5rem;
+  --luma-button-padding-y-md: 0.75rem;
+  --luma-button-padding-x-lg: 2rem;
+  --luma-button-padding-y-lg: 1rem;
+  --luma-button-radius: var(--luma-radius-md);
+
+  /* Button Focus */
+  --luma-button-focus-ring-width: 2px;
+  --luma-button-focus-ring-color: oklch(0.54 0.1 230 / 0.25);
+}
+
+/* Utilities - Background Colors */
+@utility bg-primary {
+  background-color: var(--luma-color-primary);
+}
+
+@utility bg-surface-base {
+  background-color: var(--luma-color-surface-base);
+}
+
+@utility bg-card-background {
+  background-color: var(--luma-card-background);
+}
+
+@utility bg-badge-bg {
+  background-color: var(--luma-color-badge-bg);
+}
+
+/* Utilities - Text Colors */
+@utility text-text-primary {
+  color: var(--luma-color-text-primary);
+}
+
+@utility text-text-secondary {
+  color: var(--luma-color-text-secondary);
+}
+
+@utility text-badge {
+  color: var(--luma-color-badge);
+}
+
+/* Utilities - Border Colors */
+@utility border-text-primary {
+  border-color: var(--luma-color-text-primary);
+}
+
+@utility border-text-secondary {
+  border-color: var(--luma-color-text-secondary);
+}
+
+/* Utilities - Border Radius */
+@utility rounded-luma-sm {
+  border-radius: var(--luma-radius-sm);
+}
+
+@utility rounded-luma-md {
+  border-radius: var(--luma-radius-md);
+}
+
+@utility rounded-luma-lg {
+  border-radius: var(--luma-radius-lg);
+}
+
+/* Utilities - Font Sizes */
+@utility text-luma-sm {
+  font-size: var(--luma-text-sm);
+}
+
+@utility text-luma-base {
+  font-size: var(--luma-text-base);
+}
+
+@utility text-luma-lg {
+  font-size: var(--luma-text-lg);
+}
+
+/* Utilities - Transitions */
+@utility duration-luma-fast {
+  transition-duration: var(--luma-duration-fast);
+}
+
+@utility duration-luma-base {
+  transition-duration: var(--luma-duration-base);
+}
+
+/* Utilities - Gradient */
+@utility from-card-gradient-from {
+  --tw-gradient-from: var(--luma-card-gradient-from);
+  --tw-gradient-to: rgb(255 255 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+@utility to-card-gradient-to {
+  --tw-gradient-to: var(--luma-card-gradient-to);
+}
+
+/* Utilities - Padding */
+@utility p-card-padding {
+  padding: var(--luma-card-padding);
+}
+
+/* ===== BUTTON UTILITIES ===== */
+
+/* Primary Button */
+@utility bg-button-primary-bg {
+  background-color: var(--luma-button-primary-bg);
+}
+
+@utility bg-button-primary-bg-hover {
+  background-color: var(--luma-button-primary-bg-hover);
+}
+
+@utility bg-button-primary-bg-active {
+  background-color: var(--luma-button-primary-bg-active);
+}
+
+@utility text-button-primary-text {
+  color: var(--luma-button-primary-text);
+}
+
+/* Outline Button */
+@utility border-button-outline-border {
+  border-color: var(--luma-button-outline-border);
+}
+
+@utility border-button-outline-border-hover {
+  border-color: var(--luma-button-outline-border-hover);
+}
+
+@utility bg-button-outline-bg-hover {
+  background-color: var(--luma-button-outline-bg-hover);
+}
+
+@utility text-button-outline-text {
+  color: var(--luma-button-outline-text);
+}
+
+/* Ghost Button */
+@utility bg-button-ghost-bg {
+  background-color: var(--luma-button-ghost-bg);
+}
+
+@utility bg-button-ghost-bg-hover {
+  background-color: var(--luma-button-ghost-bg-hover);
+}
+
+@utility text-button-ghost-text {
+  color: var(--luma-button-ghost-text);
+}
+
+/* Danger Button */
+@utility bg-button-danger-bg {
+  background-color: var(--luma-button-danger-bg);
+}
+
+@utility bg-button-danger-bg-hover {
+  background-color: var(--luma-button-danger-bg-hover);
+}
+
+@utility bg-button-danger-bg-active {
+  background-color: var(--luma-button-danger-bg-active);
+}
+
+@utility text-button-danger-text {
+  color: var(--luma-button-danger-text);
+}
+
+/* Button Focus Ring */
+@utility ring-button-focus {
+  outline: var(--luma-button-focus-ring-width) solid var(--luma-button-focus-ring-color);
+  outline-offset: 2px;
+}

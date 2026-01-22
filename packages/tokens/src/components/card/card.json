@@ -1,0 +1,28 @@
+{
+  "luma": {
+    "card": {
+      "background": {
+        "value": "oklch(0.99 0 0)",
+        "type": "color",
+        "description": "Card background color"
+      },
+      "gradient": {
+        "from": {
+          "value": "oklch(0.92 0.005 0 / 0.6)",
+          "type": "color",
+          "description": "Card gradient start color"
+        },
+        "to": {
+          "value": "oklch(0.96 0.003 0 / 0.6)",
+          "type": "color",
+          "description": "Card gradient end color"
+        }
+      },
+      "padding": {
+        "value": "1.5rem",
+        "type": "dimension",
+        "description": "Card padding"
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+:root {
+  /* Cores - Primária (Blue Neo-Minimal) */
+  --lumo-color-primary: #327fb3;
+  --lumo-color-primary-hover: #35709c;
+  --lumo-color-primary-active: #31678f;
+  --lumo-color-primary-focus: rgba(50, 127, 179, 0.25);
+  --lumo-color-primary-background: rgba(50, 127, 179, 0.1);
+
+  /* Cores - Neutros */
+  --lumo-color-surface-base: #fbfbfc;
+  --lumo-color-text-primary: #111827;
+  --lumo-color-text-secondary: #6b7280;
+  --lumo-color-gradient-from: rgba(228, 228, 231, 0.6);
+  --lumo-color-gradient-to: rgba(244, 244, 245, 0.6);
+
+  /* Tipografia */
+  --lumo-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --lumo-font-size-sm: 0.75rem;
+  --lumo-font-size-base: 1rem;
+  --lumo-font-size-lg: 1.875rem;
+  --lumo-font-weight-regular: 400;
+  --lumo-font-weight-medium: 500;
+  --lumo-font-weight-semibold: 600;
+  --lumo-line-height-snug: 1.375;
+  --lumo-line-height-relaxed: 1.625;
+  --lumo-line-height-none: 1;
+
+  /* Espaçamento */
+  --lumo-spacing-xs: 0.25rem;
+  --lumo-spacing-sm: 0.5rem;
+  --lumo-spacing-md: 1rem;
+  --lumo-spacing-lg: 1.5rem;
+  --lumo-spacing-xl: 2.5rem;
+
+  /* Border Radius */
+  --lumo-radius-sm: 6px;
+  --lumo-radius-md: 10px;
+  --lumo-radius-lg: 18px;
+  --lumo-radius-full: 9999px;
+
+  /* Transições */
+  --lumo-transition-duration-fast: 150ms;
+  --lumo-transition-duration-base: 200ms;
+  --lumo-transition-ease: ease-out;
+
+  /* Badge */
+  --lumo-badge-background: var(--lumo-color-primary-background);
+  --lumo-badge-color: var(--lumo-color-primary);
+  --lumo-badge-padding-x: 0.625rem;
+  --lumo-badge-padding-y: 0.25rem;
+  --lumo-badge-radius: var(--lumo-radius-full);
+  --lumo-badge-font-size: var(--lumo-font-size-sm);
+  --lumo-badge-font-weight: var(--lumo-font-weight-medium);
+}

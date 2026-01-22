@@ -1,0 +1,95 @@
+<header class="">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a routerLink="/" class="flex items-center gap-2 hover:opacity-90 transition-opacity">
+      <img src="luma-icon.svg" alt="Luma UI" class="h-[50px]" />
+
+    </a>
+
+    <!-- Menu Central (Desktop) -->
+    <div class="hidden md:flex gap-8">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="text-base font-medium text-text-secondary hover:text-text-primary transition-colors"
+      >
+        Home
+      </a>
+      <a
+        routerLink="/components"
+        routerLinkActive="active"
+        class="text-base font-medium text-text-secondary hover:text-text-primary transition-colors"
+      >
+        Components
+      </a>
+    </div>
+
+    <!-- Right Section -->
+    <div class="flex items-center gap-4">
+      <!-- Theme Toggle -->
+      <app-theme-toggle />
+
+      <!-- Mobile Menu Button -->
+      <button
+        (click)="toggleMobileMenu()"
+        class="md:hidden p-2 text-text-primary hover:text-primary transition-colors"
+        [attr.aria-label]="mobileMenuOpen() ? 'Close menu' : 'Open menu'"
+        [attr.aria-expanded]="mobileMenuOpen()"
+      >
+        @if (!mobileMenuOpen()) {
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        }
+        @if (mobileMenuOpen()) {
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        }
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  @if (mobileMenuOpen()) {
+    <div
+      class="fixed inset-0 top-14 sm:top-16 z-40 bg-surface-base md:hidden"
+      (click)="closeMobileMenu()"
+      (keydown.escape)="closeMobileMenu()"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+    >
+      <nav class="flex flex-col gap-2 p-6">
+        <a
+          routerLink="/"
+          routerLinkActive="active-mobile"
+          [routerLinkActiveOptions]="{exact: true}"
+          (click)="closeMobileMenu()"
+          class="px-4 py-3 text-base text-text-secondary hover:text-text-primary hover:bg-text-secondary/5 rounded-luma-md transition-colors"
+        >
+          Home
+        </a>
+        <a
+          routerLink="/components"
+          routerLinkActive="active-mobile"
+          (click)="closeMobileMenu()"
+          class="px-4 py-3 text-base text-text-secondary hover:text-text-primary hover:bg-text-secondary/5 rounded-luma-md transition-colors"
+        >
+          Components
+        </a>
+      </nav>
+    </div>
+  }
+</header>

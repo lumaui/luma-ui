@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@theme {
+  /* Luma Design System Tokens */
+
+  /* Color */
+  --luma-color-primary: oklch(0.54 0.1 230);
+  --luma-color-primary-hover: oklch(0.49 0.09 230);
+  --luma-color-primary-active: oklch(0.44 0.08 230);
+  --luma-color-surface-base: oklch(0.98 0 0);
+  --luma-color-text-primary: oklch(0.2 0.005 0);
+  --luma-color-text-secondary: oklch(0.5 0.01 0);
+
+  /* Spacing */
+  --luma-spacing-xs: 0.25rem;
+  --luma-spacing-sm: 0.5rem;
+  --luma-spacing-md: 1rem;
+  --luma-spacing-lg: 1.5rem;
+  --luma-spacing-xl: 2.5rem;
+
+  /* Radius */
+  --luma-radius-sm: 6px;
+  --luma-radius-md: 10px;
+  --luma-radius-lg: 18px;
+  --luma-radius-full: 9999px;
+
+  /* Font */
+  --luma-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --luma-font-weight-regular: 400;
+  --luma-font-weight-medium: 500;
+  --luma-font-weight-semibold: 600;
+
+  /* Text */
+  --luma-text-sm: 0.75rem;
+  --luma-text-base: 1rem;
+  --luma-text-lg: 1.875rem;
+
+  /* Line-height */
+  --luma-line-height-none: 1;
+  --luma-line-height-snug: 1.375;
+  --luma-line-height-relaxed: 1.625;
+
+  /* Duration */
+  --luma-duration-fast: 150ms;
+  --luma-duration-base: 200ms;
+
+  /* Transition */
+  --luma-transition-ease: ease-out;
+
+  /* Button */
+  --luma-button-primary-bg: oklch(0.54 0.1 230);
+  --luma-button-primary-bg-hover: oklch(0.49 0.09 230);
+  --luma-button-primary-bg-active: oklch(0.44 0.08 230);
+  --luma-button-primary-text: oklch(1 0 0);
+  --luma-button-outline-border: oklch(0.5 0.01 0);
+  --luma-button-outline-border-hover: oklch(0.2 0.005 0);
+  --luma-button-outline-bg-hover: oklch(0.96 0.01 230);
+  --luma-button-outline-text: oklch(0.2 0.005 0);
+  --luma-button-ghost-bg: rgba(0, 0, 0, 0);
+  --luma-button-ghost-bg-hover: oklch(0.96 0.01 230);
+  --luma-button-ghost-text: oklch(0.2 0.005 0);
+  --luma-button-danger-bg: oklch(0.55 0.22 25);
+  --luma-button-danger-bg-hover: oklch(0.50 0.20 25);
+  --luma-button-danger-bg-active: oklch(0.45 0.18 25);
+  --luma-button-danger-text: oklch(1 0 0);
+  --luma-button-padding-x-sm: 1rem;
+  --luma-button-padding-x-md: 1.5rem;
+  --luma-button-padding-x-lg: 2rem;
+  --luma-button-padding-y-sm: 0.5rem;
+  --luma-button-padding-y-md: 0.75rem;
+  --luma-button-padding-y-lg: 1rem;
+  --luma-button-radius: 10px;
+  --luma-button-transition-duration: 200ms;
+  --luma-button-transition-timing: ease-out;
+  --luma-button-focus-ring-width: 2px;
+  --luma-button-focus-ring-color: oklch(0.54 0.1 230 / 0.25);
+
+  /* Card */
+  --luma-card-background: oklch(0.99 0 0);
+  --luma-card-gradient-from: oklch(0.92 0.005 0 / 0.6);
+  --luma-card-gradient-to: oklch(0.96 0.003 0 / 0.6);
+  --luma-card-padding: 1.5rem;
+
+  /* Badge */
+  --luma-badge-color: oklch(0.54 0.1 230);
+  --luma-badge-bg: oklch(0.54 0.1 230 / 0.1);
+  --luma-badge-padding-x: 0.625rem;
+  --luma-badge-padding-y: 0.25rem;
+  --luma-badge-font-size: 0.75rem;
+  --luma-badge-font-weight: 500;
+
+}
+
+/* Tailwind Utilities */
+
+/* Button Background Colors */
+@utility bg-button-primary-bg {
+  background-color: var(--luma-button-primary-bg);
+}
+
+@utility bg-button-primary-bg-hover {
+  background-color: var(--luma-button-primary-bg-hover);
+}
+
+@utility bg-button-primary-bg-active {
+  background-color: var(--luma-button-primary-bg-active);
+}
+
+@utility bg-button-outline-bg-hover {
+  background-color: var(--luma-button-outline-bg-hover);
+}
+
+@utility bg-button-ghost-bg {
+  background-color: var(--luma-button-ghost-bg);
+}
+
+@utility bg-button-ghost-bg-hover {
+  background-color: var(--luma-button-ghost-bg-hover);
+}
+
+@utility bg-button-danger-bg {
+  background-color: var(--luma-button-danger-bg);
+}
+
+@utility bg-button-danger-bg-hover {
+  background-color: var(--luma-button-danger-bg-hover);
+}
+
+@utility bg-button-danger-bg-active {
+  background-color: var(--luma-button-danger-bg-active);
+}
+
+/* Button Text Colors */
+@utility text-button-primary-text {
+  color: var(--luma-button-primary-text);
+}
+
+@utility text-button-outline-text {
+  color: var(--luma-button-outline-text);
+}
+
+@utility text-button-ghost-text {
+  color: var(--luma-button-ghost-text);
+}
+
+@utility text-button-danger-text {
+  color: var(--luma-button-danger-text);
+}
+
+/* Button Border Colors */
+@utility border-button-outline-border {
+  border-color: var(--luma-button-outline-border);
+}
+
+@utility border-button-outline-border-hover {
+  border-color: var(--luma-button-outline-border-hover);
+}
+
+/* Focus Ring */
+@utility ring-button-focus {
+  outline: var(--luma-button-focus-ring-width) solid var(--luma-button-focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* General Background Colors */
+@utility bg-color-primary {
+  background-color: var(--luma-color-primary);
+}
+
+@utility bg-color-primary-hover {
+  background-color: var(--luma-color-primary-hover);
+}
+
+@utility bg-color-primary-active {
+  background-color: var(--luma-color-primary-active);
+}
+
+@utility bg-color-surface-base {
+  background-color: var(--luma-color-surface-base);
+}
+
+@utility bg-card-background {
+  background-color: var(--luma-card-background);
+}
+
+/* Text Colors */
+@utility text-text-primary {
+  color: var(--luma-color-text-primary);
+}
+
+@utility text-text-secondary {
+  color: var(--luma-color-text-secondary);
+}
+
+/* Border Radius */
+@utility rounded-luma-sm {
+  border-radius: var(--luma-radius-sm);
+}
+
+@utility rounded-luma-md {
+  border-radius: var(--luma-radius-md);
+}
+
+@utility rounded-luma-lg {
+  border-radius: var(--luma-radius-lg);
+}
+
+@utility rounded-luma-full {
+  border-radius: var(--luma-radius-full);
+}
+
+/* Font Sizes */
+@utility text-luma-sm {
+  font-size: var(--luma-text-sm);
+}
+
+@utility text-luma-base {
+  font-size: var(--luma-text-base);
+}
+
+@utility text-luma-lg {
+  font-size: var(--luma-text-lg);
+}
+
+/* Transitions */
+@utility duration-luma-fast {
+  transition-duration: var(--luma-duration-fast);
+}
+
+@utility duration-luma-base {
+  transition-duration: var(--luma-duration-base);
+}
+
+/* Card Gradients */
+@utility from-card-gradient-from {
+  --tw-gradient-from: var(--luma-card-gradient-from);
+  --tw-gradient-to: rgb(255 255 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+@utility to-card-gradient-to {
+  --tw-gradient-to: var(--luma-card-gradient-to);
+}
+
+/* Card Padding */
+@utility p-card-padding {
+  padding: var(--luma-card-padding);
+}
+
+/* Badge */
+@utility bg-badge-bg {
+  background-color: var(--luma-badge-bg);
+}
+
+@utility text-badge {
+  color: var(--luma-badge-color);
+}
+

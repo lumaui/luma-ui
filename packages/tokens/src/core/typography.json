@@ -1,0 +1,64 @@
+{
+  "luma": {
+    "font": {
+      "family": {
+        "base": {
+          "value": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "type": "fontFamily",
+          "description": "Base font family"
+        }
+      },
+      "weight": {
+        "regular": {
+          "value": "400",
+          "type": "fontWeight",
+          "description": "Regular font weight"
+        },
+        "medium": {
+          "value": "500",
+          "type": "fontWeight",
+          "description": "Medium font weight"
+        },
+        "semibold": {
+          "value": "600",
+          "type": "fontWeight",
+          "description": "Semibold font weight"
+        }
+      }
+    },
+    "text": {
+      "sm": {
+        "value": "0.75rem",
+        "type": "dimension",
+        "description": "Small text size (12px)"
+      },
+      "base": {
+        "value": "1rem",
+        "type": "dimension",
+        "description": "Base text size (16px)"
+      },
+      "lg": {
+        "value": "1.875rem",
+        "type": "dimension",
+        "description": "Large text size (30px)"
+      }
+    },
+    "line-height": {
+      "none": {
+        "value": "1",
+        "type": "number",
+        "description": "No line height"
+      },
+      "snug": {
+        "value": "1.375",
+        "type": "number",
+        "description": "Snug line height"
+      },
+      "relaxed": {
+        "value": "1.625",
+        "type": "number",
+        "description": "Relaxed line height"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "luma": {
+    "badge": {
+      "color": {
+        "value": "{luma.color.primary}",
+        "type": "color",
+        "description": "Badge text color"
+      },
+      "bg": {
+        "value": "oklch(0.54 0.1 230 / 0.1)",
+        "type": "color",
+        "description": "Badge background color"
+      },
+      "padding-x": {
+        "value": "0.625rem",
+        "type": "dimension",
+        "description": "Badge horizontal padding"
+      },
+      "padding-y": {
+        "value": "0.25rem",
+        "type": "dimension",
+        "description": "Badge vertical padding"
+      },
+      "font-size": {
+        "value": "{luma.text.sm}",
+        "type": "dimension",
+        "description": "Badge font size"
+      },
+      "font-weight": {
+        "value": "{luma.font.weight.medium}",
+        "type": "fontWeight",
+        "description": "Badge font weight"
+      }
+    }
+  }
+}

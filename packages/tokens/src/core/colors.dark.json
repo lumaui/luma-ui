@@ -1,0 +1,40 @@
+{
+  "luma": {
+    "color": {
+      "primary": {
+        "value": "oklch(0.64 0.12 230)",
+        "type": "color",
+        "description": "Primary brand color (dark theme)"
+      },
+      "primary-hover": {
+        "value": "oklch(0.58 0.11 230)",
+        "type": "color",
+        "description": "Primary color hover state (dark theme)"
+      },
+      "primary-active": {
+        "value": "oklch(0.52 0.1 230)",
+        "type": "color",
+        "description": "Primary color active state (dark theme)"
+      },
+      "surface": {
+        "base": {
+          "value": "oklch(0.15 0.005 0)",
+          "type": "color",
+          "description": "Base surface background color (dark theme)"
+        }
+      },
+      "text": {
+        "primary": {
+          "value": "oklch(0.98 0.002 0)",
+          "type": "color",
+          "description": "Primary text color (dark theme)"
+        },
+        "secondary": {
+          "value": "oklch(0.65 0.01 0)",
+          "type": "color",
+          "description": "Secondary text color (dark theme)"
+        }
+      }
+    }
+  }
+}

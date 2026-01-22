@@ -1,0 +1,11 @@
+{
+  "luma": {
+    "badge": {
+      "bg": {
+        "value": "oklch(0.64 0.12 230 / 0.15)",
+        "type": "color",
+        "description": "Badge background color (dark theme)"
+      }
+    }
+  }
+}

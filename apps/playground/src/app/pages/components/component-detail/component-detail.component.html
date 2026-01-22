@@ -1,0 +1,60 @@
+<div class="max-w-7xl mx-auto flex mt-16">
+  <app-sidebar />
+  <div class="flex-1  px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+  <!-- Header -->
+  <div class="mb-8 sm:mb-12">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-text-primary mb-3 sm:mb-4">
+      {{ componentName }}
+    </h1>
+    <p class="text-sm sm:text-base md:text-lg text-text-secondary leading-relaxed">
+      {{ description }}
+    </p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b border-text-secondary/10 mb-6 sm:mb-8 overflow-x-auto">
+    <nav class="flex gap-6 sm:gap-8 min-w-max">
+      <button
+        (click)="setActiveTab('examples')"
+        [class.active]="activeTab() === 'examples'"
+        class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
+      >
+        Examples
+      </button>
+      <button
+        (click)="setActiveTab('tokens')"
+        [class.active]="activeTab() === 'tokens'"
+        class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
+      >
+        Tokens
+      </button>
+      <button
+        (click)="setActiveTab('api')"
+        [class.active]="activeTab() === 'api'"
+        class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
+      >
+        API
+      </button>
+    </nav>
+  </div>
+
+  <!-- Tab Content -->
+  @switch (activeTab()) {
+    @case ('examples') {
+      <div>
+        <ng-content select="[examples]" />
+      </div>
+    }
+    @case ('tokens') {
+      <div>
+        <ng-content select="[tokens]" />
+      </div>
+    }
+    @case ('api') {
+      <div>
+        <ng-content select="[api]" />
+      </div>
+    }
+  }
+  </div>
+</div>

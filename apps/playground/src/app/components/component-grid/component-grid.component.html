@@ -1,0 +1,60 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+  @for (component of components; track component.id) {
+    <a
+      [routerLink]="component.route"
+      [class]="getCardClasses(component.size)"
+      class="group block transition-transform hover:scale-[1.02] duration-200"
+    >
+      <luma-card class="h-full">
+        <div lumaCardHeader>
+          <div class="flex items-start justify-between mb-3">
+            <h3 lumaCardTitle class="group-hover:text-primary transition-colors">
+              {{ component.name }}
+            </h3>
+            <span class="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
+              {{ component.category }}
+            </span>
+          </div>
+          <p lumaCardDescription size="small">
+            {{ component.description }}
+          </p>
+        </div>
+
+        <div lumaCardContent>
+          <!-- Preview do componente -->
+          <div class="p-4 bg-text-secondary/5 rounded-luma-md flex items-center justify-center min-h-[120px]">
+            @switch (component.id) {
+              @case ('button') {
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <button lumaButton variant="primary" class="text-sm px-4 py-2">Primary</button>
+                  <button lumaButton variant="outline" class="text-sm px-4 py-2">Outline</button>
+                </div>
+              }
+              @case ('card') {
+                <div class="w-full max-w-[200px]">
+                  <luma-card>
+                    <div lumaCardHeader>
+                      <h4 lumaCardTitle size="small">Example</h4>
+                      <p lumaCardDescription size="small">Card preview</p>
+                    </div>
+                    <div lumaCardContent>
+                      <div class="text-2xl font-semibold">42</div>
+                    </div>
+                  </luma-card>
+                </div>
+              }
+            }
+          </div>
+
+          <!-- View Details Link -->
+          <div class="mt-4 flex items-center gap-2 text-sm text-primary group-hover:gap-3 transition-all">
+            <span>View details</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      </luma-card>
+    </a>
+  }
+</div>

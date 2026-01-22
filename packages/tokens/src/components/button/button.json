@@ -1,0 +1,155 @@
+{
+  "luma": {
+    "button": {
+      "primary": {
+        "bg": {
+          "value": "{luma.color.primary}",
+          "type": "color",
+          "description": "Primary button background"
+        },
+
+        "bg-hover": {
+          "value": "{luma.color.primary-hover}",
+          "type": "color",
+          "description": "Primary button hover background"
+        },
+        "bg-active": {
+          "value": "{luma.color.primary-active}",
+          "type": "color",
+          "description": "Primary button active background"
+        },
+        "text": {
+          "value": "oklch(1 0 0)",
+          "type": "color",
+          "description": "Primary button text color"
+        }
+      },
+      "outline": {
+        "border": {
+          "value": "{luma.color.text.secondary}",
+          "type": "color",
+          "description": "Outline button border color"
+        },
+        "border-hover": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Outline button hover border color"
+        },
+        "bg-hover": {
+          "value": "oklch(0.96 0.01 230)",
+          "type": "color",
+          "description": "Outline button hover background"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Outline button text color"
+        }
+      },
+      "ghost": {
+        "bg": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Ghost button background"
+        },
+        "bg-hover": {
+          "value": "oklch(0.96 0.01 230)",
+          "type": "color",
+          "description": "Ghost button hover background"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Ghost button text color"
+        }
+      },
+      "danger": {
+        "bg": {
+          "value": "oklch(0.55 0.22 25)",
+          "type": "color",
+          "description": "Danger button background"
+        },
+        "bg-hover": {
+          "value": "oklch(0.50 0.20 25)",
+          "type": "color",
+          "description": "Danger button hover background"
+        },
+        "bg-active": {
+          "value": "oklch(0.45 0.18 25)",
+          "type": "color",
+          "description": "Danger button active background"
+        },
+        "text": {
+          "value": "oklch(1 0 0)",
+          "type": "color",
+          "description": "Danger button text color"
+        }
+      },
+      "padding": {
+        "x": {
+          "sm": {
+            "value": "1rem",
+            "type": "dimension",
+            "description": "Small button horizontal padding"
+          },
+          "md": {
+            "value": "1.5rem",
+            "type": "dimension",
+            "description": "Medium button horizontal padding"
+          },
+          "lg": {
+            "value": "2rem",
+            "type": "dimension",
+            "description": "Large button horizontal padding"
+          }
+        },
+        "y": {
+          "sm": {
+            "value": "0.5rem",
+            "type": "dimension",
+            "description": "Small button vertical padding"
+          },
+          "md": {
+            "value": "0.75rem",
+            "type": "dimension",
+            "description": "Medium button vertical padding"
+          },
+          "lg": {
+            "value": "1rem",
+            "type": "dimension",
+            "description": "Large button vertical padding"
+          }
+        }
+      },
+      "radius": {
+        "value": "{luma.radius.md}",
+        "type": "dimension",
+        "description": "Button border radius"
+      },
+      "transition": {
+        "duration": {
+          "value": "{luma.duration.base}",
+          "type": "duration",
+          "description": "Button transition duration"
+        },
+        "timing": {
+          "value": "ease-out",
+          "type": "string",
+          "description": "Button transition timing function"
+        }
+      },
+      "focus": {
+        "ring-width": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Button focus ring width"
+        },
+        "ring-color": {
+          "value": "oklch(0.54 0.1 230 / 0.25)",
+          "type": "color",
+          "description": "Button focus ring color"
+        }
+      }
+    }
+  }
+}

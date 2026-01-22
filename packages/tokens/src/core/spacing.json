@@ -1,0 +1,53 @@
+{
+  "luma": {
+    "spacing": {
+      "xs": {
+        "value": "0.25rem",
+        "type": "dimension",
+        "description": "Extra small spacing (4px)"
+      },
+      "sm": {
+        "value": "0.5rem",
+        "type": "dimension",
+        "description": "Small spacing (8px)"
+      },
+      "md": {
+        "value": "1rem",
+        "type": "dimension",
+        "description": "Medium spacing (16px)"
+      },
+      "lg": {
+        "value": "1.5rem",
+        "type": "dimension",
+        "description": "Large spacing (24px)"
+      },
+      "xl": {
+        "value": "2.5rem",
+        "type": "dimension",
+        "description": "Extra large spacing (40px)"
+      }
+    },
+    "radius": {
+      "sm": {
+        "value": "6px",
+        "type": "dimension",
+        "description": "Small border radius"
+      },
+      "md": {
+        "value": "10px",
+        "type": "dimension",
+        "description": "Medium border radius"
+      },
+      "lg": {
+        "value": "18px",
+        "type": "dimension",
+        "description": "Large border radius"
+      },
+      "full": {
+        "value": "9999px",
+        "type": "dimension",
+        "description": "Full border radius (circular)"
+      }
+    }
+  }
+}

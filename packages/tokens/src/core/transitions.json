@@ -1,0 +1,23 @@
+{
+  "luma": {
+    "duration": {
+      "fast": {
+        "value": "150ms",
+        "type": "duration",
+        "description": "Fast transition duration"
+      },
+      "base": {
+        "value": "200ms",
+        "type": "duration",
+        "description": "Base transition duration"
+      }
+    },
+    "transition": {
+      "ease": {
+        "value": "ease-out",
+        "type": "string",
+        "description": "Default easing function"
+      }
+    }
+  }
+}
