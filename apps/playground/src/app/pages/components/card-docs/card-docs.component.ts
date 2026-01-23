@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { ComponentDetailComponent } from '../component-detail/component-detail.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
-import { CardComponent, CardHeaderDirective, CardTitleDirective, CardDescriptionDirective, CardContentDirective } from '@luma/components';
+import {
+  CardComponent,
+  CardHeaderDirective,
+  CardTitleDirective,
+  CardDescriptionDirective,
+  CardContentDirective,
+} from '@luma/components';
 
 interface DesignToken {
   name: string;

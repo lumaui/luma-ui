@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonDirective, CardComponent, CardHeaderDirective, CardTitleDirective, CardDescriptionDirective, CardContentDirective } from '@luma/components';
+import {
+  ButtonDirective,
+  CardComponent,
+  CardHeaderDirective,
+  CardTitleDirective,
+  CardDescriptionDirective,
+  CardContentDirective,
+} from '@luma/components';
 
 interface ComponentCard {
   id: string;

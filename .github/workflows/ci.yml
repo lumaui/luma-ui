@@ -33,6 +33,9 @@ jobs:
       - name: Lint
         run: npm run lint:all
 
+      - name: Check formatting
+        run: npx prettier --check .
+
       - name: Build tokens
         run: npm run build:tokens
 

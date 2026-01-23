@@ -21,6 +21,7 @@
     "lint:all": "nx run-many --target=lint --all",
     "e2e": "nx e2e playground-e2e",
     "graph": "nx graph",
+    "format:check": "prettier --check .",
     "format": "prettier --write .",
     "link:setup": "cd packages/tokens && npm link && cd ../components && npm link && cd ../luma && npm link @luma/tokens @luma/components && npm link && cd ../../apps/playground && npm link luma",
     "link:meta": "cd packages/luma && npm link && cd ../../apps/playground && npm link luma",
