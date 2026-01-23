@@ -2,6 +2,9 @@
   "name": "@luma/source",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "nx serve playground",
     "start": "nx serve playground",
