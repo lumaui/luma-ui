@@ -28,5 +28,12 @@
     "angular",
     "tailwindcss",
     "design-tokens"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumaui/luma-ui.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

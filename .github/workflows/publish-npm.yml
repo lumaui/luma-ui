@@ -1,0 +1,58 @@
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 0.1.0, 1.0.0)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: PROD
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build all packages
+        run: npm run build:all
+
+      - name: Update luma package version
+        run: |
+          cd packages/luma
+          npm version ${{ inputs.version }} --no-git-tag-version
+
+      - name: Publish luma package
+        if: ${{ !inputs.dry_run }}
+        run: |
+          cd packages/luma
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run - Show what would be published
+        if: ${{ inputs.dry_run }}
+        run: |
+          cd packages/luma
+          npm pack --dry-run
+          echo "Would publish version ${{ inputs.version }}"
