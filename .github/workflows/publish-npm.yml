@@ -40,7 +40,12 @@ jobs:
       - name: Update luma package version
         run: |
           cd packages/luma
-          npm version ${{ inputs.version }} --no-git-tag-version
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          if [ "$CURRENT_VERSION" != "${{ inputs.version }}" ]; then
+            npm version ${{ inputs.version }} --no-git-tag-version
+          else
+            echo "Version already set to ${{ inputs.version }}, skipping update"
+          fi
 
       - name: Publish luma package
         if: ${{ !inputs.dry_run }}
