@@ -25,6 +25,6 @@
     "luma"
   ],
   "devDependencies": {
-    "style-dictionary": "^5.1.4"
+    "style-dictionary": "^5.2.0"
   }
 }
