@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lumo/components": ["packages/components/src/index.ts"]
+      "@luma/components": ["packages/components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

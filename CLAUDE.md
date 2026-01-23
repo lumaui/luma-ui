@@ -15,11 +15,13 @@ This design system is built on **Neo-Minimalism**, a design philosophy that defi
 Neo-Minimalism builds on classical minimalism while adding **humanity, fluidity, and context**.
 
 **It rejects:**
+
 - Excessive rigidity
 - Mechanical geometry
 - Interfaces that look like generic frameworks
 
 **It pursues:**
+
 - Visual calm
 - Continuity
 - Organic and natural feel
@@ -31,11 +33,13 @@ Neo-Minimalism builds on classical minimalism while adding **humanity, fluidity,
 Visual silence is an **intentional state**, not the absence of design.
 
 **Principles:**
+
 - Elements don't compete with each other
 - Hierarchy is perceived effortlessly
 - Layout speaks before style
 
 **Rules:**
+
 - Never add an effect just to "highlight"
 - If something needs to call attention to be understood, it's poorly resolved
 - Prioritize spatial relationships over colors or effects
@@ -45,6 +49,7 @@ Visual silence is an **intentional state**, not the absence of design.
 Whitespace is **invisible structure**.
 
 It should:
+
 - Create hierarchy
 - Replace borders, dividers, and shadows
 - Control rhythm and reading flow
@@ -52,6 +57,7 @@ It should:
 > Space is not empty—it's language.
 
 **Guidelines:**
+
 - Prefer progressive spacing over lines
 - Increase space between groups, not within them
 - Never compact to "fit more"
@@ -75,11 +81,13 @@ The system avoids hard corners and overly technical geometries.
 Light is used as **texture and hierarchy**, never as ornament.
 
 **Principles:**
+
 - Subtle gradients replace borders
 - Luminosity differences create depth
 - Transparency creates layers
 
 **Rules:**
+
 - Never use shadow as the primary solution
 - Avoid hard or offset shadows
 - Prefer variations within the same color family
@@ -97,11 +105,13 @@ Color in Neo-Minimalism is **editorial**, not promotional.
 - Comfortable to the eyes for long periods
 
 **Correct usage:**
+
 - Color defines **action**, not structure
 - Color never defines depth
 - Color never replaces spatial hierarchy
 
 **Neutral tones:**
+
 - Pure white should be avoided as a base
 - Prefer warm whites and soft grays
 - Contrast is always progressive
@@ -111,11 +121,13 @@ Color in Neo-Minimalism is **editorial**, not promotional.
 Typography is the primary visual component of the system.
 
 **Principles:**
+
 - Clarity above personality
 - Rhythm before impact
 - Continuous reading, not blocks
 
 **Guidelines:**
+
 - Hierarchy created by size, not weight
 - Avoid excessive bold
 - Line-height always generous
@@ -127,11 +139,13 @@ Typography is the primary visual component of the system.
 Interactions should **respond**, not distract.
 
 **Principles:**
+
 - Gentle feedback
 - Short and natural transitions
 - No surprises
 
 **Rules:**
+
 - Never use scale as feedback
 - Avoid elastic or flashy animations
 - States should seem like natural consequences of the action
@@ -197,18 +211,21 @@ This is an Nx workspace organized as an npm workspaces monorepo with the followi
 ### Key Design Patterns
 
 **Component Architecture:**
+
 - All components are Angular standalone (no NgModules)
 - Use CVA for variant management with TypeScript type safety
 - Components export both the component class and supporting directives/types
 - Tailwind CSS classes reference design tokens (e.g., `rounded-luma-md`, `text-luma-base`)
 
 **Styling Approach:**
+
 - Tailwind CSS v4 with PostCSS plugin (`@tailwindcss/postcss`)
 - Custom design tokens as Tailwind utilities (prefixed with `luma-`)
 - CSS variables for theme values (defined in tokens package)
 - No component-scoped CSS; styles are applied via class composition
 
 **Nx Task Orchestration:**
+
 - Build targets use dependency graph (`dependsOn: ["^build"]`)
 - Inferred tasks for linting, testing via Nx plugins
 - Caching enabled for build, lint, and test targets
@@ -290,6 +307,7 @@ npm run watch         # Watch mode for both themes
 ```
 
 **Important:** Tokens are automatically built when building the playground app (via Nx dependency graph). You only need to manually build tokens if:
+
 - You're developing tokens in isolation
 - You want to see generated CSS immediately
 - You're debugging token generation
@@ -297,6 +315,7 @@ npm run watch         # Watch mode for both themes
 **Output:**
 
 Style Dictionary generates:
+
 - CSS custom properties with `--luma-*` prefix
 - Tailwind utilities for each token (e.g., `@utility bg-button-primary-bg`)
 - Light theme in `@theme` block, dark theme in `.dark` selector
@@ -318,6 +337,7 @@ When creating tokens for new components, follow these critical rules to ensure a
 Every interactive component (buttons, inputs, controls) must define tokens for all essential visual states using standard suffixes:
 
 **Standard State Suffixes:**
+
 - Base property (no suffix): Default state
 - `-hover`: Hover/mouse-over state
 - `-active`: Pressed/clicked state
@@ -384,8 +404,8 @@ Token paths in Style Dictionary are arrays like `['luma', 'button', 'primary', '
 
 ```javascript
 // ❌ BROKEN - Will miss 'bg-hover', 'bg-active', etc.
-const bgTokens = dictionary.allTokens.filter(t =>
-  t.path[2] === 'primary' && t.path.includes('bg')
+const bgTokens = dictionary.allTokens.filter(
+  (t) => t.path[2] === 'primary' && t.path.includes('bg'),
 );
 // path.includes('bg') returns false for element 'bg-hover'
 ```
@@ -396,10 +416,11 @@ Use `path.some()` with `startsWith()` to match token name prefixes:
 
 ```javascript
 // ✅ CORRECT - Captures 'bg', 'bg-hover', 'bg-active'
-const bgTokens = dictionary.allTokens.filter(t =>
-  t.path[1] === 'button' &&
-  t.path[2] === 'primary' &&
-  t.path.some(p => typeof p === 'string' && p.startsWith('bg'))
+const bgTokens = dictionary.allTokens.filter(
+  (t) =>
+    t.path[1] === 'button' &&
+    t.path[2] === 'primary' &&
+    t.path.some((p) => typeof p === 'string' && p.startsWith('bg')),
 );
 ```
 
@@ -407,21 +428,24 @@ const bgTokens = dictionary.allTokens.filter(t =>
 
 ```javascript
 // Background tokens (including hover, active states)
-const bgTokens = dictionary.allTokens.filter(t =>
-  t.path[1] === 'button' &&
-  t.path.some(p => typeof p === 'string' && p.startsWith('bg'))
+const bgTokens = dictionary.allTokens.filter(
+  (t) =>
+    t.path[1] === 'button' &&
+    t.path.some((p) => typeof p === 'string' && p.startsWith('bg')),
 );
 
 // Text color tokens
-const textTokens = dictionary.allTokens.filter(t =>
-  t.path[1] === 'button' &&
-  t.path.some(p => typeof p === 'string' && p.startsWith('text'))
+const textTokens = dictionary.allTokens.filter(
+  (t) =>
+    t.path[1] === 'button' &&
+    t.path.some((p) => typeof p === 'string' && p.startsWith('text')),
 );
 
 // Border tokens (including hover states)
-const borderTokens = dictionary.allTokens.filter(t =>
-  t.path[1] === 'button' &&
-  t.path.some(p => typeof p === 'string' && p.startsWith('border'))
+const borderTokens = dictionary.allTokens.filter(
+  (t) =>
+    t.path[1] === 'button' &&
+    t.path.some((p) => typeof p === 'string' && p.startsWith('border')),
 );
 ```
 
@@ -549,6 +573,7 @@ Components need BOTH duration AND timing function for smooth transitions. Use Ta
 **Why `ease-out`:**
 
 Per Neo-Minimal "Calm Interactions" principle:
+
 - Interactions should respond naturally, not mechanically
 - Deceleration curves (`ease-out`) feel organic
 - Avoid `ease-in` (feels sluggish) or `linear` (feels robotic)
@@ -562,7 +587,7 @@ When using CSS values with spaces in Tailwind v4, replace spaces with underscore
 // Tailwind: transition-[color_150ms_ease-out]
 
 // With CSS variables:
-'transition-[color_var(--duration)_var(--timing)]'
+'transition-[color_var(--duration)_var(--timing)]';
 ```
 
 #### 5. Token Hygiene Checklist
@@ -619,6 +644,7 @@ Before committing, verify:
 Per Neo-Minimal principle: "If an element can be removed without functional or semantic loss, it shouldn't exist."
 
 Remove tokens when:
+
 - Token is defined but never referenced in component code
 - Token duplicates a core token without adding component-specific value
 - Token was created for hypothetical future use but isn't needed now
@@ -683,16 +709,19 @@ Save this script as `scripts/audit-tokens.sh` and run with: `bash scripts/audit-
 ## Development Commands
 
 ### Running the Development Server
+
 ```bash
 npm run dev
 # or
 npx nx serve playground
 ```
+
 Starts the playground app on http://localhost:4200 with hot reload.
 
 ### Building
 
 Build the playground app:
+
 ```bash
 npm run build          # Development build
 npm run build:prod     # Production build
@@ -700,12 +729,14 @@ npx nx build playground --configuration=production
 ```
 
 Build specific packages (Nx handles dependencies automatically):
+
 ```bash
 npx nx build components
 npx nx build tokens
 ```
 
 Preview production build:
+
 ```bash
 npm run preview
 # Serves static files from dist/apps/playground/browser on port 4200
@@ -714,6 +745,7 @@ npm run preview
 ### Testing
 
 Run tests for playground:
+
 ```bash
 npm test
 # or
@@ -721,6 +753,7 @@ npx nx test playground
 ```
 
 Run component tests:
+
 ```bash
 npm run test:components
 # or
@@ -732,6 +765,7 @@ Test uses `@angular/build:unit-test` executor with Vitest for unit testing (Anal
 ### Linting
 
 Lint playground:
+
 ```bash
 npm run lint
 # or
@@ -739,6 +773,7 @@ npx nx lint playground
 ```
 
 Lint all projects:
+
 ```bash
 npm run lint:all
 # or
@@ -752,6 +787,7 @@ Uses ESLint with flat config (`eslint.config.mjs`) and Nx module boundary enforc
 ```bash
 npm run format
 ```
+
 Formats all files with Prettier (single quotes configured in `.prettierrc`).
 
 ### E2E Testing
@@ -761,6 +797,7 @@ npm run e2e
 # or
 npx nx e2e playground-e2e
 ```
+
 Runs Playwright e2e tests for the playground app.
 
 ### Dependency Graph
@@ -770,6 +807,7 @@ npm run graph
 # or
 npx nx graph
 ```
+
 Opens interactive visualization of project dependencies.
 
 ### Package Linking (Local Development)
@@ -792,6 +830,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 ### TypeScript
 
 **Best Practices:**
+
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid `any` type; use `unknown` when type is uncertain
@@ -799,6 +838,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 ### Angular Patterns (v20+)
 
 **Modern Angular Features:**
+
 - **Standalone components**: Default in Angular 20+. Do NOT set `standalone: true` in decorators
 - **Signals for state management**: Use signals for reactive state
 - **Modern input/output**: Use `input()` and `output()` functions instead of `@Input()` and `@Output()` decorators
@@ -812,6 +852,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 ### Components
 
 **Design Principles:**
+
 - Keep components small and focused on a single responsibility
 - Use inline templates for small components
 - Prefer Reactive forms over template-driven forms
@@ -820,6 +861,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 - Use relative paths for external templates/styles
 
 **State Management:**
+
 - Use signals for local component state
 - Use `computed()` for derived state
 - Keep state transformations pure and predictable
@@ -828,6 +870,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 ### Templates
 
 **Best Practices:**
+
 - Keep templates simple, avoid complex logic
 - Use native control flow (`@if`, `@for`, `@switch`) instead of structural directives (`*ngIf`, `*ngFor`, `*ngSwitch`)
 - Use async pipe to handle observables
@@ -837,6 +880,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 ### Services
 
 **Best Practices:**
+
 - Design services around a single responsibility
 - Use `providedIn: 'root'` for singleton services
 - Use `inject()` function instead of constructor injection
@@ -844,6 +888,7 @@ These standards ensure consistent, maintainable, and performant code across the 
 ### Accessibility Requirements
 
 **Mandatory Standards:**
+
 - **MUST** pass all AXE checks
 - **MUST** follow all WCAG AA minimums
 - Focus management must be implemented correctly
@@ -872,6 +917,7 @@ Every component MUST have tests in these categories:
 #### 1. Design Token Tests (CRITICAL)
 
 The most important tests for a design system. They verify:
+
 - CSS variables are defined correctly
 - Components actually consume the tokens
 - Token overrides work (proves customization)
@@ -879,6 +925,7 @@ The most important tests for a design system. They verify:
 #### 2. Class Application Tests
 
 Verify CVA generates correct Tailwind classes for:
+
 - All variants (primary, outline, ghost, danger)
 - All sizes (sm, md, lg, full)
 - All states (default, hover, active, focus, disabled)
@@ -886,6 +933,7 @@ Verify CVA generates correct Tailwind classes for:
 #### 3. Accessibility Tests
 
 Verify WCAG compliance claims:
+
 - Focus ring visibility (`focus-visible:ring-*`)
 - Disabled state propagation
 - ARIA attributes when applicable
@@ -894,6 +942,7 @@ Verify WCAG compliance claims:
 #### 4. Interactive State Tests
 
 For interactive components (buttons, inputs):
+
 - Hover state classes
 - Active/pressed state classes
 - Focus state classes
@@ -902,6 +951,7 @@ For interactive components (buttons, inputs):
 #### 5. Dark Theme Tests
 
 Verify theme support:
+
 - Dark theme token values
 - Theme switching behavior
 - Color contrast in both themes
@@ -916,7 +966,7 @@ Verifies the token is set on the document root:
 beforeEach(() => {
   document.documentElement.style.setProperty(
     '--luma-button-primary-bg',
-    'oklch(0.54 0.1 230)'
+    'oklch(0.54 0.1 230)',
   );
 });
 
@@ -967,7 +1017,7 @@ it('should respect custom radius token override', () => {
   const customRadius = '20px';
   document.documentElement.style.setProperty(
     '--luma-button-radius',
-    customRadius
+    customRadius,
   );
   fixture.detectChanges();
 
@@ -1051,7 +1101,7 @@ function applyDarkTheme(): void {
   // Override with dark theme values
   document.documentElement.style.setProperty(
     '--luma-button-primary-bg',
-    DARK_TOKENS.primary.bg
+    DARK_TOKENS.primary.bg,
   );
 }
 
@@ -1112,6 +1162,7 @@ npx nx test components --watch
 In Angular 20+ with dev mode, changing input values after `detectChanges()` causes this error.
 
 **❌ INCORRECT (changing values in same test):**
+
 ```typescript
 it('should update classes when variant changes', () => {
   hostComponent.variant = 'primary';
@@ -1125,6 +1176,7 @@ it('should update classes when variant changes', () => {
 ```
 
 **✅ CORRECT (separate tests):**
+
 ```typescript
 describe('Input Reactivity', () => {
   it('should apply primary variant classes', () => {
@@ -1144,6 +1196,7 @@ describe('Input Reactivity', () => {
 #### Nested describe Blocks for Different States
 
 **✅ CORRECT pattern for testing opposite states:**
+
 ```typescript
 describe('Disabled State', () => {
   describe('when disabled', () => {
@@ -1205,7 +1258,7 @@ it('should allow submit type', () => {
   const submitFixture = TestBed.createComponent(SubmitButtonTestHostComponent);
   submitFixture.detectChanges();
   const submitButton = submitFixture.debugElement.query(
-    By.directive(ButtonDirective)
+    By.directive(ButtonDirective),
   );
   expect(submitButton.nativeElement.getAttribute('type')).toBe('submit');
 });
@@ -1214,6 +1267,7 @@ it('should allow submit type', () => {
 #### Do NOT Call detectChanges() in Outer beforeEach
 
 **❌ INCORRECT:**
+
 ```typescript
 beforeEach(async () => {
   fixture = TestBed.createComponent(ButtonTestHostComponent);
@@ -1224,6 +1278,7 @@ beforeEach(async () => {
 ```
 
 **✅ CORRECT:**
+
 ```typescript
 beforeEach(async () => {
   fixture = TestBed.createComponent(ButtonTestHostComponent);
@@ -1296,6 +1351,7 @@ packages/components/src/lib/<component-name>/
 ```
 
 **Notes:**
+
 - Angular 20+ uses standalone components by default
 - All styling must use Tailwind CSS classes
 - Documentation is mandatory for every component
@@ -1307,6 +1363,7 @@ Follow these 8 steps when creating a new component:
 #### 1. Define Component Intention and Role
 
 Determine the component's category:
+
 - **Structural**: Layout, containers, grids
 - **Interactive**: Buttons, inputs, controls
 - **Informational**: Cards, alerts, badges
@@ -1320,6 +1377,7 @@ Determine the component's category:
 #### 3. Define Essential Visual States
 
 Every interactive component must define:
+
 - **Default**: Base appearance
 - **Hover**: Gentle feedback on mouse over
 - **Focus**: Clear keyboard focus indicator
@@ -1329,30 +1387,28 @@ Every interactive component must define:
 #### 4. Create Files Following Technical Structure
 
 **Component TypeScript (`<component-name>.component.ts`):**
+
 ```typescript
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const componentVariants = cva(
-  ['base', 'classes', 'using', 'tailwind'],
-  {
-    variants: {
-      variant: {
-        default: ['variant-classes'],
-        secondary: ['variant-classes'],
-      },
-      size: {
-        sm: ['size-classes'],
-        md: ['size-classes'],
-        lg: ['size-classes'],
-      },
+const componentVariants = cva(['base', 'classes', 'using', 'tailwind'], {
+  variants: {
+    variant: {
+      default: ['variant-classes'],
+      secondary: ['variant-classes'],
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'md',
+    size: {
+      sm: ['size-classes'],
+      md: ['size-classes'],
+      lg: ['size-classes'],
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'md',
+  },
+});
 
 @Component({
   selector: 'luma-component-name',
@@ -1372,26 +1428,31 @@ export class ComponentNameComponent {
     componentVariants({
       variant: this.variant(),
       size: this.size(),
-    })
+    }),
   );
 }
 ```
 
 **Documentation (`<component-name>.docs.md`):**
+
 ```markdown
 # Component Name
 
 ## Purpose
+
 Brief description of the component's purpose and use case.
 
 ## Inputs
+
 - `variant`: 'default' | 'secondary' - Visual variant
 - `size`: 'sm' | 'md' | 'lg' - Size variant
 
 ## Outputs
+
 - `clicked`: Event emitted on click
 
 ## States
+
 - Default: Base appearance
 - Hover: [description]
 - Focus: [description]
@@ -1399,9 +1460,10 @@ Brief description of the component's purpose and use case.
 - Disabled: [description]
 
 ## Usage Examples
+
 \`\`\`html
 <luma-component-name variant="default" size="md">
-  Content
+Content
 </luma-component-name>
 \`\`\`
 ```
@@ -1409,6 +1471,7 @@ Brief description of the component's purpose and use case.
 #### 5. Implement Modern Accessibility
 
 **Mandatory accessibility requirements:**
+
 - Correct ARIA attributes and roles
 - Logical and visible focus management
 - Adequate contrast (minimum 4.5:1 for text)
@@ -1416,6 +1479,7 @@ Brief description of the component's purpose and use case.
 - Keyboard navigation support
 
 **Example:**
+
 ```typescript
 host: {
   'role': 'button',
@@ -1428,6 +1492,7 @@ host: {
 #### 6. Test Functionality and Accessibility
 
 Create comprehensive unit tests:
+
 ```typescript
 describe('ComponentNameComponent', () => {
   it('should render with default variant', () => {
@@ -1447,6 +1512,7 @@ describe('ComponentNameComponent', () => {
 #### 7. Review System Consistency
 
 Before finalizing, verify:
+
 - Component follows Neo-Minimal principles
 - Spacing uses design tokens
 - Colors are from the token system
@@ -1457,16 +1523,19 @@ Before finalizing, verify:
 #### 8. Export in Package
 
 **Component index (`lib/<component-name>/index.ts`):**
+
 ```typescript
 export * from './<component-name>.component';
 ```
 
 **Package index (`packages/components/src/index.ts`):**
+
 ```typescript
 export * from './lib/<component-name>/';
 ```
 
 **Update package.json exports** if component needs separate entry point:
+
 ```json
 "exports": {
   "./<component>": "./src/lib/<component>/index.ts"
@@ -1476,6 +1545,7 @@ export * from './lib/<component-name>/';
 ### Anti-patterns to Avoid
 
 **DO NOT create components that:**
+
 1. Only work in isolation (not composable)
 2. Depend on shadow or border for hierarchy (use whitespace)
 3. Use brand color in structural background/border (color is for action)
@@ -1515,24 +1585,27 @@ const componentVariants = cva(
       variant: 'default',
       size: 'md',
     },
-  }
+  },
 );
 ```
 
 ## Important Nx Commands
 
 Run any target for a specific project:
+
 ```bash
 npx nx <target> <project-name>
 ```
 
 Run a target across multiple projects:
+
 ```bash
 npx nx run-many --target=<target> --projects=proj1,proj2
 npx nx run-many --target=<target> --all
 ```
 
 Clear Nx cache:
+
 ```bash
 npx nx reset
 ```
@@ -1540,13 +1613,14 @@ npx nx reset
 ## TypeScript Configuration
 
 - Base config: `tsconfig.base.json`
-- Path mapping for `@lumo/components` points to source files
+- Path mapping for `@luma/components` points to source files
 - Target: ES2015, module: ESNext
 - Decorators enabled for Angular
 
 ## Version Management
 
 Release packages:
+
 ```bash
 npx nx release
 npx nx release --dry-run  # Preview without publishing
@@ -1557,6 +1631,7 @@ Nx release handles versioning and publishing for all packages.
 ## Peer Dependencies
 
 When adding new features, ensure peer dependencies are maintained:
+
 - Angular: `~21.0.0`
 - Tailwind CSS: `^4.0.0`
 - class-variance-authority: `^0.7.1`
