@@ -40,7 +40,7 @@ class CardContentTestComponent {}
 
 describe('CardTitleDirective', () => {
   let fixture: ComponentFixture<CardTitleTestComponent>;
-  let component: CardTitleTestComponent;
+  let _component: CardTitleTestComponent;
   let titleElement: DebugElement;
   let directive: CardTitleDirective;
 
@@ -50,7 +50,7 @@ describe('CardTitleDirective', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardTitleTestComponent);
-    component = fixture.componentInstance;
+    _component = fixture.componentInstance;
     titleElement = fixture.debugElement.query(By.directive(CardTitleDirective));
     directive = titleElement.injector.get(CardTitleDirective);
     await fixture.whenStable();
@@ -95,7 +95,7 @@ describe('CardTitleDirective', () => {
 
 describe('CardDescriptionDirective', () => {
   let fixture: ComponentFixture<CardDescriptionTestComponent>;
-  let component: CardDescriptionTestComponent;
+  let _component: CardDescriptionTestComponent;
   let descriptionElement: DebugElement;
   let directive: CardDescriptionDirective;
 
@@ -105,9 +105,9 @@ describe('CardDescriptionDirective', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardDescriptionTestComponent);
-    component = fixture.componentInstance;
+    _component = fixture.componentInstance;
     descriptionElement = fixture.debugElement.query(
-      By.directive(CardDescriptionDirective)
+      By.directive(CardDescriptionDirective),
     );
     directive = descriptionElement.injector.get(CardDescriptionDirective);
     await fixture.whenStable();
@@ -160,7 +160,7 @@ describe('CardHeaderDirective', () => {
 
     fixture = TestBed.createComponent(CardHeaderTestComponent);
     headerElement = fixture.debugElement.query(
-      By.directive(CardHeaderDirective)
+      By.directive(CardHeaderDirective),
     );
     directive = headerElement.injector.get(CardHeaderDirective);
     await fixture.whenStable();
@@ -196,7 +196,7 @@ describe('CardContentDirective', () => {
 
     fixture = TestBed.createComponent(CardContentTestComponent);
     contentElement = fixture.debugElement.query(
-      By.directive(CardContentDirective)
+      By.directive(CardContentDirective),
     );
     directive = contentElement.injector.get(CardContentDirective);
     await fixture.whenStable();
@@ -208,7 +208,6 @@ describe('CardContentDirective', () => {
 
   it('should exist as semantic marker without applying styles', () => {
     fixture.detectChanges();
-
 
     // Should have empty class or just the directive itself
     // No specific styling should be applied
@@ -273,16 +272,16 @@ describe('Card Directives Integration', () => {
     fixture.detectChanges();
 
     const headerElement = fixture.debugElement.query(
-      By.directive(CardHeaderDirective)
+      By.directive(CardHeaderDirective),
     );
     const titleElement = fixture.debugElement.query(
-      By.directive(CardTitleDirective)
+      By.directive(CardTitleDirective),
     );
     const descriptionElement = fixture.debugElement.query(
-      By.directive(CardDescriptionDirective)
+      By.directive(CardDescriptionDirective),
     );
     const contentElement = fixture.debugElement.query(
-      By.directive(CardContentDirective)
+      By.directive(CardContentDirective),
     );
 
     expect(headerElement).toBeTruthy();

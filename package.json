@@ -26,7 +26,8 @@
     "link:meta": "cd packages/luma && npm link && cd ../../apps/playground && npm link luma",
     "link:build": "npm run build:prod && npm run link:setup",
     "test:pre-commit": "npm run link:build && npm run preview",
-    "unlink:all": "cd apps/playground && npm unlink luma && npm unlink @luma/tokens && npm unlink @luma/components || true"
+    "unlink:all": "cd apps/playground && npm unlink luma && npm unlink @luma/tokens && npm unlink @luma/components || true",
+    "prepare": "husky"
   },
   "private": true,
   "devDependencies": {
@@ -63,7 +64,9 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",
+    "husky": "^9.1.7",
     "jsdom": "^27.1.0",
+    "lint-staged": "^16.2.7",
     "nx": "22.3.3",
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",
@@ -94,5 +97,13 @@
     "highlight.js": "^11.11.1",
     "ngx-highlightjs": "^14.0.1",
     "rxjs": "~7.8.0"
+  },
+  "lint-staged": {
+    "*.{ts,js,html}": [
+      "eslint --fix"
+    ],
+    "*.{ts,js,html,css,json,md}": [
+      "prettier --write"
+    ]
   }
 }
