@@ -63,7 +63,7 @@
     "angular-eslint": "^21.0.1",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
-    "eslint-plugin-playwright": "^1.6.2",
+    "eslint-plugin-playwright": "^2.5.0",
     "husky": "^9.1.7",
     "jsdom": "^27.1.0",
     "lint-staged": "^16.2.7",
