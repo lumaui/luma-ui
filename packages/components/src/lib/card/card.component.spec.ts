@@ -60,9 +60,12 @@ function applyDarkTheme(): void {
   root.style.setProperty('--luma-card-background', DARK_CARD_TOKENS.background);
   root.style.setProperty(
     '--luma-card-gradient-from',
-    DARK_CARD_TOKENS.gradientFrom
+    DARK_CARD_TOKENS.gradientFrom,
   );
-  root.style.setProperty('--luma-card-gradient-to', DARK_CARD_TOKENS.gradientTo);
+  root.style.setProperty(
+    '--luma-card-gradient-to',
+    DARK_CARD_TOKENS.gradientTo,
+  );
 }
 
 describe('CardComponent', () => {
@@ -278,7 +281,7 @@ describe('CardComponent', () => {
         const customBackground = '#ffffff';
         document.documentElement.style.setProperty(
           '--luma-card-background',
-          customBackground
+          customBackground,
         );
         fixture.detectChanges();
 
@@ -292,7 +295,7 @@ describe('CardComponent', () => {
         const customPadding = '2rem';
         document.documentElement.style.setProperty(
           '--luma-card-padding',
-          customPadding
+          customPadding,
         );
         fixture.detectChanges();
 
@@ -306,7 +309,7 @@ describe('CardComponent', () => {
         const customGradient = 'oklch(0.85 0.01 0 / 0.8)';
         document.documentElement.style.setProperty(
           '--luma-card-gradient-from',
-          customGradient
+          customGradient,
         );
         fixture.detectChanges();
 
@@ -320,7 +323,7 @@ describe('CardComponent', () => {
         const customGradient = 'oklch(0.90 0.005 0 / 0.8)';
         document.documentElement.style.setProperty(
           '--luma-card-gradient-to',
-          customGradient
+          customGradient,
         );
         fixture.detectChanges();
 

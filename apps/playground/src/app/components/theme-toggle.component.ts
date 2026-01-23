@@ -6,11 +6,13 @@ import { ThemeService } from '../services/theme.service';
   standalone: true,
   imports: [],
   templateUrl: './theme-toggle.component.html',
-  styles: [`
-    :host {
-      display: contents;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class ThemeToggleComponent {
   themeService = inject(ThemeService);

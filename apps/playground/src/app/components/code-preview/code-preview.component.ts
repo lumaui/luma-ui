@@ -1,28 +1,30 @@
 import { Component, Input, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent, CardContentDirective } from '../../../../../../packages/components/src';
+import { CardComponent, CardContentDirective } from '@luma/components';
 
 @Component({
   selector: 'app-code-preview',
   standalone: true,
   imports: [CommonModule, CardComponent, CardContentDirective],
   templateUrl: './code-preview.component.html',
-  styles: [`
-    :host {
-      display: block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    pre {
-      margin: 0;
-      font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
-    }
+      pre {
+        margin: 0;
+        font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+      }
 
-    code {
-      white-space: pre;
-      display: block;
-      line-height: 1.5;
-    }
-  `]
+      code {
+        white-space: pre;
+        display: block;
+        line-height: 1.5;
+      }
+    `,
+  ],
 })
 export class CodePreviewComponent {
   @Input({ required: true }) code!: string;
@@ -34,7 +36,7 @@ export class CodePreviewComponent {
   copied = signal(false);
 
   toggleCode() {
-    this.showCode.update(v => !v);
+    this.showCode.update((v) => !v);
   }
 
   async copyCode() {

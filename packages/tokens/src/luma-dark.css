@@ -19,15 +19,15 @@
 
   --luma-button-outline-border: oklch(0.65 0.01 0);
   --luma-button-outline-border-hover: oklch(0.98 0.002 0);
-  --luma-button-outline-bg-hover: oklch(0.20 0.01 230);
+  --luma-button-outline-bg-hover: oklch(0.2 0.01 230);
   --luma-button-outline-text: oklch(0.98 0.002 0);
 
-  --luma-button-ghost-bg-hover: oklch(0.20 0.01 230);
+  --luma-button-ghost-bg-hover: oklch(0.2 0.01 230);
   --luma-button-ghost-text: oklch(0.98 0.002 0);
 
-  --luma-button-danger-bg: oklch(0.60 0.24 25);
+  --luma-button-danger-bg: oklch(0.6 0.24 25);
   --luma-button-danger-bg-hover: oklch(0.65 0.25 25);
-  --luma-button-danger-bg-active: oklch(0.70 0.26 25);
+  --luma-button-danger-bg-active: oklch(0.7 0.26 25);
   --luma-button-danger-text: oklch(0.1 0 0);
 
   --luma-button-focus-ring-color: oklch(0.64 0.12 230 / 0.25);

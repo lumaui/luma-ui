@@ -1,33 +1,39 @@
-<aside class="hidden md:block w-64 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
+<aside
+  class="hidden md:block w-64 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto"
+>
   <nav class="p-6 pt-2 space-y-6">
     <div>
-    <div class="text-xs font-semibold text-text-secondary  tracking-wider mb-3">
-      Components
-    </div>
-    @for (item of components; track item.route) {
-      <a
-        [routerLink]="item.route"
-        routerLinkActive="active-sidebar"
-        class="block px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-text-secondary/5 rounded-luma-md transition-colors"
+      <div
+        class="text-xs font-semibold text-text-secondary tracking-wider mb-3"
       >
-        {{ item.name }}
-      </a>
-    }
+        Components
+      </div>
+      @for (item of components; track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active-sidebar"
+          class="block px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-text-secondary/5 rounded-luma-md transition-colors"
+        >
+          {{ item.name }}
+        </a>
+      }
     </div>
 
     <div>
-    <div class="text-xs font-semibold text-text-secondary  tracking-wider mb-3">
-      Directives
-    </div>
-    @for (item of directives; track item.route) {
-      <a
-        [routerLink]="item.route"
-        routerLinkActive="active-sidebar"
-        class="block px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-text-secondary/5 rounded-luma-md transition-colors"
+      <div
+        class="text-xs font-semibold text-text-secondary tracking-wider mb-3"
       >
-        {{ item.name }}
-      </a>
-    }
+        Directives
+      </div>
+      @for (item of directives; track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active-sidebar"
+          class="block px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-text-secondary/5 rounded-luma-md transition-colors"
+        >
+          {{ item.name }}
+        </a>
+      }
     </div>
   </nav>
 </aside>

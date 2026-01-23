@@ -23,15 +23,15 @@ O Neo‑Minimalismo parte da maturidade do minimalismo clássico e adiciona **hu
 
 Ele rejeita:
 
-* Rigidez excessiva
-* Geometria mecânica
-* Interfaces que parecem “frameworks”
+- Rigidez excessiva
+- Geometria mecânica
+- Interfaces que parecem “frameworks”
 
 Ele busca:
 
-* Calma visual
-* Continuidade
-* Sensação orgânica e natural
+- Calma visual
+- Continuidade
+- Sensação orgânica e natural
 
 ---
 
@@ -41,15 +41,15 @@ Silêncio visual é um **estado intencional**, não ausência de design.
 
 ### Princípios
 
-* Elementos não competem entre si
-* Hierarquia é percebida sem esforço
-* O layout fala antes do estilo
+- Elementos não competem entre si
+- Hierarquia é percebida sem esforço
+- O layout fala antes do estilo
 
 ### Regras
 
-* Nunca adicionar um efeito apenas para "destacar"
-* Se algo precisa chamar atenção para ser entendido, está mal resolvido
-* Priorizar relações espaciais antes de cores ou efeitos
+- Nunca adicionar um efeito apenas para "destacar"
+- Se algo precisa chamar atenção para ser entendido, está mal resolvido
+- Priorizar relações espaciais antes de cores ou efeitos
 
 ---
 
@@ -59,17 +59,17 @@ Whitespace é **estrutura invisível**.
 
 Ele deve:
 
-* Criar hierarquia
-* Substituir bordas, divisores e sombras
-* Controlar ritmo e leitura
+- Criar hierarquia
+- Substituir bordas, divisores e sombras
+- Controlar ritmo e leitura
 
 > Espaço não é vazio — é linguagem.
 
 ### Diretrizes
 
-* Preferir espaçamento progressivo a linhas
-* Aumentar espaço entre grupos, não dentro deles
-* Nunca compactar para "caber mais"
+- Preferir espaçamento progressivo a linhas
+- Aumentar espaço entre grupos, não dentro deles
+- Nunca compactar para "caber mais"
 
 ---
 
@@ -79,9 +79,9 @@ Ele deve:
 
 O sistema evita cantos duros e geometrias excessivamente técnicas.
 
-* Curvas devem sugerir **continuidade**, não rigidez
-* Bordas levemente generosas são preferíveis a precisão matemática
-* Formas devem parecer desenhadas, não calculadas
+- Curvas devem sugerir **continuidade**, não rigidez
+- Bordas levemente generosas são preferíveis a precisão matemática
+- Formas devem parecer desenhadas, não calculadas
 
 > A interface deve fluir — não encaixar.
 
@@ -96,15 +96,15 @@ Luz é usada como **textura e hierarquia**, nunca como ornamento.
 
 ### Princípios
 
-* Gradientes sutis substituem bordas
-* Diferença de luminosidade cria profundidade
-* Transparência cria camadas
+- Gradientes sutis substituem bordas
+- Diferença de luminosidade cria profundidade
+- Transparência cria camadas
 
 ### Regras
 
-* Nunca usar sombra como solução principal
-* Evitar sombras duras ou deslocadas
-* Preferir variações dentro da mesma família de cor
+- Nunca usar sombra como solução principal
+- Evitar sombras duras ou deslocadas
+- Preferir variações dentro da mesma família de cor
 
 > Se a profundidade é percebida antes da forma, está errada.
 
@@ -116,21 +116,21 @@ Luz é usada como **textura e hierarquia**, nunca como ornamento.
 
 Cor no Neo‑Minimalismo é **editorial**, não promocional.
 
-* Levemente desaturada
-* Próxima do cinza
-* Confortável aos olhos por longos períodos
+- Levemente desaturada
+- Próxima do cinza
+- Confortável aos olhos por longos períodos
 
 ### Uso correto
 
-* Cor define **ação**, não estrutura
-* Cor nunca define profundidade
-* Cor nunca substitui hierarquia espacial
+- Cor define **ação**, não estrutura
+- Cor nunca define profundidade
+- Cor nunca substitui hierarquia espacial
 
 ### Tons neutros
 
-* Branco puro deve ser evitado como base
-* Preferir brancos quentes e cinzas suaves
-* Contraste sempre progressivo
+- Branco puro deve ser evitado como base
+- Preferir brancos quentes e cinzas suaves
+- Contraste sempre progressivo
 
 ---
 
@@ -140,15 +140,15 @@ A tipografia é o principal componente visual do sistema.
 
 ### Princípios
 
-* Clareza acima de personalidade
-* Ritmo antes de impacto
-* Leitura contínua, não blocos
+- Clareza acima de personalidade
+- Ritmo antes de impacto
+- Leitura contínua, não blocos
 
 ### Diretrizes
 
-* Hierarquia criada por tamanho, não peso
-* Evitar bold excessivo
-* Line-height sempre generoso
+- Hierarquia criada por tamanho, não peso
+- Evitar bold excessivo
+- Line-height sempre generoso
 
 > Se a tipografia falha, nenhum layout salva.
 
@@ -160,15 +160,15 @@ Interações devem **responder**, não distrair.
 
 ### Princípios
 
-* Feedback gentil
-* Transições curtas e naturais
-* Nenhuma surpresa
+- Feedback gentil
+- Transições curtas e naturais
+- Nenhuma surpresa
 
 ### Regras
 
-* Nunca usar escala como feedback
-* Evitar animações elásticas ou chamativas
-* Estados devem parecer consequência natural da ação
+- Nunca usar escala como feedback
+- Evitar animações elásticas ou chamativas
+- Estados devem parecer consequência natural da ação
 
 > A melhor interação é aquela que quase não se percebe.
 
@@ -178,9 +178,9 @@ Interações devem **responder**, não distrair.
 
 Acessibilidade deve ser **inerente**, não um modo extra.
 
-* Contraste confortável
-* Estados de foco discretos e claros
-* Área de toque confortável
+- Contraste confortável
+- Estados de foco discretos e claros
+- Área de toque confortável
 
 Nada deve parecer um “recurso de acessibilidade” — deve parecer apenas correto.
 
@@ -188,19 +188,19 @@ Nada deve parecer um “recurso de acessibilidade” — deve parecer apenas cor
 
 ## 11. O Que Fazer
 
-* Começar sempre pelo layout
-* Usar espaço como ferramenta principal
-* Questionar cada efeito visual
-* Projetar para longas sessões de uso
+- Começar sempre pelo layout
+- Usar espaço como ferramenta principal
+- Questionar cada efeito visual
+- Projetar para longas sessões de uso
 
 ---
 
 ## 12. O Que Não Fazer
 
-* Copiar padrões de design systems populares
-* Resolver hierarquia com sombra ou cor
-* Criar componentes autoexplicativos demais
-* Tratar UI como vitrine
+- Copiar padrões de design systems populares
+- Resolver hierarquia com sombra ou cor
+- Criar componentes autoexplicativos demais
+- Tratar UI como vitrine
 
 ---
 
@@ -210,4 +210,3 @@ Nada deve parecer um “recurso de acessibilidade” — deve parecer apenas cor
 
 Este Design System não busca atenção.
 Ele constrói **confiança silenciosa, continuidade e presença**.
-

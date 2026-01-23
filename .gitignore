@@ -46,3 +46,7 @@ Thumbs.db
 __screenshots__/
 
 vitest.config.*.timestamp*
+
+# Generated files
+static/
+graph.html

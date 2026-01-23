@@ -3,7 +3,7 @@ import { Directive } from '@angular/core';
 @Directive({
   selector: '[lumaCardHeader]',
   host: {
-    'class': 'mb-4',
+    class: 'mb-4',
   },
 })
 export class CardHeaderDirective {

@@ -4,3 +4,9 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
+/static
+/tmp
+/out-tsc
+packages/tokens/build
+graph.html
+package-lock.json

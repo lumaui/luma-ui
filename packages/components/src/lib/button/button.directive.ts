@@ -104,7 +104,7 @@ const buttonVariants = cva(
       variant: 'primary',
       size: 'md',
     },
-  }
+  },
 );
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
@@ -128,7 +128,7 @@ export class ButtonDirective {
     buttonVariants({
       variant: this.variant(),
       size: this.size(),
-    })
+    }),
   );
 
   @HostBinding('class')

@@ -7,17 +7,19 @@ import { ThemeToggleComponent } from '../theme-toggle.component';
   standalone: true,
   imports: [RouterModule, ThemeToggleComponent],
   templateUrl: './header.component.html',
-  styles: [`
-    :host {
-      display: block;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class HeaderComponent {
   mobileMenuOpen = signal(false);
 
   toggleMobileMenu() {
-    this.mobileMenuOpen.update(v => !v);
+    this.mobileMenuOpen.update((v) => !v);
   }
 
   closeMobileMenu() {

@@ -28,12 +28,12 @@ import { ButtonDirective, CardComponent } from 'luma';
 
 ```css
 /* Option 1: Via meta-package (recommended) */
-@import "luma/tokens/luma.css";
-@import "luma/tokens/luma-dark.css";
+@import 'luma/tokens/luma.css';
+@import 'luma/tokens/luma-dark.css';
 
 /* Option 2: Direct from tokens package */
-@import "@luma/tokens/luma.css";
-@import "@luma/tokens/luma-dark.css";
+@import '@luma/tokens/luma.css';
+@import '@luma/tokens/luma-dark.css';
 ```
 
 Both options are equivalent - the meta-package `luma` resolves automatically to `@luma/tokens`.

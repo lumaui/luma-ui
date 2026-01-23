@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 export type Theme = 'light' | 'dark';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   private platformId = inject(PLATFORM_ID);
@@ -20,7 +20,7 @@ export class ThemeService {
   }
 
   toggleTheme() {
-    this.theme.update(current => current === 'light' ? 'dark' : 'light');
+    this.theme.update((current) => (current === 'light' ? 'dark' : 'light'));
   }
 
   private getInitialTheme(): Theme {

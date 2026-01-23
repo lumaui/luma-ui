@@ -7,10 +7,12 @@ import { ComponentGridComponent } from '../../components/component-grid/componen
   standalone: true,
   imports: [HeroComponent, ComponentGridComponent],
   templateUrl: './home.component.html',
-  styles: [`
-    :host {
-      display: block;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class HomeComponent {}

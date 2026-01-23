@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentDetailComponent } from '../component-detail/component-detail.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
-import {
-  CardComponent,
-  CardHeaderDirective,
-  CardTitleDirective,
-  CardDescriptionDirective,
-  CardContentDirective
-} from '../../../../../../../packages/components/src';
+import { CardComponent, CardHeaderDirective, CardTitleDirective, CardDescriptionDirective, CardContentDirective } from '@luma/components';
 
 interface DesignToken {
   name: string;
@@ -19,7 +13,7 @@ interface APIDirective {
   name: string;
   selector: string;
   description: string;
-  inputs?: { name: string; type: string; default: string; }[];
+  inputs?: { name: string; type: string; default: string }[];
 }
 
 @Component({
@@ -32,14 +26,16 @@ interface APIDirective {
     CardHeaderDirective,
     CardTitleDirective,
     CardDescriptionDirective,
-    CardContentDirective
+    CardContentDirective,
   ],
   templateUrl: './card-docs.component.html',
-  styles: [`
-    :host {
-      display: block;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class CardDocsComponent {
   examples = {
@@ -95,43 +91,71 @@ export class CardDocsComponent {
     </div>
   </luma-card>
   <!-- More cards... -->
-</div>`
+</div>`,
   };
 
   tokens: DesignToken[] = [
-    { name: '--luma-card-background', value: 'oklch(0.99 0 0)', description: 'Card background color' },
-    { name: '--luma-card-gradient-from', value: 'oklch(0.92 0.005 0 / 0.6)', description: 'Gradient border start color' },
-    { name: '--luma-card-gradient-to', value: 'oklch(0.96 0.003 0 / 0.6)', description: 'Gradient border end color' },
-    { name: '--luma-radius-lg', value: '18px', description: 'Card border radius' },
-    { name: '--luma-card-padding', value: '1.5rem', description: 'Card internal padding' }
+    {
+      name: '--luma-card-background',
+      value: 'oklch(0.99 0 0)',
+      description: 'Card background color',
+    },
+    {
+      name: '--luma-card-gradient-from',
+      value: 'oklch(0.92 0.005 0 / 0.6)',
+      description: 'Gradient border start color',
+    },
+    {
+      name: '--luma-card-gradient-to',
+      value: 'oklch(0.96 0.003 0 / 0.6)',
+      description: 'Gradient border end color',
+    },
+    {
+      name: '--luma-radius-lg',
+      value: '18px',
+      description: 'Card border radius',
+    },
+    {
+      name: '--luma-card-padding',
+      value: '1.5rem',
+      description: 'Card internal padding',
+    },
   ];
 
   directives: APIDirective[] = [
     {
       name: 'lumaCardHeader',
       selector: '[lumaCardHeader]',
-      description: 'Container for card header content (title and description)'
+      description: 'Container for card header content (title and description)',
     },
     {
       name: 'lumaCardTitle',
       selector: '[lumaCardTitle]',
       description: 'Card title with customizable size',
       inputs: [
-        { name: 'size', type: "'small' | 'normal' | 'large'", default: "'normal'" }
-      ]
+        {
+          name: 'size',
+          type: "'small' | 'normal' | 'large'",
+          default: "'normal'",
+        },
+      ],
     },
     {
       name: 'lumaCardDescription',
       selector: '[lumaCardDescription]',
       description: 'Card description text with customizable size',
       inputs: [
-        { name: 'size', type: "'small' | 'normal' | 'large'", default: "'normal'" }
-      ]
+        {
+          name: 'size',
+          type: "'small' | 'normal' | 'large'",
+          default: "'normal'",
+        },
+      ],
     },
     {
       name: 'lumaCardContent',
       selector: '[lumaCardContent]',
-      description: 'Container for card main content'
-    }
+      description: 'Container for card main content',
+    },
   ];
 }

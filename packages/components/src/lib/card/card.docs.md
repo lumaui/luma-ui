@@ -1,6 +1,7 @@
 # Card
 
 ## Purpose
+
 The Card component provides a flexible, composable container for grouping related content with a distinctive gradient border technique that follows Neo-Minimal design principles. Built using a compositional architecture with semantic directives.
 
 ## Architecture
@@ -16,32 +17,39 @@ The Card uses a **compositional design** with a main component and four semantic
 ## Component API
 
 ### CardComponent
+
 No inputs - structural container only.
 
 ### CardTitleDirective
+
 - `size`: 'small' | 'normal' | 'large' - Title size variant
   - **small**: `text-sm` - Compact cards or secondary information
   - **normal**: `text-lg` (default) - Standard card titles
   - **large**: `text-2xl` - Hero cards or primary emphasis
 
 ### CardDescriptionDirective
+
 - `size`: 'small' | 'normal' | 'large' - Description size variant
   - **small**: `text-xs` - Compact cards or tertiary information
   - **normal**: `text-sm` (default) - Standard descriptions
   - **large**: `text-base` - Emphasis or standalone descriptions
 
 ### CardHeaderDirective
+
 No inputs - provides structural spacing (`mb-4`).
 
 ### CardContentDirective
+
 No inputs - semantic marker with no styles applied for maximum flexibility.
 
 ## States
+
 The Card is a **non-interactive presentational component** with no interactive states. It maintains a single visual state that adapts to theme (light/dark).
 
 ## Usage Examples
 
 ### Basic Card
+
 ```html
 <luma-card>
   <div lumaCardHeader>
@@ -55,6 +63,7 @@ The Card is a **non-interactive presentational component** with no interactive s
 ```
 
 ### Size Variants
+
 ```html
 <!-- Small compact card -->
 <luma-card>
@@ -80,6 +89,7 @@ The Card is a **non-interactive presentational component** with no interactive s
 ```
 
 ### Stats Card
+
 ```html
 <luma-card>
   <div lumaCardHeader>
@@ -93,6 +103,7 @@ The Card is a **non-interactive presentational component** with no interactive s
 ```
 
 ### Minimal Card (No Header)
+
 ```html
 <luma-card>
   <div lumaCardContent>
@@ -102,6 +113,7 @@ The Card is a **non-interactive presentational component** with no interactive s
 ```
 
 ### Card with Custom Content
+
 ```html
 <luma-card>
   <div lumaCardHeader>
@@ -125,11 +137,13 @@ The Card is a **non-interactive presentational component** with no interactive s
 The Card uses a **distinctive gradient border technique** that aligns with Neo-Minimal principles:
 
 **How it works:**
+
 1. Outer wrapper has `p-[1px]` padding + `bg-gradient-to-b` gradient
 2. Inner content has matching border-radius (slightly smaller for visual precision)
 3. Gradient creates a subtle "light as structure" effect instead of hard borders
 
 **Visual effect:**
+
 - Light mode: Subtle gradient from light gray to slightly darker gray
 - Dark mode: Inverted gradient for depth perception
 - No hard borders, shadows, or mechanical separators
@@ -142,6 +156,7 @@ This technique exemplifies the Neo-Minimal principle: **"Light as Structure, not
 The card appearance is controlled by design tokens defined in `@luma/tokens`:
 
 ### Available Tokens
+
 - `--luma-card-background`: Inner card background color
 - `--luma-card-gradient-from`: Top gradient color (border effect)
 - `--luma-card-gradient-to`: Bottom gradient color (border effect)
@@ -211,6 +226,7 @@ The Card design embodies core Neo-Minimal values:
 - ✅ **Flexible structure**: No enforced heading levels - adapt to your document outline
 
 **Accessibility Notes:**
+
 - Use appropriate heading levels (`<h2>`, `<h3>`, etc.) with `lumaCardTitle` directive
 - Ensure descriptions provide meaningful context for screen reader users
 - Maintain logical heading hierarchy in your document
@@ -227,12 +243,14 @@ The Card design embodies core Neo-Minimal values:
 ## When to Use Card
 
 **Good use cases:**
+
 - Grouping related information (user profiles, stats, settings)
 - Creating visual hierarchy in dashboard layouts
 - Presenting discrete content blocks (blog post previews, product listings)
 - Containing forms or interactive elements in a defined region
 
 **Avoid using Card when:**
+
 - Content doesn't need visual separation (use whitespace instead)
 - Creating overly nested card-within-card layouts (violates visual silence)
 - Every element needs a container (over-containerization)
@@ -243,12 +261,14 @@ The Card design embodies core Neo-Minimal values:
 ## Composition Best Practices
 
 **Directive usage:**
+
 - `lumaCardHeader` is optional - omit for minimal cards
 - `lumaCardTitle` and `lumaCardDescription` work independently - use one or both
 - `lumaCardContent` is a semantic marker - use for clarity, not required
 - Directives can be applied to any element - not restricted to `<div>`
 
 **Flexible composition:**
+
 ```html
 <!-- Valid: Header with title only -->
 <luma-card>
@@ -277,11 +297,11 @@ The Card design embodies core Neo-Minimal values:
 
 ## Design Token Reference
 
-| Token | Default Value | Purpose |
-|-------|---------------|---------|
-| `--luma-card-background` | `oklch(0.99 0 0)` (light) | Inner card background |
-| `--luma-card-gradient-from` | `oklch(0.95 0 0)` (light) | Top gradient edge |
-| `--luma-card-gradient-to` | `oklch(0.88 0 0)` (light) | Bottom gradient edge |
-| `--luma-card-padding` | `24px` | Inner content padding |
+| Token                       | Default Value             | Purpose               |
+| --------------------------- | ------------------------- | --------------------- |
+| `--luma-card-background`    | `oklch(0.99 0 0)` (light) | Inner card background |
+| `--luma-card-gradient-from` | `oklch(0.95 0 0)` (light) | Top gradient edge     |
+| `--luma-card-gradient-to`   | `oklch(0.88 0 0)` (light) | Bottom gradient edge  |
+| `--luma-card-padding`       | `24px`                    | Inner content padding |
 
 **Note:** Dark theme values are defined in `card.dark.json` and automatically applied via `.dark` selector.

@@ -11,6 +11,7 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 **Formato:** `kebab-case`
 
 **Exemplos válidos:**
+
 ```typescript
 @Component({
   selector: 'luma-button',      // ✅ Correto
@@ -21,6 +22,7 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 ```
 
 **Exemplos inválidos:**
+
 ```typescript
 @Component({
   selector: 'button',           // ❌ Sem prefixo
@@ -37,6 +39,7 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 **Formato:** `camelCase`
 
 **Exemplos válidos:**
+
 ```typescript
 @Directive({
   selector: '[lumaTooltip]',      // ✅ Correto
@@ -46,6 +49,7 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 ```
 
 **Exemplos inválidos:**
+
 ```typescript
 @Directive({
   selector: '[tooltip]',          // ❌ Sem prefixo
@@ -61,23 +65,26 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 **Formato:** `PascalCase`
 
 **Exemplos válidos:**
+
 ```typescript
-export class ButtonComponent { }           // ✅ Correto
-export class CardComponent { }             // ✅ Correto
-export class DataTableComponent { }        // ✅ Correto
-export class TooltipDirective { }          // ✅ Correto
+export class ButtonComponent {} // ✅ Correto
+export class CardComponent {} // ✅ Correto
+export class DataTableComponent {} // ✅ Correto
+export class TooltipDirective {} // ✅ Correto
 ```
 
 **Exemplos inválidos:**
+
 ```typescript
-export class Button { }                    // ❌ Sem sufixo
-export class ButtonComp { }                // ❌ Sufixo errado
-export class button_component { }          // ❌ Formato errado
+export class Button {} // ❌ Sem sufixo
+export class ButtonComp {} // ❌ Sufixo errado
+export class button_component {} // ❌ Formato errado
 ```
 
 ### 4. Estrutura de Arquivos
 
 **Padrão:**
+
 ```
 packages/components/src/lib/
 ├── button/

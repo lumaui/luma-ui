@@ -14,7 +14,7 @@ const cardTitleVariants = cva(
     defaultVariants: {
       size: 'normal',
     },
-  }
+  },
 );
 
 @Directive({
@@ -28,9 +28,7 @@ export class CardTitleDirective {
   size = input<'small' | 'normal' | 'large'>('normal');
 
   // Computed class string
-  classes = computed(() =>
-    cardTitleVariants({ size: this.size() })
-  );
+  classes = computed(() => cardTitleVariants({ size: this.size() }));
 }
 
 export type CardTitleVariants = VariantProps<typeof cardTitleVariants>;

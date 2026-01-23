@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  ButtonDirective,
-  CardComponent,
-  CardHeaderDirective,
-  CardTitleDirective,
-  CardDescriptionDirective,
-  CardContentDirective
-} from '../../../../../../packages/components/src';
+import { ButtonDirective, CardComponent, CardHeaderDirective, CardTitleDirective, CardDescriptionDirective, CardContentDirective } from '@luma/components';
 
 interface ComponentCard {
   id: string;
@@ -28,33 +21,37 @@ interface ComponentCard {
     CardHeaderDirective,
     CardTitleDirective,
     CardDescriptionDirective,
-    CardContentDirective
+    CardContentDirective,
   ],
   templateUrl: './component-grid.component.html',
-  styles: [`
-    :host {
-      display: block;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class ComponentGridComponent {
   components: ComponentCard[] = [
     {
       id: 'button',
       name: 'Button',
-      description: 'Primary, secondary variants with full customization and accessibility',
+      description:
+        'Primary, secondary variants with full customization and accessibility',
       category: 'Form',
       route: '/components/button',
-      size: 'large'
+      size: 'large',
     },
     {
       id: 'card',
       name: 'Card',
-      description: 'Elevated cards with gradient borders and flexible content areas',
+      description:
+        'Elevated cards with gradient borders and flexible content areas',
       category: 'Layout',
       route: '/components/card',
-      size: 'medium'
-    }
+      size: 'medium',
+    },
   ];
 
   getCardClasses(size: string): string {

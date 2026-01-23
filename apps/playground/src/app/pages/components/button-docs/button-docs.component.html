@@ -41,8 +41,12 @@
     />
     <ng-template #disabledPreview>
       <div class="flex flex-wrap gap-4">
-        <button lumaButton variant="primary" [disabled]="true">Disabled Primary</button>
-        <button lumaButton variant="outline" [disabled]="true">Disabled Outline</button>
+        <button lumaButton variant="primary" [disabled]="true">
+          Disabled Primary
+        </button>
+        <button lumaButton variant="outline" [disabled]="true">
+          Disabled Outline
+        </button>
       </div>
     </ng-template>
 
@@ -97,7 +101,8 @@
   <!-- Tokens Tab -->
   <div tokens class="space-y-6">
     <p class="text-sm text-text-secondary mb-6">
-      These design tokens can be customized to match your brand. Override them in your CSS to change the button appearance.
+      These design tokens can be customized to match your brand. Override them
+      in your CSS to change the button appearance.
     </p>
 
     <!-- Desktop Table -->
@@ -105,17 +110,37 @@
       <table class="w-full border-collapse">
         <thead>
           <tr class="border-b border-text-secondary/10">
-            <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Token</th>
-            <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Value</th>
-            <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Description</th>
+            <th
+              class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+            >
+              Token
+            </th>
+            <th
+              class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+            >
+              Value
+            </th>
+            <th
+              class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+            >
+              Description
+            </th>
           </tr>
         </thead>
         <tbody>
           @for (token of tokens; track token.name) {
-            <tr class="border-b border-text-secondary/10 hover:bg-text-secondary/5">
-              <td class="py-3 px-4 text-sm font-mono text-primary">{{ token.name }}</td>
-              <td class="py-3 px-4 text-sm font-mono text-text-secondary">{{ token.value }}</td>
-              <td class="py-3 px-4 text-sm text-text-secondary">{{ token.description }}</td>
+            <tr
+              class="border-b border-text-secondary/10 hover:bg-text-secondary/5"
+            >
+              <td class="py-3 px-4 text-sm font-mono text-primary">
+                {{ token.name }}
+              </td>
+              <td class="py-3 px-4 text-sm font-mono text-text-secondary">
+                {{ token.value }}
+              </td>
+              <td class="py-3 px-4 text-sm text-text-secondary">
+                {{ token.description }}
+              </td>
             </tr>
           }
         </tbody>
@@ -125,9 +150,15 @@
     <!-- Mobile Cards -->
     <div class="md:hidden space-y-4">
       @for (token of tokens; track token.name) {
-        <div class="border border-text-secondary/10 rounded-luma-md p-4 space-y-2">
-          <div class="font-mono text-sm font-semibold text-primary">{{ token.name }}</div>
-          <div class="font-mono text-xs text-text-secondary">{{ token.value }}</div>
+        <div
+          class="border border-text-secondary/10 rounded-luma-md p-4 space-y-2"
+        >
+          <div class="font-mono text-sm font-semibold text-primary">
+            {{ token.name }}
+          </div>
+          <div class="font-mono text-xs text-text-secondary">
+            {{ token.value }}
+          </div>
           <div class="text-xs text-text-secondary">{{ token.description }}</div>
         </div>
       }
@@ -137,12 +168,21 @@
   <!-- API Tab -->
   <div api class="space-y-6">
     <!-- Directive Info -->
-    <div class="p-6 border border-text-secondary/10 rounded-luma-lg bg-text-secondary/5">
+    <div
+      class="p-6 border border-text-secondary/10 rounded-luma-lg bg-text-secondary/5"
+    >
       <h3 class="text-lg font-semibold text-text-primary mb-2">Directive</h3>
       <code class="text-sm font-mono text-primary">[lumaButton]</code>
       <p class="text-sm text-text-secondary mt-3">
-        Apply this directive to <code class="text-xs font-mono bg-text-secondary/10 px-1 py-0.5 rounded">button</code> or
-        <code class="text-xs font-mono bg-text-secondary/10 px-1 py-0.5 rounded">a</code> elements.
+        Apply this directive to
+        <code class="text-xs font-mono bg-text-secondary/10 px-1 py-0.5 rounded"
+          >button</code
+        >
+        or
+        <code class="text-xs font-mono bg-text-secondary/10 px-1 py-0.5 rounded"
+          >a</code
+        >
+        elements.
       </p>
     </div>
 
@@ -155,19 +195,45 @@
         <table class="w-full border-collapse">
           <thead>
             <tr class="border-b border-text-secondary/10">
-              <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Name</th>
-              <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Type</th>
-              <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Default</th>
-              <th class="text-left py-3 px-4 text-sm font-semibold text-text-primary">Description</th>
+              <th
+                class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+              >
+                Name
+              </th>
+              <th
+                class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+              >
+                Type
+              </th>
+              <th
+                class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+              >
+                Default
+              </th>
+              <th
+                class="text-left py-3 px-4 text-sm font-semibold text-text-primary"
+              >
+                Description
+              </th>
             </tr>
           </thead>
           <tbody>
             @for (prop of apiProperties; track prop.name) {
-              <tr class="border-b border-text-secondary/10 hover:bg-text-secondary/5">
-                <td class="py-3 px-4 text-sm font-mono text-primary">{{ prop.name }}</td>
-                <td class="py-3 px-4 text-sm font-mono text-text-secondary">{{ prop.type }}</td>
-                <td class="py-3 px-4 text-sm font-mono text-text-secondary">{{ prop.default }}</td>
-                <td class="py-3 px-4 text-sm text-text-secondary">{{ prop.description }}</td>
+              <tr
+                class="border-b border-text-secondary/10 hover:bg-text-secondary/5"
+              >
+                <td class="py-3 px-4 text-sm font-mono text-primary">
+                  {{ prop.name }}
+                </td>
+                <td class="py-3 px-4 text-sm font-mono text-text-secondary">
+                  {{ prop.type }}
+                </td>
+                <td class="py-3 px-4 text-sm font-mono text-text-secondary">
+                  {{ prop.default }}
+                </td>
+                <td class="py-3 px-4 text-sm text-text-secondary">
+                  {{ prop.description }}
+                </td>
               </tr>
             }
           </tbody>
@@ -177,19 +243,29 @@
       <!-- Mobile Cards -->
       <div class="md:hidden space-y-4">
         @for (prop of apiProperties; track prop.name) {
-          <div class="border border-text-secondary/10 rounded-luma-md p-4 space-y-2">
-            <div class="font-mono text-sm font-semibold text-primary">{{ prop.name }}</div>
+          <div
+            class="border border-text-secondary/10 rounded-luma-md p-4 space-y-2"
+          >
+            <div class="font-mono text-sm font-semibold text-primary">
+              {{ prop.name }}
+            </div>
             <div class="flex gap-4 text-xs">
               <div>
                 <span class="text-text-secondary">Type:</span>
-                <span class="font-mono text-text-secondary ml-1">{{ prop.type }}</span>
+                <span class="font-mono text-text-secondary ml-1">{{
+                  prop.type
+                }}</span>
               </div>
               <div>
                 <span class="text-text-secondary">Default:</span>
-                <span class="font-mono text-text-secondary ml-1">{{ prop.default }}</span>
+                <span class="font-mono text-text-secondary ml-1">{{
+                  prop.default
+                }}</span>
               </div>
             </div>
-            <div class="text-xs text-text-secondary">{{ prop.description }}</div>
+            <div class="text-xs text-text-secondary">
+              {{ prop.description }}
+            </div>
           </div>
         }
       </div>
@@ -199,9 +275,11 @@
     <div class="mt-8">
       <h3 class="text-lg font-semibold text-text-primary mb-4">Import</h3>
       <div class="bg-[#0d1117] rounded-luma-md p-4 overflow-x-auto">
-        <pre class="text-sm text-gray-300"><code>import &#123; ButtonDirective &#125; from '@luma/components';
+        <pre
+          class="text-sm text-gray-300"
+        ><code>import &#123; ButtonDirective &#125; from '&#64;luma/components';
 
-@Component(&#123;
+&#64;Component(&#123;
   standalone: true,
   imports: [ButtonDirective],
   template: `&lt;button lumaButton&gt;Click Me&lt;/button&gt;`

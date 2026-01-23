@@ -1,9 +1,11 @@
 # Button
 
 ## Purpose
+
 The Button component provides a versatile, accessible button element that follows Neo-Minimal design principles with calm interactions and visual silence.
 
 ## Inputs
+
 - `variant`: 'primary' | 'outline' | 'ghost' | 'danger' - Visual variant
   - **primary**: Solid background, high emphasis
   - **outline**: Transparent background with border, medium emphasis
@@ -18,6 +20,7 @@ The Button component provides a versatile, accessible button element that follow
 - `type`: 'button' | 'submit' | 'reset' - HTML button type
 
 ## States
+
 - **Default**: Base appearance with calm visual presence
 - **Hover**: Gentle background color transition, no scale or shadow
 - **Focus**: Clear ring outline for keyboard navigation
@@ -27,11 +30,13 @@ The Button component provides a versatile, accessible button element that follow
 ## Usage Examples
 
 ### Basic Button
+
 ```html
 <button lumaButton>Click me</button>
 ```
 
 ### Variants
+
 ```html
 <button lumaButton variant="primary">Primary</button>
 <button lumaButton variant="outline">Outline</button>
@@ -40,6 +45,7 @@ The Button component provides a versatile, accessible button element that follow
 ```
 
 ### Sizes
+
 ```html
 <button lumaButton size="sm">Small</button>
 <button lumaButton size="md">Medium</button>
@@ -48,11 +54,13 @@ The Button component provides a versatile, accessible button element that follow
 ```
 
 ### Disabled State
+
 ```html
 <button lumaButton [disabled]="true">Disabled</button>
 ```
 
 ### Link as Button
+
 ```html
 <a lumaButton href="/path" variant="primary">Link Button</a>
 ```
@@ -68,7 +76,7 @@ Override the button border-radius in your global styles or component:
 ```css
 /* In your global styles.css */
 :root {
-  --luma-button-radius: 4px;  /* More sharp */
+  --luma-button-radius: 4px; /* More sharp */
 }
 ```
 

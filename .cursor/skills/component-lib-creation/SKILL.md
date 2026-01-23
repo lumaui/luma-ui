@@ -1,19 +1,20 @@
 ---
-name: "Lumo · Component Creation Protocol"
-description: "Define como componentes Angular devem ser criados, estruturados, documentados e testados no Design System Lumo."
+name: 'Lumo · Component Creation Protocol'
+description: 'Define como componentes Angular devem ser criados, estruturados, documentados e testados no Design System Lumo.'
 ---
 
 # Overview
 
-
 # Lumo · Component Creation Protocol
 
 ## Objetivo
+
 Esta Rule garante que **todo componente Angular no Lumo** seja criado de forma consistente, escalável e acessível, obedecendo ao Design System sem repetir princípios já definidos no `Lumo · Core Principles`.
 
 ---
 
 ## Estrutura de Arquivos
+
 Todo componente deve conter:
 
 ```
@@ -23,7 +24,6 @@ Todo componente deve conter:
 <component-name>.component.spec.ts
 <component-name>.docs.md
 ```
-
 
 - **Angular 20+**: Standalone é padrão.
 - **TailwindCSS**: Todo estilo deve ser via classes Tailwind.
@@ -37,7 +37,6 @@ Todo componente deve conter:
 
 ## Processo de Criação
 
-
 1. Definir **intenção e papel** do componente (Estrutural, Interativo ou Informacional)
 2. Definir **layout e espaçamento mínimo**
 3. Definir **estados visuais essenciais** (hover, active, focus, disabled)
@@ -50,10 +49,10 @@ Todo componente deve conter:
 6. Testar **funcionalidade e acessibilidade**
 7. Revisar **consistência com o sistema**
 8. Publicar como **pacote npm**:
+
 ```
 export * from './<component-name>/<component-name>.component';
 ```
-
 
 ## Padrões de Acessibildiade
 
