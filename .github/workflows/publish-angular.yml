@@ -43,11 +43,14 @@ jobs:
       - name: Check formatting
         run: npx prettier --check .
 
-      - name: Run tests
-        run: npm run test:components
-
       - name: Build tokens
         run: cd packages/tokens && npm run build
+
+      - name: Build @lumaui/core (needed for tests)
+        run: npx nx build core
+
+      - name: Run tests
+        run: npm run test:components
 
       # Publish @lumaui/tokens
       - name: Check tokens version
