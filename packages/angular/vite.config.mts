@@ -30,7 +30,10 @@ export default defineConfig(() => ({
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     alias: {
-      '@lumaui/core': resolve(__dirname, '../../packages/core/dist/src/index.js'),
+      '@lumaui/core': resolve(
+        __dirname,
+        '../../packages/core/dist/src/index.js',
+      ),
     },
     coverage: {
       reportsDirectory: '../../coverage/packages/components',
