@@ -11,7 +11,16 @@
       "options": {
         "outputPath": "packages/core/dist",
         "tsConfig": "packages/core/tsconfig.build.json",
-        "main": "packages/core/src/index.ts"
+        "main": "packages/core/src/index.ts",
+        "generatePackageJson": false,
+        "assets": [
+          "packages/core/README.md",
+          {
+            "input": "packages/core/dist-config",
+            "glob": "package.json",
+            "output": "."
+          }
+        ]
       }
     },
     "lint": {
