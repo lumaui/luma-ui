@@ -13,12 +13,14 @@ Angular components for **Luma UI** - a Neo-Minimal design system built with calm
 ## Installation
 
 ```bash
-npm install @lumaui/angular @lumaui/tokens
+npm install @lumaui/angular
 ```
+
+> **Note:** `@lumaui/tokens` and `@lumaui/core` are installed automatically as dependencies.
 
 ### Peer Dependencies
 
-These are automatically installed with Angular projects:
+You may need to install `class-variance-authority` if not already in your project:
 
 ```bash
 npm install class-variance-authority
