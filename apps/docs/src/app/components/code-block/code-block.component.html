@@ -1,0 +1,51 @@
+<!-- Code Block - Dark editor style for documentation -->
+<div class="lm-bg-code border lm-border-code lm-rounded-code overflow-hidden">
+  <!-- Header with language label and copy button -->
+  <div
+    class="flex items-center justify-between px-4 py-2 border-b lm-border-code"
+  >
+    <div class="flex items-center gap-2">
+      @if (title()) {
+        <span class="text-xs font-medium lm-text-code">{{ title() }}</span>
+        <span class="text-xs lm-text-code opacity-50">·</span>
+      }
+      <span class="text-xs lm-text-code opacity-70">{{ languageLabel() }}</span>
+    </div>
+
+    <button
+      type="button"
+      (click)="copyCode()"
+      class="px-2 py-1 text-xs font-medium lm-text-code opacity-70 hover:opacity-100 transition-opacity"
+    >
+      @if (copied) {
+        Copied!
+      } @else {
+        Copy code
+      }
+    </button>
+  </div>
+
+  <!-- Code content -->
+  <div class="p-4 overflow-x-auto">
+    @if (showLineNumbers()) {
+      <!-- With line numbers -->
+      <div class="flex">
+        <div class="select-none pr-4 text-right lm-text-code opacity-40">
+          @for (line of codeLines(); track $index) {
+            <div class="text-xs font-mono leading-relaxed">
+              {{ $index + 1 }}
+            </div>
+          }
+        </div>
+        <pre
+          class="flex-1 text-xs font-mono leading-relaxed lm-text-code"
+        ><code>{{ code() }}</code></pre>
+      </div>
+    } @else {
+      <!-- Without line numbers -->
+      <pre
+        class="text-xs font-mono leading-relaxed lm-text-code whitespace-pre-wrap"
+      ><code>{{ code() }}</code></pre>
+    }
+  </div>
+</div>

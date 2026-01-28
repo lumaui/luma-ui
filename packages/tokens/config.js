@@ -13,6 +13,7 @@ StyleDictionary.registerTransform({
 
 /**
  * Custom format for generating CSS with @theme block and utilities
+ * All utilities use the `lm-` prefix for easy identification in projects
  */
 StyleDictionary.registerFormat({
   name: 'css/luma-theme',
@@ -46,10 +47,171 @@ StyleDictionary.registerFormat({
 
     // Add utilities if enabled
     if (utilities && selector === '@theme') {
-      output += `\n/* Tailwind Utilities */\n\n`;
+      output += `\n/* Tailwind Utilities - All prefixed with lm- */\n\n`;
 
       // Helper to get utility name without 'luma' prefix
       const getUtilityName = (path) => path.slice(1).join('-');
+
+      // ============================================
+      // SCALE-BASED COLOR UTILITIES
+      // ============================================
+
+      output += `/* Scale-Based Color Utilities */\n`;
+
+      // Primary scale utilities (50, 60, 70, 80)
+      const primaryScaleTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'primary' &&
+          ['50', '60', '70', '80'].includes(t.path[3]),
+      );
+      primaryScaleTokens.forEach((token) => {
+        const scale = token.path[3];
+        output += `@utility lm-bg-primary-${scale} {\n`;
+        output += `  background-color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-text-primary-${scale} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-border-primary-${scale} {\n`;
+        output += `  border-color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
+      // Neutral scale utilities (50, 60, 70, 80, 90, 100)
+      const neutralScaleTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'neutral' &&
+          ['50', '60', '70', '80', '90', '100'].includes(t.path[3]),
+      );
+      neutralScaleTokens.forEach((token) => {
+        const scale = token.path[3];
+        output += `@utility lm-bg-neutral-${scale} {\n`;
+        output += `  background-color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-text-neutral-${scale} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-border-neutral-${scale} {\n`;
+        output += `  border-color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
+      // Success scale utilities (50, 60, 70, 80)
+      const successScaleTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'success' &&
+          ['50', '60', '70', '80'].includes(t.path[3]),
+      );
+      successScaleTokens.forEach((token) => {
+        const scale = token.path[3];
+        output += `@utility lm-bg-success-${scale} {\n`;
+        output += `  background-color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-text-success-${scale} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-border-success-${scale} {\n`;
+        output += `  border-color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
+      // Warning scale utilities (50, 60, 70, 80)
+      const warningScaleTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'warning' &&
+          ['50', '60', '70', '80'].includes(t.path[3]),
+      );
+      warningScaleTokens.forEach((token) => {
+        const scale = token.path[3];
+        output += `@utility lm-bg-warning-${scale} {\n`;
+        output += `  background-color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-text-warning-${scale} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-border-warning-${scale} {\n`;
+        output += `  border-color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
+      // Error scale utilities (50, 60, 70, 80)
+      const errorScaleTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'error' &&
+          ['50', '60', '70', '80'].includes(t.path[3]),
+      );
+      errorScaleTokens.forEach((token) => {
+        const scale = token.path[3];
+        output += `@utility lm-bg-error-${scale} {\n`;
+        output += `  background-color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-text-error-${scale} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-border-error-${scale} {\n`;
+        output += `  border-color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
+      // ============================================
+      // SEMANTIC TEXT UTILITIES
+      // ============================================
+
+      output += `/* Semantic Text Utilities */\n`;
+
+      // Text primary/secondary utilities
+      const textTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'text' &&
+          ['primary', 'secondary'].includes(t.path[3]),
+      );
+      textTokens.forEach((token) => {
+        const variant = token.path[3];
+        output += `@utility lm-text-${variant} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
+      // Surface base utility
+      const surfaceBaseToken = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'surface' &&
+          t.path[3] === 'base',
+      );
+      if (surfaceBaseToken) {
+        output += `@utility lm-bg-surface-base {\n`;
+        output += `  background-color: var(${surfaceBaseToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // ============================================
+      // GLOBAL FOCUS RING
+      // ============================================
+
+      output += `/* Global Focus Ring */\n`;
+      const globalFocusRingColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'focus' &&
+          t.path[2] === 'ring' &&
+          t.path[3] === 'color',
+      );
+      if (globalFocusRingColor) {
+        output += `@utility lm-ring-focus {\n`;
+        output += `  outline: var(--luma-focus-ring-width) solid var(--luma-focus-ring-color);\n`;
+        output += `  outline-offset: var(--luma-focus-ring-offset);\n`;
+        output += `}\n\n`;
+      }
+
+      // ============================================
+      // BUTTON UTILITIES
+      // ============================================
 
       // Button background utilities (with hover and active states)
       output += `/* Button Background Colors */\n`;
@@ -61,7 +223,7 @@ StyleDictionary.registerFormat({
       );
       buttonBgTokens.forEach((token) => {
         const utilityName = getUtilityName(token.path);
-        output += `@utility bg-${utilityName} {\n`;
+        output += `@utility lm-bg-${utilityName} {\n`;
         output += `  background-color: var(${token.name});\n`;
         output += `}\n\n`;
       });
@@ -73,7 +235,7 @@ StyleDictionary.registerFormat({
       );
       buttonTextTokens.forEach((token) => {
         const utilityName = getUtilityName(token.path);
-        output += `@utility text-${utilityName} {\n`;
+        output += `@utility lm-text-${utilityName} {\n`;
         output += `  color: var(${token.name});\n`;
         output += `}\n\n`;
       });
@@ -87,65 +249,274 @@ StyleDictionary.registerFormat({
       );
       buttonBorderTokens.forEach((token) => {
         const utilityName = getUtilityName(token.path);
-        output += `@utility border-${utilityName} {\n`;
+        output += `@utility lm-border-${utilityName} {\n`;
         output += `  border-color: var(${token.name});\n`;
         output += `}\n\n`;
       });
 
-      // Button focus ring utility
-      const focusRingWidthToken = dictionary.allTokens.find(
+      // Button focus ring utility (references global tokens)
+      const buttonFocusRingToken = dictionary.allTokens.find(
         (t) =>
           t.path[1] === 'button' &&
           t.path[2] === 'focus' &&
           t.path.some((p) => typeof p === 'string' && p.startsWith('ring')),
       );
-      if (focusRingWidthToken) {
-        output += `/* Focus Ring */\n`;
-        output += `@utility ring-button-focus {\n`;
+      if (buttonFocusRingToken) {
+        output += `/* Button Focus Ring */\n`;
+        output += `@utility lm-ring-button-focus {\n`;
         output += `  outline: var(--luma-button-focus-ring-width) solid var(--luma-button-focus-ring-color);\n`;
         output += `  outline-offset: 2px;\n`;
         output += `}\n\n`;
       }
 
-      // General background utilities (non-button)
-      output += `/* General Background Colors */\n`;
-      const generalBgTokens = dictionary.allTokens.filter(
-        (t) =>
-          (t.path.includes('background') ||
-            (t.path[1] === 'color' && !t.path.includes('text'))) &&
-          !t.path.includes('button') &&
-          !t.path.includes('bg-'),
+      // Button radius utility
+      const buttonRadiusToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'button' && t.path[2] === 'radius',
       );
-      generalBgTokens.forEach((token) => {
-        const utilityName = getUtilityName(token.path);
-        output += `@utility bg-${utilityName} {\n`;
-        output += `  background-color: var(${token.name});\n`;
+      if (buttonRadiusToken) {
+        output += `/* Button Radius */\n`;
+        output += `@utility lm-rounded-button {\n`;
+        output += `  border-radius: var(${buttonRadiusToken.name});\n`;
         output += `}\n\n`;
+      }
+
+      // ============================================
+      // CARD VARIANT UTILITIES
+      // ============================================
+
+      output += `/* Card Variant Utilities */\n`;
+
+      // Card shadow variant
+      const cardShadowBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'shadow' &&
+          t.path[3] === 'background',
+      );
+      if (cardShadowBg) {
+        output += `@utility lm-bg-card-shadow {\n`;
+        output += `  background-color: var(${cardShadowBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardShadowBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'shadow' &&
+          t.path[3] === 'border',
+      );
+      if (cardShadowBorder) {
+        output += `@utility lm-border-card-shadow {\n`;
+        output += `  border-color: var(${cardShadowBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardShadowShadow = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'shadow' &&
+          t.path[3] === 'shadow',
+      );
+      if (cardShadowShadow) {
+        output += `@utility lm-shadow-card-shadow {\n`;
+        output += `  box-shadow: var(${cardShadowShadow.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardShadowRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'shadow' &&
+          t.path[3] === 'radius',
+      );
+      if (cardShadowRadius) {
+        output += `@utility lm-rounded-card-shadow {\n`;
+        output += `  border-radius: var(${cardShadowRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Card nested variant
+      const cardNestedBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'nested' &&
+          t.path[3] === 'background',
+      );
+      if (cardNestedBg) {
+        output += `@utility lm-bg-card-nested {\n`;
+        output += `  background-color: var(${cardNestedBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardNestedBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'nested' &&
+          t.path[3] === 'border',
+      );
+      if (cardNestedBorder) {
+        output += `@utility lm-border-card-nested {\n`;
+        output += `  border-color: var(${cardNestedBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardNestedRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'nested' &&
+          t.path[3] === 'radius',
+      );
+      if (cardNestedRadius) {
+        output += `@utility lm-rounded-card-nested {\n`;
+        output += `  border-radius: var(${cardNestedRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Card preview variant
+      const cardPreviewBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'preview' &&
+          t.path[3] === 'background',
+      );
+      if (cardPreviewBg) {
+        output += `@utility lm-bg-card-preview {\n`;
+        output += `  background-color: var(${cardPreviewBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardPreviewBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'preview' &&
+          t.path[3] === 'border',
+      );
+      if (cardPreviewBorder) {
+        output += `@utility lm-border-card-preview {\n`;
+        output += `  border-color: var(${cardPreviewBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const cardPreviewRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'card' &&
+          t.path[2] === 'preview' &&
+          t.path[3] === 'radius',
+      );
+      if (cardPreviewRadius) {
+        output += `@utility lm-rounded-card-preview {\n`;
+        output += `  border-radius: var(${cardPreviewRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Legacy card utilities (gradient wrapper)
+      output += `/* Card Legacy Utilities (gradient wrapper) */\n`;
+      const gradientTokens = dictionary.allTokens.filter((t) =>
+        t.path.includes('gradient'),
+      );
+      gradientTokens.forEach((token) => {
+        const gradientPos = token.path[token.path.length - 1];
+        if (gradientPos === 'from') {
+          output += `@utility lm-from-card-gradient-from {\n`;
+          output += `  --tw-gradient-from: var(${token.name});\n`;
+          output += `  --tw-gradient-to: rgb(255 255 255 / 0);\n`;
+          output += `  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n`;
+          output += `}\n\n`;
+        } else if (gradientPos === 'to') {
+          output += `@utility lm-to-card-gradient-to {\n`;
+          output += `  --tw-gradient-to: var(${token.name});\n`;
+          output += `}\n\n`;
+        }
       });
 
-      // Text color utilities (non-button)
-      output += `/* Text Colors */\n`;
-      const textTokens = dictionary.allTokens.filter(
-        (t) =>
-          t.path.includes('text') &&
-          t.path.includes('color') &&
-          !t.path.includes('button'),
+      // Card background (legacy)
+      const cardBgToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'card' && t.path[2] === 'background',
       );
-      textTokens.forEach((token) => {
-        const utilityName = token.path.slice(2).join('-');
-        output += `@utility text-${utilityName} {\n`;
-        output += `  color: var(${token.name});\n`;
+      if (cardBgToken) {
+        output += `@utility lm-bg-card-background {\n`;
+        output += `  background-color: var(${cardBgToken.name});\n`;
         output += `}\n\n`;
-      });
+      }
+
+      // Card padding utility
+      const cardPaddingToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'card' && t.path[2] === 'padding',
+      );
+      if (cardPaddingToken) {
+        output += `@utility lm-p-card {\n`;
+        output += `  padding: var(${cardPaddingToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Card box-shadow utility (legacy)
+      const cardShadowToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'card' && t.path[2] === 'box-shadow',
+      );
+      if (cardShadowToken) {
+        output += `@utility lm-shadow-card {\n`;
+        output += `  box-shadow: var(${cardShadowToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // ============================================
+      // CODE BLOCK UTILITIES
+      // ============================================
+
+      output += `/* Code Block Utilities */\n`;
+
+      const codeBgToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'code' && t.path[2] === 'background',
+      );
+      if (codeBgToken) {
+        output += `@utility lm-bg-code {\n`;
+        output += `  background-color: var(${codeBgToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const codeTextToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'code' && t.path[2] === 'text',
+      );
+      if (codeTextToken) {
+        output += `@utility lm-text-code {\n`;
+        output += `  color: var(${codeTextToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const codeBorderToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'code' && t.path[2] === 'border',
+      );
+      if (codeBorderToken) {
+        output += `@utility lm-border-code {\n`;
+        output += `  border-color: var(${codeBorderToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const codeRadiusToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'code' && t.path[2] === 'radius',
+      );
+      if (codeRadiusToken) {
+        output += `@utility lm-rounded-code {\n`;
+        output += `  border-radius: var(${codeRadiusToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // ============================================
+      // GENERAL UTILITIES
+      // ============================================
 
       // Border radius utilities
       output += `/* Border Radius */\n`;
       const radiusTokens = dictionary.allTokens.filter(
-        (t) => t.path.includes('radius') && !t.path.includes('button'),
+        (t) =>
+          t.path[1] === 'radius' &&
+          !t.path.includes('button') &&
+          !t.path.includes('card') &&
+          !t.path.includes('code'),
       );
       radiusTokens.forEach((token) => {
-        const utilityName = getUtilityName(token.path);
-        output += `@utility rounded-luma-${token.path[token.path.length - 1]} {\n`;
+        const sizeName = token.path[token.path.length - 1];
+        output += `@utility lm-rounded-${sizeName} {\n`;
         output += `  border-radius: var(${token.name});\n`;
         output += `}\n\n`;
       });
@@ -157,7 +528,7 @@ StyleDictionary.registerFormat({
       );
       textSizeTokens.forEach((token) => {
         const sizeName = token.path[token.path.length - 1];
-        output += `@utility text-luma-${sizeName} {\n`;
+        output += `@utility lm-text-size-${sizeName} {\n`;
         output += `  font-size: var(${token.name});\n`;
         output += `}\n\n`;
       });
@@ -169,41 +540,10 @@ StyleDictionary.registerFormat({
       );
       durationTokens.forEach((token) => {
         const durationName = token.path[token.path.length - 1];
-        output += `@utility duration-luma-${durationName} {\n`;
+        output += `@utility lm-duration-${durationName} {\n`;
         output += `  transition-duration: var(${token.name});\n`;
         output += `}\n\n`;
       });
-
-      // Card gradient utilities
-      output += `/* Card Gradients */\n`;
-      const gradientTokens = dictionary.allTokens.filter((t) =>
-        t.path.includes('gradient'),
-      );
-      gradientTokens.forEach((token) => {
-        const gradientPos = token.path[token.path.length - 1];
-        if (gradientPos === 'from') {
-          output += `@utility from-card-gradient-from {\n`;
-          output += `  --tw-gradient-from: var(${token.name});\n`;
-          output += `  --tw-gradient-to: rgb(255 255 255 / 0);\n`;
-          output += `  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n`;
-          output += `}\n\n`;
-        } else if (gradientPos === 'to') {
-          output += `@utility to-card-gradient-to {\n`;
-          output += `  --tw-gradient-to: var(${token.name});\n`;
-          output += `}\n\n`;
-        }
-      });
-
-      // Card padding utility
-      output += `/* Card Padding */\n`;
-      const cardPaddingToken = dictionary.allTokens.find(
-        (t) => t.path[1] === 'card' && t.path[2] === 'padding',
-      );
-      if (cardPaddingToken) {
-        output += `@utility p-card-padding {\n`;
-        output += `  padding: var(${cardPaddingToken.name});\n`;
-        output += `}\n\n`;
-      }
 
       // Badge utilities
       output += `/* Badge */\n`;
@@ -211,7 +551,7 @@ StyleDictionary.registerFormat({
         (t) => t.path[1] === 'badge' && t.path[2] === 'bg',
       );
       if (badgeBgToken) {
-        output += `@utility bg-badge-bg {\n`;
+        output += `@utility lm-bg-badge {\n`;
         output += `  background-color: var(${badgeBgToken.name});\n`;
         output += `}\n\n`;
       }
@@ -219,7 +559,7 @@ StyleDictionary.registerFormat({
         (t) => t.path[1] === 'badge' && t.path[2] === 'color',
       );
       if (badgeColorToken) {
-        output += `@utility text-badge {\n`;
+        output += `@utility lm-text-badge {\n`;
         output += `  color: var(${badgeColorToken.name});\n`;
         output += `}\n\n`;
       }

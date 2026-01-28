@@ -2,37 +2,151 @@
   "luma": {
     "color": {
       "primary": {
-        "value": "oklch(0.64 0.12 230)",
-        "type": "color",
-        "description": "Primary brand color (dark theme)"
+        "50": {
+          "value": "oklch(0.70 0.14 232.13)",
+          "type": "color",
+          "description": "Primary default (dark theme) - lighter for dark bg contrast"
+        },
+        "60": {
+          "value": "oklch(0.64 0.13 232.13)",
+          "type": "color",
+          "description": "Primary strong (dark theme)"
+        },
+        "70": {
+          "value": "oklch(0.58 0.12 232.13)",
+          "type": "color",
+          "description": "Primary hover (dark theme)"
+        },
+        "80": {
+          "value": "oklch(0.52 0.11 232.13)",
+          "type": "color",
+          "description": "Primary active (dark theme)"
+        }
       },
-      "primary-hover": {
-        "value": "oklch(0.58 0.11 230)",
-        "type": "color",
-        "description": "Primary color hover state (dark theme)"
+      "neutral": {
+        "50": {
+          "value": "oklch(0.20 0.005 265)",
+          "type": "color",
+          "description": "Neutral darkest (inverted for dark theme) - nested surfaces"
+        },
+        "60": {
+          "value": "oklch(0.25 0.008 265)",
+          "type": "color",
+          "description": "Neutral dark - borders in dark theme"
+        },
+        "70": {
+          "value": "oklch(0.30 0.01 265)",
+          "type": "color",
+          "description": "Neutral medium-dark"
+        },
+        "80": {
+          "value": "oklch(0.70 0.01 265)",
+          "type": "color",
+          "description": "Neutral medium - secondary text in dark theme (WCAG AA compliant)"
+        },
+        "90": {
+          "value": "oklch(0.70 0.01 265)",
+          "type": "color",
+          "description": "Neutral light"
+        },
+        "100": {
+          "value": "oklch(0.90 0.01 265)",
+          "type": "color",
+          "description": "Neutral lightest - primary text in dark theme"
+        }
       },
-      "primary-active": {
-        "value": "oklch(0.52 0.1 230)",
-        "type": "color",
-        "description": "Primary color active state (dark theme)"
+      "success": {
+        "50": {
+          "value": "oklch(0.80 0.10 150)",
+          "type": "color",
+          "description": "Success default (dark theme)"
+        },
+        "60": {
+          "value": "oklch(0.72 0.09 150)",
+          "type": "color",
+          "description": "Success strong (dark theme)"
+        },
+        "70": {
+          "value": "oklch(0.65 0.08 150)",
+          "type": "color",
+          "description": "Success hover (dark theme)"
+        },
+        "80": {
+          "value": "oklch(0.58 0.07 150)",
+          "type": "color",
+          "description": "Success active (dark theme)"
+        }
+      },
+      "warning": {
+        "50": {
+          "value": "oklch(0.85 0.12 85)",
+          "type": "color",
+          "description": "Warning default (dark theme)"
+        },
+        "60": {
+          "value": "oklch(0.78 0.11 85)",
+          "type": "color",
+          "description": "Warning strong (dark theme)"
+        },
+        "70": {
+          "value": "oklch(0.72 0.10 85)",
+          "type": "color",
+          "description": "Warning hover (dark theme)"
+        },
+        "80": {
+          "value": "oklch(0.65 0.09 85)",
+          "type": "color",
+          "description": "Warning active (dark theme)"
+        }
+      },
+      "error": {
+        "50": {
+          "value": "oklch(0.70 0.13 25)",
+          "type": "color",
+          "description": "Error default (dark theme)"
+        },
+        "60": {
+          "value": "oklch(0.62 0.12 25)",
+          "type": "color",
+          "description": "Error strong (dark theme)"
+        },
+        "70": {
+          "value": "oklch(0.56 0.11 25)",
+          "type": "color",
+          "description": "Error hover (dark theme)"
+        },
+        "80": {
+          "value": "oklch(0.50 0.10 25)",
+          "type": "color",
+          "description": "Error active (dark theme)"
+        }
       },
       "surface": {
         "base": {
-          "value": "oklch(0.15 0.005 0)",
+          "value": "oklch(0.15 0.005 265)",
           "type": "color",
-          "description": "Base surface background color (dark theme)"
+          "description": "Base surface background (dark theme)"
         }
       },
       "text": {
         "primary": {
-          "value": "oklch(0.98 0.002 0)",
+          "value": "{luma.color.neutral.100}",
           "type": "color",
-          "description": "Primary text color (dark theme)"
+          "description": "Primary text color (dark theme) - references inverted scale"
         },
         "secondary": {
-          "value": "oklch(0.65 0.01 0)",
+          "value": "{luma.color.neutral.80}",
           "type": "color",
           "description": "Secondary text color (dark theme)"
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "color": {
+          "value": "oklch(0.70 0.14 232.13 / 0.45)",
+          "type": "color",
+          "description": "Global focus ring color (dark theme) - brighter for dark bg"
         }
       }
     }

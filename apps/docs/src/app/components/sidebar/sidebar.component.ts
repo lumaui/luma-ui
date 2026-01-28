@@ -1,0 +1,35 @@
+import { Component, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DocsRegistryService } from '../../services/docs-registry.service';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [RouterModule],
+  templateUrl: './sidebar.component.html',
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+
+      .active-sidebar {
+        color: var(--luma-color-primary);
+        background-color: rgba(var(--luma-color-primary), 0.05);
+        font-weight: 500;
+      }
+    `,
+  ],
+})
+export class SidebarComponent {
+  private readonly registry = inject(DocsRegistryService);
+
+  readonly categories = this.registry.categories;
+  readonly componentsByCategory = this.registry.componentsByCategory;
+
+  /**
+   * Get components for a specific category
+   */
+  getComponents(category: string) {
+    return this.componentsByCategory().get(category) ?? [];
+  }
+}

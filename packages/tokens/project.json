@@ -1,10 +1,18 @@
 {
-  "name": "@luma/tokens",
+  "name": "tokens",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "packages/tokens/src",
   "tags": ["type:tokens"],
   "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run build",
+        "cwd": "packages/tokens"
+      },
+      "outputs": ["{projectRoot}/build"]
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }

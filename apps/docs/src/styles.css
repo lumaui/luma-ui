@@ -1,0 +1,121 @@
+/* Import Google Fonts - Inter Variable Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Import Tailwind CSS + Luma UI */
+@import '../../../packages/tokens/build/luma.css';
+@import '../../../packages/tokens/build/luma-dark.css';
+
+/* Font smoothing for better typography */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base body styles */
+body {
+  font-family: var(--luma-font-family-base);
+  background: var(--luma-color-surface-base);
+  color: var(--luma-color-text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Active link styles for navigation */
+a.active {
+  color: var(--luma-color-primary);
+  position: relative;
+}
+
+a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--luma-color-primary);
+}
+
+a.active-mobile {
+  color: var(--luma-color-primary);
+  background-color: rgba(var(--luma-color-primary-rgb), 0.1);
+}
+
+/* Code blocks styling */
+pre {
+  margin: 0;
+  font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+}
+
+code {
+  font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+}
+
+pre code.hljs {
+  border-radius: var(--luma-radius-md);
+}
+
+/* Inline code */
+:not(pre) > code {
+  background-color: var(--luma-color-text-secondary);
+  background-color: rgba(var(--luma-color-text-secondary-rgb), 0.1);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--luma-color-primary);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--luma-color-primary);
+  background-color: rgba(var(--luma-color-primary-rgb), 0.2);
+  color: var(--luma-color-text-primary);
+}
+
+/* Scrollbar styling (WebKit browsers) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--luma-color-surface-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--luma-color-text-secondary);
+  background: rgba(var(--luma-color-text-secondary-rgb), 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--luma-color-text-secondary);
+  background: rgba(var(--luma-color-text-secondary-rgb), 0.5);
+}
+
+/* Print styles */
+@media print {
+  header {
+    display: none;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
+
+/* :root {
+  --luma-button-radius: 3px;
+  --luma-button-primary-bg: #ffffff;
+} */

@@ -1,0 +1,146 @@
+name: Publish Luma UI Packages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/*/package.json'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: PROD
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint:all
+
+      - name: Check formatting
+        run: npx prettier --check .
+
+      - name: Run tests
+        run: npm run test:components
+
+      - name: Build tokens
+        run: cd packages/tokens && npm run build
+
+      # Publish @lumaui/tokens
+      - name: Check tokens version
+        id: tokens_version
+        run: |
+          VERSION=$(node -p "require('./packages/tokens/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if npm view @lumaui/tokens@$VERSION version 2>/dev/null; then
+            echo "published=true" >> $GITHUB_OUTPUT
+          else
+            echo "published=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish @lumaui/tokens
+        if: steps.tokens_version.outputs.published == 'false' && !inputs.dry_run
+        run: npm publish --access public --workspace=packages/tokens
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Publish @lumaui/core
+      - name: Check core version
+        id: core_version
+        run: |
+          VERSION=$(node -p "require('./packages/core/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if npm view @lumaui/core@$VERSION version 2>/dev/null; then
+            echo "published=true" >> $GITHUB_OUTPUT
+          else
+            echo "published=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish @lumaui/core
+        if: steps.core_version.outputs.published == 'false' && !inputs.dry_run
+        run: npm publish --access public --workspace=packages/core
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Publish @lumaui/angular
+      - name: Check angular version
+        id: angular_version
+        run: |
+          VERSION=$(node -p "require('./packages/angular/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if npm view @lumaui/angular@$VERSION version 2>/dev/null; then
+            echo "published=true" >> $GITHUB_OUTPUT
+          else
+            echo "published=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish @lumaui/angular
+        if: steps.angular_version.outputs.published == 'false' && !inputs.dry_run
+        run: npm publish --access public --workspace=packages/angular
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Create tags for new versions
+      - name: Create Git Tags
+        if: "!inputs.dry_run"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [[ "${{ steps.tokens_version.outputs.published }}" == "false" ]]; then
+            git tag -a "tokens-v${{ steps.tokens_version.outputs.version }}" -m "Release @lumaui/tokens v${{ steps.tokens_version.outputs.version }}" || true
+            git push origin "tokens-v${{ steps.tokens_version.outputs.version }}" || true
+          fi
+
+          if [[ "${{ steps.core_version.outputs.published }}" == "false" ]]; then
+            git tag -a "core-v${{ steps.core_version.outputs.version }}" -m "Release @lumaui/core v${{ steps.core_version.outputs.version }}" || true
+            git push origin "core-v${{ steps.core_version.outputs.version }}" || true
+          fi
+
+          if [[ "${{ steps.angular_version.outputs.published }}" == "false" ]]; then
+            git tag -a "angular-v${{ steps.angular_version.outputs.version }}" -m "Release @lumaui/angular v${{ steps.angular_version.outputs.version }}" || true
+            git push origin "angular-v${{ steps.angular_version.outputs.version }}" || true
+          fi
+
+      # Summary
+      - name: Summary
+        run: |
+          echo "## Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Package | Version | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| @lumaui/tokens | ${{ steps.tokens_version.outputs.version }} | ${{ steps.tokens_version.outputs.published == 'true' && 'Already published' || 'Published' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| @lumaui/core | ${{ steps.core_version.outputs.version }} | ${{ steps.core_version.outputs.published == 'true' && 'Already published' || 'Published' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| @lumaui/angular | ${{ steps.angular_version.outputs.version }} | ${{ steps.angular_version.outputs.published == 'true' && 'Already published' || 'Published' }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Dry run summary
+        if: inputs.dry_run
+        run: |
+          echo "## Dry Run - Would publish:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          npm pack --dry-run --workspace=packages/tokens 2>&1 | tail -20 >> $GITHUB_STEP_SUMMARY
+          npm pack --dry-run --workspace=packages/core 2>&1 | tail -20 >> $GITHUB_STEP_SUMMARY
+          npm pack --dry-run --workspace=packages/angular 2>&1 | tail -20 >> $GITHUB_STEP_SUMMARY

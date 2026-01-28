@@ -1,11 +1,11 @@
-# @luma/tokens
+# @lumaui/tokens
 
 Design tokens do Luma UI - Neo-Minimal para Tailwind CSS v4.
 
 ## Instalação
 
 ```bash
-npm install @luma/tokens @luma/components tailwindcss@next @tailwindcss/postcss@next
+npm install @lumaui/tokens @lumaui/angular tailwindcss@next @tailwindcss/postcss@next
 ```
 
 ## Uso
@@ -26,20 +26,20 @@ export default {
 **2. Importe tokens no CSS:**
 
 ```css
-@import '@luma/tokens/luma.css';
-@import '@luma/tokens/luma-dark.css';
+@import '@lumaui/tokens/luma.css';
+@import '@lumaui/tokens/luma-dark.css';
 ```
 
 **3. Use as classes:**
 
 ```html
-<button class="bg-primary text-white rounded-luma-md px-6 py-3">
+<button class="lm-bg-primary text-white lm-rounded-md px-6 py-3">
   Continuar
 </button>
 
-<div class="bg-surface-base text-text-primary">
-  <h1 class="text-luma-lg">Título</h1>
-  <p class="text-text-secondary">Descrição</p>
+<div class="lm-bg-surface-base lm-text-primary">
+  <h1 class="lm-text-lg">Título</h1>
+  <p class="lm-text-secondary">Descrição</p>
 </div>
 ```
 
@@ -50,7 +50,7 @@ export default {
 Para sobrescrever tokens, defina após o import:
 
 ```css
-@import '@luma/tokens/luma.css';
+@import '@lumaui/tokens/luma.css';
 
 @theme {
   /* Override primary color */
@@ -61,7 +61,7 @@ Para sobrescrever tokens, defina após o import:
 ### Tema Customizado
 
 ```css
-@import '@luma/tokens/luma.css';
+@import '@lumaui/tokens/luma.css';
 
 .theme-ocean {
   --color-primary: oklch(0.55 0.12 200); /* Azul oceano */
@@ -71,7 +71,7 @@ Para sobrescrever tokens, defina após o import:
 
 ```html
 <div class="theme-ocean">
-  <button class="bg-primary">Ocean Theme</button>
+  <button class="lm-bg-primary">Ocean Theme</button>
 </div>
 ```
 
@@ -90,7 +90,7 @@ Ou em um contexto específico:
 ```html
 <div class="dark">
   <!-- Apenas este contexto usará dark theme -->
-  <button class="bg-primary">Dark Button</button>
+  <button class="lm-bg-primary">Dark Button</button>
 </div>
 ```
 
@@ -98,42 +98,42 @@ Ou em um contexto específico:
 
 ### Cores
 
-| Token                        | Descrição                 | Classes Geradas                                |
-| ---------------------------- | ------------------------- | ---------------------------------------------- |
-| `--color-primary`            | Cor primária              | `bg-primary`, `text-primary`, `border-primary` |
-| `--color-primary-hover`      | Hover da cor primária     | `bg-primary-hover`                             |
-| `--color-primary-active`     | Active da cor primária    | `bg-primary-active`                            |
-| `--color-surface-base`       | Cor de fundo base         | `bg-surface-base`                              |
-| `--color-text-primary`       | Cor de texto primária     | `text-text-primary`                            |
-| `--color-text-secondary`     | Cor de texto secundária   | `text-text-secondary`                          |
-| `--color-card-background`    | Background do card        | `bg-card-background`                           |
-| `--color-card-gradient-from` | Gradiente inicial do card | `from-card-gradient-from`                      |
-| `--color-card-gradient-to`   | Gradiente final do card   | `to-card-gradient-to`                          |
+| Token                        | Descrição                 | Classes Geradas                                   |
+| ---------------------------- | ------------------------- | ------------------------------------------------- |
+| `--color-primary`            | Cor primária              | `lm-bg-primary`, `text-primary`, `border-primary` |
+| `--color-primary-hover`      | Hover da cor primária     | `lm-bg-primary-hover`                             |
+| `--color-primary-active`     | Active da cor primária    | `lm-bg-primary-active`                            |
+| `--color-surface-base`       | Cor de fundo base         | `lm-bg-surface-base`                              |
+| `--color-text-primary`       | Cor de texto primária     | `lm-text-primary`                                 |
+| `--color-text-secondary`     | Cor de texto secundária   | `lm-text-secondary`                               |
+| `--color-card-background`    | Background do card        | `lm-bg-card-background`                           |
+| `--color-card-gradient-from` | Gradiente inicial do card | `lm-from-card-gradient-from`                      |
+| `--color-card-gradient-to`   | Gradiente final do card   | `lm-to-card-gradient-to`                          |
 
 ### Tipografia
 
-| Token                | Valor Padrão        | Classe           |
-| -------------------- | ------------------- | ---------------- |
-| `--text-luma-sm`     | 0.75rem (12px)      | `text-luma-sm`   |
-| `--text-luma-base`   | 1rem (16px)         | `text-luma-base` |
-| `--text-luma-lg`     | 1.875rem (30px)     | `text-luma-lg`   |
-| `--font-family-base` | Inter, system fonts | -                |
+| Token                | Valor Padrão        | Classe         |
+| -------------------- | ------------------- | -------------- |
+| `--lm-text-sm`       | 0.75rem (12px)      | `lm-text-sm`   |
+| `--lm-text-base`     | 1rem (16px)         | `lm-text-base` |
+| `--lm-text-lg`       | 1.875rem (30px)     | `lm-text-lg`   |
+| `--font-family-base` | Inter, system fonts | -              |
 
 ### Border Radius
 
 | Token                | Valor Padrão | Classe              |
 | -------------------- | ------------ | ------------------- |
-| `--radius-luma-sm`   | 6px          | `rounded-luma-sm`   |
-| `--radius-luma-md`   | 10px         | `rounded-luma-md`   |
-| `--radius-luma-lg`   | 18px         | `rounded-luma-lg`   |
+| `--radius-luma-sm`   | 6px          | `lm-rounded-sm`     |
+| `--radius-luma-md`   | 10px         | `lm-rounded-md`     |
+| `--radius-luma-lg`   | 18px         | `lm-rounded-lg`     |
 | `--radius-luma-full` | 9999px       | `rounded-luma-full` |
 
 ### Transições
 
-| Token                  | Valor Padrão | Classe               |
-| ---------------------- | ------------ | -------------------- |
-| `--duration-luma-fast` | 150ms        | `duration-luma-fast` |
-| `--duration-luma-base` | 200ms        | `duration-luma-base` |
+| Token                | Valor Padrão | Classe             |
+| -------------------- | ------------ | ------------------ |
+| `--lm-duration-fast` | 150ms        | `lm-duration-fast` |
+| `--lm-duration-base` | 200ms        | `lm-duration-base` |
 
 ### Espaçamento
 
@@ -194,7 +194,7 @@ Para converter suas cores RGB para OKLCH, use ferramentas online como:
 
 `--color-primary` gera automaticamente:
 
-- `bg-primary`
+- `lm-bg-primary`
 - `text-primary`
 - `border-primary`
 - `fill-primary`
@@ -215,7 +215,7 @@ Para converter suas cores RGB para OKLCH, use ferramentas online como:
 ## Estrutura do Pacote
 
 ```
-@luma/tokens/
+@lumaui/tokens/
 ├── src/
 │   ├── luma.css           # Tokens principais (light theme)
 │   ├── luma-dark.css      # Dark theme overrides
@@ -258,8 +258,8 @@ export default {
 @tailwind utilities;
 
 /* Depois */
-@import '@luma/tokens/luma.css';
-@import '@luma/tokens/luma-dark.css';
+@import '@lumaui/tokens/luma.css';
+@import '@lumaui/tokens/luma-dark.css';
 ```
 
 4. **Delete tailwind.config.ts** - Não é mais necessário!

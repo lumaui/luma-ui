@@ -1,22 +1,80 @@
 {
   "luma": {
     "card": {
-      "background": {
-        "value": "oklch(0.17 0 0)",
-        "type": "color",
-        "description": "Card background color (dark theme)"
+      "shadow": {
+        "background": {
+          "value": "oklch(0.18 0.005 265)",
+          "type": "color",
+          "description": "Shadow card background (dark theme)"
+        },
+        "border": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Shadow card border (dark theme)"
+        },
+        "shadow": {
+          "value": "0 8px 24px oklch(0 0 0 / 0.25)",
+          "type": "shadow",
+          "description": "Shadow card elevation (dark theme) - stronger for dark bg"
+        }
+      },
+      "nested": {
+        "background": {
+          "value": "{luma.color.neutral.50}",
+          "type": "color",
+          "description": "Nested card background (dark theme)"
+        },
+        "border": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Nested card border (dark theme)"
+        }
+      },
+      "preview": {
+        "background": {
+          "value": "{luma.color.neutral.50}",
+          "type": "color",
+          "description": "Preview container background (dark theme)"
+        },
+        "border": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Preview container border (dark theme)"
+        }
       },
       "gradient": {
         "from": {
-          "value": "oklch(0.25 0.01 0 / 0.6)",
+          "value": "oklch(0.25 0.01 265 / 0.6)",
           "type": "color",
-          "description": "Card gradient start color (dark theme)"
+          "description": "Card gradient start color (dark theme legacy)"
         },
         "to": {
-          "value": "oklch(0.2 0.008 0 / 0.6)",
+          "value": "oklch(0.2 0.008 265 / 0.6)",
           "type": "color",
-          "description": "Card gradient end color (dark theme)"
+          "description": "Card gradient end color (dark theme legacy)"
         }
+      },
+      "background": {
+        "value": "oklch(0.17 0.005 265)",
+        "type": "color",
+        "description": "Legacy card background (dark theme)"
+      },
+      "box-shadow": {
+        "value": "0px 2px 0 0px oklch(0 0 0 / 0.3)",
+        "type": "shadow",
+        "description": "Legacy card shadow (dark theme)"
+      }
+    },
+    "code": {
+      "background": {
+        "value": "oklch(0.08 0.005 265)",
+        "type": "color",
+        "description": "Code block background (dark theme) - even darker"
+      },
+      "border": {
+        "value": "oklch(0.20 0.008 265)",
+        "type": "color",
+        "description": "Code block border (dark theme)"
       }
     }
   }

@@ -1,27 +1,110 @@
 {
   "luma": {
     "card": {
-      "background": {
-        "value": "oklch(0.99 0 0)",
-        "type": "color",
-        "description": "Card background color"
+      "shadow": {
+        "background": {
+          "value": "oklch(1 0 0)",
+          "type": "color",
+          "description": "Shadow card background - white surface"
+        },
+        "border": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Shadow card border - subtle separator"
+        },
+        "shadow": {
+          "value": "0 8px 24px oklch(0.22 0.01 265 / 0.06)",
+          "type": "shadow",
+          "description": "Shadow card elevation - soft shadow with neutral-100 at 6% alpha"
+        },
+        "radius": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Shadow card border radius - generous for Neo-Minimal feel"
+        }
+      },
+      "nested": {
+        "background": {
+          "value": "{luma.color.neutral.50}",
+          "type": "color",
+          "description": "Nested card background - subtle surface differentiation"
+        },
+        "border": {
+          "value": "{luma.color.neutral.50}",
+          "type": "color",
+          "description": "Nested card border"
+        },
+        "radius": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Nested card border radius - slightly smaller than product"
+        }
+      },
+      "preview": {
+        "background": {
+          "value": "{luma.color.neutral.50}",
+          "type": "color",
+          "description": "Preview container background - for documentation examples"
+        },
+        "border": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Preview container border"
+        },
+        "radius": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Preview container border radius"
+        }
       },
       "gradient": {
         "from": {
           "value": "oklch(0.92 0.005 0 / 0.6)",
           "type": "color",
-          "description": "Card gradient start color"
+          "description": "Card gradient start color (legacy)"
         },
         "to": {
           "value": "oklch(0.96 0.003 0 / 0.6)",
           "type": "color",
-          "description": "Card gradient end color"
+          "description": "Card gradient end color (legacy)"
         }
+      },
+      "background": {
+        "value": "oklch(1 0 0)",
+        "type": "color",
+        "description": "Legacy card background - use product variant instead"
       },
       "padding": {
         "value": "1.5rem",
         "type": "dimension",
-        "description": "Card padding"
+        "description": "Default card padding"
+      },
+      "box-shadow": {
+        "value": "0px 2px 0 0px #e4e4e4",
+        "type": "shadow",
+        "description": "Legacy card shadow - use product.shadow instead"
+      }
+    },
+    "code": {
+      "background": {
+        "value": "oklch(0.12 0.005 265)",
+        "type": "color",
+        "description": "Code block background - dark editor style"
+      },
+      "text": {
+        "value": "oklch(0.9 0 0)",
+        "type": "color",
+        "description": "Code block text color"
+      },
+      "border": {
+        "value": "oklch(0.25 0.008 265)",
+        "type": "color",
+        "description": "Code block border"
+      },
+      "radius": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Code block border radius"
       }
     }
   }

@@ -215,7 +215,7 @@ This is an Nx workspace organized as an npm workspaces monorepo with the followi
 - All components are Angular standalone (no NgModules)
 - Use CVA for variant management with TypeScript type safety
 - Components export both the component class and supporting directives/types
-- Tailwind CSS classes reference design tokens (e.g., `rounded-luma-md`, `text-luma-base`)
+- Tailwind CSS classes reference design tokens (e.g., `lm-rounded-md`, `lm-text-base`)
 
 **Styling Approach:**
 
@@ -317,7 +317,7 @@ npm run watch         # Watch mode for both themes
 Style Dictionary generates:
 
 - CSS custom properties with `--luma-*` prefix
-- Tailwind utilities for each token (e.g., `@utility bg-button-primary-bg`)
+- Tailwind utilities for each token (e.g., `@utility lm-bg-button-primary`)
 - Light theme in `@theme` block, dark theme in `.dark` selector
 
 **Adding New Tokens:**
@@ -327,6 +327,43 @@ Style Dictionary generates:
 3. Update `config.js` and `config.dark.js` source arrays to include new files
 4. Run `npm run build` to generate CSS
 5. Use tokens in components via Tailwind utilities or CSS variables
+
+### Token Import Rules (CRITICAL)
+
+**Always import from `build/`, never from `src/`:**
+
+```css
+/* ✅ CORRECT - Use generated files */
+@import '@lumaui/tokens/build/luma.css';
+@import '@lumaui/tokens/build/luma-dark.css';
+
+/* ❌ WRONG - Source files may be outdated */
+@import '@lumaui/tokens/src/luma.css';
+@import '@lumaui/tokens/src/luma-dark.css';
+```
+
+**Why this matters:**
+
+- `src/` contains **source JSON files** and manual template files that may be outdated
+- `build/` contains **Style Dictionary generated output** with all current tokens
+- New tokens added to JSON files only appear in `build/` after running `npm run build`
+
+**Token Flow:**
+
+```text
+src/components/**/*.json  →  Style Dictionary  →  build/luma.css
+     (source)                  (config.js)          (output)
+```
+
+**When adding new tokens:**
+
+1. Add to `src/components/<component>/<component>.json`
+2. Add dark version to `<component>.dark.json`
+3. Update `config.js` to generate utility (if needed)
+4. Run `npm run build` (or tokens build)
+5. The token is now available in `build/luma.css`
+
+> **Warning:** If a new token is not appearing in the browser, check that you're importing from `build/` not `src/`. This is the most common cause of "missing token" issues.
 
 ### Token Creation Best Practices
 
@@ -541,7 +578,7 @@ Components need BOTH duration AND timing function for smooth transitions. Use Ta
 ```typescript
 // ❌ Incomplete - Missing timing function token
 'transition-colors',
-'duration-luma-base',
+'lm-duration-base',
 
 // ✅ Complete - Uses all transition tokens with correct syntax
 'transition-[color_var(--luma-button-transition-duration)_var(--luma-button-transition-timing)]',
@@ -1167,7 +1204,7 @@ In Angular 20+ with dev mode, changing input values after `detectChanges()` caus
 it('should update classes when variant changes', () => {
   hostComponent.variant = 'primary';
   fixture.detectChanges();
-  expect(directive.classes()).toContain('bg-button-primary-bg');
+  expect(directive.classes()).toContain('lm-bg-button-primary');
 
   // ❌ This causes ExpressionChangedAfterItHasBeenCheckedError!
   hostComponent.variant = 'outline';
@@ -1182,13 +1219,13 @@ describe('Input Reactivity', () => {
   it('should apply primary variant classes', () => {
     hostComponent.variant = 'primary';
     fixture.detectChanges();
-    expect(directive.classes()).toContain('bg-button-primary-bg');
+    expect(directive.classes()).toContain('lm-bg-button-primary');
   });
 
   it('should apply outline variant classes', () => {
     hostComponent.variant = 'outline';
     fixture.detectChanges();
-    expect(directive.classes()).toContain('border-button-outline-border');
+    expect(directive.classes()).toContain('lm-border-button-outline-border');
   });
 });
 ```
@@ -1435,38 +1472,71 @@ export class ComponentNameComponent {
 
 **Documentation (`<component-name>.docs.md`):**
 
+Documentation files use **YAML front matter** to define metadata that powers the auto-generated docs site. The docs app reads this metadata at build time via `npm run generate-docs`.
+
 ```markdown
+---
+name: Component Name
+type: component | directive
+selector: luma-component | element[lumaDirective]
+category: Form | Layout | Feedback
+description: Brief description of the component's purpose
+inputs:
+  - name: variant
+    type: "'default' | 'secondary'"
+    default: "'default'"
+    description: Visual style variant
+  - name: size
+    type: "'sm' | 'md' | 'lg'"
+    default: "'md'"
+    description: Size variant
+tokens:
+  - name: --luma-component-bg
+    value: oklch(0.99 0 0)
+    description: Component background color
+  - name: --luma-component-text
+    value: oklch(0.2 0 0)
+    description: Component text color
+---
+
 # Component Name
 
 ## Purpose
 
 Brief description of the component's purpose and use case.
 
-## Inputs
-
-- `variant`: 'default' | 'secondary' - Visual variant
-- `size`: 'sm' | 'md' | 'lg' - Size variant
-
-## Outputs
-
-- `clicked`: Event emitted on click
-
-## States
-
-- Default: Base appearance
-- Hover: [description]
-- Focus: [description]
-- Active: [description]
-- Disabled: [description]
-
 ## Usage Examples
 
+### Basic Usage
+
 \`\`\`html
-<luma-component-name variant="default" size="md">
-Content
-</luma-component-name>
+<luma-component>Content</luma-component>
 \`\`\`
+
+### With Variants
+
+\`\`\`html
+<luma-component variant="secondary" size="lg">
+Large secondary content
+</luma-component>
+\`\`\`
+
+## Accessibility
+
+Document accessibility features, ARIA attributes, and keyboard navigation.
+
+## Neo-Minimal Principles
+
+Explain how the component follows Neo-Minimal design philosophy.
 ```
+
+**After creating the docs file:**
+
+```bash
+npm run generate-docs  # Regenerates apps/docs/src/generated/docs-registry.json
+```
+
+The component will automatically appear in the sidebar and be accessible at `/components/{slug}`.
 
 #### 5. Implement Modern Accessibility
 
@@ -1588,6 +1658,190 @@ const componentVariants = cva(
   },
 );
 ```
+
+### Input Naming Convention
+
+All Luma directive inputs use the `lm` prefix to clearly distinguish them from native HTML attributes and other libraries.
+
+**Pattern:** `lm` + PascalCase of the original name
+
+| Original   | Prefixed     | Component                                                     |
+| ---------- | ------------ | ------------------------------------------------------------- |
+| `variant`  | `lmVariant`  | ButtonDirective                                               |
+| `size`     | `lmSize`     | ButtonDirective, CardTitleDirective, CardDescriptionDirective |
+| `disabled` | `lmDisabled` | ButtonDirective                                               |
+| `type`     | `lmType`     | ButtonDirective                                               |
+
+**Usage Example:**
+
+```html
+<button lumaButton lmVariant="primary" lmSize="lg" [lmDisabled]="isLoading">
+  Submit
+</button>
+
+<h3 lumaCardTitle lmSize="large">Card Title</h3>
+<p lumaCardDescription lmSize="small">Description text</p>
+```
+
+**Why the prefix:**
+
+- Differentiates Luma inputs from native HTML attributes (`disabled` vs `lmDisabled`)
+- Avoids conflicts with other libraries or custom attributes
+- Makes Luma usage explicit and easy to identify in templates
+- Follows Angular best practices for directive input naming
+
+**TypeScript Implementation:**
+
+```typescript
+@Directive({
+  selector: 'button[lumaButton]',
+  host: {
+    '[attr.disabled]': 'lmDisabled() ? "" : null',
+  },
+})
+export class ButtonDirective {
+  lmVariant = input<ButtonVariant>('primary');
+  lmSize = input<ButtonSize>('md');
+  lmDisabled = input<boolean>(false);
+  lmType = input<'button' | 'submit' | 'reset'>('button');
+}
+```
+
+### Utility Class Naming Convention
+
+All Luma utility classes use the `lm-` prefix to clearly distinguish them from native Tailwind utilities and other libraries.
+
+**Pattern:** `lm-` + property + token-path
+
+| Category   | Pattern                            | Example                                  |
+| ---------- | ---------------------------------- | ---------------------------------------- |
+| Background | `lm-bg-{token}`                    | `lm-bg-card-product`, `lm-bg-primary-50` |
+| Text       | `lm-text-{token}`                  | `lm-text-primary`, `lm-text-secondary`   |
+| Border     | `lm-border-{token}`                | `lm-border-neutral-60`                   |
+| Radius     | `lm-rounded-{size}`                | `lm-rounded-lg`                          |
+| Shadow     | `lm-shadow-{token}`                | `lm-shadow-card-product`                 |
+| Padding    | `lm-p-{token}`                     | `lm-p-card`                              |
+| Gradient   | `lm-from-{token}`, `lm-to-{token}` | `lm-from-card-gradient-from`             |
+| Focus      | `lm-ring-focus`                    | `lm-ring-focus`                          |
+
+**Usage in CVA:**
+
+```typescript
+export const buttonVariants = cva([...], {
+  variants: {
+    variant: {
+      primary: [
+        'lm-bg-button-primary',
+        'hover:lm-bg-button-primary-hover',
+        'lm-text-button-primary',
+      ],
+      outline: [
+        'lm-border-button-outline',
+        'hover:lm-border-button-outline-hover',
+        'lm-text-button-outline',
+      ],
+    },
+  },
+});
+```
+
+**Why the prefix:**
+
+- Differentiates Luma utilities from native Tailwind classes
+- Avoids conflicts with other libraries or custom utilities
+- Makes Luma usage explicit and easy to identify in templates
+- Easy to filter in browser DevTools (`lm-*`)
+- Follows common design system practices (e.g., `tw-`, `mantine-`)
+
+### Documentation System (Single Source of Truth)
+
+The documentation system uses `.docs.md` files as the **single source of truth**. A build-time script extracts metadata and generates a registry that powers the docs app.
+
+**Architecture:**
+
+```text
+packages/angular/src/lib/
+├── button/
+│   ├── button.directive.ts
+│   └── button.docs.md          ← Source of truth
+├── card/
+│   ├── card.component.ts
+│   └── card.docs.md            ← Source of truth
+└── ...
+
+tools/
+└── generate-docs-registry.ts   ← Build-time script
+
+apps/docs/src/
+├── generated/
+│   └── docs-registry.json      ← Generated at build time
+└── app/
+    ├── services/
+    │   └── docs-registry.service.ts
+    └── pages/
+        └── component-docs/     ← Dynamic component
+```
+
+**Key Commands:**
+
+```bash
+npm run generate-docs    # Generate registry from .docs.md files
+npm run dev              # Runs generate-docs automatically before serve
+npm run build            # Runs generate-docs automatically before build
+```
+
+**Front Matter Schema:**
+
+| Field         | Type                           | Required | Description                                   |
+| ------------- | ------------------------------ | -------- | --------------------------------------------- |
+| `name`        | string                         | Yes      | Display name (e.g., "Button")                 |
+| `type`        | `'component'` \| `'directive'` | Yes      | Component type                                |
+| `selector`    | string                         | Yes      | Angular selector                              |
+| `category`    | string                         | Yes      | Sidebar category (Form, Layout, Feedback)     |
+| `description` | string                         | Yes      | Brief description                             |
+| `inputs`      | array                          | No       | List of input properties                      |
+| `tokens`      | array                          | No       | List of CSS custom properties                 |
+| `directives`  | array                          | No       | Sub-directives (for compositional components) |
+
+**Input Schema:**
+
+```yaml
+inputs:
+  - name: variant # Input name
+    type: "'a' | 'b'" # TypeScript type (quoted for literals)
+    default: "'a'" # Default value
+    description: '...' # Description
+```
+
+**Token Schema:**
+
+```yaml
+tokens:
+  - name: --luma-component-bg # CSS variable name
+    value: oklch(0.99 0 0) # Default value
+    description: '...' # Description
+```
+
+**Markdown Sections:**
+
+The generator extracts these sections from the markdown content:
+
+- `## Purpose` → `sections.purpose`
+- `## Accessibility` → `sections.accessibility`
+- `## Neo-Minimal Principles` → `sections.neoMinimal`
+- `## Usage Examples` → `sections.usage`
+
+Code blocks under `### Heading` become examples with the heading as title.
+
+**Key Files:**
+
+| File                                                                 | Purpose                                  |
+| -------------------------------------------------------------------- | ---------------------------------------- |
+| `tools/generate-docs-registry.ts`                                    | Parses .docs.md files and generates JSON |
+| `apps/docs/src/generated/docs-registry.json`                         | Generated registry (git-ignored)         |
+| `apps/docs/src/app/services/docs-registry.service.ts`                | Signal-based service for registry access |
+| `apps/docs/src/app/pages/component-docs/component-docs.component.ts` | Dynamic docs page                        |
+| `apps/docs/src/app/app.routes.server.ts`                             | SSR prerendering config                  |
 
 ## Important Nx Commands
 

@@ -3,39 +3,39 @@
     "button": {
       "primary": {
         "bg": {
-          "value": "{luma.color.primary}",
+          "value": "{luma.color.primary.50}",
           "type": "color",
           "description": "Primary button background (dark theme)"
         },
         "bg-hover": {
-          "value": "oklch(0.69 0.12 230)",
+          "value": "{luma.color.primary.70}",
           "type": "color",
           "description": "Primary button hover background (dark theme)"
         },
         "bg-active": {
-          "value": "oklch(0.74 0.13 230)",
+          "value": "{luma.color.primary.80}",
           "type": "color",
           "description": "Primary button active background (dark theme)"
         },
         "text": {
           "value": "oklch(0.1 0 0)",
           "type": "color",
-          "description": "Primary button text color (dark theme)"
+          "description": "Primary button text color (dark theme) - dark text on light bg"
         }
       },
       "outline": {
         "border": {
-          "value": "{luma.color.text.secondary}",
+          "value": "{luma.color.neutral.60}",
           "type": "color",
           "description": "Outline button border color (dark theme)"
         },
         "border-hover": {
-          "value": "{luma.color.text.primary}",
+          "value": "{luma.color.neutral.90}",
           "type": "color",
           "description": "Outline button hover border color (dark theme)"
         },
         "bg-hover": {
-          "value": "oklch(0.20 0.01 230)",
+          "value": "{luma.color.neutral.50}",
           "type": "color",
           "description": "Outline button hover background (dark theme)"
         },
@@ -52,7 +52,7 @@
           "description": "Ghost button background (dark theme)"
         },
         "bg-hover": {
-          "value": "oklch(0.20 0.01 230)",
+          "value": "{luma.color.neutral.50}",
           "type": "color",
           "description": "Ghost button hover background (dark theme)"
         },
@@ -64,31 +64,31 @@
       },
       "danger": {
         "bg": {
-          "value": "oklch(0.60 0.24 25)",
+          "value": "{luma.color.error.50}",
           "type": "color",
           "description": "Danger button background (dark theme)"
         },
         "bg-hover": {
-          "value": "oklch(0.65 0.25 25)",
+          "value": "{luma.color.error.70}",
           "type": "color",
           "description": "Danger button hover background (dark theme)"
         },
         "bg-active": {
-          "value": "oklch(0.70 0.26 25)",
+          "value": "{luma.color.error.80}",
           "type": "color",
           "description": "Danger button active background (dark theme)"
         },
         "text": {
           "value": "oklch(0.1 0 0)",
           "type": "color",
-          "description": "Danger button text color (dark theme)"
+          "description": "Danger button text color (dark theme) - dark text on light bg"
         }
       },
       "focus": {
         "ring-color": {
-          "value": "oklch(0.64 0.12 230 / 0.25)",
+          "value": "{luma.focus.ring.color}",
           "type": "color",
-          "description": "Button focus ring color (dark theme)"
+          "description": "Button focus ring color (dark theme) - references global focus token"
         }
       }
     }

@@ -1,0 +1,24 @@
+<aside
+  class="hidden md:block w-64 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto"
+>
+  <nav class="p-6 pt-2 space-y-6">
+    @for (category of categories(); track category) {
+      <div>
+        <div
+          class="text-xs font-semibold lm-text-secondary tracking-wider mb-3"
+        >
+          {{ category }}
+        </div>
+        @for (comp of getComponents(category); track comp.slug) {
+          <a
+            [routerLink]="'/components/' + comp.slug"
+            routerLinkActive="active-sidebar"
+            class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          >
+            {{ comp.name }}
+          </a>
+        }
+      </div>
+    }
+  </nav>
+</aside>

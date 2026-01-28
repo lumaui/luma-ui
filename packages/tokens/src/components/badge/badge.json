@@ -2,7 +2,7 @@
   "luma": {
     "badge": {
       "color": {
-        "value": "{luma.color.primary}",
+        "value": "{luma.color.primary.50}",
         "type": "color",
         "description": "Badge text color"
       },

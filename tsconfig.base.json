@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@luma/components": ["packages/components/src/index.ts"]
+      "@lumaui/tokens": ["packages/tokens/src/index.ts"],
+      "@lumaui/core": ["packages/core/src/index.ts"],
+      "@lumaui/angular": ["packages/angular/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

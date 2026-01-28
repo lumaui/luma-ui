@@ -1,0 +1,89 @@
+<!-- Token Row - Responsive layout for displaying design tokens -->
+<div
+  class="lm-bg-card-nested lm-border-card-nested border lm-rounded-card-nested p-4 mb-3"
+>
+  <!-- Desktop Layout -->
+  <div class="flex flex-col md:flex-row md:items-center gap-4">
+    <!-- Preview Section -->
+    <div class="flex items-center gap-3 md:w-24 shrink-0">
+      @switch (token().category) {
+        @case ('color') {
+          <!-- Color swatch -->
+          <div
+            class="w-10 h-10 rounded-full border lm-border-neutral-60 shrink-0"
+            [style.backgroundColor]="token().value"
+          ></div>
+        }
+        @case ('radius') {
+          <!-- Radius preview -->
+          <div
+            class="w-10 h-10 lm-bg-primary-50 shrink-0"
+            [style.borderRadius]="token().value"
+          ></div>
+        }
+        @case ('shadow') {
+          <!-- Shadow preview -->
+          <div
+            class="w-10 h-10 lm-bg-card-product rounded-lg shrink-0"
+            [style.boxShadow]="token().value"
+          ></div>
+        }
+        @case ('spacing') {
+          <!-- Spacing preview -->
+          <div class="flex items-center h-10 shrink-0">
+            <div
+              class="h-4 lm-bg-primary-50 rounded"
+              [style.width]="token().value"
+            ></div>
+          </div>
+        }
+        @case ('typography') {
+          <!-- Typography preview -->
+          <div
+            class="lm-text-primary font-medium shrink-0"
+            [style.fontSize]="token().value"
+          >
+            Aa
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Token Info -->
+    <div class="flex-1 min-w-0">
+      <!-- Token name -->
+      <code class="text-sm font-mono lm-text-primary block truncate">
+        {{ token().name }}
+      </code>
+
+      <!-- Category and value -->
+      <div class="flex flex-wrap items-center gap-2 mt-1">
+        <span class="text-xs lm-text-secondary">{{ categoryLabel() }}</span>
+        <span class="text-xs lm-text-secondary">·</span>
+        <code class="text-xs font-mono lm-text-secondary truncate">{{
+          token().value
+        }}</code>
+      </div>
+
+      <!-- Description (if provided) -->
+      @if (token().description) {
+        <p class="text-xs lm-text-secondary mt-1">{{ token().description }}</p>
+      }
+    </div>
+
+    <!-- Copy button -->
+    <div class="shrink-0">
+      <button
+        type="button"
+        (click)="copyToken()"
+        class="px-3 py-1.5 text-xs font-medium lm-text-primary border lm-border-neutral-60 lm-rounded-md hover:lm-bg-neutral-50 transition-colors"
+      >
+        @if (copied) {
+          Copied!
+        } @else {
+          Copy token
+        }
+      </button>
+    </div>
+  </div>
+</div>

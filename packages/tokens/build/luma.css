@@ -1,15 +1,39 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   /* Luma Design System Tokens */
 
   /* Color */
-  --luma-color-primary: oklch(0.54 0.1 230);
-  --luma-color-primary-hover: oklch(0.49 0.09 230);
-  --luma-color-primary-active: oklch(0.44 0.08 230);
-  --luma-color-surface-base: oklch(0.98 0 0);
-  --luma-color-text-primary: oklch(0.2 0.005 0);
-  --luma-color-text-secondary: oklch(0.5 0.01 0);
+  --luma-color-primary-50: oklch(0.63 0.14 232.13);
+  --luma-color-primary-60: oklch(0.56 0.13 232.13);
+  --luma-color-primary-70: oklch(0.49 0.12 232.13);
+  --luma-color-primary-80: oklch(0.43 0.11 232.13);
+  --luma-color-neutral-50: oklch(0.99 0 0);
+  --luma-color-neutral-60: oklch(0.92 0.008 265);
+  --luma-color-neutral-70: oklch(0.85 0.01 265);
+  --luma-color-neutral-80: oklch(0.45 0.01 265);
+  --luma-color-neutral-90: oklch(0.45 0.01 265);
+  --luma-color-neutral-100: oklch(0.22 0.01 265);
+  --luma-color-success-50: oklch(0.72 0.08 150);
+  --luma-color-success-60: oklch(0.65 0.07 150);
+  --luma-color-success-70: oklch(0.58 0.06 150);
+  --luma-color-success-80: oklch(0.52 0.05 150);
+  --luma-color-warning-50: oklch(0.78 0.10 85);
+  --luma-color-warning-60: oklch(0.72 0.09 85);
+  --luma-color-warning-70: oklch(0.65 0.08 85);
+  --luma-color-warning-80: oklch(0.58 0.07 85);
+  --luma-color-error-50: oklch(0.62 0.11 25);
+  --luma-color-error-60: oklch(0.56 0.10 25);
+  --luma-color-error-70: oklch(0.50 0.09 25);
+  --luma-color-error-80: oklch(0.44 0.08 25);
+  --luma-color-surface-base: oklch(1 0 0);
+  --luma-color-text-primary: oklch(0.22 0.01 265);
+  --luma-color-text-secondary: oklch(0.45 0.01 265);
+
+  /* Focus */
+  --luma-focus-ring-color: oklch(0.63 0.14 232.13 / 0.45);
+  --luma-focus-ring-width: 2px;
+  --luma-focus-ring-offset: 2px;
 
   /* Spacing */
   --luma-spacing-xs: 0.25rem;
@@ -25,8 +49,7 @@
   --luma-radius-full: 9999px;
 
   /* Font */
-  --luma-font-family-base:
-    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --luma-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --luma-font-weight-regular: 400;
   --luma-font-weight-medium: 500;
   --luma-font-weight-semibold: 600;
@@ -49,20 +72,20 @@
   --luma-transition-ease: ease-out;
 
   /* Button */
-  --luma-button-primary-bg: oklch(0.54 0.1 230);
-  --luma-button-primary-bg-hover: oklch(0.49 0.09 230);
-  --luma-button-primary-bg-active: oklch(0.44 0.08 230);
+  --luma-button-primary-bg: oklch(0.63 0.14 232.13);
+  --luma-button-primary-bg-hover: oklch(0.49 0.12 232.13);
+  --luma-button-primary-bg-active: oklch(0.43 0.11 232.13);
   --luma-button-primary-text: oklch(1 0 0);
-  --luma-button-outline-border: oklch(0.5 0.01 0);
-  --luma-button-outline-border-hover: oklch(0.2 0.005 0);
-  --luma-button-outline-bg-hover: oklch(0.96 0.01 230);
-  --luma-button-outline-text: oklch(0.2 0.005 0);
+  --luma-button-outline-border: oklch(0.92 0.008 265);
+  --luma-button-outline-border-hover: oklch(0.45 0.01 265);
+  --luma-button-outline-bg-hover: oklch(0.99 0 0);
+  --luma-button-outline-text: oklch(0.22 0.01 265);
   --luma-button-ghost-bg: rgba(0, 0, 0, 0);
-  --luma-button-ghost-bg-hover: oklch(0.96 0.01 230);
-  --luma-button-ghost-text: oklch(0.2 0.005 0);
-  --luma-button-danger-bg: oklch(0.55 0.22 25);
-  --luma-button-danger-bg-hover: oklch(0.5 0.2 25);
-  --luma-button-danger-bg-active: oklch(0.45 0.18 25);
+  --luma-button-ghost-bg-hover: oklch(0.99 0 0);
+  --luma-button-ghost-text: oklch(0.22 0.01 265);
+  --luma-button-danger-bg: oklch(0.62 0.11 25);
+  --luma-button-danger-bg-hover: oklch(0.50 0.09 25);
+  --luma-button-danger-bg-active: oklch(0.44 0.08 25);
   --luma-button-danger-text: oklch(1 0 0);
   --luma-button-padding-x-sm: 1rem;
   --luma-button-padding-x-md: 1.5rem;
@@ -74,185 +97,527 @@
   --luma-button-transition-duration: 200ms;
   --luma-button-transition-timing: ease-out;
   --luma-button-focus-ring-width: 2px;
-  --luma-button-focus-ring-color: oklch(0.54 0.1 230 / 0.25);
+  --luma-button-focus-ring-color: oklch(0.63 0.14 232.13 / 0.45);
 
   /* Card */
-  --luma-card-background: oklch(0.99 0 0);
+  --luma-card-shadow-background: oklch(1 0 0);
+  --luma-card-shadow-border: oklch(0.92 0.008 265);
+  --luma-card-shadow-shadow: 0 8px 24px oklch(0.22 0.01 265 / 0.06);
+  --luma-card-shadow-radius: 16px;
+  --luma-card-nested-background: oklch(0.99 0 0);
+  --luma-card-nested-border: oklch(0.99 0 0);
+  --luma-card-nested-radius: 12px;
+  --luma-card-preview-background: oklch(0.99 0 0);
+  --luma-card-preview-border: oklch(0.92 0.008 265);
+  --luma-card-preview-radius: 12px;
   --luma-card-gradient-from: oklch(0.92 0.005 0 / 0.6);
   --luma-card-gradient-to: oklch(0.96 0.003 0 / 0.6);
+  --luma-card-background: oklch(1 0 0);
   --luma-card-padding: 1.5rem;
+  --luma-card-box-shadow: 0px 2px 0 0px #e4e4e4;
+
+  /* Code */
+  --luma-code-background: oklch(0.12 0.005 265);
+  --luma-code-text: oklch(0.9 0 0);
+  --luma-code-border: oklch(0.25 0.008 265);
+  --luma-code-radius: 8px;
 
   /* Badge */
-  --luma-badge-color: oklch(0.54 0.1 230);
+  --luma-badge-color: oklch(0.63 0.14 232.13);
   --luma-badge-bg: oklch(0.54 0.1 230 / 0.1);
   --luma-badge-padding-x: 0.625rem;
   --luma-badge-padding-y: 0.25rem;
   --luma-badge-font-size: 0.75rem;
   --luma-badge-font-weight: 500;
+
 }
 
-/* Tailwind Utilities */
+/* Tailwind Utilities - All prefixed with lm- */
+
+/* Scale-Based Color Utilities */
+@utility lm-bg-primary-50 {
+  background-color: var(--luma-color-primary-50);
+}
+
+@utility lm-text-primary-50 {
+  color: var(--luma-color-primary-50);
+}
+
+@utility lm-border-primary-50 {
+  border-color: var(--luma-color-primary-50);
+}
+
+@utility lm-bg-primary-60 {
+  background-color: var(--luma-color-primary-60);
+}
+
+@utility lm-text-primary-60 {
+  color: var(--luma-color-primary-60);
+}
+
+@utility lm-border-primary-60 {
+  border-color: var(--luma-color-primary-60);
+}
+
+@utility lm-bg-primary-70 {
+  background-color: var(--luma-color-primary-70);
+}
+
+@utility lm-text-primary-70 {
+  color: var(--luma-color-primary-70);
+}
+
+@utility lm-border-primary-70 {
+  border-color: var(--luma-color-primary-70);
+}
+
+@utility lm-bg-primary-80 {
+  background-color: var(--luma-color-primary-80);
+}
+
+@utility lm-text-primary-80 {
+  color: var(--luma-color-primary-80);
+}
+
+@utility lm-border-primary-80 {
+  border-color: var(--luma-color-primary-80);
+}
+
+@utility lm-bg-neutral-50 {
+  background-color: var(--luma-color-neutral-50);
+}
+
+@utility lm-text-neutral-50 {
+  color: var(--luma-color-neutral-50);
+}
+
+@utility lm-border-neutral-50 {
+  border-color: var(--luma-color-neutral-50);
+}
+
+@utility lm-bg-neutral-60 {
+  background-color: var(--luma-color-neutral-60);
+}
+
+@utility lm-text-neutral-60 {
+  color: var(--luma-color-neutral-60);
+}
+
+@utility lm-border-neutral-60 {
+  border-color: var(--luma-color-neutral-60);
+}
+
+@utility lm-bg-neutral-70 {
+  background-color: var(--luma-color-neutral-70);
+}
+
+@utility lm-text-neutral-70 {
+  color: var(--luma-color-neutral-70);
+}
+
+@utility lm-border-neutral-70 {
+  border-color: var(--luma-color-neutral-70);
+}
+
+@utility lm-bg-neutral-80 {
+  background-color: var(--luma-color-neutral-80);
+}
+
+@utility lm-text-neutral-80 {
+  color: var(--luma-color-neutral-80);
+}
+
+@utility lm-border-neutral-80 {
+  border-color: var(--luma-color-neutral-80);
+}
+
+@utility lm-bg-neutral-90 {
+  background-color: var(--luma-color-neutral-90);
+}
+
+@utility lm-text-neutral-90 {
+  color: var(--luma-color-neutral-90);
+}
+
+@utility lm-border-neutral-90 {
+  border-color: var(--luma-color-neutral-90);
+}
+
+@utility lm-bg-neutral-100 {
+  background-color: var(--luma-color-neutral-100);
+}
+
+@utility lm-text-neutral-100 {
+  color: var(--luma-color-neutral-100);
+}
+
+@utility lm-border-neutral-100 {
+  border-color: var(--luma-color-neutral-100);
+}
+
+@utility lm-bg-success-50 {
+  background-color: var(--luma-color-success-50);
+}
+
+@utility lm-text-success-50 {
+  color: var(--luma-color-success-50);
+}
+
+@utility lm-border-success-50 {
+  border-color: var(--luma-color-success-50);
+}
+
+@utility lm-bg-success-60 {
+  background-color: var(--luma-color-success-60);
+}
+
+@utility lm-text-success-60 {
+  color: var(--luma-color-success-60);
+}
+
+@utility lm-border-success-60 {
+  border-color: var(--luma-color-success-60);
+}
+
+@utility lm-bg-success-70 {
+  background-color: var(--luma-color-success-70);
+}
+
+@utility lm-text-success-70 {
+  color: var(--luma-color-success-70);
+}
+
+@utility lm-border-success-70 {
+  border-color: var(--luma-color-success-70);
+}
+
+@utility lm-bg-success-80 {
+  background-color: var(--luma-color-success-80);
+}
+
+@utility lm-text-success-80 {
+  color: var(--luma-color-success-80);
+}
+
+@utility lm-border-success-80 {
+  border-color: var(--luma-color-success-80);
+}
+
+@utility lm-bg-warning-50 {
+  background-color: var(--luma-color-warning-50);
+}
+
+@utility lm-text-warning-50 {
+  color: var(--luma-color-warning-50);
+}
+
+@utility lm-border-warning-50 {
+  border-color: var(--luma-color-warning-50);
+}
+
+@utility lm-bg-warning-60 {
+  background-color: var(--luma-color-warning-60);
+}
+
+@utility lm-text-warning-60 {
+  color: var(--luma-color-warning-60);
+}
+
+@utility lm-border-warning-60 {
+  border-color: var(--luma-color-warning-60);
+}
+
+@utility lm-bg-warning-70 {
+  background-color: var(--luma-color-warning-70);
+}
+
+@utility lm-text-warning-70 {
+  color: var(--luma-color-warning-70);
+}
+
+@utility lm-border-warning-70 {
+  border-color: var(--luma-color-warning-70);
+}
+
+@utility lm-bg-warning-80 {
+  background-color: var(--luma-color-warning-80);
+}
+
+@utility lm-text-warning-80 {
+  color: var(--luma-color-warning-80);
+}
+
+@utility lm-border-warning-80 {
+  border-color: var(--luma-color-warning-80);
+}
+
+@utility lm-bg-error-50 {
+  background-color: var(--luma-color-error-50);
+}
+
+@utility lm-text-error-50 {
+  color: var(--luma-color-error-50);
+}
+
+@utility lm-border-error-50 {
+  border-color: var(--luma-color-error-50);
+}
+
+@utility lm-bg-error-60 {
+  background-color: var(--luma-color-error-60);
+}
+
+@utility lm-text-error-60 {
+  color: var(--luma-color-error-60);
+}
+
+@utility lm-border-error-60 {
+  border-color: var(--luma-color-error-60);
+}
+
+@utility lm-bg-error-70 {
+  background-color: var(--luma-color-error-70);
+}
+
+@utility lm-text-error-70 {
+  color: var(--luma-color-error-70);
+}
+
+@utility lm-border-error-70 {
+  border-color: var(--luma-color-error-70);
+}
+
+@utility lm-bg-error-80 {
+  background-color: var(--luma-color-error-80);
+}
+
+@utility lm-text-error-80 {
+  color: var(--luma-color-error-80);
+}
+
+@utility lm-border-error-80 {
+  border-color: var(--luma-color-error-80);
+}
+
+/* Semantic Text Utilities */
+@utility lm-text-primary {
+  color: var(--luma-color-text-primary);
+}
+
+@utility lm-text-secondary {
+  color: var(--luma-color-text-secondary);
+}
+
+@utility lm-bg-surface-base {
+  background-color: var(--luma-color-surface-base);
+}
+
+/* Global Focus Ring */
+@utility lm-ring-focus {
+  outline: var(--luma-focus-ring-width) solid var(--luma-focus-ring-color);
+  outline-offset: var(--luma-focus-ring-offset);
+}
 
 /* Button Background Colors */
-@utility bg-button-primary-bg {
+@utility lm-bg-button-primary-bg {
   background-color: var(--luma-button-primary-bg);
 }
 
-@utility bg-button-primary-bg-hover {
+@utility lm-bg-button-primary-bg-hover {
   background-color: var(--luma-button-primary-bg-hover);
 }
 
-@utility bg-button-primary-bg-active {
+@utility lm-bg-button-primary-bg-active {
   background-color: var(--luma-button-primary-bg-active);
 }
 
-@utility bg-button-outline-bg-hover {
+@utility lm-bg-button-outline-bg-hover {
   background-color: var(--luma-button-outline-bg-hover);
 }
 
-@utility bg-button-ghost-bg {
+@utility lm-bg-button-ghost-bg {
   background-color: var(--luma-button-ghost-bg);
 }
 
-@utility bg-button-ghost-bg-hover {
+@utility lm-bg-button-ghost-bg-hover {
   background-color: var(--luma-button-ghost-bg-hover);
 }
 
-@utility bg-button-danger-bg {
+@utility lm-bg-button-danger-bg {
   background-color: var(--luma-button-danger-bg);
 }
 
-@utility bg-button-danger-bg-hover {
+@utility lm-bg-button-danger-bg-hover {
   background-color: var(--luma-button-danger-bg-hover);
 }
 
-@utility bg-button-danger-bg-active {
+@utility lm-bg-button-danger-bg-active {
   background-color: var(--luma-button-danger-bg-active);
 }
 
 /* Button Text Colors */
-@utility text-button-primary-text {
+@utility lm-text-button-primary-text {
   color: var(--luma-button-primary-text);
 }
 
-@utility text-button-outline-text {
+@utility lm-text-button-outline-text {
   color: var(--luma-button-outline-text);
 }
 
-@utility text-button-ghost-text {
+@utility lm-text-button-ghost-text {
   color: var(--luma-button-ghost-text);
 }
 
-@utility text-button-danger-text {
+@utility lm-text-button-danger-text {
   color: var(--luma-button-danger-text);
 }
 
 /* Button Border Colors */
-@utility border-button-outline-border {
+@utility lm-border-button-outline-border {
   border-color: var(--luma-button-outline-border);
 }
 
-@utility border-button-outline-border-hover {
+@utility lm-border-button-outline-border-hover {
   border-color: var(--luma-button-outline-border-hover);
 }
 
-/* Focus Ring */
-@utility ring-button-focus {
-  outline: var(--luma-button-focus-ring-width) solid
-    var(--luma-button-focus-ring-color);
+/* Button Focus Ring */
+@utility lm-ring-button-focus {
+  outline: var(--luma-button-focus-ring-width) solid var(--luma-button-focus-ring-color);
   outline-offset: 2px;
 }
 
-/* General Background Colors */
-@utility bg-color-primary {
-  background-color: var(--luma-color-primary);
+/* Button Radius */
+@utility lm-rounded-button {
+  border-radius: var(--luma-button-radius);
 }
 
-@utility bg-color-primary-hover {
-  background-color: var(--luma-color-primary-hover);
+/* Card Variant Utilities */
+@utility lm-bg-card-shadow {
+  background-color: var(--luma-card-shadow-background);
 }
 
-@utility bg-color-primary-active {
-  background-color: var(--luma-color-primary-active);
+@utility lm-border-card-shadow {
+  border-color: var(--luma-card-shadow-border);
 }
 
-@utility bg-color-surface-base {
-  background-color: var(--luma-color-surface-base);
+@utility lm-shadow-card-shadow {
+  box-shadow: var(--luma-card-shadow-shadow);
 }
 
-@utility bg-card-background {
-  background-color: var(--luma-card-background);
+@utility lm-rounded-card-shadow {
+  border-radius: var(--luma-card-shadow-radius);
 }
 
-/* Text Colors */
-@utility text-text-primary {
-  color: var(--luma-color-text-primary);
+@utility lm-bg-card-nested {
+  background-color: var(--luma-card-nested-background);
 }
 
-@utility text-text-secondary {
-  color: var(--luma-color-text-secondary);
+@utility lm-border-card-nested {
+  border-color: var(--luma-card-nested-border);
 }
 
-/* Border Radius */
-@utility rounded-luma-sm {
-  border-radius: var(--luma-radius-sm);
+@utility lm-rounded-card-nested {
+  border-radius: var(--luma-card-nested-radius);
 }
 
-@utility rounded-luma-md {
-  border-radius: var(--luma-radius-md);
+@utility lm-bg-card-preview {
+  background-color: var(--luma-card-preview-background);
 }
 
-@utility rounded-luma-lg {
-  border-radius: var(--luma-radius-lg);
+@utility lm-border-card-preview {
+  border-color: var(--luma-card-preview-border);
 }
 
-@utility rounded-luma-full {
-  border-radius: var(--luma-radius-full);
+@utility lm-rounded-card-preview {
+  border-radius: var(--luma-card-preview-radius);
 }
 
-/* Font Sizes */
-@utility text-luma-sm {
-  font-size: var(--luma-text-sm);
-}
-
-@utility text-luma-base {
-  font-size: var(--luma-text-base);
-}
-
-@utility text-luma-lg {
-  font-size: var(--luma-text-lg);
-}
-
-/* Transitions */
-@utility duration-luma-fast {
-  transition-duration: var(--luma-duration-fast);
-}
-
-@utility duration-luma-base {
-  transition-duration: var(--luma-duration-base);
-}
-
-/* Card Gradients */
-@utility from-card-gradient-from {
+/* Card Legacy Utilities (gradient wrapper) */
+@utility lm-from-card-gradient-from {
   --tw-gradient-from: var(--luma-card-gradient-from);
   --tw-gradient-to: rgb(255 255 255 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-@utility to-card-gradient-to {
+@utility lm-to-card-gradient-to {
   --tw-gradient-to: var(--luma-card-gradient-to);
 }
 
-/* Card Padding */
-@utility p-card-padding {
+@utility lm-bg-card-background {
+  background-color: var(--luma-card-background);
+}
+
+@utility lm-p-card {
   padding: var(--luma-card-padding);
 }
 
+@utility lm-shadow-card {
+  box-shadow: var(--luma-card-box-shadow);
+}
+
+/* Code Block Utilities */
+@utility lm-bg-code {
+  background-color: var(--luma-code-background);
+}
+
+@utility lm-text-code {
+  color: var(--luma-code-text);
+}
+
+@utility lm-border-code {
+  border-color: var(--luma-code-border);
+}
+
+@utility lm-rounded-code {
+  border-radius: var(--luma-code-radius);
+}
+
+/* Border Radius */
+@utility lm-rounded-sm {
+  border-radius: var(--luma-radius-sm);
+}
+
+@utility lm-rounded-md {
+  border-radius: var(--luma-radius-md);
+}
+
+@utility lm-rounded-lg {
+  border-radius: var(--luma-radius-lg);
+}
+
+@utility lm-rounded-full {
+  border-radius: var(--luma-radius-full);
+}
+
+/* Font Sizes */
+@utility lm-text-size-sm {
+  font-size: var(--luma-text-sm);
+}
+
+@utility lm-text-size-base {
+  font-size: var(--luma-text-base);
+}
+
+@utility lm-text-size-lg {
+  font-size: var(--luma-text-lg);
+}
+
+/* Transitions */
+@utility lm-duration-fast {
+  transition-duration: var(--luma-duration-fast);
+}
+
+@utility lm-duration-base {
+  transition-duration: var(--luma-duration-base);
+}
+
 /* Badge */
-@utility bg-badge-bg {
+@utility lm-bg-badge {
   background-color: var(--luma-badge-bg);
 }
 
-@utility text-badge {
+@utility lm-text-badge {
   color: var(--luma-badge-color);
 }
+
