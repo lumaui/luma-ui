@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@lumaui/tokens": ["packages/tokens/src/index.ts"],
-      "@lumaui/core": ["packages/core/dist/src"],
+      "@lumaui/core": ["packages/core/src/index.ts"],
       "@lumaui/angular": ["packages/angular/src/index.ts"]
     }
   },
