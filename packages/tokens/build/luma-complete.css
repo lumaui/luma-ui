@@ -1,0 +1,21 @@
+/**
+ * Luma Design System - Complete CSS
+ *
+ * This file includes:
+ * - All design tokens (colors, spacing, typography, etc.)
+ * - All Tailwind utilities for Luma components
+ * - Internal @source directive (no need to add @source in your project!)
+ *
+ * Usage in your styles.css:
+ *   @import 'tailwindcss';
+ *   @import '@lumaui/tokens';
+ *
+ * For dark theme support, also add:
+ *   @import '@lumaui/tokens/dark.css';
+ */
+
+/* Tell Tailwind to scan the component class manifest */
+@source "./luma-classes.js";
+
+/* Import all tokens and utilities */
+@import "./luma.css";

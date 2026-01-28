@@ -9,8 +9,41 @@ Angular components for **Luma UI** - a Neo-Minimal design system built with calm
 - Type-safe variants with class-variance-authority
 - Angular 19+ standalone components
 - Tailwind CSS v4 compatible
+- **Fully customizable via CSS tokens**
+
+## Customization
+
+All components are **fully customizable** through CSS custom properties (tokens). Override any design token in your CSS to match your brand:
+
+```css
+:root {
+  /* Customize button colors */
+  --luma-button-primary-bg: oklch(0.6 0.15 250);
+  --luma-button-primary-bg-hover: oklch(0.55 0.14 250);
+
+  /* Customize card styles */
+  --luma-card-background: oklch(0.98 0 0);
+  --luma-card-radius: 16px;
+
+  /* Customize spacing and typography */
+  --luma-button-padding-x-md: 1.5rem;
+  --luma-button-padding-y-md: 0.75rem;
+}
+```
+
+This token-based architecture means you can adapt every aspect of the design system - colors, spacing, borders, shadows, and more - without modifying component code.
+
+## Prerequisites
+
+### Install Tailwind CSS
+
+Before installing Luma UI, you need to set up Tailwind CSS v4 in your Angular project.
+
+Follow the official guide: **[Tailwind CSS Angular Installation](https://tailwindcss.com/docs/installation/framework-guides/angular)**
 
 ## Installation
+
+After Tailwind CSS is configured, install Luma UI:
 
 ```bash
 npm install @lumaui/angular
@@ -18,46 +51,19 @@ npm install @lumaui/angular
 
 > **Note:** `@lumaui/tokens` and `@lumaui/core` are installed automatically as dependencies.
 
-### Peer Dependencies
-
-You may need to install `class-variance-authority` if not already in your project:
-
-```bash
-npm install class-variance-authority
-```
-
 ## Setup
 
-### 1. Configure PostCSS
-
-Ensure your project has the Tailwind v4 PostCSS plugin configured:
-
-**postcss.config.js:**
-
-```js
-export default {
-  plugins: {
-    '@tailwindcss/postcss': {},
-  },
-};
-```
-
-### 2. Import Styles
+### Import Styles
 
 Add to your `styles.css`:
 
 ```css
 @import 'tailwindcss';
-@import '@lumaui/tokens/styles.css';
+@import '@lumaui/tokens';
 
 /* Optional: Dark theme support */
-@import '@lumaui/tokens/styles/dark.css';
-
-/* If automatic content detection doesn't pick up node_modules, add: */
-@source "../node_modules/@lumaui";
+@import '@lumaui/tokens/dark.css';
 ```
-
-> **Note:** Tailwind v4 uses CSS-based configuration instead of `tailwind.config.js`. The `@source` directive is only needed if Luma classes aren't being detected automatically.
 
 ## Usage
 

@@ -1,12 +1,13 @@
 {
   "name": "@lumaui/tokens",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Design tokens for Luma UI - Neo-Minimal design system",
   "type": "module",
-  "main": "./build/luma.css",
+  "main": "./build/luma-complete.css",
   "exports": {
-    ".": "./build/luma.css",
-    "./styles.css": "./build/luma.css",
+    ".": "./build/luma-complete.css",
+    "./styles.css": "./build/luma-complete.css",
+    "./tokens": "./build/luma.css",
     "./dark.css": "./build/luma-dark.css",
     "./styles/dark.css": "./build/luma-dark.css"
   },
@@ -15,9 +16,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "npm run build:light && npm run build:dark",
+    "build": "npm run build:light && npm run build:dark && npm run build:manifest",
     "build:light": "style-dictionary build --config config.js",
     "build:dark": "style-dictionary build --config config.dark.js",
+    "build:manifest": "npx ts-node --esm ../../tools/generate-class-manifest.ts",
     "watch": "npm run build && npm run watch:light & npm run watch:dark",
     "watch:light": "style-dictionary build --config config.js --watch",
     "watch:dark": "style-dictionary build --config config.dark.js --watch"
