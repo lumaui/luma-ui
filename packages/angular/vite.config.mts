@@ -29,6 +29,9 @@ export default defineConfig(() => ({
     include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
+    alias: {
+      '@lumaui/core': resolve(__dirname, '../../packages/core/dist/src/index.js'),
+    },
     coverage: {
       reportsDirectory: '../../coverage/packages/components',
       provider: 'v8' as const,
