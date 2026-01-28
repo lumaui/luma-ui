@@ -67,7 +67,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Publish @lumaui/core
+      # Build and Publish @lumaui/core
       - name: Check core version
         id: core_version
         run: |
@@ -79,13 +79,17 @@ jobs:
             echo "published=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Build @lumaui/core
+        if: steps.core_version.outputs.published == 'false'
+        run: npx nx build core
+
       - name: Publish @lumaui/core
         if: steps.core_version.outputs.published == 'false' && !inputs.dry_run
-        run: npm publish --access public --workspace=packages/core
+        run: npm publish packages/core/dist --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Publish @lumaui/angular
+      # Build and Publish @lumaui/angular
       - name: Check angular version
         id: angular_version
         run: |
@@ -97,9 +101,13 @@ jobs:
             echo "published=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Build @lumaui/angular
+        if: steps.angular_version.outputs.published == 'false'
+        run: npx nx build angular --configuration=production
+
       - name: Publish @lumaui/angular
         if: steps.angular_version.outputs.published == 'false' && !inputs.dry_run
-        run: npm publish --access public --workspace=packages/angular
+        run: npm publish packages/angular/dist --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -142,5 +150,5 @@ jobs:
           echo "## Dry Run - Would publish:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           npm pack --dry-run --workspace=packages/tokens 2>&1 | tail -20 >> $GITHUB_STEP_SUMMARY
-          npm pack --dry-run --workspace=packages/core 2>&1 | tail -20 >> $GITHUB_STEP_SUMMARY
-          npm pack --dry-run --workspace=packages/angular 2>&1 | tail -20 >> $GITHUB_STEP_SUMMARY
+          (cd packages/core/dist && npm pack --dry-run 2>&1 | tail -20) >> $GITHUB_STEP_SUMMARY
+          (cd packages/angular/dist && npm pack --dry-run 2>&1 | tail -20) >> $GITHUB_STEP_SUMMARY

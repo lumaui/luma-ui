@@ -26,26 +26,36 @@ npm install class-variance-authority
 
 ## Setup
 
-### 1. Import Styles
+### 1. Configure PostCSS
+
+Ensure your project has the Tailwind v4 PostCSS plugin configured:
+
+**postcss.config.js:**
+
+```js
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+### 2. Import Styles
 
 Add to your `styles.css`:
 
 ```css
+@import 'tailwindcss';
 @import '@lumaui/tokens/styles.css';
 
 /* Optional: Dark theme support */
 @import '@lumaui/tokens/styles/dark.css';
+
+/* If automatic content detection doesn't pick up node_modules, add: */
+@source "../node_modules/@lumaui";
 ```
 
-### 2. Configure Tailwind (Required)
-
-Add the library to your Tailwind content paths in `tailwind.config.js`:
-
-```js
-export default {
-  content: ['./src/**/*.{html,ts}', './node_modules/@lumaui/**/*.{js,ts,mjs}'],
-};
-```
+> **Note:** Tailwind v4 uses CSS-based configuration instead of `tailwind.config.js`. The `@source` directive is only needed if Luma classes aren't being detected automatically.
 
 ## Usage
 

@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "outDir": "../../dist/packages/angular",
     "declaration": true,
     "declarationMap": true,

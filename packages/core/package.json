@@ -1,14 +1,23 @@
 {
   "name": "@lumaui/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Core variants and types for Luma UI - framework-agnostic CVA definitions",
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./variants": "./src/variants/index.ts",
-    "./types": "./src/types/index.ts"
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./variants": {
+      "types": "./src/variants/index.d.ts",
+      "import": "./src/variants/index.js"
+    },
+    "./types": {
+      "types": "./src/types/index.d.ts",
+      "import": "./src/types/index.js"
+    }
   },
   "files": [
     "src/",

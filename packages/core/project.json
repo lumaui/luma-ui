@@ -5,6 +5,15 @@
   "sourceRoot": "packages/core/src",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/core/dist",
+        "tsConfig": "packages/core/tsconfig.build.json",
+        "main": "packages/core/src/index.ts"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
