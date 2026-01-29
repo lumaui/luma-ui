@@ -6,17 +6,10 @@ on:
       - main
     paths:
       - 'packages/*/package.json'
-      - 'packages/*/README.md'
-      - 'packages/*/src/**'
   workflow_dispatch:
     inputs:
       dry_run:
         description: 'Dry run (no actual publish)'
-        required: false
-        type: boolean
-        default: false
-      force_publish:
-        description: 'Force publish all packages (bump patch if needed)'
         required: false
         type: boolean
         default: false
@@ -44,86 +37,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Auto-bump BEFORE any builds to ensure correct versions
-      - name: Auto-bump all packages if any version is already published
-        id: auto_bump
-        run: |
-          NEEDS_BUMP=false
-          BUMPED_ANY=false
-
-          # Function to check if version is published
-          is_published() {
-            local pkg=$1
-            local version=$2
-            npm view @lumaui/$pkg@$version version 2>/dev/null && return 0 || return 1
-          }
-
-          # Function to bump patch version
-          bump_patch() {
-            local pkg=$1
-            local pkg_json="packages/$pkg/package.json"
-            local current=$(node -p "require('./$pkg_json').version")
-            local major=$(echo $current | cut -d. -f1)
-            local minor=$(echo $current | cut -d. -f2)
-            local patch=$(echo $current | cut -d. -f3)
-            local new_version="$major.$minor.$((patch + 1))"
-
-            node -e "
-              const fs = require('fs');
-              const pkg = require('./$pkg_json');
-              pkg.version = '$new_version';
-              fs.writeFileSync('$pkg_json', JSON.stringify(pkg, null, 2) + '\n');
-            "
-            echo "✓ $pkg: $current -> $new_version"
-          }
-
-          # Check if any package version is already published
-          for pkg in tokens core angular; do
-            VERSION=$(node -p "require('./packages/$pkg/package.json').version")
-            if is_published "$pkg" "$VERSION"; then
-              echo "⚠ @lumaui/$pkg@$VERSION already published - needs bump"
-              NEEDS_BUMP=true
-            else
-              echo "✓ @lumaui/$pkg@$VERSION not published yet"
-            fi
-          done
-
-          # Force publish option always triggers bump
-          if [[ "${{ inputs.force_publish }}" == "true" ]]; then
-            echo "Force publish requested"
-            NEEDS_BUMP=true
-          fi
-
-          # If any package needs bump, bump ALL packages that are already published
-          if [[ "$NEEDS_BUMP" == "true" ]]; then
-            echo ""
-            echo "Bumping all published packages..."
-            for pkg in tokens core angular; do
-              VERSION=$(node -p "require('./packages/$pkg/package.json').version")
-              if is_published "$pkg" "$VERSION"; then
-                bump_patch "$pkg"
-                BUMPED_ANY=true
-              fi
-            done
-          fi
-
-          if [[ "$BUMPED_ANY" == "true" ]]; then
-            echo "bumped=true" >> $GITHUB_OUTPUT
-          else
-            echo "bumped=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit version bumps
-        if: steps.auto_bump.outputs.bumped == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add packages/*/package.json
-          git commit -m "chore: auto-bump versions for publish
-
-          Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>" || true
-          git push || true
-
       - name: Lint
         run: npm run lint:all
 
@@ -133,7 +46,7 @@ jobs:
       - name: Build tokens
         run: cd packages/tokens && npm run build
 
-      - name: Build @lumaui/core (needed for tests)
+      - name: Build @lumaui/core
         run: npx nx build core --skip-nx-cache
 
       - name: Run tests
@@ -147,8 +60,10 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           if npm view @lumaui/tokens@$VERSION version 2>/dev/null; then
             echo "published=true" >> $GITHUB_OUTPUT
+            echo "✓ @lumaui/tokens@$VERSION already published"
           else
             echo "published=false" >> $GITHUB_OUTPUT
+            echo "→ @lumaui/tokens@$VERSION will be published"
           fi
 
       - name: Publish @lumaui/tokens
@@ -157,7 +72,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Build and Publish @lumaui/core
+      # Publish @lumaui/core
       - name: Check core version
         id: core_version
         run: |
@@ -165,13 +80,11 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           if npm view @lumaui/core@$VERSION version 2>/dev/null; then
             echo "published=true" >> $GITHUB_OUTPUT
+            echo "✓ @lumaui/core@$VERSION already published"
           else
             echo "published=false" >> $GITHUB_OUTPUT
+            echo "→ @lumaui/core@$VERSION will be published"
           fi
-
-      - name: Build @lumaui/core
-        if: steps.core_version.outputs.published == 'false'
-        run: npx nx build core --skip-nx-cache
 
       - name: Publish @lumaui/core
         if: steps.core_version.outputs.published == 'false' && !inputs.dry_run
@@ -179,7 +92,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Build and Publish @lumaui/angular
+      # Publish @lumaui/angular
       - name: Check angular version
         id: angular_version
         run: |
@@ -187,8 +100,10 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           if npm view @lumaui/angular@$VERSION version 2>/dev/null; then
             echo "published=true" >> $GITHUB_OUTPUT
+            echo "✓ @lumaui/angular@$VERSION already published"
           else
             echo "published=false" >> $GITHUB_OUTPUT
+            echo "→ @lumaui/angular@$VERSION will be published"
           fi
 
       - name: Build @lumaui/angular
@@ -230,9 +145,9 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Package | Version | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|---------|---------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| @lumaui/tokens | ${{ steps.tokens_version.outputs.version }} | ${{ steps.tokens_version.outputs.published == 'true' && 'Already published' || 'Published' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| @lumaui/core | ${{ steps.core_version.outputs.version }} | ${{ steps.core_version.outputs.published == 'true' && 'Already published' || 'Published' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| @lumaui/angular | ${{ steps.angular_version.outputs.version }} | ${{ steps.angular_version.outputs.published == 'true' && 'Already published' || 'Published' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| @lumaui/tokens | ${{ steps.tokens_version.outputs.version }} | ${{ steps.tokens_version.outputs.published == 'true' && '✓ Already published' || '🚀 Published' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| @lumaui/core | ${{ steps.core_version.outputs.version }} | ${{ steps.core_version.outputs.published == 'true' && '✓ Already published' || '🚀 Published' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| @lumaui/angular | ${{ steps.angular_version.outputs.version }} | ${{ steps.angular_version.outputs.published == 'true' && '✓ Already published' || '🚀 Published' }} |" >> $GITHUB_STEP_SUMMARY
 
       - name: Dry run summary
         if: inputs.dry_run
