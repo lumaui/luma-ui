@@ -88,6 +88,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                               (keyup)="onCodeKeyup($event, token.name)"
                               tabindex="0"
                               title="Click to copy"
+                              role="button"
                             >
                               {{ token.name }}
                             </code>
