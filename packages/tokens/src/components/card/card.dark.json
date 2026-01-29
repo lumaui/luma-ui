@@ -42,18 +42,6 @@
           "description": "Preview container border (dark theme)"
         }
       },
-      "gradient": {
-        "from": {
-          "value": "oklch(0.25 0.01 265 / 0.6)",
-          "type": "color",
-          "description": "Card gradient start color (dark theme legacy)"
-        },
-        "to": {
-          "value": "oklch(0.2 0.008 265 / 0.6)",
-          "type": "color",
-          "description": "Card gradient end color (dark theme legacy)"
-        }
-      },
       "background": {
         "value": "oklch(0.17 0.005 265)",
         "type": "color",

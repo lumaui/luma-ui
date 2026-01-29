@@ -33,16 +33,13 @@ directives:
     selector: '[lumaCardContent]'
     description: Container for card main content
 tokens:
-  # Legacy (gradient)
+  # Default variant
   - name: --luma-card-background
     value: oklch(1 0 0)
-    description: Legacy card background color
-  - name: --luma-card-gradient-from
-    value: oklch(0.92 0.005 0 / 0.6)
-    description: Gradient border start color
-  - name: --luma-card-gradient-to
-    value: oklch(0.96 0.003 0 / 0.6)
-    description: Gradient border end color
+    description: Card background color
+  - name: --luma-color-neutral-60
+    value: oklch(0.92 0.008 265)
+    description: Border color for default variant (neutral light)
   - name: --luma-card-padding
     value: 1.5rem
     description: Card internal padding
@@ -105,7 +102,7 @@ The Card uses a **compositional design** with a main component and four semantic
 ### CardComponent
 
 - `lmVariant`: 'default' | 'shadow' | 'nested' | 'preview' - Card visual style
-  - **default**: Gradient border wrapper style (default)
+  - **default**: Solid border style with neutral color (default)
   - **shadow**: Elevated card with subtle shadow for primary content
   - **nested**: Subtle background for sections within cards
   - **preview**: For documentation examples and code previews
@@ -138,16 +135,16 @@ The Card component supports four visual variants via the `lmVariant` input:
 
 ### Default
 
-Gradient border wrapper style with distinctive "light as structure" effect (default):
+Solid border style with neutral color for clean separation (default):
 
 ```html
 <luma-card>
   <div lumaCardHeader>
-    <h3 lumaCardTitle>Gradient Card</h3>
-    <p lumaCardDescription>Default card with gradient border</p>
+    <h3 lumaCardTitle>Default Card</h3>
+    <p lumaCardDescription>Card with solid border</p>
   </div>
   <div lumaCardContent>
-    <p>Content with gradient wrapper styling.</p>
+    <p>Content with clean border styling.</p>
   </div>
 </luma-card>
 ```
@@ -297,24 +294,22 @@ For documentation examples, code showcases, and component previews:
 </luma-card>
 ```
 
-## Gradient Border Technique
+## Border Design
 
-The **default** variant uses a distinctive gradient border technique that aligns with Neo-Minimal principles:
+The **default** variant uses a clean 1px solid border that aligns with Neo-Minimal principles:
 
 **How it works:**
 
-1. Outer wrapper has `p-[1px]` padding + `bg-gradient-to-b` gradient
-2. Inner content has matching border-radius (slightly smaller for visual precision)
-3. Gradient creates a subtle "light as structure" effect instead of hard borders
+1. Wrapper has `border` class for 1px border width
+2. Border color uses `neutral-60` from the color palette
+3. Creates subtle separation without visual noise
 
-**Visual effect:**
+**Neo-Minimal alignment:**
 
-- Light mode: Subtle gradient from light gray to slightly darker gray
-- Dark mode: Inverted gradient for depth perception
-- No hard borders, shadows, or mechanical separators
-- Depth is perceived through luminosity differences
-
-This technique exemplifies the Neo-Minimal principle: **"Light as Structure, not decoration"**.
+- Minimal visual weight - border doesn't compete for attention
+- Uses functional whitespace and subtle structure
+- Light mode: Soft neutral gray for gentle separation
+- Dark mode: Adjusted neutral for proper contrast
 
 ## Customizing
 
@@ -396,12 +391,12 @@ The Card design embodies core Neo-Minimal values:
 
 ## When to Use Each Variant
 
-| Variant   | Use Case                                            |
-| --------- | --------------------------------------------------- |
-| `default` | Default styling, distinctive gradient border effect |
-| `shadow`  | Primary content, main UI cards, elevated sections   |
-| `nested`  | Sections within cards, grouped content, stat blocks |
-| `preview` | Documentation examples, component showcases         |
+| Variant   | Use Case                                               |
+| --------- | ------------------------------------------------------ |
+| `default` | Default styling, clean solid border with neutral color |
+| `shadow`  | Primary content, main UI cards, elevated sections      |
+| `nested`  | Sections within cards, grouped content, stat blocks    |
+| `preview` | Documentation examples, component showcases            |
 
 **Avoid using Card when:**
 
@@ -414,15 +409,13 @@ The Card design embodies core Neo-Minimal values:
 
 ## Design Token Reference
 
-### Legacy Gradient Tokens
+### Default Variant Tokens
 
-| Token                       | Default Value               | Purpose               |
-| --------------------------- | --------------------------- | --------------------- |
-| `--luma-card-background`    | `oklch(1 0 0)`              | Inner card background |
-| `--luma-card-gradient-from` | `oklch(0.92 0.005 0 / 0.6)` | Top gradient edge     |
-| `--luma-card-gradient-to`   | `oklch(0.96 0.003 0 / 0.6)` | Bottom gradient edge  |
-| `--luma-card-padding`       | `1.5rem`                    | Inner content padding |
-| `--luma-card-box-shadow`    | `0px 2px 0 0px #e4e4e4`     | Legacy shadow         |
+| Token                     | Default Value           | Purpose               |
+| ------------------------- | ----------------------- | --------------------- |
+| `--luma-card-background`  | `oklch(1 0 0)`          | Card background color |
+| `--luma-color-neutral-60` | `oklch(0.92 0.008 265)` | Border color          |
+| `--luma-card-padding`     | `1.5rem`                | Inner content padding |
 
 ### Shadow Variant Tokens
 

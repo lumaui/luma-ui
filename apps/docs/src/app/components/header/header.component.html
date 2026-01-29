@@ -21,16 +21,21 @@
         Home
       </a>
       <a
-        routerLink="/components"
+        routerLink="/docs"
         routerLinkActive="active"
         class="text-base font-medium lm-text-secondary hover:lm-text-primary transition-colors"
       >
-        Components
+        Docs
       </a>
     </div>
 
     <!-- Right Section -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+      <!-- GitHub Stars (hidden on mobile) -->
+      <div class="hidden sm:block">
+        <app-github-stars />
+      </div>
+
       <!-- Theme Toggle -->
       <app-theme-toggle />
 
@@ -96,12 +101,12 @@
           Home
         </a>
         <a
-          routerLink="/components"
+          routerLink="/docs"
           routerLinkActive="active-mobile"
           (click)="closeMobileMenu()"
           class="px-4 py-3 text-base lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
         >
-          Components
+          Docs
         </a>
       </nav>
     </div>

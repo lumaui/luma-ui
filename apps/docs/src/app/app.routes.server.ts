@@ -7,7 +7,19 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
-    path: 'components/:slug',
+    path: 'docs',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'docs/getting-started',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'docs/components',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'docs/:slug',
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
       // Return all component slugs from the registry for prerendering

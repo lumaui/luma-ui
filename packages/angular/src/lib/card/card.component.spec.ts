@@ -23,15 +23,13 @@ class TestHostComponent {}
 
 const CARD_TOKENS = {
   background: 'oklch(0.99 0 0)',
-  gradientFrom: 'oklch(0.92 0.005 0 / 0.6)',
-  gradientTo: 'oklch(0.96 0.003 0 / 0.6)',
+  border: 'oklch(0.92 0.008 265)',
   padding: '1.5rem',
 } as const;
 
 const DARK_CARD_TOKENS = {
   background: 'oklch(0.17 0 0)',
-  gradientFrom: 'oklch(0.25 0.01 0 / 0.6)',
-  gradientTo: 'oklch(0.2 0.008 0 / 0.6)',
+  border: 'oklch(0.2 0.008 265)',
 } as const;
 
 // ============================================================
@@ -41,16 +39,14 @@ const DARK_CARD_TOKENS = {
 function setupCardTokens(): void {
   const root = document.documentElement;
   root.style.setProperty('--luma-card-background', CARD_TOKENS.background);
-  root.style.setProperty('--luma-card-gradient-from', CARD_TOKENS.gradientFrom);
-  root.style.setProperty('--luma-card-gradient-to', CARD_TOKENS.gradientTo);
+  root.style.setProperty('--luma-color-neutral-60', CARD_TOKENS.border);
   root.style.setProperty('--luma-card-padding', CARD_TOKENS.padding);
 }
 
 function cleanupCardTokens(): void {
   const root = document.documentElement;
   root.style.removeProperty('--luma-card-background');
-  root.style.removeProperty('--luma-card-gradient-from');
-  root.style.removeProperty('--luma-card-gradient-to');
+  root.style.removeProperty('--luma-color-neutral-60');
   root.style.removeProperty('--luma-card-padding');
   root.classList.remove('dark');
 }
@@ -59,14 +55,7 @@ function applyDarkTheme(): void {
   const root = document.documentElement;
   root.classList.add('dark');
   root.style.setProperty('--luma-card-background', DARK_CARD_TOKENS.background);
-  root.style.setProperty(
-    '--luma-card-gradient-from',
-    DARK_CARD_TOKENS.gradientFrom,
-  );
-  root.style.setProperty(
-    '--luma-card-gradient-to',
-    DARK_CARD_TOKENS.gradientTo,
-  );
+  root.style.setProperty('--luma-color-neutral-60', DARK_CARD_TOKENS.border);
 }
 
 describe('CardComponent', () => {
@@ -87,18 +76,16 @@ describe('CardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should apply wrapper classes with gradient border technique', () => {
+  it('should apply wrapper classes with solid border', () => {
     fixture.detectChanges();
 
     const wrapperClasses = component.wrapperClasses();
 
-    // Gradient border technique classes
+    // Solid border classes
     expect(wrapperClasses).toContain('relative');
     expect(wrapperClasses).toContain('lm-rounded-lg');
-    expect(wrapperClasses).toContain('p-[1px]');
-    expect(wrapperClasses).toContain('bg-gradient-to-b');
-    expect(wrapperClasses).toContain('lm-from-card-gradient-from');
-    expect(wrapperClasses).toContain('lm-to-card-gradient-to');
+    expect(wrapperClasses).toContain('border');
+    expect(wrapperClasses).toContain('lm-border-neutral-60');
   });
 
   it('should apply content classes with background and padding', () => {
@@ -107,7 +94,7 @@ describe('CardComponent', () => {
     const contentClasses = component.contentClasses();
 
     // Inner content classes
-    expect(contentClasses).toContain('rounded-[17px]');
+    expect(contentClasses).toContain('lm-rounded-lg');
     expect(contentClasses).toContain('lm-bg-card-background');
     expect(contentClasses).toContain('lm-p-card');
     expect(contentClasses).toContain('lm-text-primary');
@@ -207,18 +194,11 @@ describe('CardComponent', () => {
         expect(value).toBe(CARD_TOKENS.background);
       });
 
-      it('should define --luma-card-gradient-from css variable', () => {
+      it('should define --luma-color-neutral-60 css variable', () => {
         const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-from')
+          .getPropertyValue('--luma-color-neutral-60')
           .trim();
-        expect(value).toBe(CARD_TOKENS.gradientFrom);
-      });
-
-      it('should define --luma-card-gradient-to css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-to')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.gradientTo);
+        expect(value).toBe(CARD_TOKENS.border);
       });
 
       it('should define --luma-card-padding css variable', () => {
@@ -245,22 +225,13 @@ describe('CardComponent', () => {
         expect(value).toBe(CARD_TOKENS.background);
       });
 
-      it('should have access to --luma-card-gradient-from token', () => {
+      it('should have access to --luma-color-neutral-60 token', () => {
         fixture.detectChanges();
 
         const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-from')
+          .getPropertyValue('--luma-color-neutral-60')
           .trim();
-        expect(value).toBe(CARD_TOKENS.gradientFrom);
-      });
-
-      it('should have access to --luma-card-gradient-to token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-to')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.gradientTo);
+        expect(value).toBe(CARD_TOKENS.border);
       });
 
       it('should have access to --luma-card-padding token', () => {
@@ -306,32 +277,18 @@ describe('CardComponent', () => {
         expect(value).toBe(customPadding);
       });
 
-      it('should respect custom gradient-from token override', () => {
-        const customGradient = 'oklch(0.85 0.01 0 / 0.8)';
+      it('should respect custom border token override', () => {
+        const customBorder = 'oklch(0.5 0 0)';
         document.documentElement.style.setProperty(
-          '--luma-card-gradient-from',
-          customGradient,
+          '--luma-color-neutral-60',
+          customBorder,
         );
         fixture.detectChanges();
 
         const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-from')
+          .getPropertyValue('--luma-color-neutral-60')
           .trim();
-        expect(value).toBe(customGradient);
-      });
-
-      it('should respect custom gradient-to token override', () => {
-        const customGradient = 'oklch(0.90 0.005 0 / 0.8)';
-        document.documentElement.style.setProperty(
-          '--luma-card-gradient-to',
-          customGradient,
-        );
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-to')
-          .trim();
-        expect(value).toBe(customGradient);
+        expect(value).toBe(customBorder);
       });
     });
 
@@ -353,22 +310,13 @@ describe('CardComponent', () => {
         expect(value).toBe(DARK_CARD_TOKENS.background);
       });
 
-      it('should have access to dark theme gradient-from token', () => {
+      it('should have access to dark theme border token', () => {
         fixture.detectChanges();
 
         const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-from')
+          .getPropertyValue('--luma-color-neutral-60')
           .trim();
-        expect(value).toBe(DARK_CARD_TOKENS.gradientFrom);
-      });
-
-      it('should have access to dark theme gradient-to token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-gradient-to')
-          .trim();
-        expect(value).toBe(DARK_CARD_TOKENS.gradientTo);
+        expect(value).toBe(DARK_CARD_TOKENS.border);
       });
 
       it('should have dark class on document element', () => {

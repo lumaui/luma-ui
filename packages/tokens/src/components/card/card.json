@@ -57,18 +57,6 @@
           "description": "Preview container border radius"
         }
       },
-      "gradient": {
-        "from": {
-          "value": "oklch(0.92 0.005 0 / 0.6)",
-          "type": "color",
-          "description": "Card gradient start color (legacy)"
-        },
-        "to": {
-          "value": "oklch(0.96 0.003 0 / 0.6)",
-          "type": "color",
-          "description": "Card gradient end color (legacy)"
-        }
-      },
       "background": {
         "value": "oklch(1 0 0)",
         "type": "color",

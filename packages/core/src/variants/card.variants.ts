@@ -7,19 +7,15 @@ export const cardVariants = cva(
   [
     // Base classes for all card variants
     'relative',
+    'flex',
+    'h-full',
+    'w-full',
   ],
   {
     variants: {
       variant: {
-        // Default card style with gradient border wrapper
-        default: [
-          'lm-rounded-lg',
-          'p-[1px]',
-          'bg-gradient-to-b',
-          'lm-from-card-gradient-from',
-          'lm-to-card-gradient-to',
-          'lm-shadow-card',
-        ],
+        // Default card style with solid border
+        default: ['lm-rounded-lg', 'border', 'lm-border-neutral-60'],
         // Shadow card - elevated with shadow
         shadow: [
           'lm-rounded-card-shadow',
@@ -53,21 +49,24 @@ export const cardVariants = cva(
 /**
  * Card content area variants
  */
-export const cardContentVariants = cva(['lm-text-primary'], {
-  variants: {
-    variant: {
-      // Content inside default wrapper needs inner radius
-      default: ['rounded-[17px]', 'lm-bg-card-background', 'lm-p-card'],
-      // Shadow/nested/preview cards have padding directly
-      shadow: ['lm-p-card'],
-      nested: ['lm-p-card'],
-      preview: ['lm-p-card'],
+export const cardContentVariants = cva(
+  ['lm-text-primary', 'flex', 'flex-col', 'h-full', 'w-full'],
+  {
+    variants: {
+      variant: {
+        // Content inside default wrapper uses same radius
+        default: ['lm-rounded-lg', 'lm-bg-card-background', 'lm-p-card'],
+        // Shadow/nested/preview cards have padding directly
+        shadow: ['lm-p-card'],
+        nested: ['lm-p-card'],
+        preview: ['lm-p-card'],
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+);
 
 export const cardTitleVariants = cva(
   ['font-medium', 'tracking-tight', 'mb-1', 'lm-text-primary'],

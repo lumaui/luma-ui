@@ -27,7 +27,7 @@ html {
 
 /* Active link styles for navigation */
 a.active {
-  color: var(--luma-color-primary);
+  color: var(--luma-color-primary-50);
   position: relative;
 }
 
@@ -38,12 +38,12 @@ a.active::after {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--luma-color-primary);
+  background: var(--luma-color-primary-50);
 }
 
 a.active-mobile {
-  color: var(--luma-color-primary);
-  background-color: rgba(var(--luma-color-primary-rgb), 0.1);
+  color: var(--luma-color-primary-50);
+  background-color: oklch(0.63 0.14 232.13 / 0.1);
 }
 
 /* Code blocks styling */
@@ -71,14 +71,13 @@ pre code.hljs {
 
 /* Focus styles for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--luma-color-primary);
+  outline: 2px solid var(--luma-color-primary-50);
   outline-offset: 2px;
 }
 
 /* Selection color */
 ::selection {
-  background-color: var(--luma-color-primary);
-  background-color: rgba(var(--luma-color-primary-rgb), 0.2);
+  background-color: var(--luma-color-neutral-70);
   color: var(--luma-color-text-primary);
 }
 

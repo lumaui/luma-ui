@@ -13,8 +13,8 @@ import { DocsRegistryService } from '../../services/docs-registry.service';
       }
 
       .active-sidebar {
-        color: var(--luma-color-primary);
-        background-color: rgba(var(--luma-color-primary), 0.05);
+        color: var(--luma-color-primary-50);
+        background-color: oklch(0.63 0.14 232.13 / 0.08);
         font-weight: 500;
       }
     `,

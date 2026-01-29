@@ -7,12 +7,26 @@ export const routes: Routes = [
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'components',
+    path: 'docs',
     children: [
       {
         path: '',
-        redirectTo: '/components/button',
+        redirectTo: 'getting-started',
         pathMatch: 'full',
+      },
+      {
+        path: 'getting-started',
+        loadComponent: () =>
+          import(
+            './pages/getting-started-page/getting-started-page.component'
+          ).then((m) => m.GettingStartedPageComponent),
+      },
+      {
+        path: 'components',
+        loadComponent: () =>
+          import('./pages/docs-overview/docs-overview.component').then(
+            (m) => m.DocsOverviewComponent,
+          ),
       },
       {
         path: ':slug',

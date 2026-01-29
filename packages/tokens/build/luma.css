@@ -110,8 +110,6 @@
   --luma-card-preview-background: oklch(0.99 0 0);
   --luma-card-preview-border: oklch(0.92 0.008 265);
   --luma-card-preview-radius: 12px;
-  --luma-card-gradient-from: oklch(0.92 0.005 0 / 0.6);
-  --luma-card-gradient-to: oklch(0.96 0.003 0 / 0.6);
   --luma-card-background: oklch(1 0 0);
   --luma-card-padding: 1.5rem;
   --luma-card-box-shadow: 0px 2px 0 0px #e4e4e4;
@@ -534,16 +532,6 @@
 }
 
 /* Card Legacy Utilities (gradient wrapper) */
-@utility lm-from-card-gradient-from {
-  --tw-gradient-from: var(--luma-card-gradient-from);
-  --tw-gradient-to: rgb(255 255 255 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-@utility lm-to-card-gradient-to {
-  --tw-gradient-to: var(--luma-card-gradient-to);
-}
-
 @utility lm-bg-card-background {
   background-color: var(--luma-card-background);
 }

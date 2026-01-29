@@ -1,0 +1,108 @@
+<section class="">
+  <div [class]="headerClasses()">
+    <h2
+      class="text-2xl sm:text-3xl font-semibold lm-text-primary mb-3 sm:mb-4"
+    >
+      Getting Started
+    </h2>
+    <p [class]="'text-sm sm:text-base lm-text-secondary ' + descriptionClasses()">
+      Three simple steps to start building with Luma UI
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+    <!-- Step 1: Prerequisites -->
+    <div class="flex flex-col">
+      <luma-card lmVariant="shadow" class="flex-1">
+        <div
+          class="text-5xl sm:text-6xl font-bold lm-text-primary-50 opacity-40 absolute top-4 right-6"
+        >
+          1
+        </div>
+        <div lumaCardHeader class="relative">
+          <h3 lumaCardTitle lmSize="large">Prerequisites</h3>
+        </div>
+        <div lumaCardContent class="relative">
+          <p class="text-sm lm-text-secondary mb-4 leading-relaxed">
+            Set up Tailwind CSS v4 in your Angular project first.
+          </p>
+          <a
+            href="https://tailwindcss.com/docs/installation/framework-guides/angular"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center text-sm lm-text-primary hover:underline font-medium"
+          >
+            View Tailwind guide
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </a>
+        </div>
+      </luma-card>
+    </div>
+
+    <!-- Step 2: Installation -->
+    <div class="flex flex-col">
+      <luma-card lmVariant="shadow" class="flex-1">
+        <div
+          class="text-5xl sm:text-6xl font-bold lm-text-primary-50 opacity-40 absolute top-4 right-6"
+        >
+          2
+        </div>
+        <div lumaCardHeader class="relative">
+          <h3 lumaCardTitle lmSize="large">Installation</h3>
+        </div>
+        <div lumaCardContent class="relative">
+          <p class="text-sm lm-text-secondary mb-4 leading-relaxed">
+            Install the package via npm.
+          </p>
+          <div
+            class="lm-bg-surface lm-rounded p-3 font-mono text-xs sm:text-sm overflow-x-auto"
+          >
+            <code class="lm-text-primary">npm install @lumaui/angular</code>
+          </div>
+          <p class="text-xs lm-text-secondary mt-3 leading-relaxed">
+            Dependencies are installed automatically.
+          </p>
+        </div>
+      </luma-card>
+    </div>
+
+    <!-- Step 3: Setup -->
+    <div class="flex flex-col">
+      <luma-card lmVariant="shadow" class="flex-1">
+        <div
+          class="text-5xl sm:text-6xl font-bold lm-text-primary-50 opacity-40 absolute top-4 right-6"
+        >
+          3
+        </div>
+        <div lumaCardHeader class="relative">
+          <h3 lumaCardTitle lmSize="large">Setup</h3>
+        </div>
+        <div lumaCardContent class="relative">
+          <p class="text-sm lm-text-secondary mb-4 leading-relaxed">
+            Import tokens in your
+            <code class="lm-bg-surface px-1.5 py-0.5 lm-rounded font-mono text-xs"
+              >styles.css</code
+            >
+          </p>
+          <div class="lm-bg-surface lm-rounded p-3 font-mono text-xs overflow-x-auto">
+            <pre class="lm-text-primary leading-relaxed"><code>&#64;import 'tailwindcss';
+&#64;import '&#64;lumaui/tokens';
+&#64;import '&#64;lumaui/tokens/dark.css';</code></pre>
+          </div>
+        </div>
+      </luma-card>
+    </div>
+  </div>
+</section>
