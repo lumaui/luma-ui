@@ -1,11 +1,11 @@
 <section class="">
   <div [class]="headerClasses()">
-    <h2
-      class="text-2xl sm:text-3xl font-semibold lm-text-primary mb-3 sm:mb-4"
-    >
+    <h2 class="text-2xl sm:text-3xl font-semibold lm-text-primary mb-3 sm:mb-4">
       Getting Started
     </h2>
-    <p [class]="'text-sm sm:text-base lm-text-secondary ' + descriptionClasses()">
+    <p
+      [class]="'text-sm sm:text-base lm-text-secondary ' + descriptionClasses()"
+    >
       Three simple steps to start building with Luma UI
     </p>
   </div>
@@ -69,7 +69,7 @@
           <div
             class="lm-bg-surface lm-rounded p-3 font-mono text-xs sm:text-sm overflow-x-auto"
           >
-            <code class="lm-text-primary">npm install @lumaui/angular</code>
+            <code class="lm-text-primary">npm install &#64;lumaui/angular</code>
           </div>
           <p class="text-xs lm-text-secondary mt-3 leading-relaxed">
             Dependencies are installed automatically.
@@ -92,12 +92,17 @@
         <div lumaCardContent class="relative">
           <p class="text-sm lm-text-secondary mb-4 leading-relaxed">
             Import tokens in your
-            <code class="lm-bg-surface px-1.5 py-0.5 lm-rounded font-mono text-xs"
+            <code
+              class="lm-bg-surface px-1.5 py-0.5 lm-rounded font-mono text-xs"
               >styles.css</code
             >
           </p>
-          <div class="lm-bg-surface lm-rounded p-3 font-mono text-xs overflow-x-auto">
-            <pre class="lm-text-primary leading-relaxed"><code>&#64;import 'tailwindcss';
+          <div
+            class="lm-bg-surface lm-rounded p-3 font-mono text-xs overflow-x-auto"
+          >
+            <pre
+              class="lm-text-primary leading-relaxed"
+            ><code>&#64;import 'tailwindcss';
 &#64;import '&#64;lumaui/tokens';
 &#64;import '&#64;lumaui/tokens/dark.css';</code></pre>
           </div>
