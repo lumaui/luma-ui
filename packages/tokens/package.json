@@ -1,6 +1,6 @@
 {
   "name": "@lumaui/tokens",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Design tokens for Luma UI - Neo-Minimal design system",
   "type": "module",
   "main": "./build/luma-complete.css",
