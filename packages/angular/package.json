@@ -1,6 +1,6 @@
 {
   "name": "@lumaui/angular",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Angular components for Luma UI - Neo-Minimal design system",
   "dependencies": {
     "@lumaui/core": "^0.1.2",
