@@ -44,23 +44,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint:all
-
-      - name: Check formatting
-        run: npx prettier --check .
-
-      - name: Build tokens
-        run: cd packages/tokens && npm run build
-
-      - name: Build @lumaui/core (needed for tests)
-        run: npx nx build core
-
-      - name: Run tests
-        run: npm run test:components
-
-      # Auto-bump ALL packages when any package needs publishing
-      # This keeps versions synchronized across the monorepo
+      # Auto-bump BEFORE any builds to ensure correct versions
       - name: Auto-bump all packages if any version is already published
         id: auto_bump
         run: |
@@ -140,6 +124,21 @@ jobs:
           Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>" || true
           git push || true
 
+      - name: Lint
+        run: npm run lint:all
+
+      - name: Check formatting
+        run: npx prettier --check .
+
+      - name: Build tokens
+        run: cd packages/tokens && npm run build
+
+      - name: Build @lumaui/core (needed for tests)
+        run: npx nx build core --skip-nx-cache
+
+      - name: Run tests
+        run: npm run test:components
+
       # Publish @lumaui/tokens
       - name: Check tokens version
         id: tokens_version
@@ -172,7 +171,7 @@ jobs:
 
       - name: Build @lumaui/core
         if: steps.core_version.outputs.published == 'false'
-        run: npx nx build core
+        run: npx nx build core --skip-nx-cache
 
       - name: Publish @lumaui/core
         if: steps.core_version.outputs.published == 'false' && !inputs.dry_run
@@ -194,7 +193,7 @@ jobs:
 
       - name: Build @lumaui/angular
         if: steps.angular_version.outputs.published == 'false'
-        run: npx nx build angular --configuration=production
+        run: npx nx build angular --configuration=production --skip-nx-cache
 
       - name: Publish @lumaui/angular
         if: steps.angular_version.outputs.published == 'false' && !inputs.dry_run
