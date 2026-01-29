@@ -85,6 +85,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
                             <code
                               class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded cursor-pointer hover:lm-bg-primary-50/10 transition-colors"
                               (click)="copyToClipboard(token.name)"
+                              (keyup)="onCodeKeyup($event, token.name)"
+                              tabindex="0"
                               title="Click to copy"
                             >
                               {{ token.name }}
@@ -211,6 +213,13 @@ export class ThemeDocsComponent {
       await navigator.clipboard.writeText(text);
     } catch (err) {
       console.error('Failed to copy:', err);
+    }
+  }
+
+  onCodeKeyup(event: KeyboardEvent, text: string): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.copyToClipboard(text);
     }
   }
 }
