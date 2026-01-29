@@ -59,15 +59,20 @@ jobs:
       - name: Run tests
         run: npm run test:components
 
-      # Auto-bump versions if README/src changed but version already published
-      - name: Detect changes and auto-bump if needed
+      # Auto-bump ALL packages when any package needs publishing
+      # This keeps versions synchronized across the monorepo
+      - name: Auto-bump all packages if any version is already published
         id: auto_bump
         run: |
-          git fetch origin main --depth=2
+          NEEDS_BUMP=false
+          BUMPED_ANY=false
 
-          # Check what files changed in the last commit
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
-          echo "Changed files: $CHANGED_FILES"
+          # Function to check if version is published
+          is_published() {
+            local pkg=$1
+            local version=$2
+            npm view @lumaui/$pkg@$version version 2>/dev/null && return 0 || return 1
+          }
 
           # Function to bump patch version
           bump_patch() {
@@ -79,61 +84,60 @@ jobs:
             local patch=$(echo $current | cut -d. -f3)
             local new_version="$major.$minor.$((patch + 1))"
 
-            # Update version in package.json
             node -e "
               const fs = require('fs');
               const pkg = require('./$pkg_json');
               pkg.version = '$new_version';
               fs.writeFileSync('$pkg_json', JSON.stringify(pkg, null, 2) + '\n');
             "
-            echo "$pkg: $current -> $new_version"
-            echo "${pkg}_bumped=true" >> $GITHUB_OUTPUT
+            echo "✓ $pkg: $current -> $new_version"
           }
 
-          # Check tokens
-          if echo "$CHANGED_FILES" | grep -q "packages/tokens/"; then
-            TOKENS_VERSION=$(node -p "require('./packages/tokens/package.json').version")
-            if npm view @lumaui/tokens@$TOKENS_VERSION version 2>/dev/null; then
-              echo "Tokens: version $TOKENS_VERSION already published, bumping..."
-              bump_patch "tokens"
+          # Check if any package version is already published
+          for pkg in tokens core angular; do
+            VERSION=$(node -p "require('./packages/$pkg/package.json').version")
+            if is_published "$pkg" "$VERSION"; then
+              echo "⚠ @lumaui/$pkg@$VERSION already published - needs bump"
+              NEEDS_BUMP=true
+            else
+              echo "✓ @lumaui/$pkg@$VERSION not published yet"
             fi
-          fi
+          done
 
-          # Check core
-          if echo "$CHANGED_FILES" | grep -q "packages/core/"; then
-            CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
-            if npm view @lumaui/core@$CORE_VERSION version 2>/dev/null; then
-              echo "Core: version $CORE_VERSION already published, bumping..."
-              bump_patch "core"
-            fi
-          fi
-
-          # Check angular
-          if echo "$CHANGED_FILES" | grep -q "packages/angular/"; then
-            ANGULAR_VERSION=$(node -p "require('./packages/angular/package.json').version")
-            if npm view @lumaui/angular@$ANGULAR_VERSION version 2>/dev/null; then
-              echo "Angular: version $ANGULAR_VERSION already published, bumping..."
-              bump_patch "angular"
-            fi
-          fi
-
-          # Force publish option
+          # Force publish option always triggers bump
           if [[ "${{ inputs.force_publish }}" == "true" ]]; then
+            echo "Force publish requested"
+            NEEDS_BUMP=true
+          fi
+
+          # If any package needs bump, bump ALL packages that are already published
+          if [[ "$NEEDS_BUMP" == "true" ]]; then
+            echo ""
+            echo "Bumping all published packages..."
             for pkg in tokens core angular; do
-              PKG_VERSION=$(node -p "require('./packages/$pkg/package.json').version")
-              if npm view @lumaui/$pkg@$PKG_VERSION version 2>/dev/null; then
+              VERSION=$(node -p "require('./packages/$pkg/package.json').version")
+              if is_published "$pkg" "$VERSION"; then
                 bump_patch "$pkg"
+                BUMPED_ANY=true
               fi
             done
           fi
 
+          if [[ "$BUMPED_ANY" == "true" ]]; then
+            echo "bumped=true" >> $GITHUB_OUTPUT
+          else
+            echo "bumped=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit version bumps
-        if: steps.auto_bump.outputs.tokens_bumped == 'true' || steps.auto_bump.outputs.core_bumped == 'true' || steps.auto_bump.outputs.angular_bumped == 'true'
+        if: steps.auto_bump.outputs.bumped == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add packages/*/package.json
-          git commit -m "chore: auto-bump versions for README/source changes" || true
+          git commit -m "chore: auto-bump versions for publish
+
+          Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>" || true
           git push || true
 
       # Publish @lumaui/tokens
