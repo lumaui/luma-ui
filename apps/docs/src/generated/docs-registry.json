@@ -589,7 +589,7 @@
         "purpose": "The color system provides a carefully curated palette that embodies Neo-Minimal principles: slightly desaturated colors, comfortable for extended viewing, with progressive contrast that never shouts.\n\nAll colors use the OKLCH color space for perceptual uniformity, ensuring consistent lightness perception across different hues."
       },
       "docPath": "packages/tokens/src/docs/colors.docs.md",
-      "markdownContent": "\n# Colors\n\n## Purpose\n\nThe color system provides a carefully curated palette that embodies Neo-Minimal principles: slightly desaturated colors, comfortable for extended viewing, with progressive contrast that never shouts.\n\nAll colors use the OKLCH color space for perceptual uniformity, ensuring consistent lightness perception across different hues.\n\n"
+      "markdownContent": "\n# Colors\n\n## Purpose\n\nThe color system provides a carefully curated palette that embodies Neo-Minimal principles: slightly desaturated colors, comfortable for extended viewing, with progressive contrast that never shouts.\n\nAll colors use the OKLCH color space for perceptual uniformity, ensuring consistent lightness perception across different hues.\n"
     },
     {
       "name": "Spacing",
@@ -686,7 +686,7 @@
         "purpose": "The spacing system provides a consistent scale for margins, padding, and gaps. Following Neo-Minimal principles, whitespace is treated as **invisible structure** that creates hierarchy and controls reading flow."
       },
       "docPath": "packages/tokens/src/docs/spacing.docs.md",
-      "markdownContent": "\n# Spacing\n\n## Purpose\n\nThe spacing system provides a consistent scale for margins, padding, and gaps. Following Neo-Minimal principles, whitespace is treated as **invisible structure** that creates hierarchy and controls reading flow.\n\n"
+      "markdownContent": "\n# Spacing\n\n## Purpose\n\nThe spacing system provides a consistent scale for margins, padding, and gaps. Following Neo-Minimal principles, whitespace is treated as **invisible structure** that creates hierarchy and controls reading flow.\n"
     },
     {
       "name": "Transitions",
@@ -732,7 +732,7 @@
         "purpose": "Transitions provide gentle feedback that responds to user actions without distraction. Following Neo-Minimal principles, the best interaction is one you barely notice."
       },
       "docPath": "packages/tokens/src/docs/transitions.docs.md",
-      "markdownContent": "\n# Transitions\n\n## Purpose\n\nTransitions provide gentle feedback that responds to user actions without distraction. Following Neo-Minimal principles, the best interaction is one you barely notice.\n\n"
+      "markdownContent": "\n# Transitions\n\n## Purpose\n\nTransitions provide gentle feedback that responds to user actions without distraction. Following Neo-Minimal principles, the best interaction is one you barely notice.\n"
     },
     {
       "name": "Typography",
@@ -835,9 +835,9 @@
         "purpose": "Typography is the primary visual component of the system. The typographic scale prioritizes clarity, rhythm, and continuous reading over impact and personality."
       },
       "docPath": "packages/tokens/src/docs/typography.docs.md",
-      "markdownContent": "\n# Typography\n\n## Purpose\n\nTypography is the primary visual component of the system. The typographic scale prioritizes clarity, rhythm, and continuous reading over impact and personality.\n\n"
+      "markdownContent": "\n# Typography\n\n## Purpose\n\nTypography is the primary visual component of the system. The typographic scale prioritizes clarity, rhythm, and continuous reading over impact and personality.\n"
     }
   ],
   "categories": ["Form", "Layout"],
-  "generatedAt": "2026-01-29T18:56:28.002Z"
+  "generatedAt": "2026-01-29T20:51:22.062Z"
 }
