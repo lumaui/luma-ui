@@ -1,110 +1,140 @@
-# Luma
+# Luma UI
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Neo-Minimal design system for Angular applications.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+[![npm version](https://img.shields.io/npm/v/@lumaui/angular.svg)](https://www.npmjs.com/package/@lumaui/angular)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Angular](https://img.shields.io/badge/Angular-19+-dd0031.svg)](https://angular.io/)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/npm-workspaces-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## What is Luma?
 
-## Run tasks
+Luma is a design system built on **Neo-Minimalism** - a design philosophy that creates interfaces with calm, intentional simplicity. It provides design tokens and Angular components that prioritize:
 
-To run tasks with Nx use:
+- **Visual Silence** - Elements don't compete; hierarchy is perceived effortlessly
+- **Functional Whitespace** - Space as invisible structure, not empty filler
+- **Calm Interactions** - Gentle feedback with natural transitions
+- **Silent Accessibility** - WCAG AA compliance built into the design, not bolted on
 
-```sh
-npx nx <target> <project-name>
+## Features
+
+- Design tokens with automatic light/dark theme support
+- Angular 19+ standalone components
+- Type-safe variants with [class-variance-authority](https://cva.style/)
+- OKLCH color space for perceptually uniform colors
+- Tailwind CSS v4 integration
+- WCAG AA accessibility standards
+
+## Packages
+
+| Package                                                            | Description                                 |
+| ------------------------------------------------------------------ | ------------------------------------------- |
+| [`@lumaui/tokens`](https://www.npmjs.com/package/@lumaui/tokens)   | Design tokens compiled via Style Dictionary |
+| [`@lumaui/angular`](https://www.npmjs.com/package/@lumaui/angular) | Angular components and directives           |
+| [`@lumaui/core`](https://www.npmjs.com/package/@lumaui/core)       | Framework-agnostic CVA variant definitions  |
+
+## Quick Start
+
+### Installation
+
+```bash
+npm install @lumaui/angular
 ```
 
-For example:
+### Setup
 
-```sh
-npx nx build myproject
+Add the tokens to your global styles (e.g., `styles.css`):
+
+```css
+@import 'tailwindcss';
+@import '@lumaui/tokens';
+@import '@lumaui/tokens/dark.css'; /* Optional: dark theme */
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### Usage
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```typescript
+import { Component } from '@angular/core';
+import { ButtonDirective } from '@lumaui/angular';
 
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-
-```sh
-npx nx add @nx/react
+@Component({
+  selector: 'app-example',
+  imports: [ButtonDirective],
+  template: `
+    <button lumaButton lmVariant="primary" lmSize="md">Click me</button>
+  `,
+})
+export class ExampleComponent {}
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+## Components
 
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
+### Button
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
+Directive-based button with multiple variants and sizes.
+
+```html
+<!-- Variants: primary, outline, ghost, danger -->
+<button lumaButton lmVariant="primary">Primary</button>
+<button lumaButton lmVariant="outline">Outline</button>
+<button lumaButton lmVariant="ghost">Ghost</button>
+<button lumaButton lmVariant="danger">Danger</button>
+
+<!-- Sizes: sm, md, lg, full -->
+<button lumaButton lmSize="sm">Small</button>
+<button lumaButton lmSize="lg">Large</button>
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### Card
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Compositional card with directives for header, title, description, and content.
 
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```html
+<luma-card lmVariant="default">
+  <div lumaCardHeader>
+    <h3 lumaCardTitle>Card Title</h3>
+    <p lumaCardDescription>Card description text</p>
+  </div>
+  <div lumaCardContent>Card content goes here.</div>
+</luma-card>
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## Customization
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Override design tokens via CSS custom properties:
 
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
+```css
+:root {
+  --luma-button-radius: 4px;
+  --luma-button-primary-bg: oklch(0.6 0.15 250);
+}
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Development
 
-## Install Nx Console
+```bash
+# Start the docs/playground app
+npm run dev
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+# Build all packages
+npm run build
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Run component tests
+npm run test:components
 
-## Useful links
+# Lint all projects
+npm run lint:all
 
-Learn more:
+# Format code
+npm run format
+```
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/npm-workspaces-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+See [CLAUDE.md](./CLAUDE.md) for detailed development guidelines, Neo-Minimal design principles, and contribution standards.
 
-And join the Nx community:
+## Links
 
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [GitHub Repository](https://github.com/lumaui/luma-ui)
+- [Report Issues](https://github.com/lumaui/luma-ui/issues)
+
+## License
+
+MIT

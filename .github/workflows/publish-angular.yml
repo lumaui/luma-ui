@@ -6,10 +6,17 @@ on:
       - main
     paths:
       - 'packages/*/package.json'
+      - 'packages/*/README.md'
+      - 'packages/*/src/**'
   workflow_dispatch:
     inputs:
       dry_run:
         description: 'Dry run (no actual publish)'
+        required: false
+        type: boolean
+        default: false
+      force_publish:
+        description: 'Force publish all packages (bump patch if needed)'
         required: false
         type: boolean
         default: false
@@ -51,6 +58,83 @@ jobs:
 
       - name: Run tests
         run: npm run test:components
+
+      # Auto-bump versions if README/src changed but version already published
+      - name: Detect changes and auto-bump if needed
+        id: auto_bump
+        run: |
+          git fetch origin main --depth=2
+
+          # Check what files changed in the last commit
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
+          echo "Changed files: $CHANGED_FILES"
+
+          # Function to bump patch version
+          bump_patch() {
+            local pkg=$1
+            local pkg_json="packages/$pkg/package.json"
+            local current=$(node -p "require('./$pkg_json').version")
+            local major=$(echo $current | cut -d. -f1)
+            local minor=$(echo $current | cut -d. -f2)
+            local patch=$(echo $current | cut -d. -f3)
+            local new_version="$major.$minor.$((patch + 1))"
+
+            # Update version in package.json
+            node -e "
+              const fs = require('fs');
+              const pkg = require('./$pkg_json');
+              pkg.version = '$new_version';
+              fs.writeFileSync('$pkg_json', JSON.stringify(pkg, null, 2) + '\n');
+            "
+            echo "$pkg: $current -> $new_version"
+            echo "${pkg}_bumped=true" >> $GITHUB_OUTPUT
+          }
+
+          # Check tokens
+          if echo "$CHANGED_FILES" | grep -q "packages/tokens/"; then
+            TOKENS_VERSION=$(node -p "require('./packages/tokens/package.json').version")
+            if npm view @lumaui/tokens@$TOKENS_VERSION version 2>/dev/null; then
+              echo "Tokens: version $TOKENS_VERSION already published, bumping..."
+              bump_patch "tokens"
+            fi
+          fi
+
+          # Check core
+          if echo "$CHANGED_FILES" | grep -q "packages/core/"; then
+            CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
+            if npm view @lumaui/core@$CORE_VERSION version 2>/dev/null; then
+              echo "Core: version $CORE_VERSION already published, bumping..."
+              bump_patch "core"
+            fi
+          fi
+
+          # Check angular
+          if echo "$CHANGED_FILES" | grep -q "packages/angular/"; then
+            ANGULAR_VERSION=$(node -p "require('./packages/angular/package.json').version")
+            if npm view @lumaui/angular@$ANGULAR_VERSION version 2>/dev/null; then
+              echo "Angular: version $ANGULAR_VERSION already published, bumping..."
+              bump_patch "angular"
+            fi
+          fi
+
+          # Force publish option
+          if [[ "${{ inputs.force_publish }}" == "true" ]]; then
+            for pkg in tokens core angular; do
+              PKG_VERSION=$(node -p "require('./packages/$pkg/package.json').version")
+              if npm view @lumaui/$pkg@$PKG_VERSION version 2>/dev/null; then
+                bump_patch "$pkg"
+              fi
+            done
+          fi
+
+      - name: Commit version bumps
+        if: steps.auto_bump.outputs.tokens_bumped == 'true' || steps.auto_bump.outputs.core_bumped == 'true' || steps.auto_bump.outputs.angular_bumped == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add packages/*/package.json
+          git commit -m "chore: auto-bump versions for README/source changes" || true
+          git push || true
 
       # Publish @lumaui/tokens
       - name: Check tokens version
