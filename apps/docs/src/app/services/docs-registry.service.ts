@@ -15,6 +15,35 @@ export interface DocToken {
   description: string;
 }
 
+// Theme documentation types
+export interface ThemeToken {
+  name: string; // CSS variable name, e.g., --luma-color-primary-50
+  value: string; // Light theme value
+  darkValue?: string; // Dark theme value (optional)
+  type: string; // Token type: color, dimension, etc.
+  description: string;
+}
+
+export interface ThemeTokenGroup {
+  name: string; // Group name, e.g., "Primary", "Neutral"
+  tokens: ThemeToken[];
+}
+
+export interface ThemePage {
+  name: string;
+  slug: string;
+  category: 'Theme';
+  description: string;
+  groups: ThemeTokenGroup[];
+  sections: {
+    purpose?: string;
+    neoMinimal?: string;
+    usage?: string;
+  };
+  docPath: string;
+  markdownContent: string;
+}
+
 export interface DocExample {
   title: string;
   code: string;
@@ -65,6 +94,7 @@ export interface DocComponent {
 
 export interface DocsRegistry {
   components: DocComponent[];
+  themePages: ThemePage[];
   categories: string[];
   generatedAt: string;
 }
@@ -116,4 +146,16 @@ export class DocsRegistryService {
    * Get the generation timestamp
    */
   readonly generatedAt = computed(() => this.registry().generatedAt);
+
+  /**
+   * Get all theme pages from the registry
+   */
+  readonly themePages = computed(() => this.registry().themePages ?? []);
+
+  /**
+   * Get a theme page by its slug
+   */
+  getThemePage(slug: string): ThemePage | undefined {
+    return this.registry().themePages?.find((p) => p.slug === slug);
+  }
 }

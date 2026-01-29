@@ -106,17 +106,15 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
               <div class="overflow-x-auto">
                 <table class="w-full text-left">
                   <thead>
-                    <tr
-                      class="border-b lm-border-text-secondary/10 lm-text-secondary"
-                    >
+                    <tr class="lm-text-secondary">
                       <th class="pb-3 pr-6 font-medium text-sm">Token</th>
                       <th class="pb-3 pr-6 font-medium text-sm">Value</th>
                       <th class="pb-3 font-medium text-sm">Description</th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-text-secondary/5">
+                  <tbody>
                     @for (token of comp.tokens; track token.name) {
-                      <tr class="text-sm">
+                      <tr class="text-sm table-row-striped">
                         <td class="py-3 pr-6">
                           <code
                             class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded"
@@ -127,7 +125,7 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                           <div class="flex items-center gap-2">
                             @if (isColor(token.value)) {
                               <span
-                                class="w-4 h-4 rounded border lm-border-text-secondary/20"
+                                class="w-4 h-4 rounded"
                                 [style.background]="token.value"
                               ></span>
                             }
@@ -223,9 +221,7 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                     <div class="overflow-x-auto">
                       <table class="w-full text-left">
                         <thead>
-                          <tr
-                            class="border-b lm-border-text-secondary/10 lm-text-secondary"
-                          >
+                          <tr class="lm-text-secondary">
                             <th class="pb-3 pr-6 font-medium text-sm">Name</th>
                             <th class="pb-3 pr-6 font-medium text-sm">Type</th>
                             <th class="pb-3 pr-6 font-medium text-sm">
@@ -236,9 +232,9 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                             </th>
                           </tr>
                         </thead>
-                        <tbody class="divide-y divide-text-secondary/5">
+                        <tbody>
                           @for (input of comp.inputs; track input.name) {
-                            <tr class="text-sm">
+                            <tr class="text-sm table-row-striped">
                               <td class="py-3 pr-6">
                                 <code
                                   class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded"

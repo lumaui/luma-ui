@@ -25,6 +25,7 @@ export class SidebarComponent {
 
   readonly categories = this.registry.categories;
   readonly componentsByCategory = this.registry.componentsByCategory;
+  readonly themePages = this.registry.themePages;
 
   /**
    * Get components for a specific category

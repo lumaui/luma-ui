@@ -118,3 +118,17 @@ pre code.hljs {
   --luma-button-radius: 3px;
   --luma-button-primary-bg: #ffffff;
 } */
+
+/* Logo invert in dark mode (synced with .dark class) */
+.dark .logo-invert {
+  filter: invert(1);
+}
+
+/* Table striped rows (synced with .dark class) */
+.table-row-striped:nth-child(even) {
+  background-color: var(--luma-color-neutral-50);
+}
+
+.dark .table-row-striped:nth-child(even) {
+  background-color: var(--luma-color-neutral-50);
+}

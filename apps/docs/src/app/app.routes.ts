@@ -29,6 +29,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'theme/:slug',
+        loadComponent: () =>
+          import('./pages/theme-docs/theme-docs.component').then(
+            (m) => m.ThemeDocsComponent,
+          ),
+      },
+      {
         path: ':slug',
         loadComponent: () =>
           import('./pages/component-docs/component-docs.component').then(

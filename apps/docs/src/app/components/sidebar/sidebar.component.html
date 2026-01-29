@@ -7,23 +7,40 @@
       <a
         routerLink="/docs/getting-started"
         routerLinkActive="active-sidebar"
-        class="block py-2 px-2 text-base font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+        class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
       >
         Getting Started
       </a>
-    </div>
 
-    <!-- All Components Link -->
-    <div>
       <a
         routerLink="/docs/components"
         routerLinkActive="active-sidebar"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="block py-2 px-2 text-base font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+        class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
       >
         All Components
       </a>
     </div>
+
+    <!-- Theme Section -->
+    @if (themePages().length > 0) {
+      <div>
+        <div
+          class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+        >
+          Theme
+        </div>
+        @for (page of themePages(); track page.slug) {
+          <a
+            [routerLink]="'/docs/theme/' + page.slug"
+            routerLinkActive="active-sidebar"
+            class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          >
+            {{ page.name }}
+          </a>
+        }
+      </div>
+    }
 
     @for (category of categories(); track category) {
       <div>
@@ -36,7 +53,7 @@
           <a
             [routerLink]="'/docs/' + comp.slug"
             routerLinkActive="active-sidebar"
-            class="block px-3 py-2 text-base lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+            class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
           >
             {{ comp.name }}
           </a>

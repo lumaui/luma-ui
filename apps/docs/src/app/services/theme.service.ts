@@ -25,12 +25,13 @@ export class ThemeService {
 
   private getInitialTheme(): Theme {
     if (!this.isBrowser) {
-      return 'light';
+      return 'dark';
     }
 
     const stored = localStorage.getItem('lumo-theme') as Theme;
     if (stored) return stored;
 
+    // Respect system preference
     return window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';

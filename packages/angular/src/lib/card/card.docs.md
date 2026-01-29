@@ -317,6 +317,8 @@ The card appearance can be customized using CSS variables defined in `@lumaui/to
 
 ### Override Globally
 
+Override card tokens in your global styles to apply changes across your entire application:
+
 ```css
 /* In your global styles.css */
 :root {
@@ -327,6 +329,8 @@ The card appearance can be customized using CSS variables defined in `@lumaui/to
 ```
 
 ### Override Per Theme
+
+Apply different card styles for light and dark themes:
 
 ```css
 /* Light mode */
@@ -342,6 +346,8 @@ The card appearance can be customized using CSS variables defined in `@lumaui/to
 ```
 
 ### Override Per Component
+
+Scope token overrides to specific contexts or containers:
 
 ```css
 /* Cards in sidebar - more compact */
