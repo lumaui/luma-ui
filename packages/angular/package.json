@@ -26,13 +26,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pureartisan/lumo.git",
+    "url": "https://github.com/lumaui/luma-ui.git",
     "directory": "packages/angular"
   },
   "license": "MIT",
   "author": "Luma UI Team",
-  "homepage": "https://github.com/pureartisan/lumo#readme",
+  "homepage": "https://github.com/lumaui/luma-ui#readme",
   "bugs": {
-    "url": "https://github.com/pureartisan/lumo/issues"
+    "url": "https://github.com/lumaui/luma-ui/issues"
   }
 }
