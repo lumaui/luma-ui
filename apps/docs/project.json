@@ -56,7 +56,7 @@
             }
           ],
           "outputHashing": "all",
-          "baseHref": "/luma-ui/",
+          "baseHref": "/",
           "outputMode": "static"
         },
         "development": {
