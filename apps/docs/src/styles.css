@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* Import Tailwind CSS + Luma UI */
-@import '../../../packages/tokens/build/luma.css';
+@import '../../../packages/tokens/build/luma-complete.css';
 @import '../../../packages/tokens/build/luma-dark.css';
 
 /* Font smoothing for better typography */

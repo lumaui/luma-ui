@@ -545,22 +545,71 @@ StyleDictionary.registerFormat({
         output += `}\n\n`;
       });
 
-      // Badge utilities
-      output += `/* Badge */\n`;
-      const badgeBgToken = dictionary.allTokens.find(
-        (t) => t.path[1] === 'badge' && t.path[2] === 'bg',
+      // ============================================
+      // BADGE LAYOUT UTILITIES
+      // ============================================
+
+      output += `/* Badge Layout Utilities */\n`;
+
+      // Badge radius
+      const badgeRadiusToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'badge' && t.path[2] === 'radius',
       );
-      if (badgeBgToken) {
-        output += `@utility lm-bg-badge {\n`;
-        output += `  background-color: var(${badgeBgToken.name});\n`;
+      if (badgeRadiusToken) {
+        output += `@utility lm-rounded-badge {\n`;
+        output += `  border-radius: var(${badgeRadiusToken.name});\n`;
         output += `}\n\n`;
       }
-      const badgeColorToken = dictionary.allTokens.find(
-        (t) => t.path[1] === 'badge' && t.path[2] === 'color',
+
+      // Badge font weight
+      const badgeFontWeightToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'badge' && t.path[2] === 'font-weight',
       );
-      if (badgeColorToken) {
-        output += `@utility lm-text-badge {\n`;
-        output += `  color: var(${badgeColorToken.name});\n`;
+      if (badgeFontWeightToken) {
+        output += `@utility lm-font-badge {\n`;
+        output += `  font-weight: var(${badgeFontWeightToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Badge border width
+      const badgeBorderWidthToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'badge' && t.path[2] === 'border-width',
+      );
+      if (badgeBorderWidthToken) {
+        output += `@utility lm-border-w-badge {\n`;
+        output += `  border-width: var(${badgeBorderWidthToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Badge padding-x
+      const badgePaddingXToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'badge' && t.path[2] === 'padding-x',
+      );
+      if (badgePaddingXToken) {
+        output += `@utility lm-px-badge {\n`;
+        output += `  padding-left: var(${badgePaddingXToken.name});\n`;
+        output += `  padding-right: var(${badgePaddingXToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Badge padding-y
+      const badgePaddingYToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'badge' && t.path[2] === 'padding-y',
+      );
+      if (badgePaddingYToken) {
+        output += `@utility lm-py-badge {\n`;
+        output += `  padding-top: var(${badgePaddingYToken.name});\n`;
+        output += `  padding-bottom: var(${badgePaddingYToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Badge font-size
+      const badgeFontSizeToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'badge' && t.path[2] === 'font-size',
+      );
+      if (badgeFontSizeToken) {
+        output += `@utility lm-text-size-badge {\n`;
+        output += `  font-size: var(${badgeFontSizeToken.name});\n`;
         output += `}\n\n`;
       }
 

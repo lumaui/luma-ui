@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
+  BadgeDirective,
   ButtonDirective,
   CardComponent,
   CardHeaderDirective,
@@ -28,6 +29,7 @@ interface ComponentCard {
   standalone: true,
   imports: [
     RouterModule,
+    BadgeDirective,
     ButtonDirective,
     CardComponent,
     CardHeaderDirective,
@@ -67,7 +69,7 @@ export class ComponentGridComponent {
         'Elevated cards with gradient borders and flexible content areas',
       category: 'Layout',
       route: '/docs/card',
-      size: 'medium',
+      size: 'small',
     },
     {
       id: 'accordion',
@@ -77,6 +79,15 @@ export class ComponentGridComponent {
       category: 'Layout',
       route: '/docs/accordion',
       size: 'medium',
+    },
+    {
+      id: 'badge',
+      name: 'Badge',
+      description:
+        'Compact labels for status, categories, or counts with customizable colors',
+      category: 'Layout',
+      route: '/docs/badge',
+      size: 'small',
     },
   ];
 

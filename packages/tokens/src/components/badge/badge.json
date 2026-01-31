@@ -1,28 +1,8 @@
 {
   "luma": {
     "badge": {
-      "color": {
-        "value": "{luma.color.primary.50}",
-        "type": "color",
-        "description": "Badge text color"
-      },
-      "bg": {
-        "value": "oklch(0.54 0.1 230 / 0.1)",
-        "type": "color",
-        "description": "Badge background color"
-      },
-      "padding-x": {
-        "value": "0.625rem",
-        "type": "dimension",
-        "description": "Badge horizontal padding"
-      },
-      "padding-y": {
-        "value": "0.25rem",
-        "type": "dimension",
-        "description": "Badge vertical padding"
-      },
       "font-size": {
-        "value": "{luma.text.sm}",
+        "value": "14px",
         "type": "dimension",
         "description": "Badge font size"
       },
@@ -30,6 +10,26 @@
         "value": "{luma.font.weight.medium}",
         "type": "fontWeight",
         "description": "Badge font weight"
+      },
+      "padding-x": {
+        "value": "15px",
+        "type": "dimension",
+        "description": "Badge horizontal padding"
+      },
+      "padding-y": {
+        "value": "5px",
+        "type": "dimension",
+        "description": "Badge vertical padding"
+      },
+      "radius": {
+        "value": "{luma.radius.full}",
+        "type": "dimension",
+        "description": "Badge border radius - pill shape for organic feel"
+      },
+      "border-width": {
+        "value": "1px",
+        "type": "dimension",
+        "description": "Badge border width"
       }
     }
   }

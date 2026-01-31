@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 
 import { AccordionPreviewsComponent } from '../previews/accordion-previews.component';
+import { BadgePreviewsComponent } from '../previews/badge-previews.component';
 import { ButtonPreviewsComponent } from '../previews/button-previews.component';
 import { CardComponent } from '@lumaui/angular';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
@@ -18,6 +19,7 @@ type TabType = 'preview' | 'code';
   selector: 'app-example-preview',
   imports: [
     AccordionPreviewsComponent,
+    BadgePreviewsComponent,
     ButtonPreviewsComponent,
     CardPreviewsComponent,
     CardComponent,
@@ -111,6 +113,9 @@ type TabType = 'preview' | 'code';
                   <div class="w-full max-w-lg">
                     <app-accordion-previews [exampleId]="exampleId()" />
                   </div>
+                }
+                @case ('badge') {
+                  <app-badge-previews [exampleId]="exampleId()" />
                 }
                 @default {
                   <div class="lm-text-secondary text-sm">

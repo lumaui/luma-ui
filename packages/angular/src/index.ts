@@ -1,6 +1,9 @@
 // Button exports
 export * from './lib/button/button.directive';
 
+// Badge exports
+export * from './lib/badge/badge.directive';
+
 // Card exports
 export * from './lib/card/card.component';
 export * from './lib/card/card-title.directive';

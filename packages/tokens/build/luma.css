@@ -122,12 +122,12 @@
   --luma-code-radius: 8px;
 
   /* Badge */
-  --luma-badge-color: oklch(0.63 0.14 232.13);
-  --luma-badge-bg: oklch(0.54 0.1 230 / 0.1);
-  --luma-badge-padding-x: 0.625rem;
-  --luma-badge-padding-y: 0.25rem;
-  --luma-badge-font-size: 0.75rem;
+  --luma-badge-font-size: 14px;
   --luma-badge-font-weight: 500;
+  --luma-badge-padding-x: 15px;
+  --luma-badge-padding-y: 5px;
+  --luma-badge-radius: 9999px;
+  --luma-badge-border-width: 1px;
 
   /* Accordion */
   --luma-accordion-item-radius: 18px;
@@ -652,13 +652,31 @@
   transition-duration: var(--luma-duration-base);
 }
 
-/* Badge */
-@utility lm-bg-badge {
-  background-color: var(--luma-badge-bg);
+/* Badge Layout Utilities */
+@utility lm-rounded-badge {
+  border-radius: var(--luma-badge-radius);
 }
 
-@utility lm-text-badge {
-  color: var(--luma-badge-color);
+@utility lm-font-badge {
+  font-weight: var(--luma-badge-font-weight);
+}
+
+@utility lm-border-w-badge {
+  border-width: var(--luma-badge-border-width);
+}
+
+@utility lm-px-badge {
+  padding-left: var(--luma-badge-padding-x);
+  padding-right: var(--luma-badge-padding-x);
+}
+
+@utility lm-py-badge {
+  padding-top: var(--luma-badge-padding-y);
+  padding-bottom: var(--luma-badge-padding-y);
+}
+
+@utility lm-text-size-badge {
+  font-size: var(--luma-badge-font-size);
 }
 
 /* Accordion Item Utilities */
