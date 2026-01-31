@@ -1,0 +1,249 @@
+{
+  "luma": {
+    "accordion": {
+      "item": {
+        "radius": {
+          "value": "{luma.radius.lg}",
+          "type": "dimension",
+          "description": "Accordion item border radius - uses global radius"
+        },
+        "radius-bordered": {
+          "value": "{luma.radius.lg}",
+          "type": "dimension",
+          "description": "Accordion bordered variant radius"
+        },
+        "border": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Accordion item border color"
+        },
+        "border-hover": {
+          "value": "{luma.color.neutral.70}",
+          "type": "color",
+          "description": "Accordion item border hover color"
+        },
+        "background": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Accordion item background"
+        },
+        "shadow": {
+          "value": "0 4px 12px oklch(0.22 0.01 265 / 0.08)",
+          "type": "shadow",
+          "description": "Accordion card variant shadow"
+        },
+        "gap": {
+          "value": "{luma.spacing.sm}",
+          "type": "dimension",
+          "description": "Gap between accordion items"
+        }
+      },
+      "trigger": {
+        "background": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Trigger background"
+        },
+        "background-hover": {
+          "value": "{luma.color.neutral.50}",
+          "type": "color",
+          "description": "Trigger hover background"
+        },
+        "background-active": {
+          "value": "oklch(0.97 0.005 265)",
+          "type": "color",
+          "description": "Trigger active background - subtle feedback"
+        },
+        "padding-x": {
+          "value": "{luma.spacing.md}",
+          "type": "dimension",
+          "description": "Trigger horizontal padding"
+        },
+        "padding-y": {
+          "value": "0.875rem",
+          "type": "dimension",
+          "description": "Trigger vertical padding"
+        },
+        "gap": {
+          "value": "{luma.spacing.sm}",
+          "type": "dimension",
+          "description": "Gap between trigger elements"
+        }
+      },
+      "title": {
+        "color": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Title text color"
+        },
+        "font-size": {
+          "value": "{luma.text.base}",
+          "type": "dimension",
+          "description": "Title font size (md)"
+        },
+        "font-size-sm": {
+          "value": "{luma.text.sm}",
+          "type": "dimension",
+          "description": "Title font size small"
+        },
+        "font-size-lg": {
+          "value": "{luma.text.lg}",
+          "type": "dimension",
+          "description": "Title font size large"
+        },
+        "font-weight": {
+          "value": "{luma.font.weight.medium}",
+          "type": "fontWeight",
+          "description": "Title font weight"
+        },
+        "line-height": {
+          "value": "{luma.line-height.snug}",
+          "type": "number",
+          "description": "Title line height"
+        },
+        "letter-spacing": {
+          "value": "0",
+          "type": "dimension",
+          "description": "Title letter spacing"
+        }
+      },
+      "icon": {
+        "color": {
+          "value": "{luma.color.neutral.80}",
+          "type": "color",
+          "description": "Icon color"
+        },
+        "size": {
+          "value": "1rem",
+          "type": "dimension",
+          "description": "Icon size"
+        },
+        "rotation": {
+          "value": "180deg",
+          "type": "string",
+          "description": "Icon rotation when open"
+        },
+        "transition-duration": {
+          "value": "{luma.duration.base}",
+          "type": "duration",
+          "description": "Icon transition duration"
+        }
+      },
+      "content": {
+        "background": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Content background"
+        },
+        "color": {
+          "value": "{luma.color.text.secondary}",
+          "type": "color",
+          "description": "Content text color"
+        },
+        "font-size": {
+          "value": "{luma.text.md}",
+          "type": "dimension",
+          "description": "Content font size (14px)"
+        },
+        "line-height": {
+          "value": "{luma.line-height.relaxed}",
+          "type": "number",
+          "description": "Content line height"
+        },
+        "padding-x": {
+          "value": "{luma.spacing.md}",
+          "type": "dimension",
+          "description": "Content horizontal padding"
+        },
+        "padding-top": {
+          "value": "{luma.spacing.xs}",
+          "type": "dimension",
+          "description": "Content top padding"
+        },
+        "padding-bottom": {
+          "value": "{luma.spacing.md}",
+          "type": "dimension",
+          "description": "Content bottom padding"
+        }
+      },
+      "transition": {
+        "duration": {
+          "value": "{luma.duration.base}",
+          "type": "duration",
+          "description": "Main transition duration"
+        },
+        "duration-content": {
+          "value": "{luma.duration.fast}",
+          "type": "duration",
+          "description": "Content fade transition duration"
+        },
+        "timing": {
+          "value": "ease-out",
+          "type": "string",
+          "description": "Transition timing function (Neo-Minimal)"
+        }
+      },
+      "focus": {
+        "ring-width": {
+          "value": "{luma.focus.ring.width}",
+          "type": "dimension",
+          "description": "Focus ring width"
+        },
+        "ring-color": {
+          "value": "{luma.focus.ring.color}",
+          "type": "color",
+          "description": "Focus ring color"
+        },
+        "ring-offset": {
+          "value": "{luma.focus.ring.offset}",
+          "type": "dimension",
+          "description": "Focus ring offset"
+        }
+      },
+      "bordered": {
+        "background": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Bordered variant background (customize via override)"
+        },
+        "background-hover": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Bordered variant hover background"
+        },
+        "radius": {
+          "value": "{luma.accordion.item.radius}",
+          "type": "dimension",
+          "description": "Bordered variant border radius"
+        }
+      },
+      "filled": {
+        "background": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Filled variant background - unified solid block"
+        },
+        "background-hover": {
+          "value": "{luma.color.neutral.70}",
+          "type": "color",
+          "description": "Filled variant hover background"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Filled variant border (customize via override)"
+        },
+        "border-hover": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Filled variant hover border"
+        },
+        "radius": {
+          "value": "{luma.accordion.item.radius}",
+          "type": "dimension",
+          "description": "Filled variant border radius"
+        }
+      }
+    }
+  }
+}

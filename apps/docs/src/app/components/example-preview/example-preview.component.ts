@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CardComponent } from '@lumaui/angular';
 
+import { AccordionPreviewsComponent } from '../previews/accordion-previews.component';
 import { ButtonPreviewsComponent } from '../previews/button-previews.component';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
 
@@ -15,7 +16,12 @@ type TabType = 'preview' | 'code';
 
 @Component({
   selector: 'app-example-preview',
-  imports: [ButtonPreviewsComponent, CardPreviewsComponent, CardComponent],
+  imports: [
+    AccordionPreviewsComponent,
+    ButtonPreviewsComponent,
+    CardPreviewsComponent,
+    CardComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <luma-card lmVariant="preview">
@@ -99,6 +105,11 @@ type TabType = 'preview' | 'code';
                 @case ('card') {
                   <div class="w-full max-w-lg">
                     <app-card-previews [exampleId]="exampleId()" />
+                  </div>
+                }
+                @case ('accordion') {
+                  <div class="w-full max-w-lg">
+                    <app-accordion-previews [exampleId]="exampleId()" />
                   </div>
                 }
                 @default {

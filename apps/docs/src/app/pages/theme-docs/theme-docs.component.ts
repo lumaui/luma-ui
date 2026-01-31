@@ -67,15 +67,23 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 </h3>
 
                 <div class="overflow-x-auto">
-                  <table class="w-full text-left">
+                  <table class="w-full text-left table-fixed">
                     <thead>
                       <tr class="lm-text-secondary">
-                        <th class="pb-3 pr-4 font-medium text-sm">Token</th>
-                        <th class="pb-3 pr-4 font-medium text-sm">Light</th>
+                        <th class="pb-3 pr-4 font-medium text-sm w-[35%]">
+                          Token
+                        </th>
+                        <th class="pb-3 pr-4 font-medium text-sm w-[20%]">
+                          Value
+                        </th>
                         @if (hasDarkValues(group.tokens)) {
-                          <th class="pb-3 pr-4 font-medium text-sm">Dark</th>
+                          <th class="pb-3 pr-4 font-medium text-sm w-[15%]">
+                            Dark
+                          </th>
                         }
-                        <th class="pb-3 font-medium text-sm">Description</th>
+                        <th class="pb-3 font-medium text-sm w-[30%]">
+                          Description
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -83,7 +91,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                         <tr class="text-sm table-row-striped">
                           <td class="py-3 pr-4">
                             <code
-                              class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded cursor-pointer hover:lm-bg-primary-50/10 transition-colors"
+                              class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all cursor-pointer hover:lm-bg-primary-50/10 transition-colors"
                               (click)="copyToClipboard(token.name)"
                               (keyup)="onCodeKeyup($event, token.name)"
                               tabindex="0"

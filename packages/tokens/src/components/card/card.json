@@ -42,9 +42,9 @@
       },
       "preview": {
         "background": {
-          "value": "{luma.color.neutral.50}",
+          "value": "{luma.color.surface.base}",
           "type": "color",
-          "description": "Preview container background - for documentation examples"
+          "description": "Preview container background - pure white for documentation examples"
         },
         "border": {
           "value": "{luma.color.neutral.60}",

@@ -1,6 +1,374 @@
 {
   "components": [
     {
+      "name": "Accordion",
+      "slug": "accordion",
+      "type": "component",
+      "category": "Layout",
+      "description": "Expandable content sections with smooth animations and full accessibility support",
+      "selector": "luma-accordion-item",
+      "inputs": [
+        {
+          "name": "lmVariant",
+          "type": "'default' | 'bordered' | 'filled'",
+          "default": "'default'",
+          "description": "Visual style variant"
+        },
+        {
+          "name": "lmId",
+          "type": "string",
+          "default": "''",
+          "description": "Unique identifier (required when using AccordionGroup)"
+        },
+        {
+          "name": "lmOpen",
+          "type": "boolean",
+          "default": "false",
+          "description": "Initial/controlled open state"
+        },
+        {
+          "name": "lmDisabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether the accordion item is disabled"
+        }
+      ],
+      "tokens": [],
+      "tokenGroups": [
+        {
+          "name": "Item",
+          "tokens": [
+            {
+              "name": "--luma-accordion-item-radius",
+              "value": "18px",
+              "description": "Border radius for accordion items"
+            },
+            {
+              "name": "--luma-accordion-item-radius-bordered",
+              "value": "18px",
+              "description": "Bordered variant border radius"
+            },
+            {
+              "name": "--luma-accordion-item-border",
+              "value": "oklch(0.92 0.008 265)",
+              "description": "Border color"
+            },
+            {
+              "name": "--luma-accordion-item-border-hover",
+              "value": "oklch(0.85 0.01 265)",
+              "description": "Border color on hover"
+            },
+            {
+              "name": "--luma-accordion-item-background",
+              "value": "transparent",
+              "description": "Item background color"
+            },
+            {
+              "name": "--luma-accordion-item-shadow",
+              "value": "0 4px 12px oklch(0.22 0.01 265 / 0.08)",
+              "description": "Shadow for card variant"
+            },
+            {
+              "name": "--luma-accordion-item-gap",
+              "value": "0.5rem",
+              "description": "Gap between accordion items"
+            }
+          ]
+        },
+        {
+          "name": "Trigger",
+          "tokens": [
+            {
+              "name": "--luma-accordion-trigger-background",
+              "value": "transparent",
+              "description": "Trigger background"
+            },
+            {
+              "name": "--luma-accordion-trigger-background-hover",
+              "value": "oklch(0.99 0 0)",
+              "description": "Trigger hover background"
+            },
+            {
+              "name": "--luma-accordion-trigger-background-active",
+              "value": "oklch(0.97 0.005 265)",
+              "description": "Trigger active/click background"
+            },
+            {
+              "name": "--luma-accordion-trigger-padding-x",
+              "value": "1rem",
+              "description": "Trigger horizontal padding"
+            },
+            {
+              "name": "--luma-accordion-trigger-padding-y",
+              "value": "0.875rem",
+              "description": "Trigger vertical padding"
+            },
+            {
+              "name": "--luma-accordion-trigger-gap",
+              "value": "0.5rem",
+              "description": "Gap between trigger elements"
+            }
+          ]
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            {
+              "name": "--luma-accordion-title-color",
+              "value": "oklch(0.22 0.01 265)",
+              "description": "Title text color"
+            },
+            {
+              "name": "--luma-accordion-title-font-size",
+              "value": "1rem",
+              "description": "Title font size (md)"
+            },
+            {
+              "name": "--luma-accordion-title-font-size-sm",
+              "value": "0.875rem",
+              "description": "Title font size (sm)"
+            },
+            {
+              "name": "--luma-accordion-title-font-size-lg",
+              "value": "1.125rem",
+              "description": "Title font size (lg)"
+            },
+            {
+              "name": "--luma-accordion-title-font-weight",
+              "value": "500",
+              "description": "Title font weight"
+            },
+            {
+              "name": "--luma-accordion-title-line-height",
+              "value": "1.375",
+              "description": "Title line height"
+            },
+            {
+              "name": "--luma-accordion-title-letter-spacing",
+              "value": "0",
+              "description": "Title letter spacing"
+            }
+          ]
+        },
+        {
+          "name": "Icon",
+          "tokens": [
+            {
+              "name": "--luma-accordion-icon-color",
+              "value": "oklch(0.55 0.01 265)",
+              "description": "Icon color"
+            },
+            {
+              "name": "--luma-accordion-icon-size",
+              "value": "1rem",
+              "description": "Icon size"
+            },
+            {
+              "name": "--luma-accordion-icon-rotation",
+              "value": "180deg",
+              "description": "Icon rotation when open"
+            },
+            {
+              "name": "--luma-accordion-icon-transition-duration",
+              "value": "200ms",
+              "description": "Icon transition duration"
+            }
+          ]
+        },
+        {
+          "name": "Content",
+          "tokens": [
+            {
+              "name": "--luma-accordion-content-background",
+              "value": "transparent",
+              "description": "Content background"
+            },
+            {
+              "name": "--luma-accordion-content-color",
+              "value": "oklch(0.45 0.01 265)",
+              "description": "Content text color"
+            },
+            {
+              "name": "--luma-accordion-content-font-size",
+              "value": "0.875rem",
+              "description": "Content font size (14px)"
+            },
+            {
+              "name": "--luma-accordion-content-line-height",
+              "value": "1.625",
+              "description": "Content line height"
+            },
+            {
+              "name": "--luma-accordion-content-padding-x",
+              "value": "1rem",
+              "description": "Content horizontal padding"
+            },
+            {
+              "name": "--luma-accordion-content-padding-top",
+              "value": "0.25rem",
+              "description": "Content top padding"
+            },
+            {
+              "name": "--luma-accordion-content-padding-bottom",
+              "value": "1rem",
+              "description": "Content bottom padding"
+            }
+          ]
+        },
+        {
+          "name": "Transition",
+          "tokens": [
+            {
+              "name": "--luma-accordion-transition-duration",
+              "value": "200ms",
+              "description": "Main transition duration"
+            },
+            {
+              "name": "--luma-accordion-transition-duration-content",
+              "value": "150ms",
+              "description": "Content fade transition duration"
+            },
+            {
+              "name": "--luma-accordion-transition-timing",
+              "value": "ease-out",
+              "description": "Animation timing function"
+            }
+          ]
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            {
+              "name": "--luma-accordion-focus-ring-width",
+              "value": "2px",
+              "description": "Focus ring width"
+            },
+            {
+              "name": "--luma-accordion-focus-ring-color",
+              "value": "oklch(0.54 0.1 230 / 0.25)",
+              "description": "Focus ring color"
+            },
+            {
+              "name": "--luma-accordion-focus-ring-offset",
+              "value": "2px",
+              "description": "Focus ring offset"
+            }
+          ]
+        },
+        {
+          "name": "Bordered Variant",
+          "tokens": [
+            {
+              "name": "--luma-accordion-bordered-background",
+              "value": "transparent",
+              "description": "Bordered variant background"
+            },
+            {
+              "name": "--luma-accordion-bordered-background-hover",
+              "value": "transparent",
+              "description": "Bordered variant hover background"
+            },
+            {
+              "name": "--luma-accordion-bordered-radius",
+              "value": "18px",
+              "description": "Bordered variant border radius"
+            }
+          ]
+        },
+        {
+          "name": "Filled Variant",
+          "tokens": [
+            {
+              "name": "--luma-accordion-filled-background",
+              "value": "oklch(0.99 0 0)",
+              "description": "Filled variant background color"
+            },
+            {
+              "name": "--luma-accordion-filled-background-hover",
+              "value": "oklch(0.97 0.005 265)",
+              "description": "Filled variant hover background"
+            },
+            {
+              "name": "--luma-accordion-filled-border",
+              "value": "transparent",
+              "description": "Filled variant border color"
+            },
+            {
+              "name": "--luma-accordion-filled-border-hover",
+              "value": "transparent",
+              "description": "Filled variant hover border color"
+            },
+            {
+              "name": "--luma-accordion-filled-radius",
+              "value": "18px",
+              "description": "Filled variant border radius"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Basic Standalone",
+          "code": "<luma-accordion-item>\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>What is Luma UI?</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n\n  <div lumaAccordionContent>\n    <p>Luma UI is a Neo-Minimal design system for Angular applications.</p>\n  </div>\n</luma-accordion-item>",
+          "language": "html"
+        },
+        {
+          "title": "Visual Variants",
+          "code": "<!-- Default: subtle styling -->\n<luma-accordion-item lmVariant=\"default\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Default Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n\n<!-- Bordered: visible border with border radius -->\n<luma-accordion-item lmVariant=\"bordered\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Bordered Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n\n<!-- Filled: unified solid background -->\n<luma-accordion-item lmVariant=\"filled\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Filled Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>",
+          "language": "html"
+        },
+        {
+          "title": "Custom Trigger Layout",
+          "code": "<luma-accordion-item>\n  <div lumaAccordionTrigger>\n    <!-- Icon with soft background -->\n    <div class=\"w-10 h-10 rounded-lg lm-bg-primary/10 flex items-center justify-center\">\n      <svg class=\"w-5 h-5 lm-text-primary\">...</svg>\n    </div>\n\n    <!-- Title and description -->\n    <div class=\"flex-1 text-left\">\n      <span lumaAccordionTitle>Feature Title</span>\n      <p class=\"text-sm lm-text-secondary mt-0.5\">Brief description</p>\n    </div>\n\n    <!-- Chevron icon -->\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n\n  <div lumaAccordionContent>\n    <p>Detailed content goes here...</p>\n  </div>\n</luma-accordion-item>",
+          "language": "html"
+        },
+        {
+          "title": "Controlled Group (Single Mode)",
+          "code": "<luma-accordion-group\n  [lmValue]=\"activeItem()\"\n  (lmValueChange)=\"activeItem.set($event)\">\n\n  <luma-accordion-item lmId=\"item-1\">\n    <div lumaAccordionTrigger>\n      <span lumaAccordionTitle>First Item</span>\n      <span lumaAccordionIcon>\n        <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n          <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n        </svg>\n      </span>\n    </div>\n    <div lumaAccordionContent>Content for item 1</div>\n  </luma-accordion-item>\n\n  <luma-accordion-item lmId=\"item-2\">...</luma-accordion-item>\n  <luma-accordion-item lmId=\"item-3\">...</luma-accordion-item>\n</luma-accordion-group>",
+          "language": "html"
+        },
+        {
+          "title": "Controlled Group (Multiple Mode)",
+          "code": "<luma-accordion-group\n  [lmValue]=\"openItems()\"\n  (lmValueChange)=\"openItems.set($event)\">\n\n  <luma-accordion-item lmId=\"feature-1\">\n    <div lumaAccordionTrigger>\n      <span lumaAccordionTitle>Feature One</span>\n      <span lumaAccordionIcon>\n        <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n          <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n        </svg>\n      </span>\n    </div>\n    <div lumaAccordionContent>Details about feature one</div>\n  </luma-accordion-item>\n\n  <luma-accordion-item lmId=\"feature-2\">...</luma-accordion-item>\n  <luma-accordion-item lmId=\"feature-3\">...</luma-accordion-item>\n</luma-accordion-group>",
+          "language": "html"
+        }
+      ],
+      "customization": {
+        "intro": "The accordion appearance can be customized using CSS variables. All visual properties are exposed as tokens for maximum flexibility.",
+        "examples": [
+          {
+            "title": "Override Globally",
+            "description": "Override accordion tokens in your global styles:",
+            "code": ":root {\n  --luma-accordion-icon-rotation: 90deg;\n  --luma-accordion-transition-duration: 150ms;\n  --luma-accordion-item-radius: 8px;\n}",
+            "language": "css",
+            "overrideType": "global"
+          },
+          {
+            "title": "Override Per Theme",
+            "description": "Apply different values for light and dark themes:",
+            "code": "/* Light mode */\n:root {\n  --luma-accordion-item-border: oklch(0.92 0.008 265);\n  --luma-accordion-trigger-background-hover: oklch(0.97 0.005 265);\n}\n\n/* Dark mode */\n.dark {\n  --luma-accordion-item-border: oklch(0.35 0.01 265);\n  --luma-accordion-trigger-background-hover: oklch(0.22 0.01 265);\n}",
+            "language": "css",
+            "overrideType": "theme"
+          },
+          {
+            "title": "Override Per Component",
+            "description": "Scope changes to specific contexts using CSS selectors or data attributes:",
+            "code": "/* FAQ section with specific styling */\n.faq-section {\n  --luma-accordion-item-radius: 0;\n  --luma-accordion-title-font-weight: 600;\n}\n\n/* Style based on state */\nluma-accordion-item[data-state=\"open\"] {\n  --luma-accordion-item-border: oklch(0.54 0.1 230);\n}\n\n/* Style based on variant */\nluma-accordion-item[data-variant=\"filled\"] {\n  --luma-accordion-filled-background: oklch(0.97 0.005 265);\n}",
+            "language": "css",
+            "overrideType": "component"
+          }
+        ]
+      },
+      "sections": {
+        "purpose": "The Accordion component provides expandable content sections following Neo-Minimal design principles. It uses a compositional architecture with separate directives for maximum flexibility and customization.\n\nThe component supports both standalone usage and controlled groups, allowing for complex business logic like \"first item always open\" or \"maximum 2 items open\".",
+        "accessibility": "The accordion component follows WAI-ARIA Accordion Pattern:\n\n| Attribute | Element | Description |\n|-----------|---------|-------------|\n| `aria-expanded` | Trigger | Indicates open/closed state |\n| `aria-controls` | Trigger | References the content panel ID |\n| `aria-labelledby` | Content | References the trigger ID |\n| `aria-disabled` | Trigger | Indicates disabled state |\n| `aria-hidden` | Icon | Hides decorative icon from screen readers |\n| `role=\"region\"` | Content | Defines content as a region |\n| `hidden` | Content | Hides content when closed |\n\n### Keyboard Navigation\n\n| Key | Action |\n|-----|--------|\n| `Enter` | Toggle accordion |\n| `Space` | Toggle accordion |\n| `Tab` | Move to next focusable element |\n| `Shift+Tab` | Move to previous focusable element |",
+        "neoMinimal": "The Accordion component embodies Neo-Minimal design:\n\n- **Visual Silence**: Subtle border and hover states that don't compete for attention\n- **Calm Interactions**: Smooth 200ms ease-out transitions for natural feel\n- **Functional Whitespace**: Generous padding creates hierarchy without borders\n- **Silent Accessibility**: ARIA attributes and focus rings are built-in, not afterthoughts\n- **Form & Geometry**: Soft corners (18px radius) suggest continuity, not rigidity",
+        "usage": "### Basic Standalone\n\n```html\n<luma-accordion-item>\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>What is Luma UI?</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n\n  <div lumaAccordionContent>\n    <p>Luma UI is a Neo-Minimal design system for Angular applications.</p>\n  </div>\n</luma-accordion-item>\n```\n\n### Visual Variants\n\n```html\n<!-- Default: subtle styling -->\n<luma-accordion-item lmVariant=\"default\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Default Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n\n<!-- Bordered: visible border with border radius -->\n<luma-accordion-item lmVariant=\"bordered\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Bordered Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n\n<!-- Filled: unified solid background -->\n<luma-accordion-item lmVariant=\"filled\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Filled Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n```\n\n### Custom Trigger Layout\n\n```html\n<luma-accordion-item>\n  <div lumaAccordionTrigger>\n    <!-- Icon with soft background -->\n    <div class=\"w-10 h-10 rounded-lg lm-bg-primary/10 flex items-center justify-center\">\n      <svg class=\"w-5 h-5 lm-text-primary\">...</svg>\n    </div>\n\n    <!-- Title and description -->\n    <div class=\"flex-1 text-left\">\n      <span lumaAccordionTitle>Feature Title</span>\n      <p class=\"text-sm lm-text-secondary mt-0.5\">Brief description</p>\n    </div>\n\n    <!-- Chevron icon -->\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n\n  <div lumaAccordionContent>\n    <p>Detailed content goes here...</p>\n  </div>\n</luma-accordion-item>\n```\n\n### Controlled Group (Single Mode)\n\n```html\n<luma-accordion-group\n  [lmValue]=\"activeItem()\"\n  (lmValueChange)=\"activeItem.set($event)\">\n\n  <luma-accordion-item lmId=\"item-1\">\n    <div lumaAccordionTrigger>\n      <span lumaAccordionTitle>First Item</span>\n      <span lumaAccordionIcon>\n        <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n          <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n        </svg>\n      </span>\n    </div>\n    <div lumaAccordionContent>Content for item 1</div>\n  </luma-accordion-item>\n\n  <luma-accordion-item lmId=\"item-2\">...</luma-accordion-item>\n  <luma-accordion-item lmId=\"item-3\">...</luma-accordion-item>\n</luma-accordion-group>\n```\n\n### Controlled Group (Multiple Mode)\n\n```html\n<luma-accordion-group\n  [lmValue]=\"openItems()\"\n  (lmValueChange)=\"openItems.set($event)\">\n\n  <luma-accordion-item lmId=\"feature-1\">\n    <div lumaAccordionTrigger>\n      <span lumaAccordionTitle>Feature One</span>\n      <span lumaAccordionIcon>\n        <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n          <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n        </svg>\n      </span>\n    </div>\n    <div lumaAccordionContent>Details about feature one</div>\n  </luma-accordion-item>\n\n  <luma-accordion-item lmId=\"feature-2\">...</luma-accordion-item>\n  <luma-accordion-item lmId=\"feature-3\">...</luma-accordion-item>\n</luma-accordion-group>\n```"
+      },
+      "docPath": "packages/angular/src/lib/accordion/accordion.docs.md",
+      "markdownContent": "\n# Accordion\n\n## Purpose\n\nThe Accordion component provides expandable content sections following Neo-Minimal design principles. It uses a compositional architecture with separate directives for maximum flexibility and customization.\n\nThe component supports both standalone usage and controlled groups, allowing for complex business logic like \"first item always open\" or \"maximum 2 items open\".\n\n## Usage Examples\n\n### Basic Standalone\n\n```html\n<luma-accordion-item>\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>What is Luma UI?</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n\n  <div lumaAccordionContent>\n    <p>Luma UI is a Neo-Minimal design system for Angular applications.</p>\n  </div>\n</luma-accordion-item>\n```\n\n### Visual Variants\n\n```html\n<!-- Default: subtle styling -->\n<luma-accordion-item lmVariant=\"default\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Default Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n\n<!-- Bordered: visible border with border radius -->\n<luma-accordion-item lmVariant=\"bordered\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Bordered Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n\n<!-- Filled: unified solid background -->\n<luma-accordion-item lmVariant=\"filled\">\n  <div lumaAccordionTrigger>\n    <span lumaAccordionTitle>Filled Variant</span>\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n  <div lumaAccordionContent>Content here...</div>\n</luma-accordion-item>\n```\n\n### Custom Trigger Layout\n\n```html\n<luma-accordion-item>\n  <div lumaAccordionTrigger>\n    <!-- Icon with soft background -->\n    <div class=\"w-10 h-10 rounded-lg lm-bg-primary/10 flex items-center justify-center\">\n      <svg class=\"w-5 h-5 lm-text-primary\">...</svg>\n    </div>\n\n    <!-- Title and description -->\n    <div class=\"flex-1 text-left\">\n      <span lumaAccordionTitle>Feature Title</span>\n      <p class=\"text-sm lm-text-secondary mt-0.5\">Brief description</p>\n    </div>\n\n    <!-- Chevron icon -->\n    <span lumaAccordionIcon>\n      <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n        <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n      </svg>\n    </span>\n  </div>\n\n  <div lumaAccordionContent>\n    <p>Detailed content goes here...</p>\n  </div>\n</luma-accordion-item>\n```\n\n### Controlled Group (Single Mode)\n\n```html\n<luma-accordion-group\n  [lmValue]=\"activeItem()\"\n  (lmValueChange)=\"activeItem.set($event)\">\n\n  <luma-accordion-item lmId=\"item-1\">\n    <div lumaAccordionTrigger>\n      <span lumaAccordionTitle>First Item</span>\n      <span lumaAccordionIcon>\n        <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n          <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n        </svg>\n      </span>\n    </div>\n    <div lumaAccordionContent>Content for item 1</div>\n  </luma-accordion-item>\n\n  <luma-accordion-item lmId=\"item-2\">...</luma-accordion-item>\n  <luma-accordion-item lmId=\"item-3\">...</luma-accordion-item>\n</luma-accordion-group>\n```\n\n### Controlled Group (Multiple Mode)\n\n```html\n<luma-accordion-group\n  [lmValue]=\"openItems()\"\n  (lmValueChange)=\"openItems.set($event)\">\n\n  <luma-accordion-item lmId=\"feature-1\">\n    <div lumaAccordionTrigger>\n      <span lumaAccordionTitle>Feature One</span>\n      <span lumaAccordionIcon>\n        <svg viewBox=\"0 0 24 24\" class=\"w-4 h-4\">\n          <path stroke=\"currentColor\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\" />\n        </svg>\n      </span>\n    </div>\n    <div lumaAccordionContent>Details about feature one</div>\n  </luma-accordion-item>\n\n  <luma-accordion-item lmId=\"feature-2\">...</luma-accordion-item>\n  <luma-accordion-item lmId=\"feature-3\">...</luma-accordion-item>\n</luma-accordion-group>\n```\n\n## Accessibility\n\nThe accordion component follows WAI-ARIA Accordion Pattern:\n\n| Attribute | Element | Description |\n|-----------|---------|-------------|\n| `aria-expanded` | Trigger | Indicates open/closed state |\n| `aria-controls` | Trigger | References the content panel ID |\n| `aria-labelledby` | Content | References the trigger ID |\n| `aria-disabled` | Trigger | Indicates disabled state |\n| `aria-hidden` | Icon | Hides decorative icon from screen readers |\n| `role=\"region\"` | Content | Defines content as a region |\n| `hidden` | Content | Hides content when closed |\n\n### Keyboard Navigation\n\n| Key | Action |\n|-----|--------|\n| `Enter` | Toggle accordion |\n| `Space` | Toggle accordion |\n| `Tab` | Move to next focusable element |\n| `Shift+Tab` | Move to previous focusable element |\n\n## Customizing\n\nThe accordion appearance can be customized using CSS variables. All visual properties are exposed as tokens for maximum flexibility.\n\n### Override Globally\n\nOverride accordion tokens in your global styles:\n\n```css\n:root {\n  --luma-accordion-icon-rotation: 90deg;\n  --luma-accordion-transition-duration: 150ms;\n  --luma-accordion-item-radius: 8px;\n}\n```\n\n### Override Per Theme\n\nApply different values for light and dark themes:\n\n```css\n/* Light mode */\n:root {\n  --luma-accordion-item-border: oklch(0.92 0.008 265);\n  --luma-accordion-trigger-background-hover: oklch(0.97 0.005 265);\n}\n\n/* Dark mode */\n.dark {\n  --luma-accordion-item-border: oklch(0.35 0.01 265);\n  --luma-accordion-trigger-background-hover: oklch(0.22 0.01 265);\n}\n```\n\n### Override Per Component\n\nScope changes to specific contexts using CSS selectors or data attributes:\n\n```css\n/* FAQ section with specific styling */\n.faq-section {\n  --luma-accordion-item-radius: 0;\n  --luma-accordion-title-font-weight: 600;\n}\n\n/* Style based on state */\nluma-accordion-item[data-state=\"open\"] {\n  --luma-accordion-item-border: oklch(0.54 0.1 230);\n}\n\n/* Style based on variant */\nluma-accordion-item[data-variant=\"filled\"] {\n  --luma-accordion-filled-background: oklch(0.97 0.005 265);\n}\n```\n\n## Neo-Minimal Principles\n\nThe Accordion component embodies Neo-Minimal design:\n\n- **Visual Silence**: Subtle border and hover states that don't compete for attention\n- **Calm Interactions**: Smooth 200ms ease-out transitions for natural feel\n- **Functional Whitespace**: Generous padding creates hierarchy without borders\n- **Silent Accessibility**: ARIA attributes and focus rings are built-in, not afterthoughts\n- **Form & Geometry**: Soft corners (18px radius) suggest continuity, not rigidity\n"
+    },
+    {
       "name": "Button",
       "slug": "button",
       "type": "directive",
@@ -33,101 +401,172 @@
           "description": "HTML button type attribute"
         }
       ],
-      "tokens": [
+      "tokens": [],
+      "tokenGroups": [
         {
-          "name": "--luma-button-primary-bg",
-          "value": "oklch(0.54 0.1 230)",
-          "description": "Primary button background"
+          "name": "Primary Variant",
+          "tokens": [
+            {
+              "name": "--luma-button-primary-bg",
+              "value": "oklch(0.54 0.1 230)",
+              "description": "Primary button background"
+            },
+            {
+              "name": "--luma-button-primary-bg-hover",
+              "value": "oklch(0.49 0.09 230)",
+              "description": "Primary button hover background"
+            },
+            {
+              "name": "--luma-button-primary-bg-active",
+              "value": "oklch(0.44 0.08 230)",
+              "description": "Primary button active background"
+            },
+            {
+              "name": "--luma-button-primary-text",
+              "value": "oklch(1 0 0)",
+              "description": "Primary button text color"
+            }
+          ]
         },
         {
-          "name": "--luma-button-primary-bg-hover",
-          "value": "oklch(0.49 0.09 230)",
-          "description": "Primary button hover background"
+          "name": "Outline Variant",
+          "tokens": [
+            {
+              "name": "--luma-button-outline-border",
+              "value": "oklch(0.97 0 0)",
+              "description": "Outline button border color"
+            },
+            {
+              "name": "--luma-button-outline-border-hover",
+              "value": "oklch(0.45 0.01 265)",
+              "description": "Outline button hover border"
+            },
+            {
+              "name": "--luma-button-outline-bg-hover",
+              "value": "oklch(0.99 0 0)",
+              "description": "Outline button hover background"
+            },
+            {
+              "name": "--luma-button-outline-text",
+              "value": "oklch(0.22 0.01 265)",
+              "description": "Outline button text color"
+            }
+          ]
         },
         {
-          "name": "--luma-button-primary-bg-active",
-          "value": "oklch(0.44 0.08 230)",
-          "description": "Primary button active background"
+          "name": "Ghost Variant",
+          "tokens": [
+            {
+              "name": "--luma-button-ghost-bg",
+              "value": "transparent",
+              "description": "Ghost button background"
+            },
+            {
+              "name": "--luma-button-ghost-bg-hover",
+              "value": "oklch(0.99 0 0)",
+              "description": "Ghost button hover background"
+            },
+            {
+              "name": "--luma-button-ghost-text",
+              "value": "oklch(0.22 0.01 265)",
+              "description": "Ghost button text color"
+            }
+          ]
         },
         {
-          "name": "--luma-button-primary-text",
-          "value": "oklch(1 0 0)",
-          "description": "Primary button text color"
+          "name": "Danger Variant",
+          "tokens": [
+            {
+              "name": "--luma-button-danger-bg",
+              "value": "oklch(0.62 0.11 25)",
+              "description": "Danger button background"
+            },
+            {
+              "name": "--luma-button-danger-bg-hover",
+              "value": "oklch(0.50 0.09 25)",
+              "description": "Danger button hover background"
+            },
+            {
+              "name": "--luma-button-danger-bg-active",
+              "value": "oklch(0.44 0.08 25)",
+              "description": "Danger button active background"
+            },
+            {
+              "name": "--luma-button-danger-text",
+              "value": "oklch(1 0 0)",
+              "description": "Danger button text color"
+            }
+          ]
         },
         {
-          "name": "--luma-button-outline-border",
-          "value": "oklch(0.5 0.01 0)",
-          "description": "Outline button border color"
+          "name": "Sizing",
+          "tokens": [
+            {
+              "name": "--luma-button-padding-x-sm",
+              "value": "1rem",
+              "description": "Small button horizontal padding"
+            },
+            {
+              "name": "--luma-button-padding-x-md",
+              "value": "1.5rem",
+              "description": "Medium button horizontal padding"
+            },
+            {
+              "name": "--luma-button-padding-x-lg",
+              "value": "2rem",
+              "description": "Large button horizontal padding"
+            },
+            {
+              "name": "--luma-button-padding-y-sm",
+              "value": "0.5rem",
+              "description": "Small button vertical padding"
+            },
+            {
+              "name": "--luma-button-padding-y-md",
+              "value": "0.75rem",
+              "description": "Medium button vertical padding"
+            },
+            {
+              "name": "--luma-button-padding-y-lg",
+              "value": "1rem",
+              "description": "Large button vertical padding"
+            }
+          ]
         },
         {
-          "name": "--luma-button-outline-border-hover",
-          "value": "oklch(0.2 0.005 0)",
-          "description": "Outline button hover border"
+          "name": "Radius & Transition",
+          "tokens": [
+            {
+              "name": "--luma-button-radius",
+              "value": "10px",
+              "description": "Button border radius"
+            },
+            {
+              "name": "--luma-button-transition-duration",
+              "value": "200ms",
+              "description": "Transition duration"
+            },
+            {
+              "name": "--luma-button-transition-timing",
+              "value": "ease-out",
+              "description": "Transition timing function (Neo-Minimal)"
+            }
+          ]
         },
         {
-          "name": "--luma-button-outline-bg-hover",
-          "value": "oklch(0.96 0.01 230)",
-          "description": "Outline button hover background"
-        },
-        {
-          "name": "--luma-button-outline-text",
-          "value": "oklch(0.2 0.005 0)",
-          "description": "Outline button text color"
-        },
-        {
-          "name": "--luma-button-ghost-bg",
-          "value": "transparent",
-          "description": "Ghost button background"
-        },
-        {
-          "name": "--luma-button-ghost-bg-hover",
-          "value": "oklch(0.96 0.01 230)",
-          "description": "Ghost button hover background"
-        },
-        {
-          "name": "--luma-button-ghost-text",
-          "value": "oklch(0.2 0.005 0)",
-          "description": "Ghost button text color"
-        },
-        {
-          "name": "--luma-button-danger-bg",
-          "value": "oklch(0.55 0.22 25)",
-          "description": "Danger button background"
-        },
-        {
-          "name": "--luma-button-danger-bg-hover",
-          "value": "oklch(0.50 0.20 25)",
-          "description": "Danger button hover background"
-        },
-        {
-          "name": "--luma-button-danger-bg-active",
-          "value": "oklch(0.45 0.18 25)",
-          "description": "Danger button active background"
-        },
-        {
-          "name": "--luma-button-danger-text",
-          "value": "oklch(1 0 0)",
-          "description": "Danger button text color"
-        },
-        {
-          "name": "--luma-button-radius",
-          "value": "10px",
-          "description": "Button border radius"
-        },
-        {
-          "name": "--luma-button-transition-duration",
-          "value": "200ms",
-          "description": "Transition duration"
-        },
-        {
-          "name": "--luma-button-focus-ring-width",
-          "value": "2px",
-          "description": "Focus ring width"
-        },
-        {
-          "name": "--luma-button-focus-ring-color",
-          "value": "oklch(0.54 0.1 230 / 0.25)",
-          "description": "Focus ring color"
+          "name": "Focus",
+          "tokens": [
+            {
+              "name": "--luma-button-focus-ring-width",
+              "value": "2px",
+              "description": "Focus ring width (WCAG 2.4.7 minimum)"
+            },
+            {
+              "name": "--luma-button-focus-ring-color",
+              "value": "oklch(0.63 0.14 232.13 / 0.45)",
+              "description": "Focus ring color"
+            }
+          ]
         }
       ],
       "examples": [
@@ -207,76 +646,117 @@
           "description": "Card visual style variant"
         }
       ],
-      "tokens": [
+      "tokens": [],
+      "tokenGroups": [
         {
-          "name": "--luma-card-background",
-          "value": "oklch(1 0 0)",
-          "description": "Card background color"
+          "name": "Default",
+          "tokens": [
+            {
+              "name": "--luma-card-background",
+              "value": "oklch(1 0 0)",
+              "description": "Card background color"
+            },
+            {
+              "name": "--luma-card-padding",
+              "value": "1.5rem",
+              "description": "Card internal padding"
+            },
+            {
+              "name": "--luma-card-box-shadow",
+              "value": "0px 2px 0 0px",
+              "description": "Legacy card shadow"
+            }
+          ]
         },
         {
-          "name": "--luma-color-neutral-60",
-          "value": "oklch(0.92 0.008 265)",
-          "description": "Border color for default variant (neutral light)"
+          "name": "Shadow Variant",
+          "tokens": [
+            {
+              "name": "--luma-card-shadow-background",
+              "value": "oklch(1 0 0)",
+              "description": "Shadow card background - white surface"
+            },
+            {
+              "name": "--luma-card-shadow-border",
+              "value": "oklch(0.97 0 0)",
+              "description": "Shadow card border - subtle separator"
+            },
+            {
+              "name": "--luma-card-shadow-shadow",
+              "value": "0 8px 24px oklch(0.22 0.01 265 / 0.06)",
+              "description": "Shadow card elevation - soft shadow"
+            },
+            {
+              "name": "--luma-card-shadow-radius",
+              "value": "16px",
+              "description": "Shadow card border radius - generous for Neo-Minimal feel"
+            }
+          ]
         },
         {
-          "name": "--luma-card-padding",
-          "value": "1.5rem",
-          "description": "Card internal padding"
+          "name": "Nested Variant",
+          "tokens": [
+            {
+              "name": "--luma-card-nested-background",
+              "value": "oklch(0.99 0 0)",
+              "description": "Nested card background - subtle surface differentiation"
+            },
+            {
+              "name": "--luma-card-nested-border",
+              "value": "oklch(0.99 0 0)",
+              "description": "Nested card border"
+            },
+            {
+              "name": "--luma-card-nested-radius",
+              "value": "12px",
+              "description": "Nested card border radius - slightly smaller than shadow"
+            }
+          ]
         },
         {
-          "name": "--luma-card-box-shadow",
-          "value": "0px 2px 0 0px",
-          "description": "Legacy card shadow"
+          "name": "Preview Variant",
+          "tokens": [
+            {
+              "name": "--luma-card-preview-background",
+              "value": "oklch(1 0 0)",
+              "description": "Preview container background - pure white for documentation examples"
+            },
+            {
+              "name": "--luma-card-preview-border",
+              "value": "oklch(0.97 0 0)",
+              "description": "Preview container border"
+            },
+            {
+              "name": "--luma-card-preview-radius",
+              "value": "12px",
+              "description": "Preview container border radius"
+            }
+          ]
         },
         {
-          "name": "--luma-card-shadow-background",
-          "value": "oklch(1 0 0)",
-          "description": "Shadow card background"
-        },
-        {
-          "name": "--luma-card-shadow-border",
-          "value": "oklch(0.92 0.008 265)",
-          "description": "Shadow card border"
-        },
-        {
-          "name": "--luma-card-shadow-shadow",
-          "value": "0 8px 24px oklch(0.22 0.01 265 / 0.06)",
-          "description": "Shadow card shadow"
-        },
-        {
-          "name": "--luma-card-shadow-radius",
-          "value": "16px",
-          "description": "Shadow card border radius"
-        },
-        {
-          "name": "--luma-card-nested-background",
-          "value": "oklch(0.98 0.005 265)",
-          "description": "Nested card background"
-        },
-        {
-          "name": "--luma-card-nested-border",
-          "value": "oklch(0.92 0.008 265)",
-          "description": "Nested card border"
-        },
-        {
-          "name": "--luma-card-nested-radius",
-          "value": "12px",
-          "description": "Nested card border radius"
-        },
-        {
-          "name": "--luma-card-preview-background",
-          "value": "oklch(0.98 0.005 265)",
-          "description": "Preview card background"
-        },
-        {
-          "name": "--luma-card-preview-border",
-          "value": "oklch(0.92 0.008 265)",
-          "description": "Preview card border"
-        },
-        {
-          "name": "--luma-card-preview-radius",
-          "value": "12px",
-          "description": "Preview card border radius"
+          "name": "Code Block",
+          "tokens": [
+            {
+              "name": "--luma-code-background",
+              "value": "oklch(0.12 0.005 265)",
+              "description": "Code block background - dark editor style"
+            },
+            {
+              "name": "--luma-code-text",
+              "value": "oklch(0.9 0 0)",
+              "description": "Code block text color"
+            },
+            {
+              "name": "--luma-code-border",
+              "value": "oklch(0.25 0.008 265)",
+              "description": "Code block border"
+            },
+            {
+              "name": "--luma-code-radius",
+              "value": "8px",
+              "description": "Code block border radius"
+            }
+          ]
         }
       ],
       "examples": [
@@ -414,10 +894,10 @@
             },
             {
               "name": "--luma-color-neutral-60",
-              "value": "oklch(0.92 0.008 265)",
+              "value": "oklch(0.97 0 0)",
               "darkValue": "oklch(0.25 0.008 265)",
               "type": "color",
-              "description": "Neutral light - borders, dividers"
+              "description": "Neutral light - surfaces, backgrounds"
             },
             {
               "name": "--luma-color-neutral-70",
@@ -797,6 +1277,17 @@
           ]
         },
         {
+          "name": "Md",
+          "tokens": [
+            {
+              "name": "--luma-text-md",
+              "value": "0.875rem",
+              "type": "dimension",
+              "description": "Medium text size (14px)"
+            }
+          ]
+        },
+        {
           "name": "Sm",
           "tokens": [
             {
@@ -839,5 +1330,5 @@
     }
   ],
   "categories": ["Form", "Layout"],
-  "generatedAt": "2026-01-29T20:51:22.062Z"
+  "generatedAt": "2026-01-31T13:42:02.197Z"
 }

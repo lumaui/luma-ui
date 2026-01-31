@@ -32,53 +32,68 @@ directives:
   - name: lumaCardContent
     selector: '[lumaCardContent]'
     description: Container for card main content
-tokens:
-  # Default variant
-  - name: --luma-card-background
-    value: oklch(1 0 0)
-    description: Card background color
-  - name: --luma-color-neutral-60
-    value: oklch(0.92 0.008 265)
-    description: Border color for default variant (neutral light)
-  - name: --luma-card-padding
-    value: 1.5rem
-    description: Card internal padding
-  - name: --luma-card-box-shadow
-    value: 0px 2px 0 0px #e4e4e4
-    description: Legacy card shadow
-  # Shadow variant
-  - name: --luma-card-shadow-background
-    value: oklch(1 0 0)
-    description: Shadow card background
-  - name: --luma-card-shadow-border
-    value: oklch(0.92 0.008 265)
-    description: Shadow card border
-  - name: --luma-card-shadow-shadow
-    value: 0 8px 24px oklch(0.22 0.01 265 / 0.06)
-    description: Shadow card shadow
-  - name: --luma-card-shadow-radius
-    value: 16px
-    description: Shadow card border radius
-  # Nested variant
-  - name: --luma-card-nested-background
-    value: oklch(0.98 0.005 265)
-    description: Nested card background
-  - name: --luma-card-nested-border
-    value: oklch(0.92 0.008 265)
-    description: Nested card border
-  - name: --luma-card-nested-radius
-    value: 12px
-    description: Nested card border radius
-  # Preview variant
-  - name: --luma-card-preview-background
-    value: oklch(0.98 0.005 265)
-    description: Preview card background
-  - name: --luma-card-preview-border
-    value: oklch(0.92 0.008 265)
-    description: Preview card border
-  - name: --luma-card-preview-radius
-    value: 12px
-    description: Preview card border radius
+tokenGroups:
+  - name: Default
+    tokens:
+      - name: --luma-card-background
+        value: oklch(1 0 0)
+        description: Card background color
+      - name: --luma-card-padding
+        value: 1.5rem
+        description: Card internal padding
+      - name: --luma-card-box-shadow
+        value: 0px 2px 0 0px #e4e4e4
+        description: Legacy card shadow
+  - name: Shadow Variant
+    tokens:
+      - name: --luma-card-shadow-background
+        value: oklch(1 0 0)
+        description: Shadow card background - white surface
+      - name: --luma-card-shadow-border
+        value: oklch(0.97 0 0)
+        description: Shadow card border - subtle separator
+      - name: --luma-card-shadow-shadow
+        value: 0 8px 24px oklch(0.22 0.01 265 / 0.06)
+        description: Shadow card elevation - soft shadow
+      - name: --luma-card-shadow-radius
+        value: 16px
+        description: Shadow card border radius - generous for Neo-Minimal feel
+  - name: Nested Variant
+    tokens:
+      - name: --luma-card-nested-background
+        value: oklch(0.99 0 0)
+        description: Nested card background - subtle surface differentiation
+      - name: --luma-card-nested-border
+        value: oklch(0.99 0 0)
+        description: Nested card border
+      - name: --luma-card-nested-radius
+        value: 12px
+        description: Nested card border radius - slightly smaller than shadow
+  - name: Preview Variant
+    tokens:
+      - name: --luma-card-preview-background
+        value: oklch(1 0 0)
+        description: Preview container background - pure white for documentation examples
+      - name: --luma-card-preview-border
+        value: oklch(0.97 0 0)
+        description: Preview container border
+      - name: --luma-card-preview-radius
+        value: 12px
+        description: Preview container border radius
+  - name: Code Block
+    tokens:
+      - name: --luma-code-background
+        value: oklch(0.12 0.005 265)
+        description: Code block background - dark editor style
+      - name: --luma-code-text
+        value: oklch(0.9 0 0)
+        description: Code block text color
+      - name: --luma-code-border
+        value: oklch(0.25 0.008 265)
+        description: Code block border
+      - name: --luma-code-radius
+        value: 8px
+        description: Code block border radius
 ---
 
 # Card

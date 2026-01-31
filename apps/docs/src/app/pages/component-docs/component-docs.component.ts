@@ -103,44 +103,115 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
               </div>
             }
             @case ('tokens') {
-              <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                  <thead>
-                    <tr class="lm-text-secondary">
-                      <th class="pb-3 pr-6 font-medium text-sm">Token</th>
-                      <th class="pb-3 pr-6 font-medium text-sm">Value</th>
-                      <th class="pb-3 font-medium text-sm">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for (token of comp.tokens; track token.name) {
-                      <tr class="text-sm table-row-striped">
-                        <td class="py-3 pr-6">
-                          <code
-                            class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded"
-                            >{{ token.name }}</code
-                          >
-                        </td>
-                        <td class="py-3 pr-6">
-                          <div class="flex items-center gap-2">
-                            @if (isColor(token.value)) {
-                              <span
-                                class="w-4 h-4 rounded"
-                                [style.background]="token.value"
-                              ></span>
+              <div class="space-y-8">
+                @if (comp.tokenGroups && comp.tokenGroups.length > 0) {
+                  <!-- Grouped Tokens -->
+                  @for (group of comp.tokenGroups; track group.name) {
+                    <section>
+                      <h3 class="text-lg font-medium lm-text-primary mb-4 pb-2">
+                        {{ group.name }}
+                      </h3>
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-left table-fixed">
+                          <thead>
+                            <tr class="lm-text-secondary">
+                              <th class="pb-3 pr-6 font-medium text-sm w-[40%]">
+                                Token
+                              </th>
+                              <th class="pb-3 pr-6 font-medium text-sm w-[25%]">
+                                Value
+                              </th>
+                              <th class="pb-3 font-medium text-sm w-[35%]">
+                                Description
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @for (token of group.tokens; track token.name) {
+                              <tr class="text-sm table-row-striped">
+                                <td class="py-3 pr-6">
+                                  <code
+                                    class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all"
+                                    >{{ token.name }}</code
+                                  >
+                                </td>
+                                <td class="py-3 pr-6">
+                                  <div class="flex items-center gap-2">
+                                    @if (isColor(token.value)) {
+                                      <span
+                                        class="w-4 h-4 rounded"
+                                        [style.background]="token.value"
+                                      ></span>
+                                    }
+                                    <code
+                                      class="font-mono text-xs lm-text-secondary"
+                                      >{{ token.value }}</code
+                                    >
+                                  </div>
+                                </td>
+                                <td class="py-3 lm-text-secondary">
+                                  {{ token.description }}
+                                </td>
+                              </tr>
                             }
-                            <code class="font-mono text-xs lm-text-secondary">{{
-                              token.value
-                            }}</code>
-                          </div>
-                        </td>
-                        <td class="py-3 lm-text-secondary">
-                          {{ token.description }}
-                        </td>
-                      </tr>
-                    }
-                  </tbody>
-                </table>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  }
+                } @else if (comp.tokens && comp.tokens.length > 0) {
+                  <!-- Legacy Flat Tokens -->
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left table-fixed">
+                      <thead>
+                        <tr class="lm-text-secondary">
+                          <th class="pb-3 pr-6 font-medium text-sm w-[40%]">
+                            Token
+                          </th>
+                          <th class="pb-3 pr-6 font-medium text-sm w-[25%]">
+                            Value
+                          </th>
+                          <th class="pb-3 font-medium text-sm w-[35%]">
+                            Description
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (token of comp.tokens; track token.name) {
+                          <tr class="text-sm table-row-striped">
+                            <td class="py-3 pr-6">
+                              <code
+                                class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all"
+                                >{{ token.name }}</code
+                              >
+                            </td>
+                            <td class="py-3 pr-6">
+                              <div class="flex items-center gap-2">
+                                @if (isColor(token.value)) {
+                                  <span
+                                    class="w-4 h-4 rounded"
+                                    [style.background]="token.value"
+                                  ></span>
+                                }
+                                <code
+                                  class="font-mono text-xs lm-text-secondary"
+                                  >{{ token.value }}</code
+                                >
+                              </div>
+                            </td>
+                            <td class="py-3 lm-text-secondary">
+                              {{ token.description }}
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                } @else {
+                  <p class="lm-text-secondary text-sm">
+                    No tokens available for this component.
+                  </p>
+                }
               </div>
             }
             @case ('customizing') {

@@ -1,0 +1,90 @@
+{
+  "luma": {
+    "accordion": {
+      "item": {
+        "border": {
+          "value": "oklch(0.35 0.01 265)",
+          "type": "color",
+          "description": "Accordion item border color - dark theme"
+        },
+        "border-hover": {
+          "value": "oklch(0.45 0.01 265)",
+          "type": "color",
+          "description": "Accordion item border hover color - dark theme"
+        },
+        "shadow": {
+          "value": "0 4px 12px oklch(0 0 0 / 0.3)",
+          "type": "shadow",
+          "description": "Accordion card variant shadow - dark theme"
+        }
+      },
+      "trigger": {
+        "background-hover": {
+          "value": "oklch(0.22 0.01 265)",
+          "type": "color",
+          "description": "Trigger hover background - dark theme"
+        },
+        "background-active": {
+          "value": "oklch(0.28 0.01 265)",
+          "type": "color",
+          "description": "Trigger active background - dark theme"
+        }
+      },
+      "title": {
+        "color": {
+          "value": "oklch(0.95 0 0)",
+          "type": "color",
+          "description": "Title text color - dark theme"
+        }
+      },
+      "icon": {
+        "color": {
+          "value": "oklch(0.65 0.01 265)",
+          "type": "color",
+          "description": "Icon color - dark theme"
+        }
+      },
+      "content": {
+        "color": {
+          "value": "oklch(0.75 0.01 265)",
+          "type": "color",
+          "description": "Content text color - dark theme"
+        }
+      },
+      "bordered": {
+        "background": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Bordered variant background - dark theme"
+        },
+        "background-hover": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Bordered variant hover background - dark theme"
+        }
+      },
+      "filled": {
+        "background": {
+          "value": "oklch(0.22 0.01 265)",
+          "type": "color",
+          "description": "Filled variant background - dark theme"
+        },
+        "background-hover": {
+          "value": "oklch(0.28 0.01 265)",
+          "type": "color",
+          "description": "Filled variant hover background - dark theme"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Filled variant border - dark theme"
+        },
+        "border-hover": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Filled variant hover border - dark theme"
+        }
+      }
+    }
+  }
+}

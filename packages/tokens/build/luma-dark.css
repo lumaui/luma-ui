@@ -54,4 +54,18 @@
   --luma-code-background: oklch(0.08 0.005 265);
   --luma-code-border: oklch(0.20 0.008 265);
   --luma-badge-bg: oklch(0.64 0.12 230 / 0.15);
+  --luma-accordion-item-border: oklch(0.35 0.01 265);
+  --luma-accordion-item-border-hover: oklch(0.45 0.01 265);
+  --luma-accordion-item-shadow: 0 4px 12px oklch(0 0 0 / 0.3);
+  --luma-accordion-trigger-background-hover: oklch(0.22 0.01 265);
+  --luma-accordion-trigger-background-active: oklch(0.28 0.01 265);
+  --luma-accordion-title-color: oklch(0.95 0 0);
+  --luma-accordion-icon-color: oklch(0.65 0.01 265);
+  --luma-accordion-content-color: oklch(0.75 0.01 265);
+  --luma-accordion-bordered-background: rgba(0, 0, 0, 0);
+  --luma-accordion-bordered-background-hover: rgba(0, 0, 0, 0);
+  --luma-accordion-filled-background: oklch(0.22 0.01 265);
+  --luma-accordion-filled-background-hover: oklch(0.28 0.01 265);
+  --luma-accordion-filled-border: rgba(0, 0, 0, 0);
+  --luma-accordion-filled-border-hover: rgba(0, 0, 0, 0);
 }

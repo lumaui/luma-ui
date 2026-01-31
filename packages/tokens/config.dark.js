@@ -55,6 +55,7 @@ const config = {
     'src/components/button/button.dark.json',
     'src/components/card/card.dark.json',
     'src/components/badge/badge.dark.json',
+    'src/components/accordion/accordion.dark.json',
   ],
   platforms: {
     'css-dark': {

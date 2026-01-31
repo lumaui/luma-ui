@@ -64,6 +64,28 @@
                   </luma-card>
                 </div>
               }
+              @case ('accordion') {
+                <div class="w-full max-w-[240px]">
+                  <luma-accordion-item lmVariant="bordered" [lmOpen]="true">
+                    <div lumaAccordionTrigger>
+                      <span lumaAccordionTitle lmSize="sm">Accordion</span>
+                      <span lumaAccordionIcon>
+                        <svg viewBox="0 0 24 24" class="w-4 h-4">
+                          <path
+                            stroke="currentColor"
+                            stroke-width="2"
+                            fill="none"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div lumaAccordionContent>
+                      <p class="text-xs">Content preview</p>
+                    </div>
+                  </luma-accordion-item>
+                </div>
+              }
             }
           </div>
 

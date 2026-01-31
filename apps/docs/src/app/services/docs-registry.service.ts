@@ -15,6 +15,11 @@ export interface DocToken {
   description: string;
 }
 
+export interface DocTokenGroup {
+  name: string;
+  tokens: DocToken[];
+}
+
 // Theme documentation types
 export interface ThemeToken {
   name: string; // CSS variable name, e.g., --luma-color-primary-50
@@ -79,6 +84,7 @@ export interface DocComponent {
   selector: string;
   inputs: DocInput[];
   tokens: DocToken[];
+  tokenGroups: DocTokenGroup[];
   examples: DocExample[];
   customization: DocCustomization;
   directives?: DocDirective[];

@@ -30,6 +30,11 @@ interface DocToken {
   description: string;
 }
 
+interface DocTokenGroup {
+  name: string;
+  tokens: DocToken[];
+}
+
 // Theme documentation types
 interface ThemeToken {
   name: string; // CSS variable name, e.g., --luma-color-primary-50
@@ -97,6 +102,7 @@ interface DocFrontMatter {
   description: string;
   inputs?: DocInput[];
   tokens?: DocToken[];
+  tokenGroups?: DocTokenGroup[];
 }
 
 interface DocComponent {
@@ -108,6 +114,7 @@ interface DocComponent {
   selector: string;
   inputs: DocInput[];
   tokens: DocToken[];
+  tokenGroups: DocTokenGroup[];
   examples: DocExample[];
   customization: DocCustomization;
   sections: {
@@ -574,6 +581,7 @@ function parseDocFile(filePath: string): DocComponent | null {
       selector: frontMatter.selector || '',
       inputs: frontMatter.inputs || [],
       tokens: frontMatter.tokens || [],
+      tokenGroups: frontMatter.tokenGroups || [],
       examples,
       customization,
       sections,

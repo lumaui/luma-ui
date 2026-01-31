@@ -32,6 +32,11 @@
         "type": "dimension",
         "description": "Small text size (12px)"
       },
+      "md": {
+        "value": "0.875rem",
+        "type": "dimension",
+        "description": "Medium text size (14px)"
+      },
       "base": {
         "value": "1rem",
         "type": "dimension",

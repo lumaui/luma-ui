@@ -7,6 +7,11 @@ import {
   CardTitleDirective,
   CardDescriptionDirective,
   CardContentDirective,
+  AccordionItemComponent,
+  AccordionTriggerDirective,
+  AccordionTitleDirective,
+  AccordionIconDirective,
+  AccordionContentDirective,
 } from '@lumaui/angular';
 
 interface ComponentCard {
@@ -29,6 +34,11 @@ interface ComponentCard {
     CardTitleDirective,
     CardDescriptionDirective,
     CardContentDirective,
+    AccordionItemComponent,
+    AccordionTriggerDirective,
+    AccordionTitleDirective,
+    AccordionIconDirective,
+    AccordionContentDirective,
   ],
   templateUrl: './component-grid.component.html',
   styles: [
@@ -47,7 +57,7 @@ export class ComponentGridComponent {
       description:
         'Primary, secondary variants with full customization and accessibility',
       category: 'Form',
-      route: '/components/button',
+      route: '/docs/button',
       size: 'large',
     },
     {
@@ -56,7 +66,16 @@ export class ComponentGridComponent {
       description:
         'Elevated cards with gradient borders and flexible content areas',
       category: 'Layout',
-      route: '/components/card',
+      route: '/docs/card',
+      size: 'medium',
+    },
+    {
+      id: 'accordion',
+      name: 'Accordion',
+      description:
+        'Expandable content sections with smooth animations and accessibility',
+      category: 'Layout',
+      route: '/docs/accordion',
       size: 'medium',
     },
   ];

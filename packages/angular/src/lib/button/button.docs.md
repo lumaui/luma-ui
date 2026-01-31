@@ -21,64 +21,99 @@ inputs:
     type: "'button' | 'submit' | 'reset'"
     default: "'button'"
     description: HTML button type attribute
-tokens:
-  - name: --luma-button-primary-bg
-    value: oklch(0.54 0.1 230)
-    description: Primary button background
-  - name: --luma-button-primary-bg-hover
-    value: oklch(0.49 0.09 230)
-    description: Primary button hover background
-  - name: --luma-button-primary-bg-active
-    value: oklch(0.44 0.08 230)
-    description: Primary button active background
-  - name: --luma-button-primary-text
-    value: oklch(1 0 0)
-    description: Primary button text color
-  - name: --luma-button-outline-border
-    value: oklch(0.5 0.01 0)
-    description: Outline button border color
-  - name: --luma-button-outline-border-hover
-    value: oklch(0.2 0.005 0)
-    description: Outline button hover border
-  - name: --luma-button-outline-bg-hover
-    value: oklch(0.96 0.01 230)
-    description: Outline button hover background
-  - name: --luma-button-outline-text
-    value: oklch(0.2 0.005 0)
-    description: Outline button text color
-  - name: --luma-button-ghost-bg
-    value: transparent
-    description: Ghost button background
-  - name: --luma-button-ghost-bg-hover
-    value: oklch(0.96 0.01 230)
-    description: Ghost button hover background
-  - name: --luma-button-ghost-text
-    value: oklch(0.2 0.005 0)
-    description: Ghost button text color
-  - name: --luma-button-danger-bg
-    value: oklch(0.55 0.22 25)
-    description: Danger button background
-  - name: --luma-button-danger-bg-hover
-    value: oklch(0.50 0.20 25)
-    description: Danger button hover background
-  - name: --luma-button-danger-bg-active
-    value: oklch(0.45 0.18 25)
-    description: Danger button active background
-  - name: --luma-button-danger-text
-    value: oklch(1 0 0)
-    description: Danger button text color
-  - name: --luma-button-radius
-    value: 10px
-    description: Button border radius
-  - name: --luma-button-transition-duration
-    value: 200ms
-    description: Transition duration
-  - name: --luma-button-focus-ring-width
-    value: 2px
-    description: Focus ring width
-  - name: --luma-button-focus-ring-color
-    value: oklch(0.54 0.1 230 / 0.25)
-    description: Focus ring color
+tokenGroups:
+  - name: Primary Variant
+    tokens:
+      - name: --luma-button-primary-bg
+        value: oklch(0.54 0.1 230)
+        description: Primary button background
+      - name: --luma-button-primary-bg-hover
+        value: oklch(0.49 0.09 230)
+        description: Primary button hover background
+      - name: --luma-button-primary-bg-active
+        value: oklch(0.44 0.08 230)
+        description: Primary button active background
+      - name: --luma-button-primary-text
+        value: oklch(1 0 0)
+        description: Primary button text color
+  - name: Outline Variant
+    tokens:
+      - name: --luma-button-outline-border
+        value: oklch(0.97 0 0)
+        description: Outline button border color
+      - name: --luma-button-outline-border-hover
+        value: oklch(0.45 0.01 265)
+        description: Outline button hover border
+      - name: --luma-button-outline-bg-hover
+        value: oklch(0.99 0 0)
+        description: Outline button hover background
+      - name: --luma-button-outline-text
+        value: oklch(0.22 0.01 265)
+        description: Outline button text color
+  - name: Ghost Variant
+    tokens:
+      - name: --luma-button-ghost-bg
+        value: transparent
+        description: Ghost button background
+      - name: --luma-button-ghost-bg-hover
+        value: oklch(0.99 0 0)
+        description: Ghost button hover background
+      - name: --luma-button-ghost-text
+        value: oklch(0.22 0.01 265)
+        description: Ghost button text color
+  - name: Danger Variant
+    tokens:
+      - name: --luma-button-danger-bg
+        value: oklch(0.62 0.11 25)
+        description: Danger button background
+      - name: --luma-button-danger-bg-hover
+        value: oklch(0.50 0.09 25)
+        description: Danger button hover background
+      - name: --luma-button-danger-bg-active
+        value: oklch(0.44 0.08 25)
+        description: Danger button active background
+      - name: --luma-button-danger-text
+        value: oklch(1 0 0)
+        description: Danger button text color
+  - name: Sizing
+    tokens:
+      - name: --luma-button-padding-x-sm
+        value: 1rem
+        description: Small button horizontal padding
+      - name: --luma-button-padding-x-md
+        value: 1.5rem
+        description: Medium button horizontal padding
+      - name: --luma-button-padding-x-lg
+        value: 2rem
+        description: Large button horizontal padding
+      - name: --luma-button-padding-y-sm
+        value: 0.5rem
+        description: Small button vertical padding
+      - name: --luma-button-padding-y-md
+        value: 0.75rem
+        description: Medium button vertical padding
+      - name: --luma-button-padding-y-lg
+        value: 1rem
+        description: Large button vertical padding
+  - name: Radius & Transition
+    tokens:
+      - name: --luma-button-radius
+        value: 10px
+        description: Button border radius
+      - name: --luma-button-transition-duration
+        value: 200ms
+        description: Transition duration
+      - name: --luma-button-transition-timing
+        value: ease-out
+        description: Transition timing function (Neo-Minimal)
+  - name: Focus
+    tokens:
+      - name: --luma-button-focus-ring-width
+        value: 2px
+        description: Focus ring width (WCAG 2.4.7 minimum)
+      - name: --luma-button-focus-ring-color
+        value: oklch(0.63 0.14 232.13 / 0.45)
+        description: Focus ring color
 ---
 
 # Button

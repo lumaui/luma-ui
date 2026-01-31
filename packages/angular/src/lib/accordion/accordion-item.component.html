@@ -1,0 +1,9 @@
+<!-- Slot for trigger button -->
+<ng-content select="[lumaAccordionTrigger]"></ng-content>
+
+<!-- Content wrapper with grid-rows animation -->
+<div [class]="contentWrapperClasses()">
+  <div class="overflow-hidden">
+    <ng-content select="[lumaAccordionContent]"></ng-content>
+  </div>
+</div>

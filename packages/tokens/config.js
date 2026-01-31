@@ -563,6 +563,574 @@ StyleDictionary.registerFormat({
         output += `  color: var(${badgeColorToken.name});\n`;
         output += `}\n\n`;
       }
+
+      // ============================================
+      // ACCORDION UTILITIES
+      // ============================================
+
+      output += `/* Accordion Item Utilities */\n`;
+
+      // Accordion item border
+      const accordionItemBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'item' &&
+          t.path[3] === 'border',
+      );
+      if (accordionItemBorder) {
+        output += `@utility lm-border-accordion-item {\n`;
+        output += `  border-color: var(${accordionItemBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionItemBorderHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'item' &&
+          t.path[3] === 'border-hover',
+      );
+      if (accordionItemBorderHover) {
+        output += `@utility lm-border-accordion-item-hover {\n`;
+        output += `  border-color: var(${accordionItemBorderHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion item radius
+      const accordionItemRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'item' &&
+          t.path[3] === 'radius',
+      );
+      if (accordionItemRadius) {
+        output += `@utility lm-rounded-accordion-item {\n`;
+        output += `  border-radius: var(${accordionItemRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionItemRadiusBordered = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'item' &&
+          t.path[3] === 'radius-bordered',
+      );
+      if (accordionItemRadiusBordered) {
+        output += `@utility lm-rounded-t-accordion-item-bordered {\n`;
+        output += `  border-top-left-radius: var(${accordionItemRadiusBordered.name});\n`;
+        output += `  border-top-right-radius: var(${accordionItemRadiusBordered.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-rounded-b-accordion-item-bordered {\n`;
+        output += `  border-bottom-left-radius: var(${accordionItemRadiusBordered.name});\n`;
+        output += `  border-bottom-right-radius: var(${accordionItemRadiusBordered.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion item background
+      const accordionItemBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'item' &&
+          t.path[3] === 'background',
+      );
+      if (accordionItemBg) {
+        output += `@utility lm-bg-accordion-item {\n`;
+        output += `  background-color: var(${accordionItemBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion item shadow
+      const accordionItemShadow = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'item' &&
+          t.path[3] === 'shadow',
+      );
+      if (accordionItemShadow) {
+        output += `@utility lm-shadow-accordion-item {\n`;
+        output += `  box-shadow: var(${accordionItemShadow.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Trigger Utilities */\n`;
+
+      // Accordion trigger backgrounds
+      const accordionTriggerBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'background',
+      );
+      if (accordionTriggerBg) {
+        output += `@utility lm-bg-accordion-trigger {\n`;
+        output += `  background-color: var(${accordionTriggerBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionTriggerBgHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'background-hover',
+      );
+      if (accordionTriggerBgHover) {
+        output += `@utility lm-bg-accordion-trigger-hover {\n`;
+        output += `  background-color: var(${accordionTriggerBgHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionTriggerBgActive = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'background-active',
+      );
+      if (accordionTriggerBgActive) {
+        output += `@utility lm-bg-accordion-trigger-active {\n`;
+        output += `  background-color: var(${accordionTriggerBgActive.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion trigger padding
+      const accordionTriggerPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'padding-x',
+      );
+      if (accordionTriggerPaddingX) {
+        output += `@utility lm-px-accordion-trigger {\n`;
+        output += `  padding-left: var(${accordionTriggerPaddingX.name});\n`;
+        output += `  padding-right: var(${accordionTriggerPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionTriggerPaddingY = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'padding-y',
+      );
+      if (accordionTriggerPaddingY) {
+        output += `@utility lm-py-accordion-trigger {\n`;
+        output += `  padding-top: var(${accordionTriggerPaddingY.name});\n`;
+        output += `  padding-bottom: var(${accordionTriggerPaddingY.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion trigger gap
+      const accordionTriggerGap = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'gap',
+      );
+      if (accordionTriggerGap) {
+        output += `@utility lm-gap-accordion-trigger {\n`;
+        output += `  gap: var(${accordionTriggerGap.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Title Utilities */\n`;
+
+      // Accordion title color
+      const accordionTitleColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'color',
+      );
+      if (accordionTitleColor) {
+        output += `@utility lm-text-accordion-title {\n`;
+        output += `  color: var(${accordionTitleColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion title font sizes
+      const accordionTitleFontSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-size',
+      );
+      if (accordionTitleFontSize) {
+        output += `@utility lm-text-accordion-title-md {\n`;
+        output += `  font-size: var(${accordionTitleFontSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionTitleFontSizeSm = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-size-sm',
+      );
+      if (accordionTitleFontSizeSm) {
+        output += `@utility lm-text-accordion-title-sm {\n`;
+        output += `  font-size: var(${accordionTitleFontSizeSm.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionTitleFontSizeLg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-size-lg',
+      );
+      if (accordionTitleFontSizeLg) {
+        output += `@utility lm-text-accordion-title-lg {\n`;
+        output += `  font-size: var(${accordionTitleFontSizeLg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion title font weight
+      const accordionTitleFontWeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-weight',
+      );
+      if (accordionTitleFontWeight) {
+        output += `@utility lm-font-accordion-title {\n`;
+        output += `  font-weight: var(${accordionTitleFontWeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion title line height
+      const accordionTitleLineHeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'line-height',
+      );
+      if (accordionTitleLineHeight) {
+        output += `@utility lm-leading-accordion-title {\n`;
+        output += `  line-height: var(${accordionTitleLineHeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion title letter spacing
+      const accordionTitleLetterSpacing = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'letter-spacing',
+      );
+      if (accordionTitleLetterSpacing) {
+        output += `@utility lm-tracking-accordion-title {\n`;
+        output += `  letter-spacing: var(${accordionTitleLetterSpacing.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Icon Utilities */\n`;
+
+      // Accordion icon color
+      const accordionIconColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'icon' &&
+          t.path[3] === 'color',
+      );
+      if (accordionIconColor) {
+        output += `@utility lm-text-accordion-icon {\n`;
+        output += `  color: var(${accordionIconColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion icon size
+      const accordionIconSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'icon' &&
+          t.path[3] === 'size',
+      );
+      if (accordionIconSize) {
+        output += `@utility lm-size-accordion-icon {\n`;
+        output += `  width: var(${accordionIconSize.name});\n`;
+        output += `  height: var(${accordionIconSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion icon rotation
+      const accordionIconRotation = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'icon' &&
+          t.path[3] === 'rotation',
+      );
+      if (accordionIconRotation) {
+        output += `@utility lm-rotate-accordion-icon {\n`;
+        output += `  transform: rotate(var(${accordionIconRotation.name}));\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion icon transition duration
+      const accordionIconDuration = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'icon' &&
+          t.path[3] === 'transition-duration',
+      );
+      if (accordionIconDuration) {
+        output += `@utility lm-duration-accordion-icon {\n`;
+        output += `  transition-duration: var(${accordionIconDuration.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Content Utilities */\n`;
+
+      // Accordion content background
+      const accordionContentBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'background',
+      );
+      if (accordionContentBg) {
+        output += `@utility lm-bg-accordion-content {\n`;
+        output += `  background-color: var(${accordionContentBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion content color
+      const accordionContentColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'color',
+      );
+      if (accordionContentColor) {
+        output += `@utility lm-text-accordion-content {\n`;
+        output += `  color: var(${accordionContentColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion content font size
+      const accordionContentFontSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'font-size',
+      );
+      if (accordionContentFontSize) {
+        output += `@utility lm-text-size-accordion-content {\n`;
+        output += `  font-size: var(${accordionContentFontSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion content line height
+      const accordionContentLineHeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'line-height',
+      );
+      if (accordionContentLineHeight) {
+        output += `@utility lm-leading-accordion-content {\n`;
+        output += `  line-height: var(${accordionContentLineHeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion content padding
+      const accordionContentPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'padding-x',
+      );
+      if (accordionContentPaddingX) {
+        output += `@utility lm-px-accordion-content {\n`;
+        output += `  padding-left: var(${accordionContentPaddingX.name});\n`;
+        output += `  padding-right: var(${accordionContentPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionContentPaddingTop = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'padding-top',
+      );
+      if (accordionContentPaddingTop) {
+        output += `@utility lm-pt-accordion-content {\n`;
+        output += `  padding-top: var(${accordionContentPaddingTop.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionContentPaddingBottom = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'padding-bottom',
+      );
+      if (accordionContentPaddingBottom) {
+        output += `@utility lm-pb-accordion-content {\n`;
+        output += `  padding-bottom: var(${accordionContentPaddingBottom.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Transition Utilities */\n`;
+
+      // Accordion transition duration
+      const accordionTransitionDuration = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'duration',
+      );
+      if (accordionTransitionDuration) {
+        output += `@utility lm-duration-accordion {\n`;
+        output += `  transition-duration: var(${accordionTransitionDuration.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const accordionTransitionDurationContent = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'duration-content',
+      );
+      if (accordionTransitionDurationContent) {
+        output += `@utility lm-duration-accordion-content {\n`;
+        output += `  transition-duration: var(${accordionTransitionDurationContent.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion transition timing
+      const accordionTransitionTiming = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'timing',
+      );
+      if (accordionTransitionTiming) {
+        output += `@utility lm-ease-accordion {\n`;
+        output += `  transition-timing-function: var(${accordionTransitionTiming.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Filled Variant */\n`;
+
+      // Accordion filled background
+      const accordionFilledBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'filled' &&
+          t.path[3] === 'background',
+      );
+      if (accordionFilledBg) {
+        output += `@utility lm-bg-accordion-filled {\n`;
+        output += `  background-color: var(${accordionFilledBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion filled background hover
+      const accordionFilledBgHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'filled' &&
+          t.path[3] === 'background-hover',
+      );
+      if (accordionFilledBgHover) {
+        output += `@utility lm-bg-accordion-filled-hover {\n`;
+        output += `  background-color: var(${accordionFilledBgHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion filled border
+      const accordionFilledBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'filled' &&
+          t.path[3] === 'border',
+      );
+      if (accordionFilledBorder) {
+        output += `@utility lm-border-accordion-filled {\n`;
+        output += `  border-color: var(${accordionFilledBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion filled border hover
+      const accordionFilledBorderHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'filled' &&
+          t.path[3] === 'border-hover',
+      );
+      if (accordionFilledBorderHover) {
+        output += `@utility lm-border-accordion-filled-hover {\n`;
+        output += `  border-color: var(${accordionFilledBorderHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion filled radius
+      const accordionFilledRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'filled' &&
+          t.path[3] === 'radius',
+      );
+      if (accordionFilledRadius) {
+        output += `@utility lm-rounded-accordion-filled {\n`;
+        output += `  border-radius: var(${accordionFilledRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Bordered Variant */\n`;
+
+      // Accordion bordered background
+      const accordionBorderedBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'bordered' &&
+          t.path[3] === 'background',
+      );
+      if (accordionBorderedBg) {
+        output += `@utility lm-bg-accordion-bordered {\n`;
+        output += `  background-color: var(${accordionBorderedBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion bordered background hover
+      const accordionBorderedBgHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'bordered' &&
+          t.path[3] === 'background-hover',
+      );
+      if (accordionBorderedBgHover) {
+        output += `@utility lm-bg-accordion-bordered-hover {\n`;
+        output += `  background-color: var(${accordionBorderedBgHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Accordion bordered radius
+      const accordionBorderedRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'bordered' &&
+          t.path[3] === 'radius',
+      );
+      if (accordionBorderedRadius) {
+        output += `@utility lm-rounded-accordion-bordered {\n`;
+        output += `  border-radius: var(${accordionBorderedRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Accordion Focus Ring */\n`;
+
+      // Accordion focus ring
+      const accordionFocusRingWidth = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'accordion' &&
+          t.path[2] === 'focus' &&
+          t.path[3] === 'ring-width',
+      );
+      if (accordionFocusRingWidth) {
+        output += `@utility lm-ring-accordion-focus {\n`;
+        output += `  outline: var(--luma-accordion-focus-ring-width) solid var(--luma-accordion-focus-ring-color);\n`;
+        output += `  outline-offset: var(--luma-accordion-focus-ring-offset);\n`;
+        output += `}\n\n`;
+      }
     }
 
     return output;
@@ -616,6 +1184,7 @@ const config = {
     'src/components/button/button.json',
     'src/components/card/card.json',
     'src/components/badge/badge.json',
+    'src/components/accordion/accordion.json',
   ],
   platforms: {
     'css-light': {
