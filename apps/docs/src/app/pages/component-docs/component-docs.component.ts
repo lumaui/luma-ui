@@ -32,7 +32,7 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
             </p>
             <div class="mt-4 flex items-center gap-4 text-sm lm-text-secondary">
               <span
-                class="px-2.5 py-1 rounded-full lm-bg-surface-base border lm-border-text-secondary/10"
+                class="px-2.5 py-1 rounded-full lm-bg-surface-base border lm-border-neutral-70"
               >
                 {{ comp.type }}
               </span>
@@ -45,7 +45,7 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
 
           <!-- Tabs -->
           <div
-            class="border-b lm-border-text-secondary/10 mb-6 sm:mb-8 overflow-x-auto"
+            class="border-b lm-border-neutral-70 mb-6 sm:mb-8 overflow-x-auto"
           >
             <nav class="flex gap-6 sm:gap-8 min-w-max">
               <button
@@ -111,7 +111,9 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                       <h3 class="text-lg font-medium lm-text-primary mb-4 pb-2">
                         {{ group.name }}
                       </h3>
-                      <div class="overflow-x-auto">
+
+                      <!-- Desktop Table (md+) -->
+                      <div class="hidden md:block overflow-x-auto">
                         <table class="w-full text-left table-fixed">
                           <thead>
                             <tr class="lm-text-secondary">
@@ -157,11 +159,42 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                           </tbody>
                         </table>
                       </div>
+
+                      <!-- Mobile Cards (< md) -->
+                      <div class="md:hidden space-y-3">
+                        @for (token of group.tokens; track token.name) {
+                          <luma-card>
+                            <div class="flex items-start gap-3 mb-2">
+                              @if (isColor(token.value)) {
+                                <span
+                                  class="w-5 h-5 rounded shrink-0 mt-0.5"
+                                  [style.background]="token.value"
+                                ></span>
+                              }
+                              <code
+                                class="font-mono text-xs lm-text-primary break-all"
+                                >{{ token.name }}</code
+                              >
+                            </div>
+                            <p class="text-sm lm-text-secondary mb-3">
+                              {{ token.description }}
+                            </p>
+                            <div
+                              class="flex items-center gap-2 text-sm lm-text-secondary/70"
+                            >
+                              <span class="font-medium shrink-0">Value:</span>
+                              <code class="font-mono break-all">{{
+                                token.value
+                              }}</code>
+                            </div>
+                          </luma-card>
+                        }
+                      </div>
                     </section>
                   }
                 } @else if (comp.tokens && comp.tokens.length > 0) {
-                  <!-- Legacy Flat Tokens -->
-                  <div class="overflow-x-auto">
+                  <!-- Legacy Flat Tokens - Desktop Table (md+) -->
+                  <div class="hidden md:block overflow-x-auto">
                     <table class="w-full text-left table-fixed">
                       <thead>
                         <tr class="lm-text-secondary">
@@ -207,6 +240,37 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                       </tbody>
                     </table>
                   </div>
+
+                  <!-- Legacy Flat Tokens - Mobile Cards (< md) -->
+                  <div class="md:hidden space-y-3">
+                    @for (token of comp.tokens; track token.name) {
+                      <luma-card>
+                        <div class="flex items-start gap-3 mb-2">
+                          @if (isColor(token.value)) {
+                            <span
+                              class="w-5 h-5 rounded shrink-0 mt-0.5"
+                              [style.background]="token.value"
+                            ></span>
+                          }
+                          <code
+                            class="font-mono text-xs lm-text-primary break-all"
+                            >{{ token.name }}</code
+                          >
+                        </div>
+                        <p class="text-sm lm-text-secondary mb-3">
+                          {{ token.description }}
+                        </p>
+                        <div
+                          class="flex items-center gap-2 text-sm lm-text-secondary/70"
+                        >
+                          <span class="font-medium shrink-0">Value:</span>
+                          <code class="font-mono break-all">{{
+                            token.value
+                          }}</code>
+                        </div>
+                      </luma-card>
+                    }
+                  </div>
                 } @else {
                   <p class="lm-text-secondary text-sm">
                     No tokens available for this component.
@@ -247,7 +311,7 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                     <luma-card lmVariant="preview">
                       <div class="-m-5 overflow-hidden rounded-[inherit]">
                         <div
-                          class="px-4 py-2 flex items-center justify-between border-b lm-border-text-secondary/5"
+                          class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
                         >
                           <span class="text-xs lm-text-secondary font-mono"
                             >CSS</span
@@ -289,7 +353,9 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                     <h3 class="text-lg font-medium lm-text-primary mb-4">
                       Inputs
                     </h3>
-                    <div class="overflow-x-auto">
+
+                    <!-- Desktop Table (md+) -->
+                    <div class="hidden md:block overflow-x-auto">
                       <table class="w-full text-left">
                         <thead>
                           <tr class="lm-text-secondary">
@@ -331,6 +397,35 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                           }
                         </tbody>
                       </table>
+                    </div>
+
+                    <!-- Mobile Cards (< md) -->
+                    <div class="md:hidden space-y-3">
+                      @for (input of comp.inputs; track input.name) {
+                        <luma-card>
+                          <div class="flex items-center gap-2 mb-2">
+                            <code
+                              class="font-mono text-sm font-medium lm-text-primary"
+                              >{{ input.name }}</code
+                            >
+                            @if (input.default) {
+                              <span
+                                class="text-xs px-1.5 py-0.5 rounded lm-bg-primary-50/10 lm-text-secondary"
+                              >
+                                = {{ input.default }}
+                              </span>
+                            }
+                          </div>
+                          <p class="text-sm lm-text-secondary mb-2">
+                            {{ input.description }}
+                          </p>
+                          <code
+                            class="text-sm font-mono lm-text-secondary/70 block break-all"
+                          >
+                            {{ input.type }}
+                          </code>
+                        </luma-card>
+                      }
                     </div>
                   </section>
                 }

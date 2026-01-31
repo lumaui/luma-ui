@@ -5,13 +5,14 @@ import {
 } from '../../services/docs-registry.service';
 
 import { ActivatedRoute } from '@angular/router';
+import { CardComponent } from '@lumaui/angular';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-theme-docs',
-  imports: [SidebarComponent],
+  imports: [SidebarComponent, CardComponent],
   template: `
     <div class="max-w-7xl mx-auto flex mt-16">
       <app-sidebar />
@@ -21,7 +22,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <div class="mb-8 sm:mb-12">
             <div class="flex items-center gap-3 mb-3 sm:mb-4">
               <span
-                class="text-xs px-2 py-1 rounded-full lm-bg-surface-base border lm-border-text-secondary/10 lm-text-secondary"
+                class="text-xs px-2 py-1 rounded-full lm-bg-surface-base border lm-border-neutral-70 lm-text-secondary"
               >
                 Theme
               </span>
@@ -60,13 +61,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
             @for (group of page.groups; track group.name) {
               <div class="mb-8">
-                <h3
-                  class="text-base font-medium lm-text-primary mb-4 pb-2 border-b lm-border-text-secondary/10"
-                >
+                <h3 class="text-base font-medium lm-text-primary mb-4 pb-2 ">
                   {{ group.name }}
                 </h3>
 
-                <div class="overflow-x-auto">
+                <!-- Desktop Table (md+) -->
+                <div class="hidden md:block overflow-x-auto">
                   <table class="w-full text-left table-fixed">
                     <thead>
                       <tr class="lm-text-secondary">
@@ -142,6 +142,62 @@ import { toSignal } from '@angular/core/rxjs-interop';
                       }
                     </tbody>
                   </table>
+                </div>
+
+                <!-- Mobile Cards (< md) -->
+                <div class="md:hidden space-y-3">
+                  @for (token of group.tokens; track token.name) {
+                    <luma-card>
+                      <!-- Header: Token name + color swatch -->
+                      <div class="flex items-start gap-3 mb-2">
+                        @if (isColor(token.type)) {
+                          <span
+                            class="w-5 h-5 rounded shrink-0 mt-0.5"
+                            [style.background]="token.value"
+                          ></span>
+                        }
+                        <code
+                          class="font-mono text-xs lm-text-primary break-all cursor-pointer hover:lm-bg-primary-50/10 transition-colors px-1 py-0.5 rounded"
+                          (click)="copyToClipboard(token.name)"
+                          (keyup)="onCodeKeyup($event, token.name)"
+                          tabindex="0"
+                          title="Click to copy"
+                          role="button"
+                        >
+                          {{ token.name }}
+                        </code>
+                      </div>
+
+                      <!-- Description (most important on mobile) -->
+                      <p class="text-sm lm-text-secondary mb-3">
+                        {{ token.description }}
+                      </p>
+
+                      <!-- Values (secondary) -->
+                      <div class="text-sm lm-text-secondary/70 space-y-1">
+                        <div class="flex items-center gap-2">
+                          <span class="font-medium shrink-0">Value:</span>
+                          <code class="font-mono break-all">{{
+                            token.value
+                          }}</code>
+                        </div>
+                        @if (token.darkValue) {
+                          <div class="flex items-center gap-2">
+                            <span class="font-medium shrink-0">Dark:</span>
+                            @if (isColor(token.type)) {
+                              <span
+                                class="w-4 h-4 rounded shrink-0"
+                                [style.background]="token.darkValue"
+                              ></span>
+                            }
+                            <code class="font-mono break-all">{{
+                              token.darkValue
+                            }}</code>
+                          </div>
+                        }
+                      </div>
+                    </luma-card>
+                  }
                 </div>
               </div>
             }

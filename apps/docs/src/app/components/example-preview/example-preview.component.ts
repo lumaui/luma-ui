@@ -6,10 +6,10 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { CardComponent } from '@lumaui/angular';
 
 import { AccordionPreviewsComponent } from '../previews/accordion-previews.component';
 import { ButtonPreviewsComponent } from '../previews/button-previews.component';
+import { CardComponent } from '@lumaui/angular';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
 
 type TabType = 'preview' | 'code';
@@ -28,7 +28,7 @@ type TabType = 'preview' | 'code';
       <div class="-m-5 overflow-hidden rounded-[inherit]">
         <!-- Header with tabs and copy button -->
         <div
-          class="px-4 py-2 flex items-center justify-between border-b lm-border-text-secondary/5"
+          class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
         >
           <div class="flex gap-4">
             @if (isPreviewable()) {
