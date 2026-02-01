@@ -1,0 +1,59 @@
+{
+  "luma": {
+    "tabs": {
+      "list": {
+        "border-color": {
+          "value": "oklch(0.35 0.01 290)",
+          "type": "color",
+          "description": "Bottom border color in dark mode"
+        }
+      },
+      "trigger": {
+        "text": {
+          "value": "oklch(0.70 0.01 290)",
+          "type": "color",
+          "description": "Default trigger text color in dark mode"
+        },
+        "text-hover": {
+          "value": "oklch(0.95 0 0)",
+          "type": "color",
+          "description": "Trigger text color on hover in dark mode"
+        },
+        "text-selected": {
+          "value": "oklch(0.70 0.12 300)",
+          "type": "color",
+          "description": "Selected trigger text color in dark mode"
+        },
+        "background-hover": {
+          "value": "oklch(0.25 0.01 290)",
+          "type": "color",
+          "description": "Trigger background on hover in dark mode"
+        },
+        "background-selected": {
+          "value": "oklch(0.25 0.01 290)",
+          "type": "color",
+          "description": "Selected trigger background in dark mode"
+        }
+      },
+      "indicator": {
+        "color": {
+          "value": "oklch(0.70 0.12 300)",
+          "type": "color",
+          "description": "Indicator color in dark mode"
+        }
+      },
+      "pill": {
+        "background": {
+          "value": "oklch(0.25 0.01 290)",
+          "type": "color",
+          "description": "Pill container background in dark mode"
+        },
+        "background-selected": {
+          "value": "oklch(0.35 0.02 290)",
+          "type": "color",
+          "description": "Selected pill background in dark mode"
+        }
+      }
+    }
+  }
+}

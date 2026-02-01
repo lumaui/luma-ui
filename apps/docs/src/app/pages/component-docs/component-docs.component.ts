@@ -8,7 +8,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
+type TabType = 'examples' | 'tokens' | 'customizing' | 'specification';
 
 @Component({
   selector: 'app-component-docs',
@@ -74,11 +74,11 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                 </button>
               }
               <button
-                (click)="setActiveTab('api')"
-                [class.active]="activeTab() === 'api'"
+                (click)="setActiveTab('specification')"
+                [class.active]="activeTab() === 'specification'"
                 class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
               >
-                API
+                Specification
               </button>
             </nav>
           </div>
@@ -345,7 +345,7 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'api';
                 }
               </div>
             }
-            @case ('api') {
+            @case ('specification') {
               <div class="space-y-8">
                 <!-- Inputs -->
                 @if (comp.inputs.length > 0) {

@@ -14,6 +14,10 @@ import {
   AccordionIconDirective,
   AccordionContentDirective,
   TooltipDirective,
+  TabsComponent,
+  TabsListDirective,
+  TabsTriggerDirective,
+  TabsPanelDirective,
 } from '@lumaui/angular';
 
 interface ComponentCard {
@@ -22,7 +26,7 @@ interface ComponentCard {
   description: string;
   category: string;
   route: string;
-  size: 'small' | 'medium' | 'large';
+  size: 'small' | 'medium' | 'large' | 'full';
 }
 
 @Component({
@@ -43,6 +47,10 @@ interface ComponentCard {
     AccordionIconDirective,
     AccordionContentDirective,
     TooltipDirective,
+    TabsComponent,
+    TabsListDirective,
+    TabsTriggerDirective,
+    TabsPanelDirective,
   ],
   templateUrl: './component-grid.component.html',
   styles: [
@@ -100,11 +108,22 @@ export class ComponentGridComponent {
       route: '/docs/tooltip',
       size: 'small',
     },
+    {
+      id: 'tabs',
+      name: 'Tabs',
+      description:
+        'Tabbed interface for organizing content with keyboard navigation and lazy loading',
+      category: 'Layout',
+      route: '/docs/tabs',
+      size: 'full',
+    },
   ];
 
   getCardClasses(size: string): string {
     const baseClasses = '';
     switch (size) {
+      case 'full':
+        return `${baseClasses} lg:col-span-3`;
       case 'large':
         return `${baseClasses} lg:col-span-2`;
       case 'medium':

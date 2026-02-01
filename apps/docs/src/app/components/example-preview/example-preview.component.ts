@@ -13,6 +13,7 @@ import { ButtonPreviewsComponent } from '../previews/button-previews.component';
 import { CardComponent } from '@lumaui/angular';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
 import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component';
+import { TabsPreviewsComponent } from '../previews/tabs-previews.component';
 
 type TabType = 'preview' | 'code';
 
@@ -24,6 +25,7 @@ type TabType = 'preview' | 'code';
     ButtonPreviewsComponent,
     CardPreviewsComponent,
     TooltipPreviewsComponent,
+    TabsPreviewsComponent,
     CardComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -121,6 +123,11 @@ type TabType = 'preview' | 'code';
                 }
                 @case ('tooltip') {
                   <app-tooltip-previews [exampleId]="exampleId()" />
+                }
+                @case ('tabs') {
+                  <div class="w-full max-w-lg">
+                    <app-tabs-previews [exampleId]="exampleId()" />
+                  </div>
                 }
                 @default {
                   <div class="lm-text-secondary text-sm">

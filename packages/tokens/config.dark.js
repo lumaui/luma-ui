@@ -57,6 +57,7 @@ const config = {
     'src/components/badge/badge.dark.json',
     'src/components/accordion/accordion.dark.json',
     'src/components/tooltip/tooltip.dark.json',
+    'src/components/tabs/tabs.dark.json',
   ],
   platforms: {
     'css-dark': {

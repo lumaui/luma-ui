@@ -189,6 +189,33 @@
   --luma-tooltip-transition-duration: 150ms;
   --luma-tooltip-transition-timing: ease-out;
 
+  /* Tabs */
+  --luma-tabs-list-gap: 8px;
+  --luma-tabs-list-padding: 0;
+  --luma-tabs-list-border-color: oklch(0.97 0.006 290);
+  --luma-tabs-trigger-text: oklch(0.48 0.01 290);
+  --luma-tabs-trigger-text-hover: oklch(0.22 0.014 290);
+  --luma-tabs-trigger-text-selected: oklch(0.48 0.09 300);
+  --luma-tabs-trigger-background: rgba(0, 0, 0, 0);
+  --luma-tabs-trigger-background-hover: oklch(0.97 0.006 290);
+  --luma-tabs-trigger-background-selected: oklch(0.97 0.006 290);
+  --luma-tabs-trigger-padding-x: 16px;
+  --luma-tabs-trigger-padding-y: 10px;
+  --luma-tabs-trigger-font-size: 14px;
+  --luma-tabs-trigger-font-weight: 500;
+  --luma-tabs-trigger-radius: 8px;
+  --luma-tabs-indicator-height: 2px;
+  --luma-tabs-indicator-color: oklch(0.48 0.09 300);
+  --luma-tabs-indicator-radius: 1px;
+  --luma-tabs-panel-padding: 16px;
+  --luma-tabs-pill-background: oklch(0.97 0.006 290);
+  --luma-tabs-pill-background-selected: oklch(1 0 0);
+  --luma-tabs-pill-gap: 4px;
+  --luma-tabs-pill-padding: 4px;
+  --luma-tabs-pill-radius: 12px;
+  --luma-tabs-transition-duration: 200ms;
+  --luma-tabs-transition-timing: ease-out;
+
 }
 
 /* Tailwind Utilities - All prefixed with lm- */
@@ -915,5 +942,109 @@
 
 @utility lm-ease-tooltip {
   transition-timing-function: var(--luma-tooltip-transition-timing);
+}
+
+/* Tabs List Utilities */
+@utility lm-gap-tabs-list {
+  gap: var(--luma-tabs-list-gap);
+}
+
+@utility lm-border-tabs-list {
+  border-color: var(--luma-tabs-list-border-color);
+}
+
+/* Tabs Trigger Utilities */
+@utility lm-text-tabs-trigger {
+  color: var(--luma-tabs-trigger-text);
+}
+
+@utility lm-text-tabs-trigger-hover {
+  color: var(--luma-tabs-trigger-text-hover);
+}
+
+@utility lm-text-tabs-trigger-selected {
+  color: var(--luma-tabs-trigger-text-selected);
+}
+
+@utility lm-bg-tabs-trigger {
+  background-color: var(--luma-tabs-trigger-background);
+}
+
+@utility lm-bg-tabs-trigger-hover {
+  background-color: var(--luma-tabs-trigger-background-hover);
+}
+
+@utility lm-bg-tabs-trigger-selected {
+  background-color: var(--luma-tabs-trigger-background-selected);
+}
+
+@utility lm-px-tabs-trigger {
+  padding-left: var(--luma-tabs-trigger-padding-x);
+  padding-right: var(--luma-tabs-trigger-padding-x);
+}
+
+@utility lm-py-tabs-trigger {
+  padding-top: var(--luma-tabs-trigger-padding-y);
+  padding-bottom: var(--luma-tabs-trigger-padding-y);
+}
+
+@utility lm-text-size-tabs-trigger {
+  font-size: var(--luma-tabs-trigger-font-size);
+}
+
+@utility lm-font-tabs-trigger {
+  font-weight: var(--luma-tabs-trigger-font-weight);
+}
+
+@utility lm-rounded-tabs-trigger {
+  border-radius: var(--luma-tabs-trigger-radius);
+}
+
+/* Tabs Indicator Utilities */
+@utility lm-h-tabs-indicator {
+  height: var(--luma-tabs-indicator-height);
+}
+
+@utility lm-bg-tabs-indicator {
+  background-color: var(--luma-tabs-indicator-color);
+}
+
+@utility lm-rounded-tabs-indicator {
+  border-radius: var(--luma-tabs-indicator-radius);
+}
+
+/* Tabs Panel Utilities */
+@utility lm-p-tabs-panel {
+  padding: var(--luma-tabs-panel-padding);
+}
+
+/* Tabs Pill Variant Utilities */
+@utility lm-bg-tabs-pill {
+  background-color: var(--luma-tabs-pill-background);
+}
+
+@utility lm-bg-tabs-pill-selected {
+  background-color: var(--luma-tabs-pill-background-selected);
+}
+
+@utility lm-gap-tabs-pill {
+  gap: var(--luma-tabs-pill-gap);
+}
+
+@utility lm-p-tabs-pill {
+  padding: var(--luma-tabs-pill-padding);
+}
+
+@utility lm-rounded-tabs-pill {
+  border-radius: var(--luma-tabs-pill-radius);
+}
+
+/* Tabs Transition Utilities */
+@utility lm-duration-tabs {
+  transition-duration: var(--luma-tabs-transition-duration);
+}
+
+@utility lm-ease-tabs {
+  transition-timing-function: var(--luma-tabs-transition-timing);
 }
 

@@ -918,6 +918,232 @@
       "markdownContent": "\n# Card\n\n## Purpose\n\nThe Card component provides a flexible, composable container for grouping related content with multiple visual variants that follow Neo-Minimal design principles. Built using a compositional architecture with semantic directives.\n\n## Architecture\n\nThe Card uses a **compositional design** with a main component and four semantic directives:\n\n- `<luma-card>`: Main container with configurable visual variant\n- `[lumaCardHeader]`: Structural directive for header region with spacing\n- `[lumaCardTitle]`: Title with size variants\n- `[lumaCardDescription]`: Subtitle/description with size variants\n- `[lumaCardContent]`: Semantic marker for main content region\n\n## Component API\n\n### CardComponent\n\n- `lmVariant`: 'default' | 'shadow' | 'nested' | 'preview' - Card visual style\n  - **default**: Solid border style with neutral color (default)\n  - **shadow**: Elevated card with subtle shadow for primary content\n  - **nested**: Subtle background for sections within cards\n  - **preview**: For documentation examples and code previews\n\n### CardTitleDirective\n\n- `lmSize`: 'small' | 'normal' | 'large' - Title size variant\n  - **small**: `text-sm` - Compact cards or secondary information\n  - **normal**: `text-lg` (default) - Standard card titles\n  - **large**: `text-2xl` - Hero cards or primary emphasis\n\n### CardDescriptionDirective\n\n- `lmSize`: 'small' | 'normal' | 'large' - Description size variant\n  - **small**: `text-xs` - Compact cards or tertiary information\n  - **normal**: `text-sm` (default) - Standard descriptions\n  - **large**: `text-base` - Emphasis or standalone descriptions\n\n### CardHeaderDirective\n\nNo inputs - provides structural spacing (`mb-4`).\n\n### CardContentDirective\n\nNo inputs - semantic marker with no styles applied for maximum flexibility.\n\n## Card Variants\n\nThe Card component supports four visual variants via the `lmVariant` input:\n\n### Default\n\nSolid border style with neutral color for clean separation (default):\n\n```html\n<luma-card>\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Default Card</h3>\n    <p lumaCardDescription>Card with solid border</p>\n  </div>\n  <div lumaCardContent>\n    <p>Content with clean border styling.</p>\n  </div>\n</luma-card>\n```\n\n### Shadow\n\nElevated card with shadow, ideal for primary content areas and main UI elements:\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Shadow Card</h3>\n    <p lumaCardDescription>Elevated card with subtle shadow</p>\n  </div>\n  <div lumaCardContent>\n    <p>Primary content with clean, elevated appearance.</p>\n  </div>\n</luma-card>\n```\n\n### Nested\n\nSubtle background for sections within other containers or cards:\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Parent Card</h3>\n  </div>\n  <div lumaCardContent>\n    <!-- Nested card inside -->\n    <luma-card lmVariant=\"nested\">\n      <div lumaCardContent>\n        <p>Nested content with subtle differentiation.</p>\n      </div>\n    </luma-card>\n  </div>\n</luma-card>\n```\n\n### Preview\n\nFor documentation examples, code showcases, and component previews:\n\n```html\n<luma-card lmVariant=\"preview\">\n  <div lumaCardContent>\n    <div class=\"flex items-center justify-center p-8\">\n      <!-- Component preview -->\n      <button lumaButton lmVariant=\"primary\">Preview Button</button>\n    </div>\n  </div>\n</luma-card>\n```\n\n## Usage Examples\n\n### Basic Card\n\n```html\n<luma-card>\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Card Title</h3>\n    <p lumaCardDescription>This is a description of the card content.</p>\n  </div>\n  <div lumaCardContent>\n    <p>Main content goes here.</p>\n  </div>\n</luma-card>\n```\n\n### Stats Card\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle lmSize=\"small\">Total Revenue</h3>\n  </div>\n  <div lumaCardContent>\n    <p class=\"text-3xl font-bold\">$45,231.89</p>\n    <p class=\"text-xs lm-text-secondary\">+20.1% from last month</p>\n  </div>\n</luma-card>\n```\n\n### Minimal Card (No Header)\n\n```html\n<luma-card lmVariant=\"nested\">\n  <div lumaCardContent>\n    <p>Simple content without header or title.</p>\n  </div>\n</luma-card>\n```\n\n### Card with Custom Content\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>User Profile</h3>\n    <p lumaCardDescription>Manage your account settings</p>\n  </div>\n  <div lumaCardContent>\n    <div class=\"flex items-center gap-4\">\n      <img src=\"avatar.jpg\" alt=\"Avatar\" class=\"w-12 h-12 rounded-full\" />\n      <div>\n        <p class=\"font-medium\">John Doe</p>\n        <p class=\"text-sm lm-text-secondary\">john@example.com</p>\n      </div>\n    </div>\n  </div>\n</luma-card>\n```\n\n### Dashboard Layout with Mixed Variants\n\n```html\n<!-- Main content card -->\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h2 lumaCardTitle lmSize=\"large\">Dashboard</h2>\n  </div>\n  <div lumaCardContent>\n    <div class=\"grid grid-cols-3 gap-4\">\n      <!-- Nested stat cards -->\n      <luma-card lmVariant=\"nested\">\n        <div lumaCardContent>\n          <p class=\"text-xs lm-text-secondary\">Users</p>\n          <p class=\"text-2xl font-bold\">1,234</p>\n        </div>\n      </luma-card>\n      <luma-card lmVariant=\"nested\">\n        <div lumaCardContent>\n          <p class=\"text-xs lm-text-secondary\">Revenue</p>\n          <p class=\"text-2xl font-bold\">$12.5k</p>\n        </div>\n      </luma-card>\n      <luma-card lmVariant=\"nested\">\n        <div lumaCardContent>\n          <p class=\"text-xs lm-text-secondary\">Growth</p>\n          <p class=\"text-2xl font-bold\">+15%</p>\n        </div>\n      </luma-card>\n    </div>\n  </div>\n</luma-card>\n```\n\n## Border Design\n\nThe **default** variant uses a clean 1px solid border that aligns with Neo-Minimal principles:\n\n**How it works:**\n\n1. Wrapper has `border` class for 1px border width\n2. Border color uses `neutral-60` from the color palette\n3. Creates subtle separation without visual noise\n\n**Neo-Minimal alignment:**\n\n- Minimal visual weight - border doesn't compete for attention\n- Uses functional whitespace and subtle structure\n- Light mode: Soft neutral gray for gentle separation\n- Dark mode: Adjusted neutral for proper contrast\n\n## Customizing\n\nThe card appearance can be customized using CSS variables defined in `@lumaui/tokens`.\n\n### Override Globally\n\nOverride card tokens in your global styles to apply changes across your entire application:\n\n```css\n/* In your global styles.css */\n:root {\n  --luma-card-shadow-background: #ffffff;\n  --luma-card-shadow-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);\n  --luma-card-padding: 24px;\n}\n```\n\n### Override Per Theme\n\nApply different card styles for light and dark themes:\n\n```css\n/* Light mode */\n:root {\n  --luma-card-shadow-background: #fafafa;\n}\n\n/* Dark mode */\n.dark {\n  --luma-card-shadow-background: oklch(0.18 0.005 265);\n  --luma-card-nested-background: oklch(0.2 0.005 265);\n}\n```\n\n### Override Per Component\n\nScope token overrides to specific contexts or containers:\n\n```css\n/* Cards in sidebar - more compact */\n.sidebar {\n  --luma-card-padding: 16px;\n}\n\n/* Cards in hero section - more prominent shadow */\n.hero {\n  --luma-card-shadow-shadow: 0 12px 32px oklch(0.22 0.01 265 / 0.1);\n}\n```\n\n## Neo-Minimal Principles\n\nThe Card design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Subtle borders and shadows, never demands attention\n- **Light as Structure**: Luminosity differences create depth without heavy shadows\n- **Functional Whitespace**: Generous padding (`24px` default) creates hierarchy\n- **Form & Geometry**: Rounded corners (`16px` product, `12px` nested) feel organic\n- **Organic Geometry**: Soft edges flow naturally, avoiding hard mechanical lines\n- **Editorial Color**: No brand colors in structure - neutral tones only\n- **Compositional Architecture**: Directives compose semantically, not through rigid templates\n\n## Accessibility\n\n- **Semantic HTML**: Proper heading hierarchy with `<h2>`, `<h3>`, `<h4>` elements\n- **Color contrast**: Background and text meet WCAG AA 4.5:1 minimum\n- **Readable typography**: Generous line-height and spacing for comfortable reading\n- **Theme support**: Both light and dark modes maintain accessibility standards\n- **Flexible structure**: No enforced heading levels - adapt to your document outline\n\n**Accessibility Notes:**\n\n- Use appropriate heading levels (`<h2>`, `<h3>`, etc.) with `lumaCardTitle` directive\n- Ensure descriptions provide meaningful context for screen reader users\n- Maintain logical heading hierarchy in your document\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based computed values (`computed()`)\n- Styled with Tailwind CSS v4 utilities referencing design tokens with `lm-` prefix\n- Type-safe variant types exported: `CardVariant`, `CardTitleVariants`, `CardDescriptionVariants`\n- OnPush change detection for optimal performance\n- Compositional architecture allows flexible content projection\n\n## When to Use Each Variant\n\n| Variant   | Use Case                                               |\n| --------- | ------------------------------------------------------ |\n| `default` | Default styling, clean solid border with neutral color |\n| `shadow`  | Primary content, main UI cards, elevated sections      |\n| `nested`  | Sections within cards, grouped content, stat blocks    |\n| `preview` | Documentation examples, component showcases            |\n\n**Avoid using Card when:**\n\n- Content doesn't need visual separation (use whitespace instead)\n- Creating overly nested card-within-card layouts (violates visual silence)\n- Every element needs a container (over-containerization)\n- A simple list would suffice\n\n**Remember:** Per Neo-Minimal principles, \"If an element can be removed without functional or semantic loss, it shouldn't exist.\"\n\n## Design Token Reference\n\n### Default Variant Tokens\n\n| Token                     | Default Value           | Purpose               |\n| ------------------------- | ----------------------- | --------------------- |\n| `--luma-card-background`  | `oklch(1 0 0)`          | Card background color |\n| `--luma-color-neutral-60` | `oklch(0.92 0.008 265)` | Border color          |\n| `--luma-card-padding`     | `1.5rem`                | Inner content padding |\n\n### Shadow Variant Tokens\n\n| Token                           | Default Value                            | Purpose         |\n| ------------------------------- | ---------------------------------------- | --------------- |\n| `--luma-card-shadow-background` | `oklch(1 0 0)`                           | Card background |\n| `--luma-card-shadow-border`     | `oklch(0.92 0.008 265)`                  | Border color    |\n| `--luma-card-shadow-shadow`     | `0 8px 24px oklch(0.22 0.01 265 / 0.06)` | Soft elevation  |\n| `--luma-card-shadow-radius`     | `16px`                                   | Border radius   |\n\n### Nested Variant Tokens\n\n| Token                           | Default Value           | Purpose           |\n| ------------------------------- | ----------------------- | ----------------- |\n| `--luma-card-nested-background` | `oklch(0.98 0.005 265)` | Subtle background |\n| `--luma-card-nested-border`     | `oklch(0.92 0.008 265)` | Border color      |\n| `--luma-card-nested-radius`     | `12px`                  | Border radius     |\n\n### Preview Variant Tokens\n\n| Token                            | Default Value           | Purpose            |\n| -------------------------------- | ----------------------- | ------------------ |\n| `--luma-card-preview-background` | `oklch(0.98 0.005 265)` | Preview background |\n| `--luma-card-preview-border`     | `oklch(0.92 0.008 265)` | Border color       |\n| `--luma-card-preview-radius`     | `12px`                  | Border radius      |\n\n**Note:** Dark theme values are defined in `card.dark.json` and automatically applied via `.dark` selector.\n"
     },
     {
+      "name": "Tabs",
+      "slug": "tabs",
+      "type": "component",
+      "category": "Layout",
+      "description": "Tabbed interface for organizing content into switchable panels with full accessibility and keyboard navigation",
+      "selector": "luma-tabs",
+      "inputs": [
+        {
+          "name": "lmValue",
+          "type": "string | null",
+          "default": "null",
+          "description": "Controlled value - currently selected tab"
+        },
+        {
+          "name": "lmDefaultValue",
+          "type": "string",
+          "default": "''",
+          "description": "Default value for uncontrolled mode"
+        },
+        {
+          "name": "lmStyle",
+          "type": "'underline' | 'background' | 'pill'",
+          "default": "'underline'",
+          "description": "Visual style variant"
+        },
+        {
+          "name": "lmLazy",
+          "type": "boolean",
+          "default": "true",
+          "description": "Whether to lazy load panel content"
+        }
+      ],
+      "tokens": [],
+      "tokenGroups": [
+        {
+          "name": "List",
+          "tokens": [
+            {
+              "name": "--luma-tabs-list-gap",
+              "value": "8px",
+              "description": "Gap between tabs triggers"
+            },
+            {
+              "name": "--luma-tabs-list-border-color",
+              "value": "oklch(0.97 0.006 290)",
+              "description": "Border color for underline style"
+            }
+          ]
+        },
+        {
+          "name": "Trigger",
+          "tokens": [
+            {
+              "name": "--luma-tabs-trigger-text",
+              "value": "oklch(0.48 0.01 290)",
+              "description": "Trigger text color"
+            },
+            {
+              "name": "--luma-tabs-trigger-text-hover",
+              "value": "oklch(0.22 0.014 290)",
+              "description": "Trigger text color on hover"
+            },
+            {
+              "name": "--luma-tabs-trigger-text-selected",
+              "value": "oklch(0.48 0.09 300)",
+              "description": "Selected trigger text color (primary)"
+            },
+            {
+              "name": "--luma-tabs-trigger-background",
+              "value": "transparent",
+              "description": "Trigger background"
+            },
+            {
+              "name": "--luma-tabs-trigger-background-hover",
+              "value": "oklch(0.99 0.004 290)",
+              "description": "Trigger hover background"
+            },
+            {
+              "name": "--luma-tabs-trigger-background-selected",
+              "value": "oklch(0.99 0.004 290)",
+              "description": "Selected trigger background"
+            },
+            {
+              "name": "--luma-tabs-trigger-padding-x",
+              "value": "16px",
+              "description": "Horizontal padding"
+            },
+            {
+              "name": "--luma-tabs-trigger-padding-y",
+              "value": "8px",
+              "description": "Vertical padding"
+            },
+            {
+              "name": "--luma-tabs-trigger-font-size",
+              "value": "14px",
+              "description": "Font size"
+            },
+            {
+              "name": "--luma-tabs-trigger-font-weight",
+              "value": "500",
+              "description": "Font weight"
+            },
+            {
+              "name": "--luma-tabs-trigger-radius",
+              "value": "8px",
+              "description": "Border radius"
+            }
+          ]
+        },
+        {
+          "name": "Indicator",
+          "tokens": [
+            {
+              "name": "--luma-tabs-indicator-height",
+              "value": "2px",
+              "description": "Indicator height"
+            },
+            {
+              "name": "--luma-tabs-indicator-color",
+              "value": "oklch(0.48 0.09 300)",
+              "description": "Indicator color (primary)"
+            },
+            {
+              "name": "--luma-tabs-indicator-radius",
+              "value": "1px",
+              "description": "Indicator border radius"
+            }
+          ]
+        },
+        {
+          "name": "Panel",
+          "tokens": [
+            {
+              "name": "--luma-tabs-panel-padding",
+              "value": "16px",
+              "description": "Panel padding"
+            }
+          ]
+        },
+        {
+          "name": "Pill",
+          "tokens": [
+            {
+              "name": "--luma-tabs-pill-background",
+              "value": "oklch(0.97 0.006 290)",
+              "description": "Pill container background"
+            },
+            {
+              "name": "--luma-tabs-pill-background-selected",
+              "value": "oklch(1 0 0)",
+              "description": "Selected pill background"
+            },
+            {
+              "name": "--luma-tabs-pill-gap",
+              "value": "4px",
+              "description": "Gap between pills"
+            },
+            {
+              "name": "--luma-tabs-pill-padding",
+              "value": "4px",
+              "description": "Pill container padding"
+            },
+            {
+              "name": "--luma-tabs-pill-radius",
+              "value": "12px",
+              "description": "Pill container border radius"
+            }
+          ]
+        },
+        {
+          "name": "Transition",
+          "tokens": [
+            {
+              "name": "--luma-tabs-transition-duration",
+              "value": "200ms",
+              "description": "Animation duration"
+            },
+            {
+              "name": "--luma-tabs-transition-timing",
+              "value": "ease-out",
+              "description": "Animation easing"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Basic Tabs",
+          "code": "<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Overview</button>\n    <button lumaTabsTrigger=\"tab-2\">Features</button>\n    <button lumaTabsTrigger=\"tab-3\">Pricing</button>\n    <button lumaTabsTrigger=\"tab-4\" [lmDisabled]=\"true\">Disabled</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Overview content goes here...</div>\n  <div lumaTabsPanel=\"tab-2\">Features content goes here...</div>\n  <div lumaTabsPanel=\"tab-3\">Pricing content goes here...</div>\n</luma-tabs>",
+          "language": "html"
+        },
+        {
+          "title": "Controlled Tabs",
+          "code": "<luma-tabs [lmValue]=\"selectedTab()\" (lmValueChange)=\"onTabChange($event)\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"account\">Account</button>\n    <button lumaTabsTrigger=\"security\">Security</button>\n    <button lumaTabsTrigger=\"notifications\">Notifications</button>\n  </div>\n\n  <div lumaTabsPanel=\"account\">Account settings...</div>\n  <div lumaTabsPanel=\"security\">Security settings...</div>\n  <div lumaTabsPanel=\"notifications\">Notification preferences...</div>\n</luma-tabs>",
+          "language": "html"
+        },
+        {
+          "title": "Background Style",
+          "code": "<luma-tabs lmDefaultValue=\"tab-1\" lmStyle=\"background\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Dashboard</button>\n    <button lumaTabsTrigger=\"tab-2\">Analytics</button>\n    <button lumaTabsTrigger=\"tab-3\">Reports</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Dashboard content...</div>\n  <div lumaTabsPanel=\"tab-2\">Analytics content...</div>\n  <div lumaTabsPanel=\"tab-3\">Reports content...</div>\n</luma-tabs>",
+          "language": "html"
+        },
+        {
+          "title": "Pill Style",
+          "code": "<luma-tabs lmDefaultValue=\"tab-1\" lmStyle=\"pill\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">All</button>\n    <button lumaTabsTrigger=\"tab-2\">Active</button>\n    <button lumaTabsTrigger=\"tab-3\">Completed</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">All items...</div>\n  <div lumaTabsPanel=\"tab-2\">Active items...</div>\n  <div lumaTabsPanel=\"tab-3\">Completed items...</div>\n</luma-tabs>",
+          "language": "html"
+        },
+        {
+          "title": "Lazy Loading",
+          "code": "<!-- Default: lazy loading enabled -->\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <!-- Only rendered when tab-1 is selected (default) -->\n  <div lumaTabsPanel=\"tab-1\">\n    <expensive-component />\n  </div>\n\n  <!-- Only rendered when tab-2 is first selected -->\n  <div lumaTabsPanel=\"tab-2\">\n    <another-expensive-component />\n  </div>\n</luma-tabs>\n\n<!-- Disable lazy loading to render all panels immediately -->\n<luma-tabs lmDefaultValue=\"tab-1\" [lmLazy]=\"false\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Content 1</div>\n  <div lumaTabsPanel=\"tab-2\">Content 2</div>\n</luma-tabs>",
+          "language": "html"
+        }
+      ],
+      "customization": {
+        "intro": "",
+        "examples": []
+      },
+      "sections": {
+        "purpose": "Tabs organize content into separate views where only one view can be visible at a time. The Tabs component follows WAI-ARIA tabs pattern with full keyboard navigation and supports three visual styles to match different UI contexts.",
+        "accessibility": "The Tabs component implements the WAI-ARIA Tabs pattern:\n\n- **Roles**: `tablist` on the list container, `tab` on triggers, `tabpanel` on panels\n- **Roving Tabindex**: Only the selected tab is in the tab order (tabindex=\"0\"), others are tabindex=\"-1\"\n- **ARIA Attributes**:\n  - `aria-selected`: Indicates the selected tab\n  - `aria-controls`: Links tab to its panel\n  - `aria-labelledby`: Links panel to its tab\n  - `aria-orientation`: Indicates horizontal layout\n\n### Keyboard Navigation\n\n| Key | Action |\n|-----|--------|\n| Arrow Right | Focus and select next tab |\n| Arrow Left | Focus and select previous tab |\n| Home | Focus and select first tab |\n| End | Focus and select last tab |\n| Enter/Space | Activate focused tab |",
+        "neoMinimal": "### Visual Silence\n\nThe three tab styles offer different levels of visual weight:\n- **Underline**: Minimal, just a 2px indicator line\n- **Background**: Subtle fill on selected tab\n- **Pill**: Contained design with soft background\n\n### Calm Interactions\n\n- **Smooth transitions**: 200ms with ease-out easing\n- **Animated indicator**: Slides naturally between tabs\n- **No jarring effects**: Focus rings are visible but subtle\n\n### Functional Whitespace\n\n- Consistent padding creates rhythm\n- Gap between tabs provides visual separation\n- Panel padding gives content breathing room",
+        "usage": "### Basic Tabs\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Overview</button>\n    <button lumaTabsTrigger=\"tab-2\">Features</button>\n    <button lumaTabsTrigger=\"tab-3\">Pricing</button>\n    <button lumaTabsTrigger=\"tab-4\" [lmDisabled]=\"true\">Disabled</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Overview content goes here...</div>\n  <div lumaTabsPanel=\"tab-2\">Features content goes here...</div>\n  <div lumaTabsPanel=\"tab-3\">Pricing content goes here...</div>\n</luma-tabs>\n```\n\n### Controlled Tabs\n\n```html\n<luma-tabs [lmValue]=\"selectedTab()\" (lmValueChange)=\"onTabChange($event)\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"account\">Account</button>\n    <button lumaTabsTrigger=\"security\">Security</button>\n    <button lumaTabsTrigger=\"notifications\">Notifications</button>\n  </div>\n\n  <div lumaTabsPanel=\"account\">Account settings...</div>\n  <div lumaTabsPanel=\"security\">Security settings...</div>\n  <div lumaTabsPanel=\"notifications\">Notification preferences...</div>\n</luma-tabs>\n```\n\n### Background Style\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\" lmStyle=\"background\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Dashboard</button>\n    <button lumaTabsTrigger=\"tab-2\">Analytics</button>\n    <button lumaTabsTrigger=\"tab-3\">Reports</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Dashboard content...</div>\n  <div lumaTabsPanel=\"tab-2\">Analytics content...</div>\n  <div lumaTabsPanel=\"tab-3\">Reports content...</div>\n</luma-tabs>\n```\n\n### Pill Style\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\" lmStyle=\"pill\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">All</button>\n    <button lumaTabsTrigger=\"tab-2\">Active</button>\n    <button lumaTabsTrigger=\"tab-3\">Completed</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">All items...</div>\n  <div lumaTabsPanel=\"tab-2\">Active items...</div>\n  <div lumaTabsPanel=\"tab-3\">Completed items...</div>\n</luma-tabs>\n```"
+      },
+      "docPath": "packages/angular/src/lib/tabs/tabs.docs.md",
+      "markdownContent": "\n# Tabs\n\n## Purpose\n\nTabs organize content into separate views where only one view can be visible at a time. The Tabs component follows WAI-ARIA tabs pattern with full keyboard navigation and supports three visual styles to match different UI contexts.\n\n## Usage Examples\n\n### Basic Tabs\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Overview</button>\n    <button lumaTabsTrigger=\"tab-2\">Features</button>\n    <button lumaTabsTrigger=\"tab-3\">Pricing</button>\n    <button lumaTabsTrigger=\"tab-4\" [lmDisabled]=\"true\">Disabled</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Overview content goes here...</div>\n  <div lumaTabsPanel=\"tab-2\">Features content goes here...</div>\n  <div lumaTabsPanel=\"tab-3\">Pricing content goes here...</div>\n</luma-tabs>\n```\n\n### Controlled Tabs\n\n```html\n<luma-tabs [lmValue]=\"selectedTab()\" (lmValueChange)=\"onTabChange($event)\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"account\">Account</button>\n    <button lumaTabsTrigger=\"security\">Security</button>\n    <button lumaTabsTrigger=\"notifications\">Notifications</button>\n  </div>\n\n  <div lumaTabsPanel=\"account\">Account settings...</div>\n  <div lumaTabsPanel=\"security\">Security settings...</div>\n  <div lumaTabsPanel=\"notifications\">Notification preferences...</div>\n</luma-tabs>\n```\n\n### Background Style\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\" lmStyle=\"background\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Dashboard</button>\n    <button lumaTabsTrigger=\"tab-2\">Analytics</button>\n    <button lumaTabsTrigger=\"tab-3\">Reports</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Dashboard content...</div>\n  <div lumaTabsPanel=\"tab-2\">Analytics content...</div>\n  <div lumaTabsPanel=\"tab-3\">Reports content...</div>\n</luma-tabs>\n```\n\n### Pill Style\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\" lmStyle=\"pill\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">All</button>\n    <button lumaTabsTrigger=\"tab-2\">Active</button>\n    <button lumaTabsTrigger=\"tab-3\">Completed</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">All items...</div>\n  <div lumaTabsPanel=\"tab-2\">Active items...</div>\n  <div lumaTabsPanel=\"tab-3\">Completed items...</div>\n</luma-tabs>\n```\n\n## Performance\n\n### Lazy Loading\n\nTabs panels are **lazy loaded by default** (`lmLazy=\"true\"`). This means panel content is only rendered when the tab is first selected, improving initial page load performance for tabs with heavy content.\n\n**How it works:**\n\n- Panel content is not rendered until the tab is selected for the first time\n- Once rendered, the content stays in the DOM (cached) for instant switching\n- Set `[lmLazy]=\"false\"` to render all panels immediately\n\n```html\n<!-- Default: lazy loading enabled -->\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <!-- Only rendered when tab-1 is selected (default) -->\n  <div lumaTabsPanel=\"tab-1\">\n    <expensive-component />\n  </div>\n\n  <!-- Only rendered when tab-2 is first selected -->\n  <div lumaTabsPanel=\"tab-2\">\n    <another-expensive-component />\n  </div>\n</luma-tabs>\n\n<!-- Disable lazy loading to render all panels immediately -->\n<luma-tabs lmDefaultValue=\"tab-1\" [lmLazy]=\"false\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Content 1</div>\n  <div lumaTabsPanel=\"tab-2\">Content 2</div>\n</luma-tabs>\n```\n\n**When to disable lazy loading:**\n\n- When you need to measure all panel heights upfront\n- When panels contain forms that must be pre-validated\n- When switching speed is more important than initial load\n\n## Accessibility\n\nThe Tabs component implements the WAI-ARIA Tabs pattern:\n\n- **Roles**: `tablist` on the list container, `tab` on triggers, `tabpanel` on panels\n- **Roving Tabindex**: Only the selected tab is in the tab order (tabindex=\"0\"), others are tabindex=\"-1\"\n- **ARIA Attributes**:\n  - `aria-selected`: Indicates the selected tab\n  - `aria-controls`: Links tab to its panel\n  - `aria-labelledby`: Links panel to its tab\n  - `aria-orientation`: Indicates horizontal layout\n\n### Keyboard Navigation\n\n| Key | Action |\n|-----|--------|\n| Arrow Right | Focus and select next tab |\n| Arrow Left | Focus and select previous tab |\n| Home | Focus and select first tab |\n| End | Focus and select last tab |\n| Enter/Space | Activate focused tab |\n\n## Neo-Minimal Principles\n\n### Visual Silence\n\nThe three tab styles offer different levels of visual weight:\n- **Underline**: Minimal, just a 2px indicator line\n- **Background**: Subtle fill on selected tab\n- **Pill**: Contained design with soft background\n\n### Calm Interactions\n\n- **Smooth transitions**: 200ms with ease-out easing\n- **Animated indicator**: Slides naturally between tabs\n- **No jarring effects**: Focus rings are visible but subtle\n\n### Functional Whitespace\n\n- Consistent padding creates rhythm\n- Gap between tabs provides visual separation\n- Panel padding gives content breathing room\n"
+    },
+    {
       "name": "Tooltip",
       "slug": "tooltip",
       "type": "directive",
@@ -1037,7 +1263,7 @@
       "examples": [
         {
           "title": "Basic Tooltip",
-          "code": "<button [lumaTooltip]=\"'Save your changes'\" lumaButton>\n  Save\n</button>",
+          "code": "<button [lumaTooltip]=\"'Save your changes'\" lumaButton>Save</button>",
           "language": "html"
         },
         {
@@ -1052,17 +1278,17 @@
         },
         {
           "title": "Click Trigger (Mobile-Friendly)",
-          "code": "<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">\n  ?\n</button>",
+          "code": "<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">?</button>",
           "language": "html"
         },
         {
           "title": "With Delay",
-          "code": "<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">\n  Delayed\n</button>",
+          "code": "<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">Delayed</button>",
           "language": "html"
         },
         {
           "title": "On Any Element",
-          "code": "<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\">\n  Learn more\n</a>",
+          "code": "<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\"> Learn more </a>",
           "language": "html"
         }
       ],
@@ -1074,10 +1300,10 @@
         "purpose": "The Tooltip directive provides contextual information on hover, click, or focus. Following Neo-Minimal principles, it features a modern arrow-less design with subtle animations and smart positioning that adapts to viewport boundaries.",
         "accessibility": "- **ARIA Integration**: Automatically sets `aria-describedby` on the trigger element\n- **Keyboard Support**: Shows on focus for keyboard users, dismissible with Escape\n- **Touch-Friendly**: Hybrid behavior with tap-to-toggle on touch devices\n- **Screen Readers**: Content is exposed via the tooltip's `role=\"tooltip\"` attribute",
         "neoMinimal": "The tooltip design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Arrow-less design reduces visual noise and competing elements\n- **Calm Interactions**: Subtle fade + scale animation (150ms ease-out) responds naturally\n- **Organic Geometry**: Rounded corners create flowing, non-mechanical appearance\n- **Light as Structure**: Shadow provides depth without hard edges",
-        "usage": "### Basic Tooltip\n\n```html\n<button [lumaTooltip]=\"'Save your changes'\" lumaButton>\n  Save\n</button>\n```\n\n### Positioned Tooltips\n\n```html\n<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>\n```\n\n### HTML Content\n\n```html\n<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>\n```\n\n### Click Trigger (Mobile-Friendly)\n\n```html\n<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">\n  ?\n</button>\n```\n\n### With Delay\n\n```html\n<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">\n  Delayed\n</button>\n```\n\n### On Any Element\n\nTooltips work on any HTML element, not just buttons:\n\n```html\n<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\">\n  Learn more\n</a>\n```"
+        "usage": "### Basic Tooltip\n\n```html\n<button [lumaTooltip]=\"'Save your changes'\" lumaButton>Save</button>\n```\n\n### Positioned Tooltips\n\n```html\n<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>\n```\n\n### HTML Content\n\n```html\n<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>\n```\n\n### Click Trigger (Mobile-Friendly)\n\n```html\n<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">?</button>\n```\n\n### With Delay\n\n```html\n<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">Delayed</button>\n```\n\n### On Any Element\n\nTooltips work on any HTML element, not just buttons:\n\n```html\n<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\"> Learn more </a>\n```"
       },
       "docPath": "packages/angular/src/lib/tooltip/tooltip.docs.md",
-      "markdownContent": "\n# Tooltip\n\n## Purpose\n\nThe Tooltip directive provides contextual information on hover, click, or focus. Following Neo-Minimal principles, it features a modern arrow-less design with subtle animations and smart positioning that adapts to viewport boundaries.\n\n## Usage Examples\n\n### Basic Tooltip\n\n```html\n<button [lumaTooltip]=\"'Save your changes'\" lumaButton>\n  Save\n</button>\n```\n\n### Positioned Tooltips\n\n```html\n<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>\n```\n\n### HTML Content\n\n```html\n<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>\n```\n\n### Click Trigger (Mobile-Friendly)\n\n```html\n<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">\n  ?\n</button>\n```\n\n### With Delay\n\n```html\n<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">\n  Delayed\n</button>\n```\n\n### On Any Element\n\nTooltips work on any HTML element, not just buttons:\n\n```html\n<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\">\n  Learn more\n</a>\n```\n\n## Customizing\n\nOverride tooltip tokens in your global styles:\n\n```css\n:root {\n  --luma-tooltip-background: oklch(0.1 0 0 / 0.95);\n  --luma-tooltip-text: oklch(1 0 0);\n  --luma-tooltip-padding: 10px;\n  --luma-tooltip-radius: 4px;\n  --luma-tooltip-max-width: 320px;\n}\n```\n\n## Neo-Minimal Principles\n\nThe tooltip design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Arrow-less design reduces visual noise and competing elements\n- **Calm Interactions**: Subtle fade + scale animation (150ms ease-out) responds naturally\n- **Organic Geometry**: Rounded corners create flowing, non-mechanical appearance\n- **Light as Structure**: Shadow provides depth without hard edges\n\n## Accessibility\n\n- **ARIA Integration**: Automatically sets `aria-describedby` on the trigger element\n- **Keyboard Support**: Shows on focus for keyboard users, dismissible with Escape\n- **Touch-Friendly**: Hybrid behavior with tap-to-toggle on touch devices\n- **Screen Readers**: Content is exposed via the tooltip's `role=\"tooltip\"` attribute\n\n## Mobile Behavior\n\nThe tooltip implements a hybrid interaction model:\n\n- **Desktop**: Hover to show, mouse leave to hide\n- **Touch Devices**: Tap to toggle, tap outside to dismiss\n- **Focus**: Always shows on focus for keyboard accessibility\n\nThis ensures a consistent experience across all device types without requiring separate implementations.\n\n## Auto-Flip\n\nWhen the tooltip would overflow the viewport, it automatically flips to the opposite position. For example, a `top` tooltip near the top of the screen will flip to `bottom`.\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based architecture with `input()` and `signal()`\n- Platform-aware with SSR support via `isPlatformBrowser` checks\n- GPU-accelerated animations using `transform` and `opacity`\n- Auto-cleanup on component destruction\n- Position recalculation via `requestAnimationFrame` for smooth updates\n"
+      "markdownContent": "\n# Tooltip\n\n## Purpose\n\nThe Tooltip directive provides contextual information on hover, click, or focus. Following Neo-Minimal principles, it features a modern arrow-less design with subtle animations and smart positioning that adapts to viewport boundaries.\n\n## Usage Examples\n\n### Basic Tooltip\n\n```html\n<button [lumaTooltip]=\"'Save your changes'\" lumaButton>Save</button>\n```\n\n### Positioned Tooltips\n\n```html\n<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>\n```\n\n### HTML Content\n\n```html\n<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>\n```\n\n### Click Trigger (Mobile-Friendly)\n\n```html\n<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">?</button>\n```\n\n### With Delay\n\n```html\n<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">Delayed</button>\n```\n\n### On Any Element\n\nTooltips work on any HTML element, not just buttons:\n\n```html\n<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\"> Learn more </a>\n```\n\n## Customizing\n\nOverride tooltip tokens in your global styles:\n\n```css\n:root {\n  --luma-tooltip-background: oklch(0.1 0 0 / 0.95);\n  --luma-tooltip-text: oklch(1 0 0);\n  --luma-tooltip-padding: 10px;\n  --luma-tooltip-radius: 4px;\n  --luma-tooltip-max-width: 320px;\n}\n```\n\n## Neo-Minimal Principles\n\nThe tooltip design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Arrow-less design reduces visual noise and competing elements\n- **Calm Interactions**: Subtle fade + scale animation (150ms ease-out) responds naturally\n- **Organic Geometry**: Rounded corners create flowing, non-mechanical appearance\n- **Light as Structure**: Shadow provides depth without hard edges\n\n## Accessibility\n\n- **ARIA Integration**: Automatically sets `aria-describedby` on the trigger element\n- **Keyboard Support**: Shows on focus for keyboard users, dismissible with Escape\n- **Touch-Friendly**: Hybrid behavior with tap-to-toggle on touch devices\n- **Screen Readers**: Content is exposed via the tooltip's `role=\"tooltip\"` attribute\n\n## Mobile Behavior\n\nThe tooltip implements a hybrid interaction model:\n\n- **Desktop**: Hover to show, mouse leave to hide\n- **Touch Devices**: Tap to toggle, tap outside to dismiss\n- **Focus**: Always shows on focus for keyboard accessibility\n\nThis ensures a consistent experience across all device types without requiring separate implementations.\n\n## Auto-Flip\n\nWhen the tooltip would overflow the viewport, it automatically flips to the opposite position. For example, a `top` tooltip near the top of the screen will flip to `bottom`.\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based architecture with `input()` and `signal()`\n- Platform-aware with SSR support via `isPlatformBrowser` checks\n- GPU-accelerated animations using `transform` and `opacity`\n- Auto-cleanup on component destruction\n- Position recalculation via `requestAnimationFrame` for smooth updates\n"
     }
   ],
   "themePages": [
@@ -1570,5 +1796,5 @@
     }
   ],
   "categories": ["Feedback", "Form", "Layout"],
-  "generatedAt": "2026-02-01T03:11:24.210Z"
+  "generatedAt": "2026-02-01T18:46:03.362Z"
 }

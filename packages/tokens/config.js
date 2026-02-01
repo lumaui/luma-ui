@@ -1282,6 +1282,325 @@ StyleDictionary.registerFormat({
         output += `  transition-timing-function: var(${tooltipTimingToken.name});\n`;
         output += `}\n\n`;
       }
+
+      // ============================================
+      // TABS UTILITIES
+      // ============================================
+
+      output += `/* Tabs List Utilities */\n`;
+
+      // Tabs list gap
+      const tabsListGap = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' && t.path[2] === 'list' && t.path[3] === 'gap',
+      );
+      if (tabsListGap) {
+        output += `@utility lm-gap-tabs-list {\n`;
+        output += `  gap: var(${tabsListGap.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs list border color
+      const tabsListBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'list' &&
+          t.path[3] === 'border-color',
+      );
+      if (tabsListBorder) {
+        output += `@utility lm-border-tabs-list {\n`;
+        output += `  border-color: var(${tabsListBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Tabs Trigger Utilities */\n`;
+
+      // Tabs trigger text colors
+      const tabsTriggerText = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'text',
+      );
+      if (tabsTriggerText) {
+        output += `@utility lm-text-tabs-trigger {\n`;
+        output += `  color: var(${tabsTriggerText.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsTriggerTextHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'text-hover',
+      );
+      if (tabsTriggerTextHover) {
+        output += `@utility lm-text-tabs-trigger-hover {\n`;
+        output += `  color: var(${tabsTriggerTextHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsTriggerTextSelected = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'text-selected',
+      );
+      if (tabsTriggerTextSelected) {
+        output += `@utility lm-text-tabs-trigger-selected {\n`;
+        output += `  color: var(${tabsTriggerTextSelected.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs trigger backgrounds
+      const tabsTriggerBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'background',
+      );
+      if (tabsTriggerBg) {
+        output += `@utility lm-bg-tabs-trigger {\n`;
+        output += `  background-color: var(${tabsTriggerBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsTriggerBgHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'background-hover',
+      );
+      if (tabsTriggerBgHover) {
+        output += `@utility lm-bg-tabs-trigger-hover {\n`;
+        output += `  background-color: var(${tabsTriggerBgHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsTriggerBgSelected = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'background-selected',
+      );
+      if (tabsTriggerBgSelected) {
+        output += `@utility lm-bg-tabs-trigger-selected {\n`;
+        output += `  background-color: var(${tabsTriggerBgSelected.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs trigger padding
+      const tabsTriggerPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'padding-x',
+      );
+      if (tabsTriggerPaddingX) {
+        output += `@utility lm-px-tabs-trigger {\n`;
+        output += `  padding-left: var(${tabsTriggerPaddingX.name});\n`;
+        output += `  padding-right: var(${tabsTriggerPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsTriggerPaddingY = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'padding-y',
+      );
+      if (tabsTriggerPaddingY) {
+        output += `@utility lm-py-tabs-trigger {\n`;
+        output += `  padding-top: var(${tabsTriggerPaddingY.name});\n`;
+        output += `  padding-bottom: var(${tabsTriggerPaddingY.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs trigger font
+      const tabsTriggerFontSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'font-size',
+      );
+      if (tabsTriggerFontSize) {
+        output += `@utility lm-text-size-tabs-trigger {\n`;
+        output += `  font-size: var(${tabsTriggerFontSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsTriggerFontWeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'font-weight',
+      );
+      if (tabsTriggerFontWeight) {
+        output += `@utility lm-font-tabs-trigger {\n`;
+        output += `  font-weight: var(${tabsTriggerFontWeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs trigger radius
+      const tabsTriggerRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'trigger' &&
+          t.path[3] === 'radius',
+      );
+      if (tabsTriggerRadius) {
+        output += `@utility lm-rounded-tabs-trigger {\n`;
+        output += `  border-radius: var(${tabsTriggerRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Tabs Indicator Utilities */\n`;
+
+      // Tabs indicator height
+      const tabsIndicatorHeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'indicator' &&
+          t.path[3] === 'height',
+      );
+      if (tabsIndicatorHeight) {
+        output += `@utility lm-h-tabs-indicator {\n`;
+        output += `  height: var(${tabsIndicatorHeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs indicator color (background)
+      const tabsIndicatorColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'indicator' &&
+          t.path[3] === 'color',
+      );
+      if (tabsIndicatorColor) {
+        output += `@utility lm-bg-tabs-indicator {\n`;
+        output += `  background-color: var(${tabsIndicatorColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs indicator radius
+      const tabsIndicatorRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'indicator' &&
+          t.path[3] === 'radius',
+      );
+      if (tabsIndicatorRadius) {
+        output += `@utility lm-rounded-tabs-indicator {\n`;
+        output += `  border-radius: var(${tabsIndicatorRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Tabs Panel Utilities */\n`;
+
+      // Tabs panel padding
+      const tabsPanelPadding = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'panel' &&
+          t.path[3] === 'padding',
+      );
+      if (tabsPanelPadding) {
+        output += `@utility lm-p-tabs-panel {\n`;
+        output += `  padding: var(${tabsPanelPadding.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Tabs Pill Variant Utilities */\n`;
+
+      // Tabs pill background
+      const tabsPillBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'pill' &&
+          t.path[3] === 'background',
+      );
+      if (tabsPillBg) {
+        output += `@utility lm-bg-tabs-pill {\n`;
+        output += `  background-color: var(${tabsPillBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const tabsPillBgSelected = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'pill' &&
+          t.path[3] === 'background-selected',
+      );
+      if (tabsPillBgSelected) {
+        output += `@utility lm-bg-tabs-pill-selected {\n`;
+        output += `  background-color: var(${tabsPillBgSelected.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs pill gap
+      const tabsPillGap = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' && t.path[2] === 'pill' && t.path[3] === 'gap',
+      );
+      if (tabsPillGap) {
+        output += `@utility lm-gap-tabs-pill {\n`;
+        output += `  gap: var(${tabsPillGap.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs pill padding
+      const tabsPillPadding = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'pill' &&
+          t.path[3] === 'padding',
+      );
+      if (tabsPillPadding) {
+        output += `@utility lm-p-tabs-pill {\n`;
+        output += `  padding: var(${tabsPillPadding.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs pill radius
+      const tabsPillRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'pill' &&
+          t.path[3] === 'radius',
+      );
+      if (tabsPillRadius) {
+        output += `@utility lm-rounded-tabs-pill {\n`;
+        output += `  border-radius: var(${tabsPillRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Tabs Transition Utilities */\n`;
+
+      // Tabs transition duration
+      const tabsDuration = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'duration',
+      );
+      if (tabsDuration) {
+        output += `@utility lm-duration-tabs {\n`;
+        output += `  transition-duration: var(${tabsDuration.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tabs transition timing
+      const tabsTiming = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tabs' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'timing',
+      );
+      if (tabsTiming) {
+        output += `@utility lm-ease-tabs {\n`;
+        output += `  transition-timing-function: var(${tabsTiming.name});\n`;
+        output += `}\n\n`;
+      }
     }
 
     return output;
@@ -1337,6 +1656,7 @@ const config = {
     'src/components/badge/badge.json',
     'src/components/accordion/accordion.json',
     'src/components/tooltip/tooltip.json',
+    'src/components/tabs/tabs.json',
   ],
   platforms: {
     'css-light': {

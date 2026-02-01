@@ -1,0 +1,143 @@
+{
+  "luma": {
+    "tabs": {
+      "list": {
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Gap between tab triggers"
+        },
+        "padding": {
+          "value": "0",
+          "type": "dimension",
+          "description": "List container padding"
+        },
+        "border-color": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Bottom border color for underline style"
+        }
+      },
+      "trigger": {
+        "text": {
+          "value": "{luma.color.neutral.80}",
+          "type": "color",
+          "description": "Default trigger text color"
+        },
+        "text-hover": {
+          "value": "{luma.color.neutral.100}",
+          "type": "color",
+          "description": "Trigger text color on hover"
+        },
+        "text-selected": {
+          "value": "{luma.color.primary.50}",
+          "type": "color",
+          "description": "Selected trigger text color"
+        },
+        "background": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Default trigger background"
+        },
+        "background-hover": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Trigger background on hover"
+        },
+        "background-selected": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Selected trigger background (for background style)"
+        },
+        "padding-x": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Trigger horizontal padding"
+        },
+        "padding-y": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Trigger vertical padding"
+        },
+        "font-size": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Trigger font size"
+        },
+        "font-weight": {
+          "value": "500",
+          "type": "string",
+          "description": "Trigger font weight"
+        },
+        "radius": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Trigger border radius (for background/pill styles)"
+        }
+      },
+      "indicator": {
+        "height": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Underline indicator height"
+        },
+        "color": {
+          "value": "{luma.color.primary.50}",
+          "type": "color",
+          "description": "Indicator color"
+        },
+        "radius": {
+          "value": "1px",
+          "type": "dimension",
+          "description": "Indicator border radius"
+        }
+      },
+      "panel": {
+        "padding": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Panel content padding"
+        }
+      },
+      "pill": {
+        "background": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Pill container background"
+        },
+        "background-selected": {
+          "value": "oklch(1 0 0)",
+          "type": "color",
+          "description": "Selected pill background"
+        },
+        "gap": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Gap between pills"
+        },
+        "padding": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Pill container padding"
+        },
+        "radius": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Pill container radius"
+        }
+      },
+      "transition": {
+        "duration": {
+          "value": "200ms",
+          "type": "duration",
+          "description": "Animation duration"
+        },
+        "timing": {
+          "value": "ease-out",
+          "type": "string",
+          "description": "Animation timing function"
+        }
+      }
+    }
+  }
+}

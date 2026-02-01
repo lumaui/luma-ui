@@ -22,3 +22,11 @@ export * from './lib/accordion/accordion.tokens';
 
 // Tooltip exports
 export * from './lib/tooltip/tooltip.directive';
+
+// Tabs exports
+export * from './lib/tabs/tabs.component';
+export * from './lib/tabs/tabs-list.directive';
+export * from './lib/tabs/tabs-trigger.directive';
+export * from './lib/tabs/tabs-panel.directive';
+export * from './lib/tabs/tabs-indicator.component';
+export * from './lib/tabs/tabs.tokens';
