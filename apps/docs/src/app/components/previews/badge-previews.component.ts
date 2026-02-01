@@ -11,18 +11,40 @@ import { BadgeDirective } from '@lumaui/angular';
       @case ('examples') {
         <div class="flex flex-wrap gap-3 justify-center">
           <span lumaBadge>Label</span>
-          <span lumaBadge class="bg-blue-100 text-blue-800 border-blue-200"
+          <span
+            lumaBadge
+            style="
+              background-color: color-mix(in oklch, var(--luma-color-primary-50) 15%, white);
+              color: var(--luma-color-primary-60);
+              border-color: color-mix(in oklch, var(--luma-color-primary-50) 30%, white);
+            "
             >Info</span
           >
-          <span lumaBadge class="bg-green-100 text-green-800 border-green-200"
+          <span
+            lumaBadge
+            style="
+              background-color: color-mix(in oklch, var(--luma-color-success-50) 15%, white);
+              color: var(--luma-color-success-60);
+              border-color: color-mix(in oklch, var(--luma-color-success-50) 30%, white);
+            "
             >Success</span
           >
           <span
             lumaBadge
-            class="bg-yellow-100 text-yellow-800 border-yellow-200"
+            style="
+              background-color: color-mix(in oklch, var(--luma-color-warning-50) 15%, white);
+              color: var(--luma-color-warning-60);
+              border-color: color-mix(in oklch, var(--luma-color-warning-50) 30%, white);
+            "
             >Warning</span
           >
-          <span lumaBadge class="bg-red-100 text-red-800 border-red-200"
+          <span
+            lumaBadge
+            style="
+              background-color: color-mix(in oklch, var(--luma-color-error-50) 15%, white);
+              color: var(--luma-color-error-60);
+              border-color: color-mix(in oklch, var(--luma-color-error-50) 30%, white);
+            "
             >Error</span
           >
         </div>

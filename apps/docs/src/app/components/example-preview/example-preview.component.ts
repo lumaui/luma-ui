@@ -12,6 +12,7 @@ import { BadgePreviewsComponent } from '../previews/badge-previews.component';
 import { ButtonPreviewsComponent } from '../previews/button-previews.component';
 import { CardComponent } from '@lumaui/angular';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
+import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component';
 
 type TabType = 'preview' | 'code';
 
@@ -22,6 +23,7 @@ type TabType = 'preview' | 'code';
     BadgePreviewsComponent,
     ButtonPreviewsComponent,
     CardPreviewsComponent,
+    TooltipPreviewsComponent,
     CardComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -116,6 +118,9 @@ type TabType = 'preview' | 'code';
                 }
                 @case ('badge') {
                   <app-badge-previews [exampleId]="exampleId()" />
+                }
+                @case ('tooltip') {
+                  <app-tooltip-previews [exampleId]="exampleId()" />
                 }
                 @default {
                   <div class="lm-text-secondary text-sm">

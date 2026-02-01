@@ -1,0 +1,16 @@
+{
+  "luma": {
+    "tooltip": {
+      "background": {
+        "value": "oklch(0.92 0 0)",
+        "type": "color",
+        "description": "Tooltip background color in dark mode (light)"
+      },
+      "text": {
+        "value": "oklch(0.15 0 0)",
+        "type": "color",
+        "description": "Tooltip text color in dark mode (dark)"
+      }
+    }
+  }
+}

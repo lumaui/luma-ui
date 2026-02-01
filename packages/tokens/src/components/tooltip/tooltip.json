@@ -1,0 +1,58 @@
+{
+  "luma": {
+    "tooltip": {
+      "background": {
+        "value": "oklch(0.15 0 0 / 0.9)",
+        "type": "color",
+        "description": "Tooltip background color (dark with slight transparency)"
+      },
+      "text": {
+        "value": "oklch(1 0 0)",
+        "type": "color",
+        "description": "Tooltip text color (white)"
+      },
+      "font-size": {
+        "value": "{luma.text.sm}",
+        "type": "dimension",
+        "description": "Tooltip font size"
+      },
+      "padding": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Tooltip padding (uniform)"
+      },
+      "radius": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Tooltip border radius"
+      },
+      "shadow": {
+        "value": "0 4px 12px oklch(0 0 0 / 0.15)",
+        "type": "shadow",
+        "description": "Tooltip elevation shadow"
+      },
+      "max-width": {
+        "value": "400px",
+        "type": "dimension",
+        "description": "Tooltip maximum width"
+      },
+      "offset": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Distance from trigger element"
+      },
+      "transition": {
+        "duration": {
+          "value": "150ms",
+          "type": "duration",
+          "description": "Tooltip animation duration"
+        },
+        "timing": {
+          "value": "ease-out",
+          "type": "string",
+          "description": "Tooltip animation easing"
+        }
+      }
+    }
+  }
+}

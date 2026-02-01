@@ -3,124 +3,127 @@
     "color": {
       "primary": {
         "50": {
-          "value": "oklch(0.63 0.14 232.13)",
+          "value": "oklch(0.48 0.09 300)",
           "type": "color",
           "description": "Primary default - main brand color for buttons, links, actions"
         },
         "60": {
-          "value": "oklch(0.56 0.13 232.13)",
+          "value": "oklch(0.44 0.085 300)",
           "type": "color",
           "description": "Primary strong - emphasized elements"
         },
         "70": {
-          "value": "oklch(0.49 0.12 232.13)",
+          "value": "oklch(0.40 0.08 300)",
           "type": "color",
           "description": "Primary hover - hover state for primary elements"
         },
         "80": {
-          "value": "oklch(0.43 0.11 232.13)",
+          "value": "oklch(0.36 0.075 300)",
           "type": "color",
           "description": "Primary active - pressed/active state"
         }
       },
       "neutral": {
         "50": {
-          "value": "oklch(0.99 0 0)",
+          "value": "oklch(0.99 0.004 290)",
           "type": "color",
           "description": "Neutral lightest - nested card backgrounds, subtle surfaces"
         },
         "60": {
-          "value": "oklch(0.97 0 0)",
+          "value": "oklch(0.97 0.006 290)",
           "type": "color",
           "description": "Neutral light - surfaces, backgrounds"
         },
         "70": {
-          "value": "oklch(0.85 0.01 265)",
+          "value": "oklch(0.86 0.008 290)",
           "type": "color",
           "description": "Neutral medium - disabled text, placeholders"
         },
         "80": {
-          "value": "oklch(0.45 0.01 265)",
+          "value": "oklch(0.48 0.01 290)",
           "type": "color",
           "description": "Neutral dark - secondary text (WCAG AA compliant)"
         },
         "90": {
-          "value": "oklch(0.45 0.01 265)",
+          "value": "oklch(0.38 0.012 290)",
           "type": "color",
           "description": "Neutral darker - emphasized secondary text"
         },
         "100": {
-          "value": "oklch(0.22 0.01 265)",
+          "value": "oklch(0.22 0.014 290)",
           "type": "color",
           "description": "Neutral darkest - primary text, shadows"
         }
       },
+
       "success": {
         "50": {
-          "value": "oklch(0.72 0.08 150)",
+          "value": "oklch(0.72 0.07 155)",
           "type": "color",
           "description": "Success default - positive feedback, confirmations"
         },
         "60": {
-          "value": "oklch(0.65 0.07 150)",
+          "value": "oklch(0.66 0.08 155)",
           "type": "color",
           "description": "Success strong"
         },
         "70": {
-          "value": "oklch(0.58 0.06 150)",
+          "value": "oklch(0.60 0.08 155)",
           "type": "color",
           "description": "Success hover"
         },
         "80": {
-          "value": "oklch(0.52 0.05 150)",
+          "value": "oklch(0.54 0.07 155)",
           "type": "color",
           "description": "Success active"
         }
       },
       "warning": {
         "50": {
-          "value": "oklch(0.78 0.10 85)",
+          "value": "oklch(0.80 0.09 95)",
           "type": "color",
           "description": "Warning default - caution states, alerts"
         },
         "60": {
-          "value": "oklch(0.72 0.09 85)",
+          "value": "oklch(0.74 0.10 95)",
           "type": "color",
           "description": "Warning strong"
         },
         "70": {
-          "value": "oklch(0.65 0.08 85)",
+          "value": "oklch(0.68 0.09 95)",
           "type": "color",
           "description": "Warning hover"
         },
         "80": {
-          "value": "oklch(0.58 0.07 85)",
+          "value": "oklch(0.61 0.08 95)",
           "type": "color",
           "description": "Warning active"
         }
       },
+
       "error": {
         "50": {
-          "value": "oklch(0.62 0.11 25)",
+          "value": "oklch(0.63 0.10 28)",
           "type": "color",
           "description": "Error default - destructive actions, errors"
         },
         "60": {
-          "value": "oklch(0.56 0.10 25)",
+          "value": "oklch(0.57 0.11 28)",
           "type": "color",
           "description": "Error strong"
         },
         "70": {
-          "value": "oklch(0.50 0.09 25)",
+          "value": "oklch(0.51 0.10 28)",
           "type": "color",
           "description": "Error hover"
         },
         "80": {
-          "value": "oklch(0.44 0.08 25)",
+          "value": "oklch(0.45 0.09 28)",
           "type": "color",
           "description": "Error active"
         }
       },
+
       "surface": {
         "base": {
           "value": "oklch(1 0 0)",
@@ -138,15 +141,20 @@
           "value": "{luma.color.neutral.80}",
           "type": "color",
           "description": "Secondary text color - supporting text"
+        },
+        "tertiary": {
+          "value": "{luma.color.neutral.70}",
+          "type": "color",
+          "description": "Tertiary text color - placeholders, captions"
         }
       }
     },
     "focus": {
       "ring": {
         "color": {
-          "value": "oklch(0.63 0.14 232.13 / 0.45)",
+          "value": "oklch(0.55 0.10 300 / 0.35)",
           "type": "color",
-          "description": "Global focus ring color - accessible, visible in both themes"
+          "description": "Global focus ring color - derived from primary plum, calm and accessible"
         },
         "width": {
           "value": "2px",
@@ -154,9 +162,9 @@
           "description": "Focus ring width - WCAG 2.4.7 minimum"
         },
         "offset": {
-          "value": "2px",
+          "value": "3px",
           "type": "dimension",
-          "description": "Focus ring offset from element"
+          "description": "Focus ring offset - creates breathing space without visual noise"
         }
       }
     }

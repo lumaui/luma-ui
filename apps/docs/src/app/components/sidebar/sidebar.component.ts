@@ -14,7 +14,11 @@ import { DocsRegistryService } from '../../services/docs-registry.service';
 
       .active-sidebar {
         color: var(--luma-color-primary-50);
-        background-color: oklch(0.63 0.14 232.13 / 0.08);
+        background-color: color-mix(
+          in oklch,
+          var(--luma-color-primary-50) 8%,
+          transparent
+        );
         font-weight: 500;
       }
     `,

@@ -34,7 +34,7 @@ function extractClassesFromFile(filePath: string): string[] {
       className.includes('lm-') ||
       className.match(/^(hover:|focus:|active:|disabled:|focus-visible:)/) ||
       className.match(
-        /^(inline-flex|items-center|justify-center|font-medium|leading-snug|transition|w-full|relative|border|bg-|text-|rounded-|p-\[|px-\[|py-\[|mb-)/,
+        /^(inline-flex|items-center|justify-center|font-medium|leading-snug|transition|w-full|w-max|relative|border|bg-|text-|rounded-|p-\[|px-\[|py-\[|mb-)/,
       )
     ) {
       classes.push(className);

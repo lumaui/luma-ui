@@ -4,36 +4,37 @@
   /* Luma Design System Tokens */
 
   /* Color */
-  --luma-color-primary-50: oklch(0.63 0.14 232.13);
-  --luma-color-primary-60: oklch(0.56 0.13 232.13);
-  --luma-color-primary-70: oklch(0.49 0.12 232.13);
-  --luma-color-primary-80: oklch(0.43 0.11 232.13);
-  --luma-color-neutral-50: oklch(0.99 0 0);
-  --luma-color-neutral-60: oklch(0.97 0 0);
-  --luma-color-neutral-70: oklch(0.85 0.01 265);
-  --luma-color-neutral-80: oklch(0.45 0.01 265);
-  --luma-color-neutral-90: oklch(0.45 0.01 265);
-  --luma-color-neutral-100: oklch(0.22 0.01 265);
-  --luma-color-success-50: oklch(0.72 0.08 150);
-  --luma-color-success-60: oklch(0.65 0.07 150);
-  --luma-color-success-70: oklch(0.58 0.06 150);
-  --luma-color-success-80: oklch(0.52 0.05 150);
-  --luma-color-warning-50: oklch(0.78 0.10 85);
-  --luma-color-warning-60: oklch(0.72 0.09 85);
-  --luma-color-warning-70: oklch(0.65 0.08 85);
-  --luma-color-warning-80: oklch(0.58 0.07 85);
-  --luma-color-error-50: oklch(0.62 0.11 25);
-  --luma-color-error-60: oklch(0.56 0.10 25);
-  --luma-color-error-70: oklch(0.50 0.09 25);
-  --luma-color-error-80: oklch(0.44 0.08 25);
+  --luma-color-primary-50: oklch(0.48 0.09 300);
+  --luma-color-primary-60: oklch(0.44 0.085 300);
+  --luma-color-primary-70: oklch(0.40 0.08 300);
+  --luma-color-primary-80: oklch(0.36 0.075 300);
+  --luma-color-neutral-50: oklch(0.99 0.004 290);
+  --luma-color-neutral-60: oklch(0.97 0.006 290);
+  --luma-color-neutral-70: oklch(0.86 0.008 290);
+  --luma-color-neutral-80: oklch(0.48 0.01 290);
+  --luma-color-neutral-90: oklch(0.38 0.012 290);
+  --luma-color-neutral-100: oklch(0.22 0.014 290);
+  --luma-color-success-50: oklch(0.72 0.07 155);
+  --luma-color-success-60: oklch(0.66 0.08 155);
+  --luma-color-success-70: oklch(0.60 0.08 155);
+  --luma-color-success-80: oklch(0.54 0.07 155);
+  --luma-color-warning-50: oklch(0.80 0.09 95);
+  --luma-color-warning-60: oklch(0.74 0.10 95);
+  --luma-color-warning-70: oklch(0.68 0.09 95);
+  --luma-color-warning-80: oklch(0.61 0.08 95);
+  --luma-color-error-50: oklch(0.63 0.10 28);
+  --luma-color-error-60: oklch(0.57 0.11 28);
+  --luma-color-error-70: oklch(0.51 0.10 28);
+  --luma-color-error-80: oklch(0.45 0.09 28);
   --luma-color-surface-base: oklch(1 0 0);
-  --luma-color-text-primary: oklch(0.22 0.01 265);
-  --luma-color-text-secondary: oklch(0.45 0.01 265);
+  --luma-color-text-primary: oklch(0.22 0.014 290);
+  --luma-color-text-secondary: oklch(0.48 0.01 290);
+  --luma-color-text-tertiary: oklch(0.86 0.008 290);
 
   /* Focus */
-  --luma-focus-ring-color: oklch(0.63 0.14 232.13 / 0.45);
+  --luma-focus-ring-color: oklch(0.55 0.10 300 / 0.35);
   --luma-focus-ring-width: 2px;
-  --luma-focus-ring-offset: 2px;
+  --luma-focus-ring-offset: 3px;
 
   /* Spacing */
   --luma-spacing-xs: 0.25rem;
@@ -73,20 +74,20 @@
   --luma-transition-ease: ease-out;
 
   /* Button */
-  --luma-button-primary-bg: oklch(0.63 0.14 232.13);
-  --luma-button-primary-bg-hover: oklch(0.49 0.12 232.13);
-  --luma-button-primary-bg-active: oklch(0.43 0.11 232.13);
+  --luma-button-primary-bg: oklch(0.48 0.09 300);
+  --luma-button-primary-bg-hover: oklch(0.40 0.08 300);
+  --luma-button-primary-bg-active: oklch(0.36 0.075 300);
   --luma-button-primary-text: oklch(1 0 0);
-  --luma-button-outline-border: oklch(0.97 0 0);
-  --luma-button-outline-border-hover: oklch(0.45 0.01 265);
-  --luma-button-outline-bg-hover: oklch(0.99 0 0);
-  --luma-button-outline-text: oklch(0.22 0.01 265);
+  --luma-button-outline-border: oklch(0.97 0.006 290);
+  --luma-button-outline-border-hover: oklch(0.38 0.012 290);
+  --luma-button-outline-bg-hover: oklch(0.99 0.004 290);
+  --luma-button-outline-text: oklch(0.22 0.014 290);
   --luma-button-ghost-bg: rgba(0, 0, 0, 0);
-  --luma-button-ghost-bg-hover: oklch(0.99 0 0);
-  --luma-button-ghost-text: oklch(0.22 0.01 265);
-  --luma-button-danger-bg: oklch(0.62 0.11 25);
-  --luma-button-danger-bg-hover: oklch(0.50 0.09 25);
-  --luma-button-danger-bg-active: oklch(0.44 0.08 25);
+  --luma-button-ghost-bg-hover: oklch(0.99 0.004 290);
+  --luma-button-ghost-text: oklch(0.22 0.014 290);
+  --luma-button-danger-bg: oklch(0.63 0.10 28);
+  --luma-button-danger-bg-hover: oklch(0.51 0.10 28);
+  --luma-button-danger-bg-active: oklch(0.45 0.09 28);
   --luma-button-danger-text: oklch(1 0 0);
   --luma-button-padding-x-sm: 1rem;
   --luma-button-padding-x-md: 1.5rem;
@@ -98,18 +99,18 @@
   --luma-button-transition-duration: 200ms;
   --luma-button-transition-timing: ease-out;
   --luma-button-focus-ring-width: 2px;
-  --luma-button-focus-ring-color: oklch(0.63 0.14 232.13 / 0.45);
+  --luma-button-focus-ring-color: oklch(0.55 0.10 300 / 0.35);
 
   /* Card */
   --luma-card-shadow-background: oklch(1 0 0);
-  --luma-card-shadow-border: oklch(0.97 0 0);
+  --luma-card-shadow-border: oklch(0.97 0.006 290);
   --luma-card-shadow-shadow: 0 8px 24px oklch(0.22 0.01 265 / 0.06);
   --luma-card-shadow-radius: 16px;
-  --luma-card-nested-background: oklch(0.99 0 0);
-  --luma-card-nested-border: oklch(0.99 0 0);
+  --luma-card-nested-background: oklch(0.99 0.004 290);
+  --luma-card-nested-border: oklch(0.99 0.004 290);
   --luma-card-nested-radius: 12px;
   --luma-card-preview-background: oklch(1 0 0);
-  --luma-card-preview-border: oklch(0.97 0 0);
+  --luma-card-preview-border: oklch(0.97 0.006 290);
   --luma-card-preview-radius: 12px;
   --luma-card-background: oklch(1 0 0);
   --luma-card-padding: 1.5rem;
@@ -132,30 +133,30 @@
   /* Accordion */
   --luma-accordion-item-radius: 18px;
   --luma-accordion-item-radius-bordered: 18px;
-  --luma-accordion-item-border: oklch(0.97 0 0);
-  --luma-accordion-item-border-hover: oklch(0.85 0.01 265);
+  --luma-accordion-item-border: oklch(0.97 0.006 290);
+  --luma-accordion-item-border-hover: oklch(0.86 0.008 290);
   --luma-accordion-item-background: rgba(0, 0, 0, 0);
   --luma-accordion-item-shadow: 0 4px 12px oklch(0.22 0.01 265 / 0.08);
   --luma-accordion-item-gap: 0.5rem;
   --luma-accordion-trigger-background: rgba(0, 0, 0, 0);
-  --luma-accordion-trigger-background-hover: oklch(0.99 0 0);
+  --luma-accordion-trigger-background-hover: oklch(0.99 0.004 290);
   --luma-accordion-trigger-background-active: oklch(0.97 0.005 265);
   --luma-accordion-trigger-padding-x: 1rem;
   --luma-accordion-trigger-padding-y: 0.875rem;
   --luma-accordion-trigger-gap: 0.5rem;
-  --luma-accordion-title-color: oklch(0.22 0.01 265);
+  --luma-accordion-title-color: oklch(0.22 0.014 290);
   --luma-accordion-title-font-size: 1rem;
   --luma-accordion-title-font-size-sm: 0.75rem;
   --luma-accordion-title-font-size-lg: 1.875rem;
   --luma-accordion-title-font-weight: 500;
   --luma-accordion-title-line-height: 1.375;
   --luma-accordion-title-letter-spacing: 0;
-  --luma-accordion-icon-color: oklch(0.45 0.01 265);
+  --luma-accordion-icon-color: oklch(0.48 0.01 290);
   --luma-accordion-icon-size: 1rem;
   --luma-accordion-icon-rotation: 180deg;
   --luma-accordion-icon-transition-duration: 200ms;
   --luma-accordion-content-background: rgba(0, 0, 0, 0);
-  --luma-accordion-content-color: oklch(0.45 0.01 265);
+  --luma-accordion-content-color: oklch(0.48 0.01 290);
   --luma-accordion-content-font-size: 0.875rem;
   --luma-accordion-content-line-height: 1.625;
   --luma-accordion-content-padding-x: 1rem;
@@ -165,16 +166,28 @@
   --luma-accordion-transition-duration-content: 150ms;
   --luma-accordion-transition-timing: ease-out;
   --luma-accordion-focus-ring-width: 2px;
-  --luma-accordion-focus-ring-color: oklch(0.63 0.14 232.13 / 0.45);
-  --luma-accordion-focus-ring-offset: 2px;
+  --luma-accordion-focus-ring-color: oklch(0.55 0.10 300 / 0.35);
+  --luma-accordion-focus-ring-offset: 3px;
   --luma-accordion-bordered-background: rgba(0, 0, 0, 0);
   --luma-accordion-bordered-background-hover: rgba(0, 0, 0, 0);
   --luma-accordion-bordered-radius: 18px;
-  --luma-accordion-filled-background: oklch(0.97 0 0);
-  --luma-accordion-filled-background-hover: oklch(0.85 0.01 265);
+  --luma-accordion-filled-background: oklch(0.97 0.006 290);
+  --luma-accordion-filled-background-hover: oklch(0.86 0.008 290);
   --luma-accordion-filled-border: rgba(0, 0, 0, 0);
   --luma-accordion-filled-border-hover: rgba(0, 0, 0, 0);
   --luma-accordion-filled-radius: 18px;
+
+  /* Tooltip */
+  --luma-tooltip-background: oklch(0.15 0 0 / 0.9);
+  --luma-tooltip-text: oklch(1 0 0);
+  --luma-tooltip-font-size: 0.75rem;
+  --luma-tooltip-padding: 8px;
+  --luma-tooltip-radius: 8px;
+  --luma-tooltip-shadow: 0 4px 12px oklch(0 0 0 / 0.15);
+  --luma-tooltip-max-width: 400px;
+  --luma-tooltip-offset: 8px;
+  --luma-tooltip-transition-duration: 150ms;
+  --luma-tooltip-transition-timing: ease-out;
 
 }
 
@@ -865,5 +878,42 @@
 @utility lm-ring-accordion-focus {
   outline: var(--luma-accordion-focus-ring-width) solid var(--luma-accordion-focus-ring-color);
   outline-offset: var(--luma-accordion-focus-ring-offset);
+}
+
+/* Tooltip Utilities */
+@utility lm-bg-tooltip {
+  background-color: var(--luma-tooltip-background);
+}
+
+@utility lm-text-tooltip {
+  color: var(--luma-tooltip-text);
+}
+
+@utility lm-text-size-tooltip {
+  font-size: var(--luma-tooltip-font-size);
+}
+
+@utility lm-p-tooltip {
+  padding: var(--luma-tooltip-padding);
+}
+
+@utility lm-rounded-tooltip {
+  border-radius: var(--luma-tooltip-radius);
+}
+
+@utility lm-shadow-tooltip {
+  box-shadow: var(--luma-tooltip-shadow);
+}
+
+@utility lm-max-w-tooltip {
+  max-width: var(--luma-tooltip-max-width);
+}
+
+@utility lm-duration-tooltip {
+  transition-duration: var(--luma-tooltip-transition-duration);
+}
+
+@utility lm-ease-tooltip {
+  transition-timing-function: var(--luma-tooltip-transition-timing);
 }
 

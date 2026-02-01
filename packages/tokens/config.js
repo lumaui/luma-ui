@@ -1180,6 +1180,108 @@ StyleDictionary.registerFormat({
         output += `  outline-offset: var(--luma-accordion-focus-ring-offset);\n`;
         output += `}\n\n`;
       }
+
+      // ============================================
+      // TOOLTIP UTILITIES
+      // ============================================
+
+      output += `/* Tooltip Utilities */\n`;
+
+      // Tooltip background
+      const tooltipBgToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'background',
+      );
+      if (tooltipBgToken) {
+        output += `@utility lm-bg-tooltip {\n`;
+        output += `  background-color: var(${tooltipBgToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip text color
+      const tooltipTextToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'text',
+      );
+      if (tooltipTextToken) {
+        output += `@utility lm-text-tooltip {\n`;
+        output += `  color: var(${tooltipTextToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip font size
+      const tooltipFontSizeToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'font-size',
+      );
+      if (tooltipFontSizeToken) {
+        output += `@utility lm-text-size-tooltip {\n`;
+        output += `  font-size: var(${tooltipFontSizeToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip padding (uniform)
+      const tooltipPaddingToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'padding',
+      );
+      if (tooltipPaddingToken) {
+        output += `@utility lm-p-tooltip {\n`;
+        output += `  padding: var(${tooltipPaddingToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip radius
+      const tooltipRadiusToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'radius',
+      );
+      if (tooltipRadiusToken) {
+        output += `@utility lm-rounded-tooltip {\n`;
+        output += `  border-radius: var(${tooltipRadiusToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip shadow
+      const tooltipShadowToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'shadow',
+      );
+      if (tooltipShadowToken) {
+        output += `@utility lm-shadow-tooltip {\n`;
+        output += `  box-shadow: var(${tooltipShadowToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip max-width
+      const tooltipMaxWidthToken = dictionary.allTokens.find(
+        (t) => t.path[1] === 'tooltip' && t.path[2] === 'max-width',
+      );
+      if (tooltipMaxWidthToken) {
+        output += `@utility lm-max-w-tooltip {\n`;
+        output += `  max-width: var(${tooltipMaxWidthToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip transition duration
+      const tooltipDurationToken = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tooltip' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'duration',
+      );
+      if (tooltipDurationToken) {
+        output += `@utility lm-duration-tooltip {\n`;
+        output += `  transition-duration: var(${tooltipDurationToken.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Tooltip transition timing
+      const tooltipTimingToken = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'tooltip' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'timing',
+      );
+      if (tooltipTimingToken) {
+        output += `@utility lm-ease-tooltip {\n`;
+        output += `  transition-timing-function: var(${tooltipTimingToken.name});\n`;
+        output += `}\n\n`;
+      }
     }
 
     return output;
@@ -1234,6 +1336,7 @@ const config = {
     'src/components/card/card.json',
     'src/components/badge/badge.json',
     'src/components/accordion/accordion.json',
+    'src/components/tooltip/tooltip.json',
   ],
   platforms: {
     'css-light': {

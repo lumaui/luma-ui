@@ -19,3 +19,6 @@ export * from './lib/accordion/accordion-title.directive';
 export * from './lib/accordion/accordion-icon.directive';
 export * from './lib/accordion/accordion-content.directive';
 export * from './lib/accordion/accordion.tokens';
+
+// Tooltip exports
+export * from './lib/tooltip/tooltip.directive';

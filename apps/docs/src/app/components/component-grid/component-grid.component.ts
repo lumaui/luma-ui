@@ -13,6 +13,7 @@ import {
   AccordionTitleDirective,
   AccordionIconDirective,
   AccordionContentDirective,
+  TooltipDirective,
 } from '@lumaui/angular';
 
 interface ComponentCard {
@@ -41,6 +42,7 @@ interface ComponentCard {
     AccordionTitleDirective,
     AccordionIconDirective,
     AccordionContentDirective,
+    TooltipDirective,
   ],
   templateUrl: './component-grid.component.html',
   styles: [
@@ -87,6 +89,15 @@ export class ComponentGridComponent {
         'Compact labels for status, categories, or counts with customizable colors',
       category: 'Layout',
       route: '/docs/badge',
+      size: 'small',
+    },
+    {
+      id: 'tooltip',
+      name: 'Tooltip',
+      description:
+        'Modern arrow-less tooltips with auto-positioning and mobile support',
+      category: 'Feedback',
+      route: '/docs/tooltip',
       size: 'small',
     },
   ];

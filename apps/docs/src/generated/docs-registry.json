@@ -427,7 +427,7 @@
       "examples": [
         {
           "title": "Examples",
-          "code": "<span lumaBadge>Label</span>\n<span lumaBadge class=\"bg-blue-100 text-blue-800 border-blue-200\">Info</span>\n<span lumaBadge class=\"bg-green-100 text-green-800 border-green-200\">Success</span>\n<span lumaBadge class=\"bg-yellow-100 text-yellow-800 border-yellow-200\">Warning</span>\n<span lumaBadge class=\"bg-red-100 text-red-800 border-red-200\">Error</span>",
+          "code": "<span lumaBadge>Label</span>\n<span lumaBadge class=\"bg-blue-100 text-blue-800 border-blue-200\">Info</span>\n<span lumaBadge class=\"bg-green-100 text-green-800 border-green-200\"\n  >Success</span\n>\n<span lumaBadge class=\"bg-yellow-100 text-yellow-800 border-yellow-200\"\n  >Warning</span\n>\n<span lumaBadge class=\"bg-red-100 text-red-800 border-red-200\">Error</span>",
           "language": "html"
         }
       ],
@@ -439,10 +439,10 @@
         "purpose": "The Badge directive is a layout container for compact labels. Following the Neo-Minimal principle that \"colors are the user's responsibility\", the badge provides only structural styling (padding, radius, typography) while the consumer controls colors through Tailwind or CSS classes.",
         "accessibility": "- Badges are semantic `<span>` elements by default\n- Color is never the only indicator - text content provides meaning\n- For count badges, consider adding `aria-label` for screen readers: `<span lumaBadge aria-label=\"24 new notifications\">24</span>`",
         "neoMinimal": "The badge design embodies core Neo-Minimal values:\n\n- **Layout-only**: Provides structure without imposing color opinions\n- **User Control**: Consumer has full control over visual appearance\n- **Organic Geometry**: Pill-shaped radius creates flowing, non-mechanical appearance\n- **Functional Whitespace**: Compact padding maintains readability without crowding",
-        "usage": "### Examples\n\n```html\n<span lumaBadge>Label</span>\n<span lumaBadge class=\"bg-blue-100 text-blue-800 border-blue-200\">Info</span>\n<span lumaBadge class=\"bg-green-100 text-green-800 border-green-200\">Success</span>\n<span lumaBadge class=\"bg-yellow-100 text-yellow-800 border-yellow-200\">Warning</span>\n<span lumaBadge class=\"bg-red-100 text-red-800 border-red-200\">Error</span>\n```"
+        "usage": "### Examples\n\n```html\n<span lumaBadge>Label</span>\n<span lumaBadge class=\"bg-blue-100 text-blue-800 border-blue-200\">Info</span>\n<span lumaBadge class=\"bg-green-100 text-green-800 border-green-200\"\n  >Success</span\n>\n<span lumaBadge class=\"bg-yellow-100 text-yellow-800 border-yellow-200\"\n  >Warning</span\n>\n<span lumaBadge class=\"bg-red-100 text-red-800 border-red-200\">Error</span>\n```"
       },
       "docPath": "packages/angular/src/lib/badge/badge.docs.md",
-      "markdownContent": "\n# Badge\n\n## Purpose\n\nThe Badge directive is a layout container for compact labels. Following the Neo-Minimal principle that \"colors are the user's responsibility\", the badge provides only structural styling (padding, radius, typography) while the consumer controls colors through Tailwind or CSS classes.\n\n## Usage Examples\n\n### Examples\n\n```html\n<span lumaBadge>Label</span>\n<span lumaBadge class=\"bg-blue-100 text-blue-800 border-blue-200\">Info</span>\n<span lumaBadge class=\"bg-green-100 text-green-800 border-green-200\">Success</span>\n<span lumaBadge class=\"bg-yellow-100 text-yellow-800 border-yellow-200\">Warning</span>\n<span lumaBadge class=\"bg-red-100 text-red-800 border-red-200\">Error</span>\n```\n\n## Customizing\n\nOverride badge layout tokens in your global styles:\n\n```css\n:root {\n  --luma-badge-radius: 4px; /* Sharp corners instead of pill */\n  --luma-badge-border-width: 2px; /* Thicker border */\n}\n```\n\n## Neo-Minimal Principles\n\nThe badge design embodies core Neo-Minimal values:\n\n- **Layout-only**: Provides structure without imposing color opinions\n- **User Control**: Consumer has full control over visual appearance\n- **Organic Geometry**: Pill-shaped radius creates flowing, non-mechanical appearance\n- **Functional Whitespace**: Compact padding maintains readability without crowding\n\n## Accessibility\n\n- Badges are semantic `<span>` elements by default\n- Color is never the only indicator - text content provides meaning\n- For count badges, consider adding `aria-label` for screen readers: `<span lumaBadge aria-label=\"24 new notifications\">24</span>`\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based architecture\n- Styled with Tailwind CSS v4 custom utilities\n- Works on any inline element (`span`, `div`, etc.)\n- Non-interactive by design - no hover/focus states\n"
+      "markdownContent": "\n# Badge\n\n## Purpose\n\nThe Badge directive is a layout container for compact labels. Following the Neo-Minimal principle that \"colors are the user's responsibility\", the badge provides only structural styling (padding, radius, typography) while the consumer controls colors through Tailwind or CSS classes.\n\n## Usage Examples\n\n### Examples\n\n```html\n<span lumaBadge>Label</span>\n<span lumaBadge class=\"bg-blue-100 text-blue-800 border-blue-200\">Info</span>\n<span lumaBadge class=\"bg-green-100 text-green-800 border-green-200\"\n  >Success</span\n>\n<span lumaBadge class=\"bg-yellow-100 text-yellow-800 border-yellow-200\"\n  >Warning</span\n>\n<span lumaBadge class=\"bg-red-100 text-red-800 border-red-200\">Error</span>\n```\n\n## Customizing\n\nOverride badge layout tokens in your global styles:\n\n```css\n:root {\n  --luma-badge-radius: 4px; /* Sharp corners instead of pill */\n  --luma-badge-border-width: 2px; /* Thicker border */\n}\n```\n\n## Neo-Minimal Principles\n\nThe badge design embodies core Neo-Minimal values:\n\n- **Layout-only**: Provides structure without imposing color opinions\n- **User Control**: Consumer has full control over visual appearance\n- **Organic Geometry**: Pill-shaped radius creates flowing, non-mechanical appearance\n- **Functional Whitespace**: Compact padding maintains readability without crowding\n\n## Accessibility\n\n- Badges are semantic `<span>` elements by default\n- Color is never the only indicator - text content provides meaning\n- For count badges, consider adding `aria-label` for screen readers: `<span lumaBadge aria-label=\"24 new notifications\">24</span>`\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based architecture\n- Styled with Tailwind CSS v4 custom utilities\n- Works on any inline element (`span`, `div`, etc.)\n- Non-interactive by design - no hover/focus states\n"
     },
     {
       "name": "Button",
@@ -916,6 +916,168 @@
       },
       "docPath": "packages/angular/src/lib/card/card.docs.md",
       "markdownContent": "\n# Card\n\n## Purpose\n\nThe Card component provides a flexible, composable container for grouping related content with multiple visual variants that follow Neo-Minimal design principles. Built using a compositional architecture with semantic directives.\n\n## Architecture\n\nThe Card uses a **compositional design** with a main component and four semantic directives:\n\n- `<luma-card>`: Main container with configurable visual variant\n- `[lumaCardHeader]`: Structural directive for header region with spacing\n- `[lumaCardTitle]`: Title with size variants\n- `[lumaCardDescription]`: Subtitle/description with size variants\n- `[lumaCardContent]`: Semantic marker for main content region\n\n## Component API\n\n### CardComponent\n\n- `lmVariant`: 'default' | 'shadow' | 'nested' | 'preview' - Card visual style\n  - **default**: Solid border style with neutral color (default)\n  - **shadow**: Elevated card with subtle shadow for primary content\n  - **nested**: Subtle background for sections within cards\n  - **preview**: For documentation examples and code previews\n\n### CardTitleDirective\n\n- `lmSize`: 'small' | 'normal' | 'large' - Title size variant\n  - **small**: `text-sm` - Compact cards or secondary information\n  - **normal**: `text-lg` (default) - Standard card titles\n  - **large**: `text-2xl` - Hero cards or primary emphasis\n\n### CardDescriptionDirective\n\n- `lmSize`: 'small' | 'normal' | 'large' - Description size variant\n  - **small**: `text-xs` - Compact cards or tertiary information\n  - **normal**: `text-sm` (default) - Standard descriptions\n  - **large**: `text-base` - Emphasis or standalone descriptions\n\n### CardHeaderDirective\n\nNo inputs - provides structural spacing (`mb-4`).\n\n### CardContentDirective\n\nNo inputs - semantic marker with no styles applied for maximum flexibility.\n\n## Card Variants\n\nThe Card component supports four visual variants via the `lmVariant` input:\n\n### Default\n\nSolid border style with neutral color for clean separation (default):\n\n```html\n<luma-card>\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Default Card</h3>\n    <p lumaCardDescription>Card with solid border</p>\n  </div>\n  <div lumaCardContent>\n    <p>Content with clean border styling.</p>\n  </div>\n</luma-card>\n```\n\n### Shadow\n\nElevated card with shadow, ideal for primary content areas and main UI elements:\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Shadow Card</h3>\n    <p lumaCardDescription>Elevated card with subtle shadow</p>\n  </div>\n  <div lumaCardContent>\n    <p>Primary content with clean, elevated appearance.</p>\n  </div>\n</luma-card>\n```\n\n### Nested\n\nSubtle background for sections within other containers or cards:\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Parent Card</h3>\n  </div>\n  <div lumaCardContent>\n    <!-- Nested card inside -->\n    <luma-card lmVariant=\"nested\">\n      <div lumaCardContent>\n        <p>Nested content with subtle differentiation.</p>\n      </div>\n    </luma-card>\n  </div>\n</luma-card>\n```\n\n### Preview\n\nFor documentation examples, code showcases, and component previews:\n\n```html\n<luma-card lmVariant=\"preview\">\n  <div lumaCardContent>\n    <div class=\"flex items-center justify-center p-8\">\n      <!-- Component preview -->\n      <button lumaButton lmVariant=\"primary\">Preview Button</button>\n    </div>\n  </div>\n</luma-card>\n```\n\n## Usage Examples\n\n### Basic Card\n\n```html\n<luma-card>\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Card Title</h3>\n    <p lumaCardDescription>This is a description of the card content.</p>\n  </div>\n  <div lumaCardContent>\n    <p>Main content goes here.</p>\n  </div>\n</luma-card>\n```\n\n### Stats Card\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle lmSize=\"small\">Total Revenue</h3>\n  </div>\n  <div lumaCardContent>\n    <p class=\"text-3xl font-bold\">$45,231.89</p>\n    <p class=\"text-xs lm-text-secondary\">+20.1% from last month</p>\n  </div>\n</luma-card>\n```\n\n### Minimal Card (No Header)\n\n```html\n<luma-card lmVariant=\"nested\">\n  <div lumaCardContent>\n    <p>Simple content without header or title.</p>\n  </div>\n</luma-card>\n```\n\n### Card with Custom Content\n\n```html\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>User Profile</h3>\n    <p lumaCardDescription>Manage your account settings</p>\n  </div>\n  <div lumaCardContent>\n    <div class=\"flex items-center gap-4\">\n      <img src=\"avatar.jpg\" alt=\"Avatar\" class=\"w-12 h-12 rounded-full\" />\n      <div>\n        <p class=\"font-medium\">John Doe</p>\n        <p class=\"text-sm lm-text-secondary\">john@example.com</p>\n      </div>\n    </div>\n  </div>\n</luma-card>\n```\n\n### Dashboard Layout with Mixed Variants\n\n```html\n<!-- Main content card -->\n<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h2 lumaCardTitle lmSize=\"large\">Dashboard</h2>\n  </div>\n  <div lumaCardContent>\n    <div class=\"grid grid-cols-3 gap-4\">\n      <!-- Nested stat cards -->\n      <luma-card lmVariant=\"nested\">\n        <div lumaCardContent>\n          <p class=\"text-xs lm-text-secondary\">Users</p>\n          <p class=\"text-2xl font-bold\">1,234</p>\n        </div>\n      </luma-card>\n      <luma-card lmVariant=\"nested\">\n        <div lumaCardContent>\n          <p class=\"text-xs lm-text-secondary\">Revenue</p>\n          <p class=\"text-2xl font-bold\">$12.5k</p>\n        </div>\n      </luma-card>\n      <luma-card lmVariant=\"nested\">\n        <div lumaCardContent>\n          <p class=\"text-xs lm-text-secondary\">Growth</p>\n          <p class=\"text-2xl font-bold\">+15%</p>\n        </div>\n      </luma-card>\n    </div>\n  </div>\n</luma-card>\n```\n\n## Border Design\n\nThe **default** variant uses a clean 1px solid border that aligns with Neo-Minimal principles:\n\n**How it works:**\n\n1. Wrapper has `border` class for 1px border width\n2. Border color uses `neutral-60` from the color palette\n3. Creates subtle separation without visual noise\n\n**Neo-Minimal alignment:**\n\n- Minimal visual weight - border doesn't compete for attention\n- Uses functional whitespace and subtle structure\n- Light mode: Soft neutral gray for gentle separation\n- Dark mode: Adjusted neutral for proper contrast\n\n## Customizing\n\nThe card appearance can be customized using CSS variables defined in `@lumaui/tokens`.\n\n### Override Globally\n\nOverride card tokens in your global styles to apply changes across your entire application:\n\n```css\n/* In your global styles.css */\n:root {\n  --luma-card-shadow-background: #ffffff;\n  --luma-card-shadow-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);\n  --luma-card-padding: 24px;\n}\n```\n\n### Override Per Theme\n\nApply different card styles for light and dark themes:\n\n```css\n/* Light mode */\n:root {\n  --luma-card-shadow-background: #fafafa;\n}\n\n/* Dark mode */\n.dark {\n  --luma-card-shadow-background: oklch(0.18 0.005 265);\n  --luma-card-nested-background: oklch(0.2 0.005 265);\n}\n```\n\n### Override Per Component\n\nScope token overrides to specific contexts or containers:\n\n```css\n/* Cards in sidebar - more compact */\n.sidebar {\n  --luma-card-padding: 16px;\n}\n\n/* Cards in hero section - more prominent shadow */\n.hero {\n  --luma-card-shadow-shadow: 0 12px 32px oklch(0.22 0.01 265 / 0.1);\n}\n```\n\n## Neo-Minimal Principles\n\nThe Card design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Subtle borders and shadows, never demands attention\n- **Light as Structure**: Luminosity differences create depth without heavy shadows\n- **Functional Whitespace**: Generous padding (`24px` default) creates hierarchy\n- **Form & Geometry**: Rounded corners (`16px` product, `12px` nested) feel organic\n- **Organic Geometry**: Soft edges flow naturally, avoiding hard mechanical lines\n- **Editorial Color**: No brand colors in structure - neutral tones only\n- **Compositional Architecture**: Directives compose semantically, not through rigid templates\n\n## Accessibility\n\n- **Semantic HTML**: Proper heading hierarchy with `<h2>`, `<h3>`, `<h4>` elements\n- **Color contrast**: Background and text meet WCAG AA 4.5:1 minimum\n- **Readable typography**: Generous line-height and spacing for comfortable reading\n- **Theme support**: Both light and dark modes maintain accessibility standards\n- **Flexible structure**: No enforced heading levels - adapt to your document outline\n\n**Accessibility Notes:**\n\n- Use appropriate heading levels (`<h2>`, `<h3>`, etc.) with `lumaCardTitle` directive\n- Ensure descriptions provide meaningful context for screen reader users\n- Maintain logical heading hierarchy in your document\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based computed values (`computed()`)\n- Styled with Tailwind CSS v4 utilities referencing design tokens with `lm-` prefix\n- Type-safe variant types exported: `CardVariant`, `CardTitleVariants`, `CardDescriptionVariants`\n- OnPush change detection for optimal performance\n- Compositional architecture allows flexible content projection\n\n## When to Use Each Variant\n\n| Variant   | Use Case                                               |\n| --------- | ------------------------------------------------------ |\n| `default` | Default styling, clean solid border with neutral color |\n| `shadow`  | Primary content, main UI cards, elevated sections      |\n| `nested`  | Sections within cards, grouped content, stat blocks    |\n| `preview` | Documentation examples, component showcases            |\n\n**Avoid using Card when:**\n\n- Content doesn't need visual separation (use whitespace instead)\n- Creating overly nested card-within-card layouts (violates visual silence)\n- Every element needs a container (over-containerization)\n- A simple list would suffice\n\n**Remember:** Per Neo-Minimal principles, \"If an element can be removed without functional or semantic loss, it shouldn't exist.\"\n\n## Design Token Reference\n\n### Default Variant Tokens\n\n| Token                     | Default Value           | Purpose               |\n| ------------------------- | ----------------------- | --------------------- |\n| `--luma-card-background`  | `oklch(1 0 0)`          | Card background color |\n| `--luma-color-neutral-60` | `oklch(0.92 0.008 265)` | Border color          |\n| `--luma-card-padding`     | `1.5rem`                | Inner content padding |\n\n### Shadow Variant Tokens\n\n| Token                           | Default Value                            | Purpose         |\n| ------------------------------- | ---------------------------------------- | --------------- |\n| `--luma-card-shadow-background` | `oklch(1 0 0)`                           | Card background |\n| `--luma-card-shadow-border`     | `oklch(0.92 0.008 265)`                  | Border color    |\n| `--luma-card-shadow-shadow`     | `0 8px 24px oklch(0.22 0.01 265 / 0.06)` | Soft elevation  |\n| `--luma-card-shadow-radius`     | `16px`                                   | Border radius   |\n\n### Nested Variant Tokens\n\n| Token                           | Default Value           | Purpose           |\n| ------------------------------- | ----------------------- | ----------------- |\n| `--luma-card-nested-background` | `oklch(0.98 0.005 265)` | Subtle background |\n| `--luma-card-nested-border`     | `oklch(0.92 0.008 265)` | Border color      |\n| `--luma-card-nested-radius`     | `12px`                  | Border radius     |\n\n### Preview Variant Tokens\n\n| Token                            | Default Value           | Purpose            |\n| -------------------------------- | ----------------------- | ------------------ |\n| `--luma-card-preview-background` | `oklch(0.98 0.005 265)` | Preview background |\n| `--luma-card-preview-border`     | `oklch(0.92 0.008 265)` | Border color       |\n| `--luma-card-preview-radius`     | `12px`                  | Border radius      |\n\n**Note:** Dark theme values are defined in `card.dark.json` and automatically applied via `.dark` selector.\n"
+    },
+    {
+      "name": "Tooltip",
+      "slug": "tooltip",
+      "type": "directive",
+      "category": "Feedback",
+      "description": "A modern, arrow-less tooltip directive for contextual information. Supports text and HTML content, auto-positioning, and hybrid mobile/desktop interactions.",
+      "selector": "[lumaTooltip]",
+      "inputs": [
+        {
+          "name": "lumaTooltip",
+          "type": "string",
+          "default": "required",
+          "description": "The content to display in the tooltip (text or HTML)"
+        },
+        {
+          "name": "lmPosition",
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "default": "'top'",
+          "description": "Preferred position of the tooltip relative to the trigger"
+        },
+        {
+          "name": "lmHtml",
+          "type": "boolean",
+          "default": "false",
+          "description": "When true, renders the content as HTML instead of plain text"
+        },
+        {
+          "name": "lmTrigger",
+          "type": "'hover' | 'click' | 'focus'",
+          "default": "'hover'",
+          "description": "The interaction type that shows the tooltip"
+        },
+        {
+          "name": "lmDelay",
+          "type": "number",
+          "default": "0",
+          "description": "Delay in milliseconds before showing the tooltip"
+        }
+      ],
+      "tokens": [],
+      "tokenGroups": [
+        {
+          "name": "Colors",
+          "tokens": [
+            {
+              "name": "--luma-tooltip-background",
+              "value": "oklch(0.15 0 0 / 0.9)",
+              "description": "Tooltip background color (dark with slight transparency)"
+            },
+            {
+              "name": "--luma-tooltip-text",
+              "value": "oklch(1 0 0)",
+              "description": "Tooltip text color (white)"
+            }
+          ]
+        },
+        {
+          "name": "Typography",
+          "tokens": [
+            {
+              "name": "--luma-tooltip-font-size",
+              "value": "13px",
+              "description": "Tooltip font size"
+            }
+          ]
+        },
+        {
+          "name": "Spacing",
+          "tokens": [
+            {
+              "name": "--luma-tooltip-padding",
+              "value": "8px",
+              "description": "Uniform padding"
+            },
+            {
+              "name": "--luma-tooltip-offset",
+              "value": "8px",
+              "description": "Distance from the trigger element"
+            },
+            {
+              "name": "--luma-tooltip-max-width",
+              "value": "400px",
+              "description": "Maximum width for readability"
+            }
+          ]
+        },
+        {
+          "name": "Visual",
+          "tokens": [
+            {
+              "name": "--luma-tooltip-radius",
+              "value": "8px",
+              "description": "Border radius"
+            },
+            {
+              "name": "--luma-tooltip-shadow",
+              "value": "0 4px 12px oklch(0 0 0 / 0.15)",
+              "description": "Subtle elevation shadow"
+            }
+          ]
+        },
+        {
+          "name": "Animation",
+          "tokens": [
+            {
+              "name": "--luma-tooltip-transition-duration",
+              "value": "150ms",
+              "description": "Animation duration"
+            },
+            {
+              "name": "--luma-tooltip-transition-timing",
+              "value": "ease-out",
+              "description": "Animation timing function"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Basic Tooltip",
+          "code": "<button [lumaTooltip]=\"'Save your changes'\" lumaButton>\n  Save\n</button>",
+          "language": "html"
+        },
+        {
+          "title": "Positioned Tooltips",
+          "code": "<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>",
+          "language": "html"
+        },
+        {
+          "title": "HTML Content",
+          "code": "<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>",
+          "language": "html"
+        },
+        {
+          "title": "Click Trigger (Mobile-Friendly)",
+          "code": "<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">\n  ?\n</button>",
+          "language": "html"
+        },
+        {
+          "title": "With Delay",
+          "code": "<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">\n  Delayed\n</button>",
+          "language": "html"
+        },
+        {
+          "title": "On Any Element",
+          "code": "<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\">\n  Learn more\n</a>",
+          "language": "html"
+        }
+      ],
+      "customization": {
+        "intro": "",
+        "examples": []
+      },
+      "sections": {
+        "purpose": "The Tooltip directive provides contextual information on hover, click, or focus. Following Neo-Minimal principles, it features a modern arrow-less design with subtle animations and smart positioning that adapts to viewport boundaries.",
+        "accessibility": "- **ARIA Integration**: Automatically sets `aria-describedby` on the trigger element\n- **Keyboard Support**: Shows on focus for keyboard users, dismissible with Escape\n- **Touch-Friendly**: Hybrid behavior with tap-to-toggle on touch devices\n- **Screen Readers**: Content is exposed via the tooltip's `role=\"tooltip\"` attribute",
+        "neoMinimal": "The tooltip design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Arrow-less design reduces visual noise and competing elements\n- **Calm Interactions**: Subtle fade + scale animation (150ms ease-out) responds naturally\n- **Organic Geometry**: Rounded corners create flowing, non-mechanical appearance\n- **Light as Structure**: Shadow provides depth without hard edges",
+        "usage": "### Basic Tooltip\n\n```html\n<button [lumaTooltip]=\"'Save your changes'\" lumaButton>\n  Save\n</button>\n```\n\n### Positioned Tooltips\n\n```html\n<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>\n```\n\n### HTML Content\n\n```html\n<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>\n```\n\n### Click Trigger (Mobile-Friendly)\n\n```html\n<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">\n  ?\n</button>\n```\n\n### With Delay\n\n```html\n<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">\n  Delayed\n</button>\n```\n\n### On Any Element\n\nTooltips work on any HTML element, not just buttons:\n\n```html\n<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\">\n  Learn more\n</a>\n```"
+      },
+      "docPath": "packages/angular/src/lib/tooltip/tooltip.docs.md",
+      "markdownContent": "\n# Tooltip\n\n## Purpose\n\nThe Tooltip directive provides contextual information on hover, click, or focus. Following Neo-Minimal principles, it features a modern arrow-less design with subtle animations and smart positioning that adapts to viewport boundaries.\n\n## Usage Examples\n\n### Basic Tooltip\n\n```html\n<button [lumaTooltip]=\"'Save your changes'\" lumaButton>\n  Save\n</button>\n```\n\n### Positioned Tooltips\n\n```html\n<button [lumaTooltip]=\"'Above'\" lmPosition=\"top\">Top</button>\n<button [lumaTooltip]=\"'Below'\" lmPosition=\"bottom\">Bottom</button>\n<button [lumaTooltip]=\"'Left side'\" lmPosition=\"left\">Left</button>\n<button [lumaTooltip]=\"'Right side'\" lmPosition=\"right\">Right</button>\n```\n\n### HTML Content\n\n```html\n<span\n  [lumaTooltip]=\"'<strong>Bold</strong> and <em>italic</em> text'\"\n  [lmHtml]=\"true\"\n>\n  Rich content\n</span>\n```\n\n### Click Trigger (Mobile-Friendly)\n\n```html\n<button [lumaTooltip]=\"'More information here'\" lmTrigger=\"click\">\n  ?\n</button>\n```\n\n### With Delay\n\n```html\n<button [lumaTooltip]=\"'Appears after 300ms'\" [lmDelay]=\"300\">\n  Delayed\n</button>\n```\n\n### On Any Element\n\nTooltips work on any HTML element, not just buttons:\n\n```html\n<div [lumaTooltip]=\"'Works on divs'\" class=\"p-4 border rounded\">\n  Hover this div\n</div>\n\n<span [lumaTooltip]=\"'Works on spans'\" class=\"underline\">\n  Hover this span\n</span>\n\n<a href=\"/help\" [lumaTooltip]=\"'Helpful link'\">\n  Learn more\n</a>\n```\n\n## Customizing\n\nOverride tooltip tokens in your global styles:\n\n```css\n:root {\n  --luma-tooltip-background: oklch(0.1 0 0 / 0.95);\n  --luma-tooltip-text: oklch(1 0 0);\n  --luma-tooltip-padding: 10px;\n  --luma-tooltip-radius: 4px;\n  --luma-tooltip-max-width: 320px;\n}\n```\n\n## Neo-Minimal Principles\n\nThe tooltip design embodies core Neo-Minimal values:\n\n- **Visual Silence**: Arrow-less design reduces visual noise and competing elements\n- **Calm Interactions**: Subtle fade + scale animation (150ms ease-out) responds naturally\n- **Organic Geometry**: Rounded corners create flowing, non-mechanical appearance\n- **Light as Structure**: Shadow provides depth without hard edges\n\n## Accessibility\n\n- **ARIA Integration**: Automatically sets `aria-describedby` on the trigger element\n- **Keyboard Support**: Shows on focus for keyboard users, dismissible with Escape\n- **Touch-Friendly**: Hybrid behavior with tap-to-toggle on touch devices\n- **Screen Readers**: Content is exposed via the tooltip's `role=\"tooltip\"` attribute\n\n## Mobile Behavior\n\nThe tooltip implements a hybrid interaction model:\n\n- **Desktop**: Hover to show, mouse leave to hide\n- **Touch Devices**: Tap to toggle, tap outside to dismiss\n- **Focus**: Always shows on focus for keyboard accessibility\n\nThis ensures a consistent experience across all device types without requiring separate implementations.\n\n## Auto-Flip\n\nWhen the tooltip would overflow the viewport, it automatically flips to the opposite position. For example, a `top` tooltip near the top of the screen will flip to `bottom`.\n\n## Implementation Notes\n\n- Uses Angular 20+ signal-based architecture with `input()` and `signal()`\n- Platform-aware with SSR support via `isPlatformBrowser` checks\n- GPU-accelerated animations using `transform` and `opacity`\n- Auto-cleanup on component destruction\n- Position recalculation via `requestAnimationFrame` for smooth updates\n"
     }
   ],
   "themePages": [
@@ -930,29 +1092,29 @@
           "tokens": [
             {
               "name": "--luma-color-error-50",
-              "value": "oklch(0.62 0.11 25)",
-              "darkValue": "oklch(0.70 0.13 25)",
+              "value": "oklch(0.63 0.10 28)",
+              "darkValue": "oklch(0.72 0.12 28)",
               "type": "color",
               "description": "Error default - destructive actions, errors"
             },
             {
               "name": "--luma-color-error-60",
-              "value": "oklch(0.56 0.10 25)",
-              "darkValue": "oklch(0.62 0.12 25)",
+              "value": "oklch(0.57 0.11 28)",
+              "darkValue": "oklch(0.66 0.115 28)",
               "type": "color",
               "description": "Error strong"
             },
             {
               "name": "--luma-color-error-70",
-              "value": "oklch(0.50 0.09 25)",
-              "darkValue": "oklch(0.56 0.11 25)",
+              "value": "oklch(0.51 0.10 28)",
+              "darkValue": "oklch(0.60 0.105 28)",
               "type": "color",
               "description": "Error hover"
             },
             {
               "name": "--luma-color-error-80",
-              "value": "oklch(0.44 0.08 25)",
-              "darkValue": "oklch(0.50 0.10 25)",
+              "value": "oklch(0.45 0.09 28)",
+              "darkValue": "oklch(0.54 0.095 28)",
               "type": "color",
               "description": "Error active"
             }
@@ -963,43 +1125,43 @@
           "tokens": [
             {
               "name": "--luma-color-neutral-50",
-              "value": "oklch(0.99 0 0)",
-              "darkValue": "oklch(0.20 0.005 265)",
+              "value": "oklch(0.99 0.004 290)",
+              "darkValue": "oklch(0.18 0.006 290)",
               "type": "color",
               "description": "Neutral lightest - nested card backgrounds, subtle surfaces"
             },
             {
               "name": "--luma-color-neutral-60",
-              "value": "oklch(0.97 0 0)",
-              "darkValue": "oklch(0.25 0.008 265)",
+              "value": "oklch(0.97 0.006 290)",
+              "darkValue": "oklch(0.22 0.008 290)",
               "type": "color",
               "description": "Neutral light - surfaces, backgrounds"
             },
             {
               "name": "--luma-color-neutral-70",
-              "value": "oklch(0.85 0.01 265)",
-              "darkValue": "oklch(0.30 0.01 265)",
+              "value": "oklch(0.86 0.008 290)",
+              "darkValue": "oklch(0.28 0.01 290)",
               "type": "color",
               "description": "Neutral medium - disabled text, placeholders"
             },
             {
               "name": "--luma-color-neutral-80",
-              "value": "oklch(0.45 0.01 265)",
-              "darkValue": "oklch(0.70 0.01 265)",
+              "value": "oklch(0.48 0.01 290)",
+              "darkValue": "oklch(0.68 0.012 290)",
               "type": "color",
               "description": "Neutral dark - secondary text (WCAG AA compliant)"
             },
             {
               "name": "--luma-color-neutral-90",
-              "value": "oklch(0.45 0.01 265)",
-              "darkValue": "oklch(0.70 0.01 265)",
+              "value": "oklch(0.38 0.012 290)",
+              "darkValue": "oklch(0.78 0.012 290)",
               "type": "color",
               "description": "Neutral darker - emphasized secondary text"
             },
             {
               "name": "--luma-color-neutral-100",
-              "value": "oklch(0.22 0.01 265)",
-              "darkValue": "oklch(0.90 0.01 265)",
+              "value": "oklch(0.22 0.014 290)",
+              "darkValue": "oklch(0.92 0.01 290)",
               "type": "color",
               "description": "Neutral darkest - primary text, shadows"
             }
@@ -1010,29 +1172,29 @@
           "tokens": [
             {
               "name": "--luma-color-primary-50",
-              "value": "oklch(0.63 0.14 232.13)",
-              "darkValue": "oklch(0.70 0.14 232.13)",
+              "value": "oklch(0.48 0.09 300)",
+              "darkValue": "oklch(0.72 0.12 300)",
               "type": "color",
               "description": "Primary default - main brand color for buttons, links, actions"
             },
             {
               "name": "--luma-color-primary-60",
-              "value": "oklch(0.56 0.13 232.13)",
-              "darkValue": "oklch(0.64 0.13 232.13)",
+              "value": "oklch(0.44 0.085 300)",
+              "darkValue": "oklch(0.66 0.11 300)",
               "type": "color",
               "description": "Primary strong - emphasized elements"
             },
             {
               "name": "--luma-color-primary-70",
-              "value": "oklch(0.49 0.12 232.13)",
-              "darkValue": "oklch(0.58 0.12 232.13)",
+              "value": "oklch(0.40 0.08 300)",
+              "darkValue": "oklch(0.60 0.10 300)",
               "type": "color",
               "description": "Primary hover - hover state for primary elements"
             },
             {
               "name": "--luma-color-primary-80",
-              "value": "oklch(0.43 0.11 232.13)",
-              "darkValue": "oklch(0.52 0.11 232.13)",
+              "value": "oklch(0.36 0.075 300)",
+              "darkValue": "oklch(0.54 0.09 300)",
               "type": "color",
               "description": "Primary active - pressed/active state"
             }
@@ -1043,22 +1205,24 @@
           "tokens": [
             {
               "name": "--luma-focus-ring-color",
-              "value": "oklch(0.63 0.14 232.13 / 0.45)",
-              "darkValue": "oklch(0.70 0.14 232.13 / 0.45)",
+              "value": "oklch(0.55 0.10 300 / 0.35)",
+              "darkValue": "oklch(0.68 0.12 300 / 0.45)",
               "type": "color",
-              "description": "Global focus ring color - accessible, visible in both themes"
+              "description": "Global focus ring color - derived from primary plum, calm and accessible"
             },
             {
               "name": "--luma-focus-ring-width",
               "value": "2px",
+              "darkValue": "2px",
               "type": "dimension",
               "description": "Focus ring width - WCAG 2.4.7 minimum"
             },
             {
               "name": "--luma-focus-ring-offset",
-              "value": "2px",
+              "value": "3px",
+              "darkValue": "3px",
               "type": "dimension",
-              "description": "Focus ring offset from element"
+              "description": "Focus ring offset - creates breathing space without visual noise"
             }
           ]
         },
@@ -1067,29 +1231,29 @@
           "tokens": [
             {
               "name": "--luma-color-success-50",
-              "value": "oklch(0.72 0.08 150)",
-              "darkValue": "oklch(0.80 0.10 150)",
+              "value": "oklch(0.72 0.07 155)",
+              "darkValue": "oklch(0.78 0.09 155)",
               "type": "color",
               "description": "Success default - positive feedback, confirmations"
             },
             {
               "name": "--luma-color-success-60",
-              "value": "oklch(0.65 0.07 150)",
-              "darkValue": "oklch(0.72 0.09 150)",
+              "value": "oklch(0.66 0.08 155)",
+              "darkValue": "oklch(0.72 0.085 155)",
               "type": "color",
               "description": "Success strong"
             },
             {
               "name": "--luma-color-success-70",
-              "value": "oklch(0.58 0.06 150)",
-              "darkValue": "oklch(0.65 0.08 150)",
+              "value": "oklch(0.60 0.08 155)",
+              "darkValue": "oklch(0.66 0.08 155)",
               "type": "color",
               "description": "Success hover"
             },
             {
               "name": "--luma-color-success-80",
-              "value": "oklch(0.52 0.05 150)",
-              "darkValue": "oklch(0.58 0.07 150)",
+              "value": "oklch(0.54 0.07 155)",
+              "darkValue": "oklch(0.60 0.075 155)",
               "type": "color",
               "description": "Success active"
             }
@@ -1101,7 +1265,7 @@
             {
               "name": "--luma-color-surface-base",
               "value": "oklch(1 0 0)",
-              "darkValue": "oklch(0.15 0.005 265)",
+              "darkValue": "oklch(0.16 0.006 290)",
               "type": "color",
               "description": "Base surface background color (pure white avoided per Neo-Minimal)"
             }
@@ -1112,29 +1276,29 @@
           "tokens": [
             {
               "name": "--luma-color-warning-50",
-              "value": "oklch(0.78 0.10 85)",
-              "darkValue": "oklch(0.85 0.12 85)",
+              "value": "oklch(0.80 0.09 95)",
+              "darkValue": "oklch(0.82 0.11 95)",
               "type": "color",
               "description": "Warning default - caution states, alerts"
             },
             {
               "name": "--luma-color-warning-60",
-              "value": "oklch(0.72 0.09 85)",
-              "darkValue": "oklch(0.78 0.11 85)",
+              "value": "oklch(0.74 0.10 95)",
+              "darkValue": "oklch(0.76 0.105 95)",
               "type": "color",
               "description": "Warning strong"
             },
             {
               "name": "--luma-color-warning-70",
-              "value": "oklch(0.65 0.08 85)",
-              "darkValue": "oklch(0.72 0.10 85)",
+              "value": "oklch(0.68 0.09 95)",
+              "darkValue": "oklch(0.70 0.095 95)",
               "type": "color",
               "description": "Warning hover"
             },
             {
               "name": "--luma-color-warning-80",
-              "value": "oklch(0.58 0.07 85)",
-              "darkValue": "oklch(0.65 0.09 85)",
+              "value": "oklch(0.61 0.08 95)",
+              "darkValue": "oklch(0.64 0.085 95)",
               "type": "color",
               "description": "Warning active"
             }
@@ -1405,6 +1569,6 @@
       "markdownContent": "\n# Typography\n\n## Purpose\n\nTypography is the primary visual component of the system. The typographic scale prioritizes clarity, rhythm, and continuous reading over impact and personality.\n"
     }
   ],
-  "categories": ["Form", "Layout"],
-  "generatedAt": "2026-01-31T23:00:59.270Z"
+  "categories": ["Feedback", "Form", "Layout"],
+  "generatedAt": "2026-02-01T03:11:24.210Z"
 }
