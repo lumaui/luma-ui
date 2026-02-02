@@ -13,7 +13,7 @@ inputs:
     type: 'string'
     default: "''"
     description: Default value for uncontrolled mode
-  - name: lmStyle
+  - name: lmVariant
     type: "'underline' | 'background' | 'pill'"
     default: "'underline'"
     description: Visual style variant
@@ -181,7 +181,7 @@ Tabs organize content into separate views where only one view can be visible at 
 ### Background Style
 
 ```html
-<luma-tabs lmDefaultValue="tab-1" lmStyle="background">
+<luma-tabs lmDefaultValue="tab-1" lmVariant="background">
   <div lumaTabsList>
     <button lumaTabsTrigger="tab-1">Dashboard</button>
     <button lumaTabsTrigger="tab-2">Analytics</button>
@@ -197,7 +197,7 @@ Tabs organize content into separate views where only one view can be visible at 
 ### Pill Style
 
 ```html
-<luma-tabs lmDefaultValue="tab-1" lmStyle="pill">
+<luma-tabs lmDefaultValue="tab-1" lmVariant="pill">
   <div lumaTabsList>
     <button lumaTabsTrigger="tab-1">All</button>
     <button lumaTabsTrigger="tab-2">Active</button>

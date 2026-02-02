@@ -88,7 +88,7 @@ import {
         </div>
       }
       @case ('background-style') {
-        <luma-tabs lmDefaultValue="tab-1" lmStyle="background" class="w-full">
+        <luma-tabs lmDefaultValue="tab-1" lmVariant="background" class="w-full">
           <div lumaTabsList>
             <button lumaTabsTrigger="tab-1">Dashboard</button>
             <button lumaTabsTrigger="tab-2">Analytics</button>
@@ -116,7 +116,7 @@ import {
         </luma-tabs>
       }
       @case ('pill-style') {
-        <luma-tabs lmDefaultValue="tab-1" lmStyle="pill" class="w-full">
+        <luma-tabs lmDefaultValue="tab-1" lmVariant="pill" class="w-full">
           <div lumaTabsList>
             <button lumaTabsTrigger="tab-1">All</button>
             <button lumaTabsTrigger="tab-2">Active</button>

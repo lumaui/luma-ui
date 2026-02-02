@@ -50,7 +50,7 @@ export class TabsComponent implements TabsGroupBase {
   lmDefaultValue = input<string>('');
 
   /** Visual style: underline, background, or pill */
-  lmStyle = input<TabsStyle>('underline');
+  lmVariant = input<TabsStyle>('underline');
 
   /** Whether to lazy load panel content */
   lmLazy = input<boolean>(true);

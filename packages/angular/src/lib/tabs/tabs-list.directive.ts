@@ -45,7 +45,7 @@ export class TabsListDirective implements TabsListBase {
 
   classes = computed(() =>
     tabsListVariants({
-      style: this.tabsGroup.lmStyle(),
+      style: this.tabsGroup.lmVariant(),
       scrollable: this.lmScrollable,
     }),
   );

@@ -5,7 +5,7 @@ export interface TabsGroupBase {
   /** Currently selected tab value */
   value: WritableSignal<string | null>;
   /** Visual style of the tabs (underline, background, pill) */
-  lmStyle: Signal<TabsStyle>;
+  lmVariant: Signal<TabsStyle>;
   /** Whether to lazy load panel content */
   lmLazy: Signal<boolean>;
   /** Select a tab by value */

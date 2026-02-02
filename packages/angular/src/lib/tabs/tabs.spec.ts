@@ -200,7 +200,7 @@ function cleanupTabsTokens(): void {
     <luma-tabs
       [lmValue]="lmValue()"
       [lmDefaultValue]="lmDefaultValue"
-      [lmStyle]="lmStyle"
+      [lmVariant]="lmVariant"
       [lmLazy]="lmLazy"
       (lmValueChange)="onValueChange($event)"
     >
@@ -228,7 +228,7 @@ function cleanupTabsTokens(): void {
 class TabsTestHostComponent {
   lmValue = signal<string | null>(null);
   lmDefaultValue = 'tab-1';
-  lmStyle: 'underline' | 'background' | 'pill' = 'underline';
+  lmVariant: 'underline' | 'background' | 'pill' = 'underline';
   lmLazy = true;
   tab1Disabled = false;
   tab2Disabled = false;
@@ -244,7 +244,7 @@ class TabsTestHostComponent {
  */
 @Component({
   template: `
-    <luma-tabs lmDefaultValue="tab-1" lmStyle="background">
+    <luma-tabs lmDefaultValue="tab-1" lmVariant="background">
       <div lumaTabsList>
         <button lumaTabsTrigger="tab-1">Tab 1</button>
         <button lumaTabsTrigger="tab-2">Tab 2</button>
@@ -267,7 +267,7 @@ class TabsBackgroundStyleTestHostComponent {}
  */
 @Component({
   template: `
-    <luma-tabs lmDefaultValue="tab-1" lmStyle="pill">
+    <luma-tabs lmDefaultValue="tab-1" lmVariant="pill">
       <div lumaTabsList>
         <button lumaTabsTrigger="tab-1">Tab 1</button>
         <button lumaTabsTrigger="tab-2">Tab 2</button>
@@ -376,7 +376,7 @@ describe('Tabs', () => {
       tabsComponent = tabsEl.injector.get(TabsComponent);
       expect(typeof tabsComponent.lmValue).toBe('function');
       expect(typeof tabsComponent.lmDefaultValue).toBe('function');
-      expect(typeof tabsComponent.lmStyle).toBe('function');
+      expect(typeof tabsComponent.lmVariant).toBe('function');
       expect(typeof tabsComponent.lmLazy).toBe('function');
     });
   });
@@ -450,7 +450,7 @@ describe('Tabs', () => {
     describe('TabsList Classes', () => {
       describe('underline style', () => {
         beforeEach(() => {
-          hostComponent.lmStyle = 'underline';
+          hostComponent.lmVariant = 'underline';
           fixture.detectChanges();
         });
 

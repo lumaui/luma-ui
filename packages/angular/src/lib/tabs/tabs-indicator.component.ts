@@ -54,7 +54,7 @@ export class TabsIndicatorComponent implements AfterViewInit, OnDestroy {
 
   /** Computed: CSS classes from CVA */
   classes = computed(() => {
-    const style = this.tabsGroup.lmStyle();
+    const style = this.tabsGroup.lmVariant();
     // Only show indicator for underline style
     const isVisible = style === 'underline';
 

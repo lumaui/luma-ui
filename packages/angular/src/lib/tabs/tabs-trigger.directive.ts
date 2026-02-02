@@ -57,7 +57,7 @@ export class TabsTriggerDirective implements OnInit, OnDestroy {
   /** Computed: CSS classes from CVA */
   classes = computed(() =>
     tabsTriggerVariants({
-      style: this.tabsGroup.lmStyle(),
+      style: this.tabsGroup.lmVariant(),
       selected: this.isSelected(),
     }),
   );
