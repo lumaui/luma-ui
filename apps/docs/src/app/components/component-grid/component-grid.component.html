@@ -179,6 +179,40 @@
                   </luma-tabs>
                 </div>
               }
+              @case ('modal') {
+                <!-- Static modal preview (overlay components can't be shown inline) -->
+                <div class="w-full max-w-[180px]">
+                  <div
+                    class="rounded-lg border border-neutral-200 bg-surface-base shadow-lg overflow-hidden"
+                  >
+                    <div
+                      class="flex items-center justify-between px-3 py-2 border-b border-neutral-100"
+                    >
+                      <span class="text-xs font-medium">Modal Title</span>
+                      <span class="text-neutral-400 text-xs">✕</span>
+                    </div>
+                    <div class="px-3 py-3">
+                      <p class="text-[10px] text-text-secondary">
+                        Content area...
+                      </p>
+                    </div>
+                    <div
+                      class="flex justify-end gap-1.5 px-3 py-2 border-t border-neutral-100"
+                    >
+                      <button
+                        class="text-[10px] px-2 py-0.5 rounded border border-neutral-200"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="text-[10px] px-2 py-0.5 rounded bg-primary text-white"
+                      >
+                        Confirm
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
               @default {
                 <div class="text-sm text-gray-500">Preview</div>
               }

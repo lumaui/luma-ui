@@ -58,6 +58,7 @@ const config = {
     'src/components/accordion/accordion.dark.json',
     'src/components/tooltip/tooltip.dark.json',
     'src/components/tabs/tabs.dark.json',
+    'src/components/modal/modal.dark.json',
   ],
   platforms: {
     'css-dark': {

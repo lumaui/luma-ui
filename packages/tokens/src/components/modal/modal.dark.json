@@ -1,0 +1,58 @@
+{
+  "luma": {
+    "modal": {
+      "overlay": {
+        "bg": {
+          "value": "oklch(0 0 0 / 0.6)",
+          "type": "color",
+          "description": "Darker overlay for dark mode (60% black)"
+        }
+      },
+      "container": {
+        "bg": {
+          "value": "{luma.color.surface.base}",
+          "type": "color",
+          "description": "Modal container background in dark mode"
+        },
+        "shadow": {
+          "value": "0 25px 50px -12px oklch(0 0 0 / 0.5)",
+          "type": "shadow",
+          "description": "Deeper shadow in dark mode"
+        }
+      },
+      "header": {
+        "border-color": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Header bottom border color in dark mode"
+        }
+      },
+      "title": {
+        "color": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Title text color in dark mode"
+        }
+      },
+      "footer": {
+        "border-color": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Footer top border color in dark mode"
+        }
+      },
+      "close": {
+        "color": {
+          "value": "{luma.color.text.secondary}",
+          "type": "color",
+          "description": "Close button text color in dark mode"
+        },
+        "bg-hover": {
+          "value": "{luma.color.neutral.60}",
+          "type": "color",
+          "description": "Close button hover background in dark mode"
+        }
+      }
+    }
+  }
+}

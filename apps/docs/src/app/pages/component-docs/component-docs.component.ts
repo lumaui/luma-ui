@@ -8,7 +8,12 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-type TabType = 'examples' | 'tokens' | 'customizing' | 'specification';
+type TabType =
+  | 'examples'
+  | 'tokens'
+  | 'customizing'
+  | 'specification'
+  | 'use-cases';
 
 @Component({
   selector: 'app-component-docs',
@@ -80,6 +85,15 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'specification';
               >
                 Specification
               </button>
+              @if (comp.useCases && comp.useCases.length > 0) {
+                <button
+                  (click)="setActiveTab('use-cases')"
+                  [class.active]="activeTab() === 'use-cases'"
+                  class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
+                >
+                  Use Cases
+                </button>
+              }
             </nav>
           </div>
 
@@ -440,6 +454,28 @@ type TabType = 'examples' | 'tokens' | 'customizing' | 'specification';
                     >{{ comp.selector }}</code
                   >
                 </section>
+              </div>
+            }
+            @case ('use-cases') {
+              <div class="space-y-8">
+                @for (useCase of comp.useCases; track useCase.title) {
+                  <section>
+                    <h3 class="text-lg font-medium lm-text-primary mb-2">
+                      {{ useCase.title }}
+                    </h3>
+                    @if (useCase.description) {
+                      <p class="lm-text-secondary text-sm mb-4">
+                        {{ useCase.description }}
+                      </p>
+                    }
+                    <app-example-preview
+                      [componentSlug]="comp.slug"
+                      [exampleId]="slugify(useCase.title)"
+                      [code]="useCase.code"
+                      [language]="useCase.language || 'typescript'"
+                    />
+                  </section>
+                }
               </div>
             }
           }

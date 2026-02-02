@@ -55,6 +55,13 @@ export interface DocExample {
   language: string;
 }
 
+export interface DocUseCase {
+  title: string;
+  description: string;
+  code: string;
+  language: string;
+}
+
 export interface CustomizationExample {
   title: string;
   description: string;
@@ -86,6 +93,7 @@ export interface DocComponent {
   tokens: DocToken[];
   tokenGroups: DocTokenGroup[];
   examples: DocExample[];
+  useCases: DocUseCase[];
   customization: DocCustomization;
   directives?: DocDirective[];
   sections: {

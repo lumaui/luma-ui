@@ -30,3 +30,6 @@ export * from './lib/tabs/tabs-trigger.directive';
 export * from './lib/tabs/tabs-panel.directive';
 export * from './lib/tabs/tabs-indicator.component';
 export * from './lib/tabs/tabs.tokens';
+
+// Modal exports
+export * from './lib/modal';

@@ -216,6 +216,25 @@
   --luma-tabs-transition-duration: 200ms;
   --luma-tabs-transition-timing: ease-out;
 
+  /* Modal */
+  --luma-modal-overlay-bg: oklch(0 0 0 / 0.4);
+  --luma-modal-container-bg: oklch(1 0 0);
+  --luma-modal-container-radius: 16px;
+  --luma-modal-container-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.25);
+  --luma-modal-header-padding-x: 24px;
+  --luma-modal-header-padding-y: 16px;
+  --luma-modal-title-color: oklch(0.22 0.014 290);
+  --luma-modal-title-font-weight: 600;
+  --luma-modal-content-padding-x: 24px;
+  --luma-modal-content-padding-y: 20px;
+  --luma-modal-footer-padding-x: 24px;
+  --luma-modal-footer-padding-y: 16px;
+  --luma-modal-close-color: oklch(0.48 0.01 290);
+  --luma-modal-close-bg-hover: oklch(0.97 0.006 290);
+  --luma-modal-close-radius: 6px;
+  --luma-modal-transition-duration: 250ms;
+  --luma-modal-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 /* Tailwind Utilities - All prefixed with lm- */
@@ -1046,5 +1065,87 @@
 
 @utility lm-ease-tabs {
   transition-timing-function: var(--luma-tabs-transition-timing);
+}
+
+/* Modal Overlay Utilities */
+@utility lm-bg-modal-overlay {
+  background-color: var(--luma-modal-overlay-bg);
+}
+
+/* Modal Container Utilities */
+@utility lm-bg-modal {
+  background-color: var(--luma-modal-container-bg);
+}
+
+@utility lm-rounded-modal {
+  border-radius: var(--luma-modal-container-radius);
+}
+
+@utility lm-shadow-modal {
+  box-shadow: var(--luma-modal-container-shadow);
+}
+
+/* Modal Header Utilities */
+@utility lm-px-modal-header {
+  padding-left: var(--luma-modal-header-padding-x);
+  padding-right: var(--luma-modal-header-padding-x);
+}
+
+@utility lm-py-modal-header {
+  padding-top: var(--luma-modal-header-padding-y);
+  padding-bottom: var(--luma-modal-header-padding-y);
+}
+
+/* Modal Title Utilities */
+@utility lm-text-modal-title {
+  color: var(--luma-modal-title-color);
+}
+
+@utility lm-font-modal-title {
+  font-weight: var(--luma-modal-title-font-weight);
+}
+
+/* Modal Content Utilities */
+@utility lm-px-modal-content {
+  padding-left: var(--luma-modal-content-padding-x);
+  padding-right: var(--luma-modal-content-padding-x);
+}
+
+@utility lm-py-modal-content {
+  padding-top: var(--luma-modal-content-padding-y);
+  padding-bottom: var(--luma-modal-content-padding-y);
+}
+
+/* Modal Footer Utilities */
+@utility lm-px-modal-footer {
+  padding-left: var(--luma-modal-footer-padding-x);
+  padding-right: var(--luma-modal-footer-padding-x);
+}
+
+@utility lm-py-modal-footer {
+  padding-top: var(--luma-modal-footer-padding-y);
+  padding-bottom: var(--luma-modal-footer-padding-y);
+}
+
+/* Modal Close Button Utilities */
+@utility lm-text-modal-close {
+  color: var(--luma-modal-close-color);
+}
+
+@utility lm-bg-modal-close-hover {
+  background-color: var(--luma-modal-close-bg-hover);
+}
+
+@utility lm-rounded-modal-close {
+  border-radius: var(--luma-modal-close-radius);
+}
+
+/* Modal Transition Utilities */
+@utility lm-duration-modal {
+  transition-duration: var(--luma-modal-transition-duration);
+}
+
+@utility lm-ease-modal {
+  transition-timing-function: var(--luma-modal-transition-timing);
 }
 

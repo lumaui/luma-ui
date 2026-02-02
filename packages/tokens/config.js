@@ -1601,6 +1601,250 @@ StyleDictionary.registerFormat({
         output += `  transition-timing-function: var(${tabsTiming.name});\n`;
         output += `}\n\n`;
       }
+
+      // ============================================
+      // MODAL UTILITIES
+      // ============================================
+
+      output += `/* Modal Overlay Utilities */\n`;
+
+      // Modal overlay background
+      const modalOverlayBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'overlay' &&
+          t.path[3] === 'bg',
+      );
+      if (modalOverlayBg) {
+        output += `@utility lm-bg-modal-overlay {\n`;
+        output += `  background-color: var(${modalOverlayBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Container Utilities */\n`;
+
+      // Modal container background
+      const modalContainerBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'bg',
+      );
+      if (modalContainerBg) {
+        output += `@utility lm-bg-modal {\n`;
+        output += `  background-color: var(${modalContainerBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Modal container radius
+      const modalContainerRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'radius',
+      );
+      if (modalContainerRadius) {
+        output += `@utility lm-rounded-modal {\n`;
+        output += `  border-radius: var(${modalContainerRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Modal container shadow
+      const modalContainerShadow = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'shadow',
+      );
+      if (modalContainerShadow) {
+        output += `@utility lm-shadow-modal {\n`;
+        output += `  box-shadow: var(${modalContainerShadow.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Header Utilities */\n`;
+
+      // Modal header padding
+      const modalHeaderPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'header' &&
+          t.path[3] === 'padding-x',
+      );
+      if (modalHeaderPaddingX) {
+        output += `@utility lm-px-modal-header {\n`;
+        output += `  padding-left: var(${modalHeaderPaddingX.name});\n`;
+        output += `  padding-right: var(${modalHeaderPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const modalHeaderPaddingY = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'header' &&
+          t.path[3] === 'padding-y',
+      );
+      if (modalHeaderPaddingY) {
+        output += `@utility lm-py-modal-header {\n`;
+        output += `  padding-top: var(${modalHeaderPaddingY.name});\n`;
+        output += `  padding-bottom: var(${modalHeaderPaddingY.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Title Utilities */\n`;
+
+      // Modal title color
+      const modalTitleColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'color',
+      );
+      if (modalTitleColor) {
+        output += `@utility lm-text-modal-title {\n`;
+        output += `  color: var(${modalTitleColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Modal title font weight
+      const modalTitleFontWeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-weight',
+      );
+      if (modalTitleFontWeight) {
+        output += `@utility lm-font-modal-title {\n`;
+        output += `  font-weight: var(${modalTitleFontWeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Content Utilities */\n`;
+
+      // Modal content padding
+      const modalContentPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'padding-x',
+      );
+      if (modalContentPaddingX) {
+        output += `@utility lm-px-modal-content {\n`;
+        output += `  padding-left: var(${modalContentPaddingX.name});\n`;
+        output += `  padding-right: var(${modalContentPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const modalContentPaddingY = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'content' &&
+          t.path[3] === 'padding-y',
+      );
+      if (modalContentPaddingY) {
+        output += `@utility lm-py-modal-content {\n`;
+        output += `  padding-top: var(${modalContentPaddingY.name});\n`;
+        output += `  padding-bottom: var(${modalContentPaddingY.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Footer Utilities */\n`;
+
+      // Modal footer padding
+      const modalFooterPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'footer' &&
+          t.path[3] === 'padding-x',
+      );
+      if (modalFooterPaddingX) {
+        output += `@utility lm-px-modal-footer {\n`;
+        output += `  padding-left: var(${modalFooterPaddingX.name});\n`;
+        output += `  padding-right: var(${modalFooterPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const modalFooterPaddingY = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'footer' &&
+          t.path[3] === 'padding-y',
+      );
+      if (modalFooterPaddingY) {
+        output += `@utility lm-py-modal-footer {\n`;
+        output += `  padding-top: var(${modalFooterPaddingY.name});\n`;
+        output += `  padding-bottom: var(${modalFooterPaddingY.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Close Button Utilities */\n`;
+
+      // Modal close color
+      const modalCloseColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'close' &&
+          t.path[3] === 'color',
+      );
+      if (modalCloseColor) {
+        output += `@utility lm-text-modal-close {\n`;
+        output += `  color: var(${modalCloseColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Modal close hover background
+      const modalCloseBgHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'close' &&
+          t.path[3] === 'bg-hover',
+      );
+      if (modalCloseBgHover) {
+        output += `@utility lm-bg-modal-close-hover {\n`;
+        output += `  background-color: var(${modalCloseBgHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Modal close radius
+      const modalCloseRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'close' &&
+          t.path[3] === 'radius',
+      );
+      if (modalCloseRadius) {
+        output += `@utility lm-rounded-modal-close {\n`;
+        output += `  border-radius: var(${modalCloseRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Modal Transition Utilities */\n`;
+
+      // Modal transition duration
+      const modalDuration = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'duration',
+      );
+      if (modalDuration) {
+        output += `@utility lm-duration-modal {\n`;
+        output += `  transition-duration: var(${modalDuration.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Modal transition timing
+      const modalTiming = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'modal' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'timing',
+      );
+      if (modalTiming) {
+        output += `@utility lm-ease-modal {\n`;
+        output += `  transition-timing-function: var(${modalTiming.name});\n`;
+        output += `}\n\n`;
+      }
     }
 
     return output;
@@ -1657,6 +1901,7 @@ const config = {
     'src/components/accordion/accordion.json',
     'src/components/tooltip/tooltip.json',
     'src/components/tabs/tabs.json',
+    'src/components/modal/modal.json',
   ],
   platforms: {
     'css-light': {

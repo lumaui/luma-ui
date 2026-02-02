@@ -1,9 +1,6 @@
 import { InjectionToken, Signal, WritableSignal } from '@angular/core';
 import { type TabsStyle } from '@lumaui/core';
 
-/**
- * Interface for tabs group state that child components/directives can access
- */
 export interface TabsGroupBase {
   /** Currently selected tab value */
   value: WritableSignal<string | null>;
@@ -29,9 +26,6 @@ export interface TabsGroupBase {
   focusLastTrigger(): void;
 }
 
-/**
- * Interface for tabs list state that the indicator can access
- */
 export interface TabsListBase {
   /** Reference to the native element */
   elementRef: { nativeElement: HTMLElement };

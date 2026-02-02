@@ -117,6 +117,15 @@ export class ComponentGridComponent {
       route: '/docs/tabs',
       size: 'full',
     },
+    {
+      id: 'modal',
+      name: 'Modal',
+      description:
+        'HTML-first modal dialog with focus trap, accessibility, and smooth animations',
+      category: 'Feedback',
+      route: '/docs/modal',
+      size: 'medium',
+    },
   ];
 
   getCardClasses(size: string): string {

@@ -81,4 +81,12 @@
   --luma-tabs-indicator-color: oklch(0.70 0.12 300);
   --luma-tabs-pill-background: oklch(0.25 0.01 290);
   --luma-tabs-pill-background-selected: oklch(0.35 0.02 290);
+  --luma-modal-overlay-bg: oklch(0 0 0 / 0.6);
+  --luma-modal-container-bg: oklch(0.16 0.006 290);
+  --luma-modal-container-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.5);
+  --luma-modal-header-border-color: oklch(0.22 0.008 290);
+  --luma-modal-title-color: oklch(0.92 0.01 290);
+  --luma-modal-footer-border-color: oklch(0.22 0.008 290);
+  --luma-modal-close-color: oklch(0.68 0.012 290);
+  --luma-modal-close-bg-hover: oklch(0.22 0.008 290);
 }

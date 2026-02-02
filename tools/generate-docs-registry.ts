@@ -81,6 +81,13 @@ interface DocExample {
   language: string;
 }
 
+interface DocUseCase {
+  title: string;
+  description: string;
+  code: string;
+  language: string;
+}
+
 interface CustomizationExample {
   title: string;
   description: string;
@@ -116,6 +123,7 @@ interface DocComponent {
   tokens: DocToken[];
   tokenGroups: DocTokenGroup[];
   examples: DocExample[];
+  useCases: DocUseCase[];
   customization: DocCustomization;
   sections: {
     purpose?: string;
@@ -545,6 +553,45 @@ function extractSections(content: string): DocComponent['sections'] {
 }
 
 /**
+ * Extract use cases from markdown content
+ */
+function extractUseCases(content: string): DocUseCase[] {
+  const useCases: DocUseCase[] = [];
+
+  // Match ## Use Cases section
+  const useCasesMatch = content.match(/## Use Cases\n\n([\s\S]*?)(?=\n## |$)/);
+  if (!useCasesMatch) return useCases;
+
+  const useCasesContent = useCasesMatch[1];
+
+  // Extract each ### subsection
+  const subsectionRegex = /### ([^\n]+)\n\n([\s\S]*?)(?=\n### |$)/g;
+  let match;
+
+  while ((match = subsectionRegex.exec(useCasesContent)) !== null) {
+    const title = match[1];
+    const subsectionContent = match[2];
+
+    // Extract description (text before code block)
+    const descMatch = subsectionContent.match(/^([\s\S]*?)(?=\n```)/);
+    const description = descMatch ? descMatch[1].trim() : '';
+
+    // Extract code block
+    const codeMatch = subsectionContent.match(/```(\w+)?\n([\s\S]*?)\n```/);
+    if (codeMatch) {
+      useCases.push({
+        title,
+        description,
+        code: codeMatch[2].trim(),
+        language: codeMatch[1] || 'typescript',
+      });
+    }
+  }
+
+  return useCases;
+}
+
+/**
  * Generate slug from component name
  */
 function generateSlug(name: string): string {
@@ -569,6 +616,7 @@ function parseDocFile(filePath: string): DocComponent | null {
     }
 
     const examples = extractExamples(content);
+    const useCases = extractUseCases(content);
     const customization = extractCustomization(content);
     const sections = extractSections(content);
 
@@ -583,6 +631,7 @@ function parseDocFile(filePath: string): DocComponent | null {
       tokens: frontMatter.tokens || [],
       tokenGroups: frontMatter.tokenGroups || [],
       examples,
+      useCases,
       customization,
       sections,
       docPath: path.relative(path.resolve(__dirname, '..'), filePath),
