@@ -1,10 +1,5 @@
 import { Component, signal } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { ModalComponent } from './modal.component';
@@ -355,33 +350,29 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(false);
         fixture.detectChanges();
 
-        const overlay = fixture.debugElement.query(
-          By.directive(ModalOverlayComponent),
-        );
-        expect(overlay).toBeFalsy();
+        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        expect(modal.nativeElement.getAttribute('data-state')).toBe('closed');
       });
 
-      it('should emit lmOpenChange when close is called', fakeAsync(() => {
+      it('should emit lmOpenChange when close is called', () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
 
         const modal = fixture.debugElement.query(By.directive(ModalComponent));
         modal.componentInstance.close();
-        tick();
 
         expect(hostComponent.openChanges).toContain(false);
-      }));
+      });
 
-      it('should emit lmOpenChange when open is called', fakeAsync(() => {
+      it('should emit lmOpenChange when open is called', () => {
         hostComponent.lmOpen.set(false);
         fixture.detectChanges();
 
         const modal = fixture.debugElement.query(By.directive(ModalComponent));
         modal.componentInstance.open();
-        tick();
 
         expect(hostComponent.openChanges).toContain(true);
-      }));
+      });
     });
 
     describe('Uncontrolled Mode', () => {
@@ -460,7 +451,7 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(true);
       });
 
-      it('should close when clicking overlay (default)', fakeAsync(() => {
+      it('should close when clicking overlay (default)', () => {
         hostComponent.lmCloseOnOverlay = true;
         fixture.detectChanges();
 
@@ -468,12 +459,11 @@ describe('Modal', () => {
           By.directive(ModalOverlayComponent),
         );
         overlay.nativeElement.click();
-        tick();
 
         expect(hostComponent.openChanges).toContain(false);
-      }));
+      });
 
-      it('should not close when clicking overlay if disabled', fakeAsync(() => {
+      it('should not close when clicking overlay if disabled', () => {
         hostComponent.lmCloseOnOverlay = false;
         fixture.detectChanges();
         hostComponent.openChanges = [];
@@ -482,12 +472,11 @@ describe('Modal', () => {
           By.directive(ModalOverlayComponent),
         );
         overlay.nativeElement.click();
-        tick();
 
         expect(hostComponent.openChanges).not.toContain(false);
-      }));
+      });
 
-      it('should not close when clicking inside container', fakeAsync(() => {
+      it('should not close when clicking inside container', () => {
         hostComponent.lmCloseOnOverlay = true;
         fixture.detectChanges();
         hostComponent.openChanges = [];
@@ -496,11 +485,10 @@ describe('Modal', () => {
           By.directive(ModalContentDirective),
         );
         content.nativeElement.click();
-        tick();
 
         // Should not emit close
         expect(hostComponent.openChanges).not.toContain(false);
-      }));
+      });
     });
 
     describe('Close on Escape Key', () => {
@@ -508,50 +496,48 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(true);
       });
 
-      it('should close when pressing Escape (default)', fakeAsync(() => {
+      it('should close when pressing Escape (default)', () => {
         hostComponent.lmCloseOnEscape = true;
         fixture.detectChanges();
 
         const event = new KeyboardEvent('keydown', { key: 'Escape' });
         document.dispatchEvent(event);
-        tick();
 
         expect(hostComponent.openChanges).toContain(false);
-      }));
+      });
 
-      it('should not close when pressing Escape if disabled', fakeAsync(() => {
+      it('should not close when pressing Escape if disabled', () => {
         hostComponent.lmCloseOnEscape = false;
         fixture.detectChanges();
         hostComponent.openChanges = [];
 
         const event = new KeyboardEvent('keydown', { key: 'Escape' });
         document.dispatchEvent(event);
-        tick();
 
         expect(hostComponent.openChanges).not.toContain(false);
-      }));
+      });
     });
 
     describe('Body Scroll Lock', () => {
-      it('should lock body scroll when modal opens', fakeAsync(() => {
+      it('should lock body scroll when modal opens', () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
-        tick();
 
         expect(document.body.style.overflow).toBe('hidden');
-      }));
+      });
 
-      it('should unlock body scroll when modal closes', fakeAsync(() => {
+      it('should unlock body scroll when modal closes', async () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
-        tick();
 
         hostComponent.lmOpen.set(false);
         fixture.detectChanges();
-        tick();
+
+        // Wait for the 250ms setTimeout in unlockBodyScroll
+        await new Promise((resolve) => setTimeout(resolve, 300));
 
         expect(document.body.style.overflow).toBe('');
-      }));
+      });
     });
   });
 
@@ -578,12 +564,10 @@ describe('Modal', () => {
     });
 
     describe('Accessibility', () => {
-      beforeEach(() => {
+      it('should have role="dialog"', () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
-      });
 
-      it('should have role="dialog"', () => {
         const container = fixture.debugElement.query(
           By.directive(ModalContainerComponent),
         );
@@ -591,6 +575,9 @@ describe('Modal', () => {
       });
 
       it('should have aria-modal="true"', () => {
+        hostComponent.lmOpen.set(true);
+        fixture.detectChanges();
+
         const container = fixture.debugElement.query(
           By.directive(ModalContainerComponent),
         );
@@ -598,6 +585,9 @@ describe('Modal', () => {
       });
 
       it('should have aria-labelledby pointing to title', () => {
+        hostComponent.lmOpen.set(true);
+        fixture.detectChanges();
+
         const container = fixture.debugElement.query(
           By.directive(ModalContainerComponent),
         );
@@ -613,12 +603,10 @@ describe('Modal', () => {
     });
 
     describe('Class Application', () => {
-      beforeEach(() => {
+      it('should apply base container classes', () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
-      });
 
-      it('should apply base container classes', () => {
         const container = fixture.debugElement.query(
           By.directive(ModalContainerComponent),
         );
@@ -634,13 +622,16 @@ describe('Modal', () => {
       });
 
       it('should apply open state classes', () => {
+        hostComponent.lmOpen.set(true);
+        fixture.detectChanges();
+
         const container = fixture.debugElement.query(
           By.directive(ModalContainerComponent),
         );
         const classes = container.componentInstance.classes();
 
         expect(classes).toContain('opacity-100');
-        expect(classes).toContain('scale-100');
+        expect(classes).toContain('visible');
       });
     });
   });
@@ -660,9 +651,7 @@ describe('Modal', () => {
 
       fixture = TestBed.createComponent(ModalTestHostComponent);
       hostComponent = fixture.componentInstance;
-      hostComponent.lmOpen.set(true);
       setupModalTokens();
-      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -670,10 +659,14 @@ describe('Modal', () => {
     });
 
     it('should apply header classes', () => {
-      const header = fixture.debugElement.query(
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
+      const headerEl = fixture.debugElement.query(
         By.directive(ModalHeaderDirective),
       );
-      const classes = header.componentInstance.classes();
+      const directive = headerEl.injector.get(ModalHeaderDirective);
+      const classes = directive.classes();
 
       expect(classes).toContain('relative');
       expect(classes).toContain('flex');
@@ -681,7 +674,7 @@ describe('Modal', () => {
       expect(classes).toContain('justify-between');
       expect(classes).toContain('lm-px-modal-header');
       expect(classes).toContain('lm-py-modal-header');
-      expect(classes).toContain('lm-border-b-modal');
+      expect(classes).toContain('shrink-0');
     });
   });
 
@@ -700,9 +693,7 @@ describe('Modal', () => {
 
       fixture = TestBed.createComponent(ModalTestHostComponent);
       hostComponent = fixture.componentInstance;
-      hostComponent.lmOpen.set(true);
       setupModalTokens();
-      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -710,30 +701,41 @@ describe('Modal', () => {
     });
 
     it('should apply title classes', () => {
-      const title = fixture.debugElement.query(
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
+      const titleEl = fixture.debugElement.query(
         By.directive(ModalTitleDirective),
       );
-      const classes = title.componentInstance.classes();
+      const directive = titleEl.injector.get(ModalTitleDirective);
+      const classes = directive.classes();
 
       expect(classes).toContain('lm-text-modal-title');
       expect(classes).toContain('lm-font-modal-title');
     });
 
     it('should have unique ID for aria-labelledby', () => {
-      const title = fixture.debugElement.query(
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
+      const titleEl = fixture.debugElement.query(
         By.directive(ModalTitleDirective),
       );
-      expect(title.nativeElement.id).toBeTruthy();
-      expect(title.nativeElement.id).toContain('modal');
-      expect(title.nativeElement.id).toContain('title');
+      expect(titleEl.nativeElement.id).toBeTruthy();
+      expect(titleEl.nativeElement.id).toContain('modal');
+      expect(titleEl.nativeElement.id).toContain('title');
     });
 
     describe('Size Variants', () => {
       it('should apply md size classes (default)', () => {
-        const title = fixture.debugElement.query(
+        hostComponent.lmOpen.set(true);
+        fixture.detectChanges();
+
+        const titleEl = fixture.debugElement.query(
           By.directive(ModalTitleDirective),
         );
-        expect(title.componentInstance.classes()).toContain('text-lg');
+        const directive = titleEl.injector.get(ModalTitleDirective);
+        expect(directive.classes()).toContain('text-lg');
       });
     });
   });
@@ -753,9 +755,7 @@ describe('Modal', () => {
 
       fixture = TestBed.createComponent(ModalTestHostComponent);
       hostComponent = fixture.componentInstance;
-      hostComponent.lmOpen.set(true);
       setupModalTokens();
-      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -763,10 +763,14 @@ describe('Modal', () => {
     });
 
     it('should apply content classes', () => {
-      const content = fixture.debugElement.query(
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
+      const contentEl = fixture.debugElement.query(
         By.directive(ModalContentDirective),
       );
-      const classes = content.componentInstance.classes();
+      const directive = contentEl.injector.get(ModalContentDirective);
+      const classes = directive.classes();
 
       expect(classes).toContain('lm-px-modal-content');
       expect(classes).toContain('lm-py-modal-content');
@@ -775,23 +779,27 @@ describe('Modal', () => {
     });
 
     it('should apply scrollable classes when enabled', () => {
+      hostComponent.lmOpen.set(true);
       hostComponent.scrollable = true;
       fixture.detectChanges();
 
-      const content = fixture.debugElement.query(
+      const contentEl = fixture.debugElement.query(
         By.directive(ModalContentDirective),
       );
-      expect(content.componentInstance.classes()).toContain('overflow-y-auto');
+      const directive = contentEl.injector.get(ModalContentDirective);
+      expect(directive.classes()).toContain('overflow-y-auto');
     });
 
     it('should not apply scrollable classes when disabled', () => {
+      hostComponent.lmOpen.set(true);
       hostComponent.scrollable = false;
       fixture.detectChanges();
 
-      const content = fixture.debugElement.query(
+      const contentEl = fixture.debugElement.query(
         By.directive(ModalContentDirective),
       );
-      expect(content.componentInstance.classes()).toContain('overflow-visible');
+      const directive = contentEl.injector.get(ModalContentDirective);
+      expect(directive.classes()).toContain('overflow-visible');
     });
   });
 
@@ -810,9 +818,7 @@ describe('Modal', () => {
 
       fixture = TestBed.createComponent(ModalTestHostComponent);
       hostComponent = fixture.componentInstance;
-      hostComponent.lmOpen.set(true);
       setupModalTokens();
-      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -820,58 +826,70 @@ describe('Modal', () => {
     });
 
     it('should apply footer classes', () => {
-      const footer = fixture.debugElement.query(
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
+      const footerEl = fixture.debugElement.query(
         By.directive(ModalFooterDirective),
       );
-      const classes = footer.componentInstance.classes();
+      const directive = footerEl.injector.get(ModalFooterDirective);
+      const classes = directive.classes();
 
       expect(classes).toContain('flex');
       expect(classes).toContain('items-center');
       expect(classes).toContain('gap-3');
       expect(classes).toContain('lm-px-modal-footer');
       expect(classes).toContain('lm-py-modal-footer');
-      expect(classes).toContain('lm-border-t-modal');
+      expect(classes).toContain('shrink-0');
     });
 
     describe('Alignment Variants', () => {
       it('should apply end alignment classes (default)', () => {
+        hostComponent.lmOpen.set(true);
         hostComponent.footerAlign = 'end';
         fixture.detectChanges();
 
-        const footer = fixture.debugElement.query(
+        const footerEl = fixture.debugElement.query(
           By.directive(ModalFooterDirective),
         );
-        expect(footer.componentInstance.classes()).toContain('justify-end');
+        const directive = footerEl.injector.get(ModalFooterDirective);
+        expect(directive.classes()).toContain('justify-end');
       });
 
       it('should apply start alignment classes', () => {
+        hostComponent.lmOpen.set(true);
         hostComponent.footerAlign = 'start';
         fixture.detectChanges();
 
-        const footer = fixture.debugElement.query(
+        const footerEl = fixture.debugElement.query(
           By.directive(ModalFooterDirective),
         );
-        expect(footer.componentInstance.classes()).toContain('justify-start');
+        const directive = footerEl.injector.get(ModalFooterDirective);
+        expect(directive.classes()).toContain('justify-start');
       });
 
       it('should apply center alignment classes', () => {
+        hostComponent.lmOpen.set(true);
         hostComponent.footerAlign = 'center';
         fixture.detectChanges();
 
-        const footer = fixture.debugElement.query(
+        const footerEl = fixture.debugElement.query(
           By.directive(ModalFooterDirective),
         );
-        expect(footer.componentInstance.classes()).toContain('justify-center');
+        const directive = footerEl.injector.get(ModalFooterDirective);
+        expect(directive.classes()).toContain('justify-center');
       });
 
       it('should apply between alignment classes', () => {
+        hostComponent.lmOpen.set(true);
         hostComponent.footerAlign = 'between';
         fixture.detectChanges();
 
-        const footer = fixture.debugElement.query(
+        const footerEl = fixture.debugElement.query(
           By.directive(ModalFooterDirective),
         );
-        expect(footer.componentInstance.classes()).toContain('justify-between');
+        const directive = footerEl.injector.get(ModalFooterDirective);
+        expect(directive.classes()).toContain('justify-between');
       });
     });
   });
@@ -891,9 +909,7 @@ describe('Modal', () => {
 
       fixture = TestBed.createComponent(ModalTestHostComponent);
       hostComponent = fixture.componentInstance;
-      hostComponent.lmOpen.set(true);
       setupModalTokens();
-      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -901,6 +917,9 @@ describe('Modal', () => {
     });
 
     it('should render close button', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const closeButton = fixture.debugElement.query(
         By.directive(ModalCloseComponent),
       );
@@ -908,6 +927,9 @@ describe('Modal', () => {
     });
 
     it('should have button element with type="button"', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const closeButton = fixture.debugElement.query(
         By.css('luma-modal-close button'),
       );
@@ -916,6 +938,9 @@ describe('Modal', () => {
     });
 
     it('should have default aria-label', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const closeButton = fixture.debugElement.query(
         By.css('luma-modal-close button'),
       );
@@ -924,17 +949,22 @@ describe('Modal', () => {
       );
     });
 
-    it('should close modal when clicked', fakeAsync(() => {
+    it('should close modal when clicked', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const closeButton = fixture.debugElement.query(
         By.css('luma-modal-close button'),
       );
       closeButton.nativeElement.click();
-      tick();
 
       expect(hostComponent.openChanges).toContain(false);
-    }));
+    });
 
     it('should apply close button classes', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const closeComponent = fixture.debugElement.query(
         By.directive(ModalCloseComponent),
       );
@@ -963,9 +993,7 @@ describe('Modal', () => {
 
       fixture = TestBed.createComponent(ModalTestHostComponent);
       hostComponent = fixture.componentInstance;
-      hostComponent.lmOpen.set(true);
       setupModalTokens();
-      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -973,6 +1001,9 @@ describe('Modal', () => {
     });
 
     it('should apply overlay classes', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const overlay = fixture.debugElement.query(
         By.directive(ModalOverlayComponent),
       );
@@ -988,6 +1019,9 @@ describe('Modal', () => {
     });
 
     it('should apply visible state classes', () => {
+      hostComponent.lmOpen.set(true);
+      fixture.detectChanges();
+
       const overlay = fixture.debugElement.query(
         By.directive(ModalOverlayComponent),
       );
