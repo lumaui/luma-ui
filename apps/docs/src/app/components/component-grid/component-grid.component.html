@@ -30,8 +30,11 @@
         <div lumaCardContent>
           <!-- Preview do componente -->
           <div
-            class="p-4 bg-text-secondary/5 lm-rounded-md flex items-center justify-center min-h-[120px]"
+            class="p-4 bg-text-secondary/5 lm-rounded-md flex items-center justify-center min-h-30"
             (click)="$event.stopPropagation(); $event.preventDefault()"
+            (keydown)="$event.stopPropagation(); $event.preventDefault()"
+            tabindex="0"
+            role="button"
           >
             @switch (component.id) {
               @case ('button') {
@@ -53,7 +56,7 @@
                 </div>
               }
               @case ('card') {
-                <div class="w-full max-w-[200px]">
+                <div class="w-full max-w-50">
                   <luma-card>
                     <div lumaCardHeader>
                       <h4 lumaCardTitle size="small">Example</h4>
@@ -66,7 +69,7 @@
                 </div>
               }
               @case ('accordion') {
-                <div class="w-full max-w-[240px]">
+                <div class="w-full max-w-60">
                   <luma-accordion-item lmVariant="bordered" [lmOpen]="true">
                     <div lumaAccordionTrigger>
                       <span lumaAccordionTitle lmSize="sm">Accordion</span>
@@ -180,32 +183,55 @@
                 </div>
               }
               @case ('modal') {
-                <!-- Static modal preview (overlay components can't be shown inline) -->
-                <div class="w-full max-w-[180px]">
+                <!-- Static modal preview using Luma design tokens -->
+                <div class="w-full max-w-45">
                   <div
-                    class="rounded-lg border border-neutral-200 bg-surface-base shadow-lg overflow-hidden"
+                    class="relative lm-bg-modal lm-rounded-modal lm-shadow-modal overflow-hidden"
                   >
-                    <div
-                      class="flex items-center justify-between px-3 py-2 border-b border-neutral-100"
+                    <!-- Close button (absolute positioned like real component) -->
+                    <button
+                      class="absolute top-2 right-2 p-1 rounded hover:bg-neutral-100 transition-colors"
                     >
-                      <span class="text-xs font-medium">Modal Title</span>
-                      <span class="text-neutral-400 text-xs">✕</span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <!-- Header -->
+                    <div class="px-3 py-2">
+                      <span class="text-xs font-semibold">Modal Title</span>
                     </div>
-                    <div class="px-3 py-3">
+
+                    <!-- Content -->
+                    <div class="px-3 py-2">
                       <p class="text-[10px] text-text-secondary">
                         Content area...
                       </p>
                     </div>
-                    <div
-                      class="flex justify-end gap-1.5 px-3 py-2 border-t border-neutral-100"
-                    >
+
+                    <!-- Footer with lumaButton -->
+                    <div class="flex justify-end gap-1.5 px-3 py-2">
                       <button
-                        class="text-[10px] px-2 py-0.5 rounded border border-neutral-200"
+                        lumaButton
+                        lmVariant="ghost"
+                        class="text-[10px] px-2! py-0.5!"
                       >
                         Cancel
                       </button>
                       <button
-                        class="text-[10px] px-2 py-0.5 rounded bg-primary text-white"
+                        lumaButton
+                        lmVariant="primary"
+                        class="text-[10px] px-2! py-0.5!"
                       >
                         Confirm
                       </button>

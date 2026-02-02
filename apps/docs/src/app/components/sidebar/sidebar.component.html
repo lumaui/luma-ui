@@ -1,3 +1,133 @@
+<!-- Mobile Navigation Toggle - Positioned below header -->
+<div class="md:hidden sm:-mx-6 px-4 sm:px-6 py-3 lm-bg-surface-base">
+  <button
+    lumaButton
+    lmVariant="outline"
+    lmSize="sm"
+    (click)="openDrawer()"
+    class="flex items-center gap-2 justify-start"
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h7"
+      />
+    </svg>
+    <span>Docs Navigation</span>
+  </button>
+</div>
+
+<!-- Mobile Drawer Overlay -->
+@if (drawerOpen()) {
+  <div class="fixed inset-0 z-50 md:hidden">
+    <!-- Backdrop -->
+    <div
+      class="drawer-backdrop absolute inset-0 bg-black/40"
+      (click)="closeDrawer()"
+      (keydown.escape)="closeDrawer()"
+      tabindex="0"
+      role="button"
+      aria-label="Close navigation"
+    ></div>
+
+    <!-- Drawer Panel -->
+    <aside
+      class="drawer-panel absolute left-0 top-0 h-full w-72 lm-bg-surface-base overflow-y-auto shadow-xl"
+    >
+      <!-- Drawer Header -->
+      <div
+        class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 lm-bg-surface-base border-b lm-border-neutral-70"
+      >
+        <span class="text-sm font-semibold lm-text-primary">Docs</span>
+        <button
+          (click)="closeDrawer()"
+          class="p-1.5 lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          aria-label="Close navigation"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer Content (same as desktop sidebar) -->
+      <nav class="p-4 space-y-6">
+        <!-- Getting Started Link -->
+        <div>
+          <a
+            routerLink="/docs/getting-started"
+            routerLinkActive="active-sidebar"
+            class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          >
+            Getting Started
+          </a>
+
+          <a
+            routerLink="/docs/components"
+            routerLinkActive="active-sidebar"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          >
+            All Components
+          </a>
+        </div>
+
+        <!-- Theme Section -->
+        @if (themePages().length > 0) {
+          <div>
+            <div
+              class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+            >
+              Theme
+            </div>
+            @for (page of themePages(); track page.slug) {
+              <a
+                [routerLink]="'/docs/theme/' + page.slug"
+                routerLinkActive="active-sidebar"
+                class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+              >
+                {{ page.name }}
+              </a>
+            }
+          </div>
+        }
+
+        @for (category of categories(); track category) {
+          <div>
+            <div
+              class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+            >
+              {{ category }}
+            </div>
+            @for (comp of getComponents(category); track comp.slug) {
+              <a
+                [routerLink]="'/docs/' + comp.slug"
+                routerLinkActive="active-sidebar"
+                class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+              >
+                {{ comp.name }}
+              </a>
+            }
+          </div>
+        }
+      </nav>
+    </aside>
+  </div>
+}
+
+<!-- Desktop Sidebar -->
 <aside
   class="hidden md:block w-64 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto"
 >

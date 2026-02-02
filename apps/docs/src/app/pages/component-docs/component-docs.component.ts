@@ -1,25 +1,34 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import {
+  CardComponent,
+  TabsComponent,
+  TabsIndicatorComponent,
+  TabsListDirective,
+  TabsPanelDirective,
+  TabsTriggerDirective,
+} from '@lumaui/angular';
+import { Component, computed, inject } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { CardComponent } from '@lumaui/angular';
 import { DocsRegistryService } from '../../services/docs-registry.service';
 import { ExamplePreviewComponent } from '../../components/example-preview/example-preview.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-type TabType =
-  | 'examples'
-  | 'tokens'
-  | 'customizing'
-  | 'specification'
-  | 'use-cases';
-
 @Component({
   selector: 'app-component-docs',
-  imports: [SidebarComponent, ExamplePreviewComponent, CardComponent],
+  imports: [
+    SidebarComponent,
+    ExamplePreviewComponent,
+    CardComponent,
+    TabsComponent,
+    TabsListDirective,
+    TabsTriggerDirective,
+    TabsPanelDirective,
+    TabsIndicatorComponent,
+  ],
   template: `
-    <div class="max-w-7xl mx-auto flex mt-16">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">
       <app-sidebar />
       <div class="flex-1 px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
         @if (component(); as comp) {
@@ -49,251 +58,221 @@ type TabType =
           </div>
 
           <!-- Tabs -->
-          <div
-            class="border-b lm-border-neutral-70 mb-6 sm:mb-8 overflow-x-auto"
-          >
-            <nav class="flex gap-6 sm:gap-8 min-w-max">
-              <button
-                (click)="setActiveTab('examples')"
-                [class.active]="activeTab() === 'examples'"
-                class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
-              >
-                Examples
-              </button>
-              <button
-                (click)="setActiveTab('tokens')"
-                [class.active]="activeTab() === 'tokens'"
-                class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
-              >
-                Tokens
-              </button>
+          <luma-tabs lmDefaultValue="examples">
+            <div
+              lumaTabsList
+              class="border-b lm-border-neutral-70 mb-6 sm:mb-8 overflow-x-auto"
+            >
+              <button lumaTabsTrigger="examples">Examples</button>
+              <button lumaTabsTrigger="tokens">Tokens</button>
               @if (
                 comp.customization && comp.customization.examples.length > 0
               ) {
-                <button
-                  (click)="setActiveTab('customizing')"
-                  [class.active]="activeTab() === 'customizing'"
-                  class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
-                >
-                  Customizing
-                </button>
+                <button lumaTabsTrigger="customizing">Customizing</button>
               }
-              <button
-                (click)="setActiveTab('specification')"
-                [class.active]="activeTab() === 'specification'"
-                class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
-              >
-                Specification
-              </button>
+              <button lumaTabsTrigger="specification">Specification</button>
               @if (comp.useCases && comp.useCases.length > 0) {
-                <button
-                  (click)="setActiveTab('use-cases')"
-                  [class.active]="activeTab() === 'use-cases'"
-                  class="tab-button pb-3 text-sm sm:text-base whitespace-nowrap border-b-2 transition-colors"
-                >
-                  Use Cases
-                </button>
+                <button lumaTabsTrigger="use-cases">Use Cases</button>
               }
-            </nav>
-          </div>
+              <luma-tabs-indicator />
+            </div>
 
-          <!-- Tab Content -->
-          @switch (activeTab()) {
-            @case ('examples') {
-              <div class="space-y-8">
-                @for (example of comp.examples; track example.title) {
+            <!-- Examples Panel -->
+            <div lumaTabsPanel="examples" class="space-y-8">
+              @for (example of comp.examples; track example.title) {
+                <section>
+                  <h3 class="text-lg font-medium lm-text-primary mb-4">
+                    {{ example.title }}
+                  </h3>
+                  <app-example-preview
+                    [componentSlug]="comp.slug"
+                    [exampleId]="slugify(example.title)"
+                    [code]="example.code"
+                    [language]="example.language || 'html'"
+                  />
+                </section>
+              }
+            </div>
+
+            <!-- Tokens Panel -->
+            <div lumaTabsPanel="tokens" class="space-y-8">
+              @if (comp.tokenGroups && comp.tokenGroups.length > 0) {
+                <!-- Grouped Tokens -->
+                @for (group of comp.tokenGroups; track group.name) {
                   <section>
-                    <h3 class="text-lg font-medium lm-text-primary mb-4">
-                      {{ example.title }}
+                    <h3 class="text-lg font-medium lm-text-primary mb-4 pb-2">
+                      {{ group.name }}
                     </h3>
-                    <app-example-preview
-                      [componentSlug]="comp.slug"
-                      [exampleId]="slugify(example.title)"
-                      [code]="example.code"
-                      [language]="example.language || 'html'"
-                    />
+
+                    <!-- Desktop Table (md+) -->
+                    <div class="hidden md:block overflow-x-auto">
+                      <table class="w-full text-left table-fixed">
+                        <thead>
+                          <tr class="lm-text-secondary">
+                            <th class="pb-3 pr-6 font-medium text-sm w-[40%]">
+                              Token
+                            </th>
+                            <th class="pb-3 pr-6 font-medium text-sm w-[25%]">
+                              Value
+                            </th>
+                            <th class="pb-3 font-medium text-sm w-[35%]">
+                              Description
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @for (token of group.tokens; track token.name) {
+                            <tr class="text-sm table-row-striped">
+                              <td class="py-3 pr-6">
+                                <code
+                                  class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all"
+                                  >{{ token.name }}</code
+                                >
+                              </td>
+                              <td class="py-3 pr-6">
+                                <div class="flex items-center gap-2">
+                                  @if (isColor(token.value)) {
+                                    <span
+                                      class="w-4 h-4 rounded"
+                                      [style.background]="token.value"
+                                    ></span>
+                                  }
+                                  <code
+                                    class="font-mono text-xs lm-text-secondary"
+                                    >{{ token.value }}</code
+                                  >
+                                </div>
+                              </td>
+                              <td class="py-3 lm-text-secondary">
+                                {{ token.description }}
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- Mobile Cards (< md) -->
+                    <div class="md:hidden space-y-3">
+                      @for (token of group.tokens; track token.name) {
+                        <luma-card>
+                          <div class="flex items-start gap-3 mb-2">
+                            @if (isColor(token.value)) {
+                              <span
+                                class="w-5 h-5 rounded shrink-0 mt-0.5"
+                                [style.background]="token.value"
+                              ></span>
+                            }
+                            <code
+                              class="font-mono text-xs lm-text-primary break-all"
+                              >{{ token.name }}</code
+                            >
+                          </div>
+                          <p class="text-sm lm-text-secondary mb-3">
+                            {{ token.description }}
+                          </p>
+                          <div
+                            class="flex items-center gap-2 text-sm lm-text-secondary/70"
+                          >
+                            <span class="font-medium shrink-0">Value:</span>
+                            <code class="font-mono break-all">{{
+                              token.value
+                            }}</code>
+                          </div>
+                        </luma-card>
+                      }
+                    </div>
                   </section>
                 }
-              </div>
-            }
-            @case ('tokens') {
-              <div class="space-y-8">
-                @if (comp.tokenGroups && comp.tokenGroups.length > 0) {
-                  <!-- Grouped Tokens -->
-                  @for (group of comp.tokenGroups; track group.name) {
-                    <section>
-                      <h3 class="text-lg font-medium lm-text-primary mb-4 pb-2">
-                        {{ group.name }}
-                      </h3>
-
-                      <!-- Desktop Table (md+) -->
-                      <div class="hidden md:block overflow-x-auto">
-                        <table class="w-full text-left table-fixed">
-                          <thead>
-                            <tr class="lm-text-secondary">
-                              <th class="pb-3 pr-6 font-medium text-sm w-[40%]">
-                                Token
-                              </th>
-                              <th class="pb-3 pr-6 font-medium text-sm w-[25%]">
-                                Value
-                              </th>
-                              <th class="pb-3 font-medium text-sm w-[35%]">
-                                Description
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @for (token of group.tokens; track token.name) {
-                              <tr class="text-sm table-row-striped">
-                                <td class="py-3 pr-6">
-                                  <code
-                                    class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all"
-                                    >{{ token.name }}</code
-                                  >
-                                </td>
-                                <td class="py-3 pr-6">
-                                  <div class="flex items-center gap-2">
-                                    @if (isColor(token.value)) {
-                                      <span
-                                        class="w-4 h-4 rounded"
-                                        [style.background]="token.value"
-                                      ></span>
-                                    }
-                                    <code
-                                      class="font-mono text-xs lm-text-secondary"
-                                      >{{ token.value }}</code
-                                    >
-                                  </div>
-                                </td>
-                                <td class="py-3 lm-text-secondary">
-                                  {{ token.description }}
-                                </td>
-                              </tr>
-                            }
-                          </tbody>
-                        </table>
-                      </div>
-
-                      <!-- Mobile Cards (< md) -->
-                      <div class="md:hidden space-y-3">
-                        @for (token of group.tokens; track token.name) {
-                          <luma-card>
-                            <div class="flex items-start gap-3 mb-2">
+              } @else if (comp.tokens && comp.tokens.length > 0) {
+                <!-- Legacy Flat Tokens - Desktop Table (md+) -->
+                <div class="hidden md:block overflow-x-auto">
+                  <table class="w-full text-left table-fixed">
+                    <thead>
+                      <tr class="lm-text-secondary">
+                        <th class="pb-3 pr-6 font-medium text-sm w-[40%]">
+                          Token
+                        </th>
+                        <th class="pb-3 pr-6 font-medium text-sm w-[25%]">
+                          Value
+                        </th>
+                        <th class="pb-3 font-medium text-sm w-[35%]">
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (token of comp.tokens; track token.name) {
+                        <tr class="text-sm table-row-striped">
+                          <td class="py-3 pr-6">
+                            <code
+                              class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all"
+                              >{{ token.name }}</code
+                            >
+                          </td>
+                          <td class="py-3 pr-6">
+                            <div class="flex items-center gap-2">
                               @if (isColor(token.value)) {
                                 <span
-                                  class="w-5 h-5 rounded shrink-0 mt-0.5"
+                                  class="w-4 h-4 rounded"
                                   [style.background]="token.value"
                                 ></span>
                               }
                               <code
-                                class="font-mono text-xs lm-text-primary break-all"
-                                >{{ token.name }}</code
+                                class="font-mono text-xs lm-text-secondary"
+                                >{{ token.value }}</code
                               >
                             </div>
-                            <p class="text-sm lm-text-secondary mb-3">
-                              {{ token.description }}
-                            </p>
-                            <div
-                              class="flex items-center gap-2 text-sm lm-text-secondary/70"
-                            >
-                              <span class="font-medium shrink-0">Value:</span>
-                              <code class="font-mono break-all">{{
-                                token.value
-                              }}</code>
-                            </div>
-                          </luma-card>
-                        }
-                      </div>
-                    </section>
-                  }
-                } @else if (comp.tokens && comp.tokens.length > 0) {
-                  <!-- Legacy Flat Tokens - Desktop Table (md+) -->
-                  <div class="hidden md:block overflow-x-auto">
-                    <table class="w-full text-left table-fixed">
-                      <thead>
-                        <tr class="lm-text-secondary">
-                          <th class="pb-3 pr-6 font-medium text-sm w-[40%]">
-                            Token
-                          </th>
-                          <th class="pb-3 pr-6 font-medium text-sm w-[25%]">
-                            Value
-                          </th>
-                          <th class="pb-3 font-medium text-sm w-[35%]">
-                            Description
-                          </th>
+                          </td>
+                          <td class="py-3 lm-text-secondary">
+                            {{ token.description }}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        @for (token of comp.tokens; track token.name) {
-                          <tr class="text-sm table-row-striped">
-                            <td class="py-3 pr-6">
-                              <code
-                                class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded break-all"
-                                >{{ token.name }}</code
-                              >
-                            </td>
-                            <td class="py-3 pr-6">
-                              <div class="flex items-center gap-2">
-                                @if (isColor(token.value)) {
-                                  <span
-                                    class="w-4 h-4 rounded"
-                                    [style.background]="token.value"
-                                  ></span>
-                                }
-                                <code
-                                  class="font-mono text-xs lm-text-secondary"
-                                  >{{ token.value }}</code
-                                >
-                              </div>
-                            </td>
-                            <td class="py-3 lm-text-secondary">
-                              {{ token.description }}
-                            </td>
-                          </tr>
-                        }
-                      </tbody>
-                    </table>
-                  </div>
+                      }
+                    </tbody>
+                  </table>
+                </div>
 
-                  <!-- Legacy Flat Tokens - Mobile Cards (< md) -->
-                  <div class="md:hidden space-y-3">
-                    @for (token of comp.tokens; track token.name) {
-                      <luma-card>
-                        <div class="flex items-start gap-3 mb-2">
-                          @if (isColor(token.value)) {
-                            <span
-                              class="w-5 h-5 rounded shrink-0 mt-0.5"
-                              [style.background]="token.value"
-                            ></span>
-                          }
-                          <code
-                            class="font-mono text-xs lm-text-primary break-all"
-                            >{{ token.name }}</code
-                          >
-                        </div>
-                        <p class="text-sm lm-text-secondary mb-3">
-                          {{ token.description }}
-                        </p>
-                        <div
-                          class="flex items-center gap-2 text-sm lm-text-secondary/70"
+                <!-- Legacy Flat Tokens - Mobile Cards (< md) -->
+                <div class="md:hidden space-y-3">
+                  @for (token of comp.tokens; track token.name) {
+                    <luma-card>
+                      <div class="flex items-start gap-3 mb-2">
+                        @if (isColor(token.value)) {
+                          <span
+                            class="w-5 h-5 rounded shrink-0 mt-0.5"
+                            [style.background]="token.value"
+                          ></span>
+                        }
+                        <code
+                          class="font-mono text-xs lm-text-primary break-all"
+                          >{{ token.name }}</code
                         >
-                          <span class="font-medium shrink-0">Value:</span>
-                          <code class="font-mono break-all">{{
-                            token.value
-                          }}</code>
-                        </div>
-                      </luma-card>
-                    }
-                  </div>
-                } @else {
-                  <p class="lm-text-secondary text-sm">
-                    No tokens available for this component.
-                  </p>
-                }
-              </div>
-            }
-            @case ('customizing') {
-              <div class="space-y-8">
+                      </div>
+                      <p class="text-sm lm-text-secondary mb-3">
+                        {{ token.description }}
+                      </p>
+                      <div
+                        class="flex items-center gap-2 text-sm lm-text-secondary/70"
+                      >
+                        <span class="font-medium shrink-0">Value:</span>
+                        <code class="font-mono break-all">{{
+                          token.value
+                        }}</code>
+                      </div>
+                    </luma-card>
+                  }
+                </div>
+              } @else {
+                <p class="lm-text-secondary text-sm">
+                  No tokens available for this component.
+                </p>
+              }
+            </div>
+
+            <!-- Customizing Panel (conditional) -->
+            @if (comp.customization && comp.customization.examples.length > 0) {
+              <div lumaTabsPanel="customizing" class="space-y-8">
                 <!-- Introduction -->
                 @if (comp.customization.intro) {
                   <p class="lm-text-secondary leading-relaxed">
@@ -359,105 +338,103 @@ type TabType =
                 }
               </div>
             }
-            @case ('specification') {
-              <div class="space-y-8">
-                <!-- Inputs -->
-                @if (comp.inputs.length > 0) {
-                  <section>
-                    <h3 class="text-lg font-medium lm-text-primary mb-4">
-                      Inputs
-                    </h3>
 
-                    <!-- Desktop Table (md+) -->
-                    <div class="hidden md:block overflow-x-auto">
-                      <table class="w-full text-left">
-                        <thead>
-                          <tr class="lm-text-secondary">
-                            <th class="pb-3 pr-6 font-medium text-sm">Name</th>
-                            <th class="pb-3 pr-6 font-medium text-sm">Type</th>
-                            <th class="pb-3 pr-6 font-medium text-sm">
-                              Default
-                            </th>
-                            <th class="pb-3 font-medium text-sm">
-                              Description
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @for (input of comp.inputs; track input.name) {
-                            <tr class="text-sm table-row-striped">
-                              <td class="py-3 pr-6">
-                                <code
-                                  class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded"
-                                  >{{ input.name }}</code
-                                >
-                              </td>
-                              <td class="py-3 pr-6">
-                                <code
-                                  class="font-mono text-xs lm-text-secondary"
-                                  >{{ input.type }}</code
-                                >
-                              </td>
-                              <td class="py-3 pr-6">
-                                <code
-                                  class="font-mono text-xs lm-text-secondary"
-                                  >{{ input.default }}</code
-                                >
-                              </td>
-                              <td class="py-3 lm-text-secondary">
-                                {{ input.description }}
-                              </td>
-                            </tr>
-                          }
-                        </tbody>
-                      </table>
-                    </div>
-
-                    <!-- Mobile Cards (< md) -->
-                    <div class="md:hidden space-y-3">
-                      @for (input of comp.inputs; track input.name) {
-                        <luma-card>
-                          <div class="flex items-center gap-2 mb-2">
-                            <code
-                              class="font-mono text-sm font-medium lm-text-primary"
-                              >{{ input.name }}</code
-                            >
-                            @if (input.default) {
-                              <span
-                                class="text-xs px-1.5 py-0.5 rounded lm-bg-primary-50/10 lm-text-secondary"
-                              >
-                                = {{ input.default }}
-                              </span>
-                            }
-                          </div>
-                          <p class="text-sm lm-text-secondary mb-2">
-                            {{ input.description }}
-                          </p>
-                          <code
-                            class="text-sm font-mono lm-text-secondary/70 block break-all"
-                          >
-                            {{ input.type }}
-                          </code>
-                        </luma-card>
-                      }
-                    </div>
-                  </section>
-                }
-
-                <!-- Selector -->
+            <!-- Specification Panel -->
+            <div lumaTabsPanel="specification" class="space-y-8">
+              <!-- Inputs -->
+              @if (comp.inputs.length > 0) {
                 <section>
                   <h3 class="text-lg font-medium lm-text-primary mb-4">
-                    Selector
+                    Inputs
                   </h3>
-                  <code
-                    class="font-mono text-sm lm-bg-surface-base px-3 py-2 rounded block"
-                    >{{ comp.selector }}</code
-                  >
+
+                  <!-- Desktop Table (md+) -->
+                  <div class="hidden md:block overflow-x-auto">
+                    <table class="w-full text-left">
+                      <thead>
+                        <tr class="lm-text-secondary">
+                          <th class="pb-3 pr-6 font-medium text-sm">Name</th>
+                          <th class="pb-3 pr-6 font-medium text-sm">Type</th>
+                          <th class="pb-3 pr-6 font-medium text-sm">Default</th>
+                          <th class="pb-3 font-medium text-sm">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (input of comp.inputs; track input.name) {
+                          <tr class="text-sm table-row-striped">
+                            <td class="py-3 pr-6">
+                              <code
+                                class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded"
+                                >{{ input.name }}</code
+                              >
+                            </td>
+                            <td class="py-3 pr-6">
+                              <code
+                                class="font-mono text-xs lm-text-secondary"
+                                >{{ input.type }}</code
+                              >
+                            </td>
+                            <td class="py-3 pr-6">
+                              <code
+                                class="font-mono text-xs lm-text-secondary"
+                                >{{ input.default }}</code
+                              >
+                            </td>
+                            <td class="py-3 lm-text-secondary">
+                              {{ input.description }}
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Mobile Cards (< md) -->
+                  <div class="md:hidden space-y-3">
+                    @for (input of comp.inputs; track input.name) {
+                      <luma-card>
+                        <div class="flex items-center gap-2 mb-2">
+                          <code
+                            class="font-mono text-sm font-medium lm-text-primary"
+                            >{{ input.name }}</code
+                          >
+                          @if (input.default) {
+                            <span
+                              class="text-xs px-1.5 py-0.5 rounded lm-bg-primary-50/10 lm-text-secondary"
+                            >
+                              = {{ input.default }}
+                            </span>
+                          }
+                        </div>
+                        <p class="text-sm lm-text-secondary mb-2">
+                          {{ input.description }}
+                        </p>
+                        <code
+                          class="text-sm font-mono lm-text-secondary/70 block break-all"
+                        >
+                          {{ input.type }}
+                        </code>
+                      </luma-card>
+                    }
+                  </div>
                 </section>
-              </div>
-            }
-            @case ('use-cases') {
-              <div class="space-y-8">
+              }
+
+              <!-- Selector -->
+              <section>
+                <h3 class="text-lg font-medium lm-text-primary mb-4">
+                  Selector
+                </h3>
+                <code
+                  class="font-mono text-sm lm-bg-surface-base px-3 py-2 rounded block"
+                  >{{ comp.selector }}</code
+                >
+              </section>
+            </div>
+
+            <!-- Use Cases Panel (conditional) -->
+            @if (comp.useCases && comp.useCases.length > 0) {
+              <div lumaTabsPanel="use-cases" class="space-y-8">
                 @for (useCase of comp.useCases; track useCase.title) {
                   <section>
                     <h3 class="text-lg font-medium lm-text-primary mb-2">
@@ -478,7 +455,7 @@ type TabType =
                 }
               </div>
             }
-          }
+          </luma-tabs>
         } @else {
           <div class="text-center py-16">
             <h2 class="text-xl font-medium lm-text-primary mb-2">
@@ -492,28 +469,9 @@ type TabType =
       </div>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-
-      .tab-button {
-        border-bottom-color: transparent;
-        color: var(--luma-color-text-secondary);
-      }
-
-      .tab-button:hover {
-        color: var(--luma-color-text-primary);
-        border-bottom-color: var(--luma-color-text-secondary);
-      }
-
-      .tab-button.active {
-        color: var(--luma-color-primary);
-        border-bottom-color: var(--luma-color-primary);
-      }
-    `,
-  ],
+  host: {
+    class: 'block',
+  },
 })
 export class ComponentDocsComponent {
   private readonly route = inject(ActivatedRoute);
@@ -528,12 +486,6 @@ export class ComponentDocsComponent {
     if (!slug) return undefined;
     return this.registry.getComponent(slug);
   });
-
-  readonly activeTab = signal<TabType>('examples');
-
-  setActiveTab(tab: TabType): void {
-    this.activeTab.set(tab);
-  }
 
   slugify(title: string): string {
     return title
