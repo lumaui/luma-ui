@@ -46,9 +46,6 @@ jobs:
       - name: Build tokens
         run: cd packages/tokens && npm run build
 
-      - name: Build @lumaui/core
-        run: npx nx build core --skip-nx-cache
-
       - name: Run tests
         run: npm run test:components
 
@@ -85,6 +82,10 @@ jobs:
             echo "published=false" >> $GITHUB_OUTPUT
             echo "→ @lumaui/core@$VERSION will be published"
           fi
+
+      - name: Build @lumaui/core
+        if: steps.core_version.outputs.published == 'false'
+        run: npx nx build core --skip-nx-cache
 
       - name: Publish @lumaui/core
         if: steps.core_version.outputs.published == 'false' && !inputs.dry_run
