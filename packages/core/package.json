@@ -3,24 +3,24 @@
   "version": "0.2.0",
   "description": "Core variants and types for Luma UI - framework-agnostic CVA definitions",
   "type": "module",
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js"
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
     },
     "./variants": {
-      "types": "./dist/src/variants/index.d.ts",
-      "import": "./dist/src/variants/index.js"
+      "types": "./src/variants/index.d.ts",
+      "import": "./src/variants/index.js"
     },
     "./types": {
-      "types": "./dist/src/types/index.d.ts",
-      "import": "./dist/src/types/index.js"
+      "types": "./src/types/index.d.ts",
+      "import": "./src/types/index.js"
     }
   },
   "files": [
-    "dist/",
+    "src/",
     "README.md"
   ],
   "peerDependencies": {
