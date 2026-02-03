@@ -328,7 +328,7 @@ Toast provides non-blocking notifications that appear temporarily to inform user
 
 - Uses `role="status"` for info/success/warning (polite announcements)
 - Uses `role="alert"` for error toasts (assertive announcements)
-- Screen reader announcements via Angular CDK LiveAnnouncer
+- Native ARIA live regions for screen reader support
 - Keyboard accessible: Escape to dismiss, Tab for navigation
 - Timer pauses on focus for keyboard users
 - Minimum contrast ratios maintained for all variants

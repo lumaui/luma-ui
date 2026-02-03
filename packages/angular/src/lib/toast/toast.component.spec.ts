@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { PLATFORM_ID } from '@angular/core';
 
 import {
@@ -282,11 +281,6 @@ class ToastItemErrorTestHostComponent {
   }
 }
 
-// Mock LiveAnnouncer
-const mockLiveAnnouncer = {
-  announce: vi.fn(),
-};
-
 // ============================================
 // TOAST SERVICE TESTS
 // ============================================
@@ -298,7 +292,6 @@ describe('LmToastService', () => {
     TestBed.configureTestingModule({
       providers: [
         LmToastService,
-        { provide: LiveAnnouncer, useValue: mockLiveAnnouncer },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     });
@@ -359,37 +352,6 @@ describe('LmToastService', () => {
       expect(service.toasts()[0].role).toBe('status');
       expect(service.toasts()[1].role).toBe('status');
       expect(service.toasts()[2].role).toBe('status');
-    });
-
-    it('should announce toast to screen readers', () => {
-      service.show({ message: 'Test message', variant: 'success' });
-
-      expect(mockLiveAnnouncer.announce).toHaveBeenCalledWith(
-        'Success: Test message',
-        'polite',
-      );
-    });
-
-    it('should use assertive announcement for errors', () => {
-      service.show({ message: 'Error message', variant: 'error' });
-
-      expect(mockLiveAnnouncer.announce).toHaveBeenCalledWith(
-        'Error: Error message',
-        'assertive',
-      );
-    });
-
-    it('should include title in announcement when provided', () => {
-      service.show({
-        message: 'Details',
-        title: 'Important',
-        variant: 'warning',
-      });
-
-      expect(mockLiveAnnouncer.announce).toHaveBeenCalledWith(
-        'Warning: Important. Details',
-        'polite',
-      );
     });
   });
 
@@ -514,7 +476,6 @@ describe('LmToastService with custom config', () => {
     TestBed.configureTestingModule({
       providers: [
         LmToastService,
-        { provide: LiveAnnouncer, useValue: mockLiveAnnouncer },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideToastConfig({
           position: 'bottom-center',

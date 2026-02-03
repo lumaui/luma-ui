@@ -11,7 +11,6 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 import {
   TOAST_CONFIG,
@@ -19,7 +18,6 @@ import {
   ToastOptions,
   ToastRef,
   ToastRefImpl,
-  ToastVariant,
 } from './toast.tokens';
 import { LmToastContainerComponent } from './toast-container.component';
 
@@ -52,7 +50,6 @@ export class LmToastService implements OnDestroy {
   private readonly injector = inject(Injector);
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
-  private readonly liveAnnouncer = inject(LiveAnnouncer);
 
   private readonly _toasts = signal<Toast[]>([]);
   private containerRef: ComponentRef<LmToastContainerComponent> | null = null;
@@ -97,7 +94,6 @@ export class LmToastService implements OnDestroy {
     }
 
     this._toasts.update((toasts) => [...toasts, toast]);
-    this.announceToast(toast);
 
     const toastRef = new ToastRefImpl(toast.id, (id) => this.dismiss(id));
     this.toastRefs.set(toast.id, toastRef);
@@ -201,31 +197,5 @@ export class LmToastService implements OnDestroy {
       this.containerRef.destroy();
       this.containerRef = null;
     }
-  }
-
-  /**
-   * Announce toast to screen readers
-   */
-  private announceToast(toast: Toast): void {
-    const prefix = this.getVariantPrefix(toast.variant);
-    const message = toast.title
-      ? `${prefix}: ${toast.title}. ${toast.message}`
-      : `${prefix}: ${toast.message}`;
-
-    const politeness = toast.variant === 'error' ? 'assertive' : 'polite';
-    this.liveAnnouncer.announce(message, politeness);
-  }
-
-  /**
-   * Get announcement prefix for variant
-   */
-  private getVariantPrefix(variant: ToastVariant): string {
-    const prefixes: Record<ToastVariant, string> = {
-      info: 'Information',
-      success: 'Success',
-      warning: 'Warning',
-      error: 'Error',
-    };
-    return prefixes[variant];
   }
 }
