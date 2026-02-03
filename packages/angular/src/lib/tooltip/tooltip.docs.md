@@ -4,6 +4,9 @@ type: directive
 selector: '[lumaTooltip]'
 category: Feedback
 description: A modern, arrow-less tooltip directive for contextual information. Supports text and HTML content, auto-positioning, and hybrid mobile/desktop interactions.
+imports:
+  - name: LmTooltipDirective
+    module: '@lumaui/angular'
 inputs:
   - name: lumaTooltip
     type: 'string'

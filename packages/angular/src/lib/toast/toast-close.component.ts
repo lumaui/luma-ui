@@ -37,7 +37,7 @@ import { toastCloseVariants, ToastVariant } from '@lumaui/core';
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToastCloseComponent {
+export class LmToastCloseComponent {
   /** Toast variant for styling */
   lmVariant = input<ToastVariant>('info');
 

@@ -47,7 +47,7 @@ let uniqueId = 0;
     '[id]': 'triggerId',
   },
 })
-export class AccordionTriggerDirective {
+export class LmAccordionTriggerDirective {
   protected item = inject(ACCORDION_ITEM);
 
   private id = ++uniqueId;

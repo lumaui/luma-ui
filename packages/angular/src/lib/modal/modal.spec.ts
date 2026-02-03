@@ -2,14 +2,14 @@ import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ModalComponent } from './modal.component';
-import { ModalOverlayComponent } from './modal-overlay.component';
-import { ModalContainerComponent } from './modal-container.component';
-import { ModalHeaderDirective } from './modal-header.directive';
-import { ModalTitleDirective } from './modal-title.directive';
-import { ModalContentDirective } from './modal-content.directive';
-import { ModalFooterDirective } from './modal-footer.directive';
-import { ModalCloseComponent } from './modal-close.component';
+import { LmModalComponent } from './modal.component';
+import { LmModalOverlayComponent } from './modal-overlay.component';
+import { LmModalContainerComponent } from './modal-container.component';
+import { LmModalHeaderDirective } from './modal-header.directive';
+import { LmModalTitleDirective } from './modal-title.directive';
+import { LmModalContentDirective } from './modal-content.directive';
+import { LmModalFooterDirective } from './modal-footer.directive';
+import { LmModalCloseComponent } from './modal-close.component';
 
 // ============================================
 // TOKEN CONSTANTS
@@ -209,14 +209,14 @@ function cleanupModalTokens(): void {
     </luma-modal>
   `,
   imports: [
-    ModalComponent,
-    ModalOverlayComponent,
-    ModalContainerComponent,
-    ModalHeaderDirective,
-    ModalTitleDirective,
-    ModalContentDirective,
-    ModalFooterDirective,
-    ModalCloseComponent,
+    LmModalComponent,
+    LmModalOverlayComponent,
+    LmModalContainerComponent,
+    LmModalHeaderDirective,
+    LmModalTitleDirective,
+    LmModalContentDirective,
+    LmModalFooterDirective,
+    LmModalCloseComponent,
   ],
 })
 class ModalTestHostComponent {
@@ -246,10 +246,10 @@ class ModalTestHostComponent {
     </luma-modal>
   `,
   imports: [
-    ModalComponent,
-    ModalOverlayComponent,
-    ModalContainerComponent,
-    ModalContentDirective,
+    LmModalComponent,
+    LmModalOverlayComponent,
+    LmModalContainerComponent,
+    LmModalContentDirective,
   ],
 })
 class UncontrolledModalTestHostComponent {}
@@ -263,7 +263,7 @@ describe('Modal', () => {
   // MODAL COMPONENT TESTS
   // ============================================
 
-  describe('ModalComponent', () => {
+  describe('LmModalComponent', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -284,7 +284,9 @@ describe('Modal', () => {
     describe('Basic Creation', () => {
       it('should create the component', () => {
         fixture.detectChanges();
-        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        const modal = fixture.debugElement.query(
+          By.directive(LmModalComponent),
+        );
         expect(modal).toBeTruthy();
       });
 
@@ -292,7 +294,9 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
 
-        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        const modal = fixture.debugElement.query(
+          By.directive(LmModalComponent),
+        );
         expect(modal.nativeElement.getAttribute('data-state')).toBe('open');
       });
 
@@ -300,7 +304,9 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(false);
         fixture.detectChanges();
 
-        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        const modal = fixture.debugElement.query(
+          By.directive(LmModalComponent),
+        );
         expect(modal.nativeElement.getAttribute('data-state')).toBe('closed');
       });
     });
@@ -341,7 +347,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const overlay = fixture.debugElement.query(
-          By.directive(ModalOverlayComponent),
+          By.directive(LmModalOverlayComponent),
         );
         expect(overlay).toBeTruthy();
       });
@@ -350,7 +356,9 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(false);
         fixture.detectChanges();
 
-        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        const modal = fixture.debugElement.query(
+          By.directive(LmModalComponent),
+        );
         expect(modal.nativeElement.getAttribute('data-state')).toBe('closed');
       });
 
@@ -358,7 +366,9 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(true);
         fixture.detectChanges();
 
-        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        const modal = fixture.debugElement.query(
+          By.directive(LmModalComponent),
+        );
         modal.componentInstance.close();
 
         expect(hostComponent.openChanges).toContain(false);
@@ -368,7 +378,9 @@ describe('Modal', () => {
         hostComponent.lmOpen.set(false);
         fixture.detectChanges();
 
-        const modal = fixture.debugElement.query(By.directive(ModalComponent));
+        const modal = fixture.debugElement.query(
+          By.directive(LmModalComponent),
+        );
         modal.componentInstance.open();
 
         expect(hostComponent.openChanges).toContain(true);
@@ -383,7 +395,7 @@ describe('Modal', () => {
         uncontrolledFixture.detectChanges();
 
         const overlay = uncontrolledFixture.debugElement.query(
-          By.directive(ModalOverlayComponent),
+          By.directive(LmModalOverlayComponent),
         );
         expect(overlay).toBeTruthy();
       });
@@ -399,7 +411,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.componentInstance.classes()).toContain('max-w-sm');
       });
@@ -409,7 +421,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.componentInstance.classes()).toContain('max-w-md');
       });
@@ -419,7 +431,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.componentInstance.classes()).toContain('max-w-lg');
       });
@@ -429,7 +441,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.componentInstance.classes()).toContain('max-w-xl');
       });
@@ -439,7 +451,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.componentInstance.classes()).toContain('w-[95vw]');
         expect(container.componentInstance.classes()).toContain('h-[95vh]');
@@ -456,7 +468,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const overlay = fixture.debugElement.query(
-          By.directive(ModalOverlayComponent),
+          By.directive(LmModalOverlayComponent),
         );
         overlay.nativeElement.click();
 
@@ -469,7 +481,7 @@ describe('Modal', () => {
         hostComponent.openChanges = [];
 
         const overlay = fixture.debugElement.query(
-          By.directive(ModalOverlayComponent),
+          By.directive(LmModalOverlayComponent),
         );
         overlay.nativeElement.click();
 
@@ -482,7 +494,7 @@ describe('Modal', () => {
         hostComponent.openChanges = [];
 
         const content = fixture.debugElement.query(
-          By.directive(ModalContentDirective),
+          By.directive(LmModalContentDirective),
         );
         content.nativeElement.click();
 
@@ -545,7 +557,7 @@ describe('Modal', () => {
   // MODAL CONTAINER TESTS
   // ============================================
 
-  describe('ModalContainerComponent', () => {
+  describe('LmModalContainerComponent', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -569,7 +581,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.nativeElement.getAttribute('role')).toBe('dialog');
       });
@@ -579,7 +591,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         expect(container.nativeElement.getAttribute('aria-modal')).toBe('true');
       });
@@ -589,14 +601,14 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         const ariaLabelledBy =
           container.nativeElement.getAttribute('aria-labelledby');
         expect(ariaLabelledBy).toContain('title');
 
         const title = fixture.debugElement.query(
-          By.directive(ModalTitleDirective),
+          By.directive(LmModalTitleDirective),
         );
         expect(title.nativeElement.id).toBe(ariaLabelledBy);
       });
@@ -608,7 +620,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         const classes = container.componentInstance.classes();
 
@@ -626,7 +638,7 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const container = fixture.debugElement.query(
-          By.directive(ModalContainerComponent),
+          By.directive(LmModalContainerComponent),
         );
         const classes = container.componentInstance.classes();
 
@@ -640,7 +652,7 @@ describe('Modal', () => {
   // MODAL HEADER TESTS
   // ============================================
 
-  describe('ModalHeaderDirective', () => {
+  describe('LmModalHeaderDirective', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -663,9 +675,9 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const headerEl = fixture.debugElement.query(
-        By.directive(ModalHeaderDirective),
+        By.directive(LmModalHeaderDirective),
       );
-      const directive = headerEl.injector.get(ModalHeaderDirective);
+      const directive = headerEl.injector.get(LmModalHeaderDirective);
       const classes = directive.classes();
 
       expect(classes).toContain('relative');
@@ -682,7 +694,7 @@ describe('Modal', () => {
   // MODAL TITLE TESTS
   // ============================================
 
-  describe('ModalTitleDirective', () => {
+  describe('LmModalTitleDirective', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -705,9 +717,9 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const titleEl = fixture.debugElement.query(
-        By.directive(ModalTitleDirective),
+        By.directive(LmModalTitleDirective),
       );
-      const directive = titleEl.injector.get(ModalTitleDirective);
+      const directive = titleEl.injector.get(LmModalTitleDirective);
       const classes = directive.classes();
 
       expect(classes).toContain('lm-text-modal-title');
@@ -719,7 +731,7 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const titleEl = fixture.debugElement.query(
-        By.directive(ModalTitleDirective),
+        By.directive(LmModalTitleDirective),
       );
       expect(titleEl.nativeElement.id).toBeTruthy();
       expect(titleEl.nativeElement.id).toContain('modal');
@@ -732,9 +744,9 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const titleEl = fixture.debugElement.query(
-          By.directive(ModalTitleDirective),
+          By.directive(LmModalTitleDirective),
         );
-        const directive = titleEl.injector.get(ModalTitleDirective);
+        const directive = titleEl.injector.get(LmModalTitleDirective);
         expect(directive.classes()).toContain('text-lg');
       });
     });
@@ -744,7 +756,7 @@ describe('Modal', () => {
   // MODAL CONTENT TESTS
   // ============================================
 
-  describe('ModalContentDirective', () => {
+  describe('LmModalContentDirective', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -767,9 +779,9 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const contentEl = fixture.debugElement.query(
-        By.directive(ModalContentDirective),
+        By.directive(LmModalContentDirective),
       );
-      const directive = contentEl.injector.get(ModalContentDirective);
+      const directive = contentEl.injector.get(LmModalContentDirective);
       const classes = directive.classes();
 
       expect(classes).toContain('lm-px-modal-content');
@@ -784,9 +796,9 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const contentEl = fixture.debugElement.query(
-        By.directive(ModalContentDirective),
+        By.directive(LmModalContentDirective),
       );
-      const directive = contentEl.injector.get(ModalContentDirective);
+      const directive = contentEl.injector.get(LmModalContentDirective);
       expect(directive.classes()).toContain('overflow-y-auto');
     });
 
@@ -796,9 +808,9 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const contentEl = fixture.debugElement.query(
-        By.directive(ModalContentDirective),
+        By.directive(LmModalContentDirective),
       );
-      const directive = contentEl.injector.get(ModalContentDirective);
+      const directive = contentEl.injector.get(LmModalContentDirective);
       expect(directive.classes()).toContain('overflow-visible');
     });
   });
@@ -807,7 +819,7 @@ describe('Modal', () => {
   // MODAL FOOTER TESTS
   // ============================================
 
-  describe('ModalFooterDirective', () => {
+  describe('LmModalFooterDirective', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -830,9 +842,9 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const footerEl = fixture.debugElement.query(
-        By.directive(ModalFooterDirective),
+        By.directive(LmModalFooterDirective),
       );
-      const directive = footerEl.injector.get(ModalFooterDirective);
+      const directive = footerEl.injector.get(LmModalFooterDirective);
       const classes = directive.classes();
 
       expect(classes).toContain('flex');
@@ -850,9 +862,9 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const footerEl = fixture.debugElement.query(
-          By.directive(ModalFooterDirective),
+          By.directive(LmModalFooterDirective),
         );
-        const directive = footerEl.injector.get(ModalFooterDirective);
+        const directive = footerEl.injector.get(LmModalFooterDirective);
         expect(directive.classes()).toContain('justify-end');
       });
 
@@ -862,9 +874,9 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const footerEl = fixture.debugElement.query(
-          By.directive(ModalFooterDirective),
+          By.directive(LmModalFooterDirective),
         );
-        const directive = footerEl.injector.get(ModalFooterDirective);
+        const directive = footerEl.injector.get(LmModalFooterDirective);
         expect(directive.classes()).toContain('justify-start');
       });
 
@@ -874,9 +886,9 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const footerEl = fixture.debugElement.query(
-          By.directive(ModalFooterDirective),
+          By.directive(LmModalFooterDirective),
         );
-        const directive = footerEl.injector.get(ModalFooterDirective);
+        const directive = footerEl.injector.get(LmModalFooterDirective);
         expect(directive.classes()).toContain('justify-center');
       });
 
@@ -886,9 +898,9 @@ describe('Modal', () => {
         fixture.detectChanges();
 
         const footerEl = fixture.debugElement.query(
-          By.directive(ModalFooterDirective),
+          By.directive(LmModalFooterDirective),
         );
-        const directive = footerEl.injector.get(ModalFooterDirective);
+        const directive = footerEl.injector.get(LmModalFooterDirective);
         expect(directive.classes()).toContain('justify-between');
       });
     });
@@ -898,7 +910,7 @@ describe('Modal', () => {
   // MODAL CLOSE BUTTON TESTS
   // ============================================
 
-  describe('ModalCloseComponent', () => {
+  describe('LmModalCloseComponent', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -921,7 +933,7 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const closeButton = fixture.debugElement.query(
-        By.directive(ModalCloseComponent),
+        By.directive(LmModalCloseComponent),
       );
       expect(closeButton).toBeTruthy();
     });
@@ -966,7 +978,7 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const closeComponent = fixture.debugElement.query(
-        By.directive(ModalCloseComponent),
+        By.directive(LmModalCloseComponent),
       );
       const classes = closeComponent.componentInstance.classes();
 
@@ -982,7 +994,7 @@ describe('Modal', () => {
   // MODAL OVERLAY TESTS
   // ============================================
 
-  describe('ModalOverlayComponent', () => {
+  describe('LmModalOverlayComponent', () => {
     let fixture: ComponentFixture<ModalTestHostComponent>;
     let hostComponent: ModalTestHostComponent;
 
@@ -1005,7 +1017,7 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const overlay = fixture.debugElement.query(
-        By.directive(ModalOverlayComponent),
+        By.directive(LmModalOverlayComponent),
       );
       const classes = overlay.componentInstance.classes();
 
@@ -1023,7 +1035,7 @@ describe('Modal', () => {
       fixture.detectChanges();
 
       const overlay = fixture.debugElement.query(
-        By.directive(ModalOverlayComponent),
+        By.directive(LmModalOverlayComponent),
       );
       const classes = overlay.componentInstance.classes();
 

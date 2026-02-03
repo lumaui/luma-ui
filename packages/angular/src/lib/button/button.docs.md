@@ -4,6 +4,9 @@ type: directive
 selector: button[lumaButton], a[lumaButton]
 category: Form
 description: Versatile, accessible button element that follows Neo-Minimal design principles with calm interactions and visual silence.
+imports:
+  - name: LmButtonDirective
+    module: '@lumaui/angular'
 inputs:
   - name: lmVariant
     type: "'primary' | 'outline' | 'ghost' | 'danger'"

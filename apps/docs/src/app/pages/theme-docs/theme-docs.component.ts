@@ -5,14 +5,14 @@ import {
 } from '../../services/docs-registry.service';
 
 import { ActivatedRoute } from '@angular/router';
-import { CardComponent } from '@lumaui/angular';
+import { LmCardComponent } from '@lumaui/angular';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-theme-docs',
-  imports: [SidebarComponent, CardComponent],
+  imports: [SidebarComponent, LmCardComponent],
   template: `
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">
       <app-sidebar />

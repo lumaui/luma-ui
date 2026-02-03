@@ -1,8 +1,8 @@
 // Toast public API
-export { ToastService } from './toast.service';
-export { ToastContainerComponent } from './toast-container.component';
-export { ToastItemComponent } from './toast-item.component';
-export { ToastCloseComponent } from './toast-close.component';
+export { LmToastService } from './toast.service';
+export { LmToastContainerComponent } from './toast-container.component';
+export { LmToastItemComponent } from './toast-item.component';
+export { LmToastCloseComponent } from './toast-close.component';
 
 // Type exports (isolatedModules requires 'export type')
 export type {

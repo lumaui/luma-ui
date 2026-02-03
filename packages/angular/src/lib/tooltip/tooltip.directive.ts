@@ -21,7 +21,7 @@ import { tooltipVariants, type TooltipPosition } from '@lumaui/core';
     '[style.position]': '"relative"',
   },
 })
-export class TooltipDirective implements OnDestroy {
+export class LmTooltipDirective implements OnDestroy {
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
   private platformId = inject(PLATFORM_ID);

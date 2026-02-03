@@ -1,9 +1,9 @@
-import { ButtonDirective, TooltipDirective } from '@lumaui/angular';
+import { LmButtonDirective, LmTooltipDirective } from '@lumaui/angular';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-tooltip-previews',
-  imports: [TooltipDirective, ButtonDirective],
+  imports: [LmTooltipDirective, LmButtonDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (exampleId()) {

@@ -4,7 +4,7 @@ import { badgeVariants } from '@lumaui/core';
 @Directive({
   selector: '[lumaBadge]',
 })
-export class BadgeDirective {
+export class LmBadgeDirective {
   // Computed class string - layout only, no variants
   classes = computed(() => badgeVariants());
 

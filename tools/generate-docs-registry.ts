@@ -24,6 +24,12 @@ interface DocInput {
   description: string;
 }
 
+interface DocImport {
+  name: string;
+  module: string;
+  description?: string;
+}
+
 interface DocToken {
   name: string;
   value: string;
@@ -121,6 +127,7 @@ interface DocFrontMatter {
   selector: string;
   category: string;
   description: string;
+  imports?: DocImport[];
   inputs?: DocInput[];
   tokens?: DocToken[];
   tokenGroups?: DocTokenGroup[];
@@ -134,6 +141,7 @@ interface DocComponent {
   category: string;
   description: string;
   selector: string;
+  imports: DocImport[];
   inputs: DocInput[];
   tokens: DocToken[];
   tokenGroups: DocTokenGroup[];
@@ -645,6 +653,7 @@ function parseDocFile(filePath: string): DocComponent | null {
       category: frontMatter.category,
       description: frontMatter.description || '',
       selector: frontMatter.selector || '',
+      imports: frontMatter.imports || [],
       inputs: frontMatter.inputs || [],
       tokens: frontMatter.tokens || [],
       tokenGroups: frontMatter.tokenGroups || [],

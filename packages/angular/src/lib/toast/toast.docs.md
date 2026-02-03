@@ -4,6 +4,12 @@ type: component
 selector: ToastService
 category: Feedback
 description: Non-blocking notification system for displaying brief messages to users
+imports:
+  - name: LmToastService
+    module: '@lumaui/angular'
+  - name: provideToastConfig
+    module: '@lumaui/angular'
+    description: Optional - for global configuration
 inputs:
   - name: message
     type: 'string'

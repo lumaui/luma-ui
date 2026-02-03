@@ -23,7 +23,7 @@ import { accordionTitleVariants, type AccordionTitleSize } from '@lumaui/core';
     '[class]': 'classes()',
   },
 })
-export class AccordionTitleDirective {
+export class LmAccordionTitleDirective {
   /**
    * Size variant for the title
    * - sm: Small text for compact UIs

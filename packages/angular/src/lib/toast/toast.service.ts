@@ -21,7 +21,7 @@ import {
   ToastRefImpl,
   ToastVariant,
 } from './toast.tokens';
-import { ToastContainerComponent } from './toast-container.component';
+import { LmToastContainerComponent } from './toast-container.component';
 
 /**
  * ToastService
@@ -46,7 +46,7 @@ import { ToastContainerComponent } from './toast-container.component';
  * ```
  */
 @Injectable({ providedIn: 'root' })
-export class ToastService implements OnDestroy {
+export class LmToastService implements OnDestroy {
   private readonly config = inject(TOAST_CONFIG);
   private readonly appRef = inject(ApplicationRef);
   private readonly injector = inject(Injector);
@@ -55,7 +55,7 @@ export class ToastService implements OnDestroy {
   private readonly liveAnnouncer = inject(LiveAnnouncer);
 
   private readonly _toasts = signal<Toast[]>([]);
-  private containerRef: ComponentRef<ToastContainerComponent> | null = null;
+  private containerRef: ComponentRef<LmToastContainerComponent> | null = null;
   private nextId = 0;
   private readonly toastRefs = new Map<string, ToastRefImpl>();
 
@@ -179,7 +179,7 @@ export class ToastService implements OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
     if (this.containerRef) return;
 
-    this.containerRef = createComponent(ToastContainerComponent, {
+    this.containerRef = createComponent(LmToastContainerComponent, {
       environmentInjector: this.appRef.injector,
       elementInjector: this.injector,
     });

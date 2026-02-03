@@ -21,7 +21,7 @@ import { modalHeaderVariants } from '@lumaui/core';
     '[class]': 'classes()',
   },
 })
-export class ModalHeaderDirective {
+export class LmModalHeaderDirective {
   /** Computed classes from CVA */
   classes = computed(() => modalHeaderVariants());
 }

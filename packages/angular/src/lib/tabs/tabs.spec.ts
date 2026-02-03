@@ -6,10 +6,10 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TabsComponent } from './tabs.component';
-import { TabsListDirective } from './tabs-list.directive';
-import { TabsTriggerDirective } from './tabs-trigger.directive';
-import { TabsPanelDirective } from './tabs-panel.directive';
+import { LmTabsComponent } from './tabs.component';
+import { LmTabsListDirective } from './tabs-list.directive';
+import { LmTabsTriggerDirective } from './tabs-trigger.directive';
+import { LmTabsPanelDirective } from './tabs-panel.directive';
 
 /**
  * Design tokens for Tabs component testing
@@ -219,10 +219,10 @@ function cleanupTabsTokens(): void {
     </luma-tabs>
   `,
   imports: [
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
   ],
 })
 class TabsTestHostComponent {
@@ -254,10 +254,10 @@ class TabsTestHostComponent {
     </luma-tabs>
   `,
   imports: [
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
   ],
 })
 class TabsBackgroundStyleTestHostComponent {}
@@ -277,10 +277,10 @@ class TabsBackgroundStyleTestHostComponent {}
     </luma-tabs>
   `,
   imports: [
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
   ],
 })
 class TabsPillStyleTestHostComponent {}
@@ -300,10 +300,10 @@ class TabsPillStyleTestHostComponent {}
     </luma-tabs>
   `,
   imports: [
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
   ],
 })
 class TabsNoLazyTestHostComponent {}
@@ -315,7 +315,7 @@ class TabsNoLazyTestHostComponent {}
 describe('Tabs', () => {
   let fixture: ComponentFixture<TabsTestHostComponent>;
   let hostComponent: TabsTestHostComponent;
-  let tabsComponent: TabsComponent;
+  let tabsComponent: LmTabsComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -344,36 +344,36 @@ describe('Tabs', () => {
       fixture.detectChanges();
     });
 
-    it('should create the TabsComponent', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+    it('should create the LmTabsComponent', () => {
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(tabsComponent).toBeTruthy();
     });
 
-    it('should create TabsListDirective', () => {
+    it('should create LmTabsListDirective', () => {
       const listEl = fixture.debugElement.query(
-        By.directive(TabsListDirective),
+        By.directive(LmTabsListDirective),
       );
       expect(listEl).toBeTruthy();
     });
 
-    it('should create TabsTriggerDirective for each tab', () => {
+    it('should create LmTabsTriggerDirective for each tab', () => {
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       expect(triggers.length).toBe(3);
     });
 
-    it('should create TabsPanelDirective for each panel', () => {
+    it('should create LmTabsPanelDirective for each panel', () => {
       const panels = fixture.debugElement.queryAll(
-        By.directive(TabsPanelDirective),
+        By.directive(LmTabsPanelDirective),
       );
       expect(panels.length).toBe(3);
     });
 
-    it('should have signal-based inputs on TabsComponent', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+    it('should have signal-based inputs on LmTabsComponent', () => {
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(typeof tabsComponent.lmValue).toBe('function');
       expect(typeof tabsComponent.lmDefaultValue).toBe('function');
       expect(typeof tabsComponent.lmVariant).toBe('function');
@@ -456,9 +456,9 @@ describe('Tabs', () => {
 
         it('should apply underline style classes', () => {
           const listEl = fixture.debugElement.query(
-            By.directive(TabsListDirective),
+            By.directive(LmTabsListDirective),
           );
-          const directive = listEl.injector.get(TabsListDirective);
+          const directive = listEl.injector.get(LmTabsListDirective);
           const classes = directive.classes();
           expect(classes).toContain('border-b');
           expect(classes).toContain('lm-border-tabs-list');
@@ -472,9 +472,9 @@ describe('Tabs', () => {
           );
           bgFixture.detectChanges();
           const listEl = bgFixture.debugElement.query(
-            By.directive(TabsListDirective),
+            By.directive(LmTabsListDirective),
           );
-          const directive = listEl.injector.get(TabsListDirective);
+          const directive = listEl.injector.get(LmTabsListDirective);
           const classes = directive.classes();
           expect(classes).toContain('lm-gap-tabs-list');
         });
@@ -487,9 +487,9 @@ describe('Tabs', () => {
           );
           pillFixture.detectChanges();
           const listEl = pillFixture.debugElement.query(
-            By.directive(TabsListDirective),
+            By.directive(LmTabsListDirective),
           );
-          const directive = listEl.injector.get(TabsListDirective);
+          const directive = listEl.injector.get(LmTabsListDirective);
           const classes = directive.classes();
           expect(classes).toContain('lm-bg-tabs-pill');
           expect(classes).toContain('lm-rounded-tabs-pill');
@@ -505,9 +505,9 @@ describe('Tabs', () => {
 
         it('should apply base trigger classes', () => {
           const triggerEl = fixture.debugElement.query(
-            By.directive(TabsTriggerDirective),
+            By.directive(LmTabsTriggerDirective),
           );
-          const directive = triggerEl.injector.get(TabsTriggerDirective);
+          const directive = triggerEl.injector.get(LmTabsTriggerDirective);
           const classes = directive.classes();
           expect(classes).toContain('relative');
           expect(classes).toContain('flex');
@@ -516,9 +516,9 @@ describe('Tabs', () => {
 
         it('should apply focus ring class', () => {
           const triggerEl = fixture.debugElement.query(
-            By.directive(TabsTriggerDirective),
+            By.directive(LmTabsTriggerDirective),
           );
-          const directive = triggerEl.injector.get(TabsTriggerDirective);
+          const directive = triggerEl.injector.get(LmTabsTriggerDirective);
           const classes = directive.classes();
           expect(classes).toContain('focus-visible:lm-ring-focus');
         });
@@ -531,9 +531,9 @@ describe('Tabs', () => {
 
         it('should apply selected classes when tab is selected', () => {
           const triggerEl = fixture.debugElement.query(
-            By.directive(TabsTriggerDirective),
+            By.directive(LmTabsTriggerDirective),
           );
-          const directive = triggerEl.injector.get(TabsTriggerDirective);
+          const directive = triggerEl.injector.get(LmTabsTriggerDirective);
           // First tab is selected by default
           expect(directive.isSelected()).toBe(true);
           const classes = directive.classes();
@@ -549,18 +549,18 @@ describe('Tabs', () => {
 
       it('should apply visible class to selected panel', () => {
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
-        const firstPanel = panels[0].injector.get(TabsPanelDirective);
+        const firstPanel = panels[0].injector.get(LmTabsPanelDirective);
         expect(firstPanel.isVisible()).toBe(true);
         expect(firstPanel.classes()).toContain('block');
       });
 
       it('should apply hidden class to non-selected panel', () => {
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
-        const secondPanel = panels[1].injector.get(TabsPanelDirective);
+        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
         expect(secondPanel.isVisible()).toBe(false);
       });
     });
@@ -577,8 +577,10 @@ describe('Tabs', () => {
       });
 
       it('should select tab based on lmDefaultValue', () => {
-        const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-        tabsComponent = tabsEl.injector.get(TabsComponent);
+        const tabsEl = fixture.debugElement.query(
+          By.directive(LmTabsComponent),
+        );
+        tabsComponent = tabsEl.injector.get(LmTabsComponent);
         expect(tabsComponent.value()).toBe('tab-2');
       });
     });
@@ -590,8 +592,10 @@ describe('Tabs', () => {
       });
 
       it('should select tab based on lmValue', () => {
-        const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-        tabsComponent = tabsEl.injector.get(TabsComponent);
+        const tabsEl = fixture.debugElement.query(
+          By.directive(LmTabsComponent),
+        );
+        tabsComponent = tabsEl.injector.get(LmTabsComponent);
         expect(tabsComponent.value()).toBe('tab-3');
       });
     });
@@ -603,19 +607,21 @@ describe('Tabs', () => {
 
       it('should select tab on click', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
         fixture.detectChanges();
 
-        const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-        tabsComponent = tabsEl.injector.get(TabsComponent);
+        const tabsEl = fixture.debugElement.query(
+          By.directive(LmTabsComponent),
+        );
+        tabsComponent = tabsEl.injector.get(LmTabsComponent);
         expect(tabsComponent.value()).toBe('tab-2');
       });
 
       it('should emit lmValueChange on selection', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
         fixture.detectChanges();
@@ -626,7 +632,7 @@ describe('Tabs', () => {
       it('should not emit if selecting already selected tab', () => {
         hostComponent.valueChanges = [];
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         // First tab is already selected
         triggers[0].nativeElement.click();
@@ -647,7 +653,7 @@ describe('Tabs', () => {
 
     it('should focus next tab on ArrowRight', () => {
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const firstTrigger = triggers[0].nativeElement;
 
@@ -657,20 +663,20 @@ describe('Tabs', () => {
       );
       fixture.detectChanges();
 
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(tabsComponent.value()).toBe('tab-2');
     });
 
     it('should focus previous tab on ArrowLeft', () => {
       // First select tab-2
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       tabsComponent.select('tab-2');
       fixture.detectChanges();
 
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const secondTrigger = triggers[1].nativeElement;
 
@@ -684,13 +690,13 @@ describe('Tabs', () => {
     });
 
     it('should wrap to first tab when pressing ArrowRight on last tab', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       tabsComponent.select('tab-3');
       fixture.detectChanges();
 
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const lastTrigger = triggers[2].nativeElement;
 
@@ -705,7 +711,7 @@ describe('Tabs', () => {
 
     it('should wrap to last tab when pressing ArrowLeft on first tab', () => {
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const firstTrigger = triggers[0].nativeElement;
 
@@ -715,19 +721,19 @@ describe('Tabs', () => {
       );
       fixture.detectChanges();
 
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(tabsComponent.value()).toBe('tab-3');
     });
 
     it('should focus first tab on Home', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       tabsComponent.select('tab-3');
       fixture.detectChanges();
 
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const lastTrigger = triggers[2].nativeElement;
 
@@ -740,7 +746,7 @@ describe('Tabs', () => {
 
     it('should focus last tab on End', () => {
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const firstTrigger = triggers[0].nativeElement;
 
@@ -748,17 +754,17 @@ describe('Tabs', () => {
       firstTrigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
       fixture.detectChanges();
 
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(tabsComponent.value()).toBe('tab-3');
     });
 
     it('should activate tab on Enter', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
 
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const secondTrigger = triggers[1].nativeElement;
 
@@ -772,11 +778,11 @@ describe('Tabs', () => {
     });
 
     it('should activate tab on Space', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-      tabsComponent = tabsEl.injector.get(TabsComponent);
+      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
+      tabsComponent = tabsEl.injector.get(LmTabsComponent);
 
       const triggers = fixture.debugElement.queryAll(
-        By.directive(TabsTriggerDirective),
+        By.directive(LmTabsTriggerDirective),
       );
       const secondTrigger = triggers[1].nativeElement;
 
@@ -800,27 +806,29 @@ describe('Tabs', () => {
 
       it('should apply disabled classes', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
-        const directive = triggers[1].injector.get(TabsTriggerDirective);
+        const directive = triggers[1].injector.get(LmTabsTriggerDirective);
         expect(directive.lmDisabled()).toBe(true);
       });
 
       it('should not select disabled tab on click', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
         fixture.detectChanges();
 
-        const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-        tabsComponent = tabsEl.injector.get(TabsComponent);
+        const tabsEl = fixture.debugElement.query(
+          By.directive(LmTabsComponent),
+        );
+        tabsComponent = tabsEl.injector.get(LmTabsComponent);
         expect(tabsComponent.value()).toBe('tab-1'); // Should remain on tab-1
       });
 
       it('should not respond to keyboard when disabled', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         const disabledTrigger = triggers[1].nativeElement;
 
@@ -829,8 +837,10 @@ describe('Tabs', () => {
         );
         fixture.detectChanges();
 
-        const tabsEl = fixture.debugElement.query(By.directive(TabsComponent));
-        tabsComponent = tabsEl.injector.get(TabsComponent);
+        const tabsEl = fixture.debugElement.query(
+          By.directive(LmTabsComponent),
+        );
+        tabsComponent = tabsEl.injector.get(LmTabsComponent);
         expect(tabsComponent.value()).toBe('tab-1');
       });
     });
@@ -847,21 +857,21 @@ describe('Tabs', () => {
     describe('Roles', () => {
       it('should have role="tablist" on TabsList', () => {
         const listEl = fixture.debugElement.query(
-          By.directive(TabsListDirective),
+          By.directive(LmTabsListDirective),
         );
         expect(listEl.nativeElement.getAttribute('role')).toBe('tablist');
       });
 
       it('should have role="tab" on TabsTrigger', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         expect(triggers[0].nativeElement.getAttribute('role')).toBe('tab');
       });
 
       it('should have role="tabpanel" on TabsPanel', () => {
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
         expect(panels[0].nativeElement.getAttribute('role')).toBe('tabpanel');
       });
@@ -870,7 +880,7 @@ describe('Tabs', () => {
     describe('ARIA Attributes', () => {
       it('should have aria-selected="true" on selected trigger', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         expect(triggers[0].nativeElement.getAttribute('aria-selected')).toBe(
           'true',
@@ -879,7 +889,7 @@ describe('Tabs', () => {
 
       it('should have aria-selected="false" on non-selected trigger', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         expect(triggers[1].nativeElement.getAttribute('aria-selected')).toBe(
           'false',
@@ -888,7 +898,7 @@ describe('Tabs', () => {
 
       it('should have aria-controls linking trigger to panel', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         expect(triggers[0].nativeElement.getAttribute('aria-controls')).toBe(
           'tab-panel-tab-1',
@@ -897,7 +907,7 @@ describe('Tabs', () => {
 
       it('should have aria-labelledby linking panel to trigger', () => {
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
         expect(panels[0].nativeElement.getAttribute('aria-labelledby')).toBe(
           'tab-trigger-tab-1',
@@ -906,7 +916,7 @@ describe('Tabs', () => {
 
       it('should have aria-orientation on TabsList', () => {
         const listEl = fixture.debugElement.query(
-          By.directive(TabsListDirective),
+          By.directive(LmTabsListDirective),
         );
         expect(listEl.nativeElement.getAttribute('aria-orientation')).toBe(
           'horizontal',
@@ -917,14 +927,14 @@ describe('Tabs', () => {
     describe('Roving Tabindex', () => {
       it('should have tabindex="0" on selected trigger', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         expect(triggers[0].nativeElement.getAttribute('tabindex')).toBe('0');
       });
 
       it('should have tabindex="-1" on non-selected trigger', () => {
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         expect(triggers[1].nativeElement.getAttribute('tabindex')).toBe('-1');
       });
@@ -943,10 +953,10 @@ describe('Tabs', () => {
 
       it('should render only the selected panel initially', () => {
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
-        const firstPanel = panels[0].injector.get(TabsPanelDirective);
-        const secondPanel = panels[1].injector.get(TabsPanelDirective);
+        const firstPanel = panels[0].injector.get(LmTabsPanelDirective);
+        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
 
         expect(firstPanel.shouldRender()).toBe(true);
         // Second panel should not render until selected
@@ -956,15 +966,15 @@ describe('Tabs', () => {
       it('should render panel after it is selected', () => {
         // Select second tab
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
         fixture.detectChanges();
 
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
-        const secondPanel = panels[1].injector.get(TabsPanelDirective);
+        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
 
         expect(secondPanel.shouldRender()).toBe(true);
       });
@@ -972,7 +982,7 @@ describe('Tabs', () => {
       it('should keep panel rendered after switching away (cache)', () => {
         // Select second tab
         const triggers = fixture.debugElement.queryAll(
-          By.directive(TabsTriggerDirective),
+          By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
         fixture.detectChanges();
@@ -982,9 +992,9 @@ describe('Tabs', () => {
         fixture.detectChanges();
 
         const panels = fixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
-        const secondPanel = panels[1].injector.get(TabsPanelDirective);
+        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
 
         // Should still be rendered (cached) but not visible
         expect(secondPanel.shouldRender()).toBe(true);
@@ -1000,10 +1010,10 @@ describe('Tabs', () => {
         noLazyFixture.detectChanges();
 
         const panels = noLazyFixture.debugElement.queryAll(
-          By.directive(TabsPanelDirective),
+          By.directive(LmTabsPanelDirective),
         );
-        const firstPanel = panels[0].injector.get(TabsPanelDirective);
-        const secondPanel = panels[1].injector.get(TabsPanelDirective);
+        const firstPanel = panels[0].injector.get(LmTabsPanelDirective);
+        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
 
         expect(firstPanel.shouldRender()).toBe(true);
         expect(secondPanel.shouldRender()).toBe(true);

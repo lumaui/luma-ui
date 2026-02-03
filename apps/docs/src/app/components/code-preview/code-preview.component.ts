@@ -1,11 +1,11 @@
 import { Component, Input, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent, CardContentDirective } from '@lumaui/angular';
+import { LmCardComponent, LmCardContentDirective } from '@lumaui/angular';
 
 @Component({
   selector: 'app-code-preview',
   standalone: true,
-  imports: [CommonModule, CardComponent, CardContentDirective],
+  imports: [CommonModule, LmCardComponent, LmCardContentDirective],
   templateUrl: './code-preview.component.html',
   styles: [
     `

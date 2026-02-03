@@ -39,7 +39,7 @@ import { TABS_GROUP } from './tabs.tokens';
     '[hidden]': '!isVisible()',
   },
 })
-export class TabsPanelDirective {
+export class LmTabsPanelDirective {
   private readonly tabsGroup = inject(TABS_GROUP);
   private readonly templateRef = inject(TemplateRef<unknown>, {
     optional: true,

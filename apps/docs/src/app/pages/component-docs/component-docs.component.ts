@@ -1,10 +1,10 @@
 import {
-  CardComponent,
-  TabsComponent,
-  TabsIndicatorComponent,
-  TabsListDirective,
-  TabsPanelDirective,
-  TabsTriggerDirective,
+  LmCardComponent,
+  LmTabsComponent,
+  LmTabsIndicatorComponent,
+  LmTabsListDirective,
+  LmTabsPanelDirective,
+  LmTabsTriggerDirective,
 } from '@lumaui/angular';
 import { Component, computed, inject } from '@angular/core';
 
@@ -20,12 +20,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [
     SidebarComponent,
     ExamplePreviewComponent,
-    CardComponent,
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
-    TabsIndicatorComponent,
+    LmCardComponent,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
+    LmTabsIndicatorComponent,
   ],
   template: `
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">

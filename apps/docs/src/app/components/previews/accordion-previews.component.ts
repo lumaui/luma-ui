@@ -5,23 +5,23 @@ import {
   signal,
 } from '@angular/core';
 import {
-  AccordionItemComponent,
-  AccordionGroupComponent,
-  AccordionTriggerDirective,
-  AccordionTitleDirective,
-  AccordionIconDirective,
-  AccordionContentDirective,
+  LmAccordionItemComponent,
+  LmAccordionGroupComponent,
+  LmAccordionTriggerDirective,
+  LmAccordionTitleDirective,
+  LmAccordionIconDirective,
+  LmAccordionContentDirective,
 } from '@lumaui/angular';
 
 @Component({
   selector: 'app-accordion-previews',
   imports: [
-    AccordionItemComponent,
-    AccordionGroupComponent,
-    AccordionTriggerDirective,
-    AccordionTitleDirective,
-    AccordionIconDirective,
-    AccordionContentDirective,
+    LmAccordionItemComponent,
+    LmAccordionGroupComponent,
+    LmAccordionTriggerDirective,
+    LmAccordionTitleDirective,
+    LmAccordionIconDirective,
+    LmAccordionContentDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

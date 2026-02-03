@@ -4,6 +4,17 @@ type: component
 selector: luma-card
 category: Layout
 description: Flexible, composable container for grouping related content with multiple visual variants following Neo-Minimal design principles.
+imports:
+  - name: LmCardComponent
+    module: '@lumaui/angular'
+  - name: LmCardHeaderDirective
+    module: '@lumaui/angular'
+  - name: LmCardTitleDirective
+    module: '@lumaui/angular'
+  - name: LmCardDescriptionDirective
+    module: '@lumaui/angular'
+  - name: LmCardContentDirective
+    module: '@lumaui/angular'
 inputs:
   - name: lmVariant
     type: "'default' | 'shadow' | 'nested' | 'preview'"

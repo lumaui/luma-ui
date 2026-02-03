@@ -16,7 +16,7 @@ import {
   type AccordionItemVariant,
 } from '@lumaui/core';
 import { ACCORDION_ITEM, type AccordionItemBase } from './accordion.tokens';
-import { AccordionGroupComponent } from './accordion-group.component';
+import { LmAccordionGroupComponent } from './accordion-group.component';
 
 /**
  * AccordionItemComponent
@@ -46,14 +46,16 @@ import { AccordionGroupComponent } from './accordion-group.component';
   selector: 'luma-accordion-item',
   templateUrl: './accordion-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: ACCORDION_ITEM, useExisting: AccordionItemComponent }],
+  providers: [
+    { provide: ACCORDION_ITEM, useExisting: LmAccordionItemComponent },
+  ],
   host: {
     '[attr.data-state]': 'isOpen() ? "open" : "closed"',
     '[attr.data-variant]': 'lmVariant()',
   },
 })
-export class AccordionItemComponent implements AccordionItemBase {
-  private group = inject(AccordionGroupComponent, { optional: true });
+export class LmAccordionItemComponent implements AccordionItemBase {
+  private group = inject(LmAccordionGroupComponent, { optional: true });
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
   private previousClasses: string[] = [];

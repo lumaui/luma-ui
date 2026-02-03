@@ -40,7 +40,7 @@ import {
     '[style.gap]': '"var(--luma-accordion-item-gap)"',
   },
 })
-export class AccordionGroupComponent {
+export class LmAccordionGroupComponent {
   /**
    * Controlled value for which items are open
    * - null: uncontrolled mode (each item manages its own state)

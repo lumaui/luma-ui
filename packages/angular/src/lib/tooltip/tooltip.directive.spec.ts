@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-import { TooltipDirective } from './tooltip.directive';
+import { LmTooltipDirective } from './tooltip.directive';
 
 // ============================================================
 // TEST HOST COMPONENTS
@@ -21,7 +21,7 @@ import { TooltipDirective } from './tooltip.directive';
       Trigger Button
     </button>
   `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class TooltipTestHostComponent {
   tooltipContent = 'Test tooltip content';
@@ -35,7 +35,7 @@ class TooltipTestHostComponent {
   template: `
     <div [lumaTooltip]="'Tooltip on div'" class="p-4">Hover this div</div>
   `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class DivTooltipTestHostComponent {}
 
@@ -45,7 +45,7 @@ class DivTooltipTestHostComponent {}
       >Hover this span</span
     >
   `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class SpanTooltipTestHostComponent {}
 
@@ -53,13 +53,13 @@ class SpanTooltipTestHostComponent {}
   template: `
     <button [lumaTooltip]="'Click tooltip'" lmTrigger="click">Click me</button>
   `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class ClickTriggerTestHostComponent {}
 
 @Component({
   template: ` <input [lumaTooltip]="'Focus tooltip'" lmTrigger="focus" /> `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class FocusTriggerTestHostComponent {}
 
@@ -72,7 +72,7 @@ class FocusTriggerTestHostComponent {}
       HTML Content
     </button>
   `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class HtmlContentTestHostComponent {}
 
@@ -80,7 +80,7 @@ class HtmlContentTestHostComponent {}
   template: `
     <button [lumaTooltip]="'Delayed tooltip'" [lmDelay]="300">Delayed</button>
   `,
-  imports: [TooltipDirective],
+  imports: [LmTooltipDirective],
 })
 class DelayedTooltipTestHostComponent {}
 
@@ -170,16 +170,16 @@ function applyDarkTheme(): void {
 // TEST SUITES
 // ============================================================
 
-describe('TooltipDirective', () => {
+describe('LmTooltipDirective', () => {
   let fixture: ComponentFixture<TooltipTestHostComponent>;
   let hostComponent: TooltipTestHostComponent;
   let triggerElement: DebugElement;
-  let directive: TooltipDirective;
+  let directive: LmTooltipDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        TooltipDirective,
+        LmTooltipDirective,
         TooltipTestHostComponent,
         DivTooltipTestHostComponent,
         SpanTooltipTestHostComponent,
@@ -192,8 +192,10 @@ describe('TooltipDirective', () => {
 
     fixture = TestBed.createComponent(TooltipTestHostComponent);
     hostComponent = fixture.componentInstance;
-    triggerElement = fixture.debugElement.query(By.directive(TooltipDirective));
-    directive = triggerElement.injector.get(TooltipDirective);
+    triggerElement = fixture.debugElement.query(
+      By.directive(LmTooltipDirective),
+    );
+    directive = triggerElement.injector.get(LmTooltipDirective);
 
     setupTooltipTokens();
     // Note: Don't call detectChanges() here - let each test/describe handle it
@@ -804,15 +806,15 @@ describe('TooltipDirective', () => {
   describe('Click Trigger', () => {
     let clickFixture: ComponentFixture<ClickTriggerTestHostComponent>;
     let clickTriggerElement: DebugElement;
-    let clickDirective: TooltipDirective;
+    let clickDirective: LmTooltipDirective;
 
     beforeEach(async () => {
       clickFixture = TestBed.createComponent(ClickTriggerTestHostComponent);
       clickFixture.detectChanges();
       clickTriggerElement = clickFixture.debugElement.query(
-        By.directive(TooltipDirective),
+        By.directive(LmTooltipDirective),
       );
-      clickDirective = clickTriggerElement.injector.get(TooltipDirective);
+      clickDirective = clickTriggerElement.injector.get(LmTooltipDirective);
     });
 
     it('should toggle visibility on click', () => {
@@ -845,15 +847,15 @@ describe('TooltipDirective', () => {
   describe('Focus Trigger', () => {
     let focusFixture: ComponentFixture<FocusTriggerTestHostComponent>;
     let focusTriggerElement: DebugElement;
-    let focusDirective: TooltipDirective;
+    let focusDirective: LmTooltipDirective;
 
     beforeEach(async () => {
       focusFixture = TestBed.createComponent(FocusTriggerTestHostComponent);
       focusFixture.detectChanges();
       focusTriggerElement = focusFixture.debugElement.query(
-        By.directive(TooltipDirective),
+        By.directive(LmTooltipDirective),
       );
-      focusDirective = focusTriggerElement.injector.get(TooltipDirective);
+      focusDirective = focusTriggerElement.injector.get(LmTooltipDirective);
     });
 
     it('should show on focus', () => {
@@ -896,16 +898,16 @@ describe('TooltipDirective', () => {
   describe('Delay Functionality', () => {
     let delayFixture: ComponentFixture<DelayedTooltipTestHostComponent>;
     let delayTriggerElement: DebugElement;
-    let delayDirective: TooltipDirective;
+    let delayDirective: LmTooltipDirective;
 
     beforeEach(async () => {
       vi.useFakeTimers();
       delayFixture = TestBed.createComponent(DelayedTooltipTestHostComponent);
       delayFixture.detectChanges();
       delayTriggerElement = delayFixture.debugElement.query(
-        By.directive(TooltipDirective),
+        By.directive(LmTooltipDirective),
       );
-      delayDirective = delayTriggerElement.injector.get(TooltipDirective);
+      delayDirective = delayTriggerElement.injector.get(LmTooltipDirective);
     });
 
     afterEach(() => {
@@ -946,15 +948,15 @@ describe('TooltipDirective', () => {
   describe('HTML Content', () => {
     let htmlFixture: ComponentFixture<HtmlContentTestHostComponent>;
     let htmlTriggerElement: DebugElement;
-    let htmlDirective: TooltipDirective;
+    let htmlDirective: LmTooltipDirective;
 
     beforeEach(async () => {
       htmlFixture = TestBed.createComponent(HtmlContentTestHostComponent);
       htmlFixture.detectChanges();
       htmlTriggerElement = htmlFixture.debugElement.query(
-        By.directive(TooltipDirective),
+        By.directive(LmTooltipDirective),
       );
-      htmlDirective = htmlTriggerElement.injector.get(TooltipDirective);
+      htmlDirective = htmlTriggerElement.injector.get(LmTooltipDirective);
     });
 
     it('should have lmHtml set to true', () => {
@@ -1096,7 +1098,7 @@ describe('TooltipDirective', () => {
 // DIFFERENT ELEMENT TYPES TESTS
 // ============================================================
 
-describe('TooltipDirective on Different Elements', () => {
+describe('LmTooltipDirective on Different Elements', () => {
   beforeEach(() => {
     setupTooltipTokens();
   });
@@ -1108,17 +1110,17 @@ describe('TooltipDirective on Different Elements', () => {
   describe('on Div Element', () => {
     let fixture: ComponentFixture<DivTooltipTestHostComponent>;
     let divElement: DebugElement;
-    let directive: TooltipDirective;
+    let directive: LmTooltipDirective;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [TooltipDirective, DivTooltipTestHostComponent],
+        imports: [LmTooltipDirective, DivTooltipTestHostComponent],
       }).compileComponents();
 
       fixture = TestBed.createComponent(DivTooltipTestHostComponent);
       fixture.detectChanges();
-      divElement = fixture.debugElement.query(By.directive(TooltipDirective));
-      directive = divElement.injector.get(TooltipDirective);
+      divElement = fixture.debugElement.query(By.directive(LmTooltipDirective));
+      directive = divElement.injector.get(LmTooltipDirective);
     });
 
     it('should create directive on div element', () => {
@@ -1144,17 +1146,19 @@ describe('TooltipDirective on Different Elements', () => {
   describe('on Span Element', () => {
     let fixture: ComponentFixture<SpanTooltipTestHostComponent>;
     let spanElement: DebugElement;
-    let directive: TooltipDirective;
+    let directive: LmTooltipDirective;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [TooltipDirective, SpanTooltipTestHostComponent],
+        imports: [LmTooltipDirective, SpanTooltipTestHostComponent],
       }).compileComponents();
 
       fixture = TestBed.createComponent(SpanTooltipTestHostComponent);
       fixture.detectChanges();
-      spanElement = fixture.debugElement.query(By.directive(TooltipDirective));
-      directive = spanElement.injector.get(TooltipDirective);
+      spanElement = fixture.debugElement.query(
+        By.directive(LmTooltipDirective),
+      );
+      directive = spanElement.injector.get(LmTooltipDirective);
     });
 
     it('should create directive on span element', () => {

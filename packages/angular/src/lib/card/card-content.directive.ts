@@ -6,7 +6,7 @@ import { Directive } from '@angular/core';
     class: '',
   },
 })
-export class CardContentDirective {
+export class LmCardContentDirective {
   // Semantic marker for card content region
   // No styles applied to preserve maximum flexibility
   // Maintained for backward compatibility and semantic HTML structure

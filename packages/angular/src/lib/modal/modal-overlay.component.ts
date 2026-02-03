@@ -31,7 +31,7 @@ import { MODAL_CONTEXT } from './modal.tokens';
     '(click)': 'onOverlayClick($event)',
   },
 })
-export class ModalOverlayComponent {
+export class LmModalOverlayComponent {
   private readonly modal = inject(MODAL_CONTEXT);
 
   /** Computed classes from CVA */

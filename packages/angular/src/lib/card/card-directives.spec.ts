@@ -1,8 +1,8 @@
 import {
-  CardContentDirective,
-  CardDescriptionDirective,
-  CardHeaderDirective,
-  CardTitleDirective,
+  LmCardContentDirective,
+  LmCardDescriptionDirective,
+  LmCardHeaderDirective,
+  LmCardTitleDirective,
 } from './';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
 // Test host components for each directive
 @Component({
   template: `<h3 lumaCardTitle [lmSize]="lmSize">Test Title</h3>`,
-  imports: [CardTitleDirective],
+  imports: [LmCardTitleDirective],
 })
 class CardTitleTestComponent {
   lmSize: 'small' | 'normal' | 'large' = 'normal';
@@ -20,7 +20,7 @@ class CardTitleTestComponent {
 
 @Component({
   template: `<p lumaCardDescription [lmSize]="lmSize">Test Description</p>`,
-  imports: [CardDescriptionDirective],
+  imports: [LmCardDescriptionDirective],
 })
 class CardDescriptionTestComponent {
   lmSize: 'small' | 'normal' | 'large' = 'normal';
@@ -28,31 +28,33 @@ class CardDescriptionTestComponent {
 
 @Component({
   template: `<div lumaCardHeader>Test Header</div>`,
-  imports: [CardHeaderDirective],
+  imports: [LmCardHeaderDirective],
 })
 class CardHeaderTestComponent {}
 
 @Component({
   template: `<div lumaCardContent>Test Content</div>`,
-  imports: [CardContentDirective],
+  imports: [LmCardContentDirective],
 })
 class CardContentTestComponent {}
 
-describe('CardTitleDirective', () => {
+describe('LmCardTitleDirective', () => {
   let fixture: ComponentFixture<CardTitleTestComponent>;
   let _component: CardTitleTestComponent;
   let titleElement: DebugElement;
-  let directive: CardTitleDirective;
+  let directive: LmCardTitleDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardTitleDirective, CardTitleTestComponent],
+      imports: [LmCardTitleDirective, CardTitleTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardTitleTestComponent);
     _component = fixture.componentInstance;
-    titleElement = fixture.debugElement.query(By.directive(CardTitleDirective));
-    directive = titleElement.injector.get(CardTitleDirective);
+    titleElement = fixture.debugElement.query(
+      By.directive(LmCardTitleDirective),
+    );
+    directive = titleElement.injector.get(LmCardTitleDirective);
     await fixture.whenStable();
   });
 
@@ -93,23 +95,23 @@ describe('CardTitleDirective', () => {
   });
 });
 
-describe('CardDescriptionDirective', () => {
+describe('LmCardDescriptionDirective', () => {
   let fixture: ComponentFixture<CardDescriptionTestComponent>;
   let _component: CardDescriptionTestComponent;
   let descriptionElement: DebugElement;
-  let directive: CardDescriptionDirective;
+  let directive: LmCardDescriptionDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardDescriptionDirective, CardDescriptionTestComponent],
+      imports: [LmCardDescriptionDirective, CardDescriptionTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardDescriptionTestComponent);
     _component = fixture.componentInstance;
     descriptionElement = fixture.debugElement.query(
-      By.directive(CardDescriptionDirective),
+      By.directive(LmCardDescriptionDirective),
     );
-    directive = descriptionElement.injector.get(CardDescriptionDirective);
+    directive = descriptionElement.injector.get(LmCardDescriptionDirective);
     await fixture.whenStable();
   });
 
@@ -148,21 +150,21 @@ describe('CardDescriptionDirective', () => {
   });
 });
 
-describe('CardHeaderDirective', () => {
+describe('LmCardHeaderDirective', () => {
   let fixture: ComponentFixture<CardHeaderTestComponent>;
   let headerElement: DebugElement;
-  let directive: CardHeaderDirective;
+  let directive: LmCardHeaderDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardHeaderDirective, CardHeaderTestComponent],
+      imports: [LmCardHeaderDirective, CardHeaderTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardHeaderTestComponent);
     headerElement = fixture.debugElement.query(
-      By.directive(CardHeaderDirective),
+      By.directive(LmCardHeaderDirective),
     );
-    directive = headerElement.injector.get(CardHeaderDirective);
+    directive = headerElement.injector.get(LmCardHeaderDirective);
     await fixture.whenStable();
   });
 
@@ -184,21 +186,21 @@ describe('CardHeaderDirective', () => {
   });
 });
 
-describe('CardContentDirective', () => {
+describe('LmCardContentDirective', () => {
   let fixture: ComponentFixture<CardContentTestComponent>;
   let contentElement: DebugElement;
-  let directive: CardContentDirective;
+  let directive: LmCardContentDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardContentDirective, CardContentTestComponent],
+      imports: [LmCardContentDirective, CardContentTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardContentTestComponent);
     contentElement = fixture.debugElement.query(
-      By.directive(CardContentDirective),
+      By.directive(LmCardContentDirective),
     );
-    directive = contentElement.injector.get(CardContentDirective);
+    directive = contentElement.injector.get(LmCardContentDirective);
     await fixture.whenStable();
   });
 
@@ -242,10 +244,10 @@ describe('CardContentDirective', () => {
     </div>
   `,
   imports: [
-    CardHeaderDirective,
-    CardTitleDirective,
-    CardDescriptionDirective,
-    CardContentDirective,
+    LmCardHeaderDirective,
+    LmCardTitleDirective,
+    LmCardDescriptionDirective,
+    LmCardContentDirective,
   ],
 })
 class IntegrationTestComponent {}
@@ -256,10 +258,10 @@ describe('Card Directives Integration', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        CardHeaderDirective,
-        CardTitleDirective,
-        CardDescriptionDirective,
-        CardContentDirective,
+        LmCardHeaderDirective,
+        LmCardTitleDirective,
+        LmCardDescriptionDirective,
+        LmCardContentDirective,
         IntegrationTestComponent,
       ],
     }).compileComponents();
@@ -272,16 +274,16 @@ describe('Card Directives Integration', () => {
     fixture.detectChanges();
 
     const headerElement = fixture.debugElement.query(
-      By.directive(CardHeaderDirective),
+      By.directive(LmCardHeaderDirective),
     );
     const titleElement = fixture.debugElement.query(
-      By.directive(CardTitleDirective),
+      By.directive(LmCardTitleDirective),
     );
     const descriptionElement = fixture.debugElement.query(
-      By.directive(CardDescriptionDirective),
+      By.directive(LmCardDescriptionDirective),
     );
     const contentElement = fixture.debugElement.query(
-      By.directive(CardContentDirective),
+      By.directive(LmCardContentDirective),
     );
 
     expect(headerElement).toBeTruthy();
@@ -294,11 +296,11 @@ describe('Card Directives Integration', () => {
     fixture.detectChanges();
 
     const titleDirective = fixture.debugElement
-      .query(By.directive(CardTitleDirective))
-      .injector.get(CardTitleDirective);
+      .query(By.directive(LmCardTitleDirective))
+      .injector.get(LmCardTitleDirective);
     const descriptionDirective = fixture.debugElement
-      .query(By.directive(CardDescriptionDirective))
-      .injector.get(CardDescriptionDirective);
+      .query(By.directive(LmCardDescriptionDirective))
+      .injector.get(LmCardDescriptionDirective);
 
     const titleClasses = titleDirective.classes();
     const descriptionClasses = descriptionDirective.classes();

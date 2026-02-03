@@ -26,7 +26,7 @@ import { modalFooterVariants } from '@lumaui/core';
     '[class]': 'classes()',
   },
 })
-export class ModalFooterDirective {
+export class LmModalFooterDirective {
   /** Alignment of footer content */
   lmAlign = input<'start' | 'center' | 'end' | 'between'>('end');
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardComponent } from './card.component';
+import { LmCardComponent } from './card.component';
 import { Component } from '@angular/core';
 
 // ============================================================
@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
       <div class="test-content">Projected content</div>
     </luma-card>
   `,
-  imports: [CardComponent],
+  imports: [LmCardComponent],
 })
 class TestHostComponent {}
 
@@ -58,16 +58,16 @@ function applyDarkTheme(): void {
   root.style.setProperty('--luma-color-neutral-60', DARK_CARD_TOKENS.border);
 }
 
-describe('CardComponent', () => {
-  let component: CardComponent;
-  let fixture: ComponentFixture<CardComponent>;
+describe('LmCardComponent', () => {
+  let component: LmCardComponent;
+  let fixture: ComponentFixture<LmCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardComponent],
+      imports: [LmCardComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CardComponent);
+    fixture = TestBed.createComponent(LmCardComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -15,7 +15,7 @@ import {
   templateUrl: './card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardComponent {
+export class LmCardComponent {
   /**
    * Card visual style variant
    * - default: Gradient border wrapper style (default)

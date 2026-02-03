@@ -39,7 +39,7 @@ import { ACCORDION_ITEM } from './accordion.tokens';
     '[attr.aria-hidden]': 'true',
   },
 })
-export class AccordionIconDirective {
+export class LmAccordionIconDirective {
   protected item = inject(ACCORDION_ITEM);
 
   classes = computed(() => accordionIconVariants({ open: this.item.isOpen() }));

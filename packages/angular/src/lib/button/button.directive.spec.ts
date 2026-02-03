@@ -1,7 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonDirective } from './button.directive';
+import { LmButtonDirective } from './button.directive';
 import { By } from '@angular/platform-browser';
 
 // ============================================================
@@ -20,7 +20,7 @@ import { By } from '@angular/platform-browser';
       Test Button
     </button>
   `,
-  imports: [ButtonDirective],
+  imports: [LmButtonDirective],
 })
 class ButtonTestHostComponent {
   lmVariant: 'primary' | 'outline' | 'ghost' | 'danger' = 'primary';
@@ -33,7 +33,7 @@ class ButtonTestHostComponent {
   template: `<a lumaButton [lmVariant]="lmVariant" href="/test"
     >Link Button</a
   >`,
-  imports: [ButtonDirective],
+  imports: [LmButtonDirective],
 })
 class AnchorButtonTestHostComponent {
   lmVariant: 'primary' | 'outline' | 'ghost' | 'danger' = 'primary';
@@ -41,13 +41,13 @@ class AnchorButtonTestHostComponent {
 
 @Component({
   template: `<button lumaButton lmType="submit">Submit Button</button>`,
-  imports: [ButtonDirective],
+  imports: [LmButtonDirective],
 })
 class SubmitButtonTestHostComponent {}
 
 @Component({
   template: `<button lumaButton lmType="reset">Reset Button</button>`,
-  imports: [ButtonDirective],
+  imports: [LmButtonDirective],
 })
 class ResetButtonTestHostComponent {}
 
@@ -341,16 +341,16 @@ function applyDarkTheme(): void {
 // TEST SUITES
 // ============================================================
 
-describe('ButtonDirective', () => {
+describe('LmButtonDirective', () => {
   let fixture: ComponentFixture<ButtonTestHostComponent>;
   let hostComponent: ButtonTestHostComponent;
   let buttonElement: DebugElement;
-  let directive: ButtonDirective;
+  let directive: LmButtonDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ButtonDirective,
+        LmButtonDirective,
         ButtonTestHostComponent,
         SubmitButtonTestHostComponent,
         ResetButtonTestHostComponent,
@@ -359,8 +359,8 @@ describe('ButtonDirective', () => {
 
     fixture = TestBed.createComponent(ButtonTestHostComponent);
     hostComponent = fixture.componentInstance;
-    buttonElement = fixture.debugElement.query(By.directive(ButtonDirective));
-    directive = buttonElement.injector.get(ButtonDirective);
+    buttonElement = fixture.debugElement.query(By.directive(LmButtonDirective));
+    directive = buttonElement.injector.get(LmButtonDirective);
 
     setupButtonTokens();
     // Note: Don't call detectChanges() here - let each test/describe handle it
@@ -1163,7 +1163,7 @@ describe('ButtonDirective', () => {
       );
       submitFixture.detectChanges();
       const submitButton = submitFixture.debugElement.query(
-        By.directive(ButtonDirective),
+        By.directive(LmButtonDirective),
       );
       expect(submitButton.nativeElement.getAttribute('type')).toBe('submit');
     });
@@ -1175,7 +1175,7 @@ describe('ButtonDirective', () => {
       );
       resetFixture.detectChanges();
       const resetButton = resetFixture.debugElement.query(
-        By.directive(ButtonDirective),
+        By.directive(LmButtonDirective),
       );
       expect(resetButton.nativeElement.getAttribute('type')).toBe('reset');
     });
@@ -1290,19 +1290,19 @@ describe('ButtonDirective', () => {
 // ANCHOR ELEMENT TESTS
 // ============================================================
 
-describe('ButtonDirective on Anchor Element', () => {
+describe('LmButtonDirective on Anchor Element', () => {
   let fixture: ComponentFixture<AnchorButtonTestHostComponent>;
   let anchorElement: DebugElement;
-  let directive: ButtonDirective;
+  let directive: LmButtonDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ButtonDirective, AnchorButtonTestHostComponent],
+      imports: [LmButtonDirective, AnchorButtonTestHostComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AnchorButtonTestHostComponent);
-    anchorElement = fixture.debugElement.query(By.directive(ButtonDirective));
-    directive = anchorElement.injector.get(ButtonDirective);
+    anchorElement = fixture.debugElement.query(By.directive(LmButtonDirective));
+    directive = anchorElement.injector.get(LmButtonDirective);
 
     setupButtonTokens();
     await fixture.whenStable();

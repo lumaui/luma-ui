@@ -7,7 +7,7 @@ import { cardTitleVariants, type CardTitleSize } from '@lumaui/core';
     '[class]': 'classes()',
   },
 })
-export class CardTitleDirective {
+export class LmCardTitleDirective {
   // Signal-based inputs with lm prefix (Angular 20+)
   lmSize = input<CardTitleSize>('normal');
 

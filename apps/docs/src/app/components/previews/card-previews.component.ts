@@ -1,22 +1,22 @@
 import {
-  ButtonDirective,
-  CardComponent,
-  CardContentDirective,
-  CardDescriptionDirective,
-  CardHeaderDirective,
-  CardTitleDirective,
+  LmButtonDirective,
+  LmCardComponent,
+  LmCardContentDirective,
+  LmCardDescriptionDirective,
+  LmCardHeaderDirective,
+  LmCardTitleDirective,
 } from '@lumaui/angular';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-card-previews',
   imports: [
-    ButtonDirective,
-    CardComponent,
-    CardHeaderDirective,
-    CardTitleDirective,
-    CardDescriptionDirective,
-    CardContentDirective,
+    LmButtonDirective,
+    LmCardComponent,
+    LmCardHeaderDirective,
+    LmCardTitleDirective,
+    LmCardDescriptionDirective,
+    LmCardContentDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

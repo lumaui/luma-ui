@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonDirective } from '@lumaui/angular';
+import { LmButtonDirective } from '@lumaui/angular';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterModule, ButtonDirective],
+  imports: [RouterModule, LmButtonDirective],
   templateUrl: './hero.component.html',
   styles: [
     `

@@ -6,30 +6,30 @@ import {
 } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 import {
-  ButtonDirective,
-  ModalComponent,
-  ModalOverlayComponent,
-  ModalContainerComponent,
-  ModalHeaderDirective,
-  ModalTitleDirective,
-  ModalContentDirective,
-  ModalFooterDirective,
-  ModalCloseComponent,
+  LmButtonDirective,
+  LmModalComponent,
+  LmModalOverlayComponent,
+  LmModalContainerComponent,
+  LmModalHeaderDirective,
+  LmModalTitleDirective,
+  LmModalContentDirective,
+  LmModalFooterDirective,
+  LmModalCloseComponent,
 } from '@lumaui/angular';
 
 @Component({
   selector: 'app-modal-previews',
   imports: [
     UpperCasePipe,
-    ButtonDirective,
-    ModalComponent,
-    ModalOverlayComponent,
-    ModalContainerComponent,
-    ModalHeaderDirective,
-    ModalTitleDirective,
-    ModalContentDirective,
-    ModalFooterDirective,
-    ModalCloseComponent,
+    LmButtonDirective,
+    LmModalComponent,
+    LmModalOverlayComponent,
+    LmModalContainerComponent,
+    LmModalHeaderDirective,
+    LmModalTitleDirective,
+    LmModalContentDirective,
+    LmModalFooterDirective,
+    LmModalCloseComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

@@ -21,7 +21,7 @@ import { MODAL_CONTEXT } from './modal.tokens';
     '[class]': 'classes()',
   },
 })
-export class ModalTitleDirective {
+export class LmModalTitleDirective {
   private readonly modal = inject(MODAL_CONTEXT);
 
   /** Title size variant */

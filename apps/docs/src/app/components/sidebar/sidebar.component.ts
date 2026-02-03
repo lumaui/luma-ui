@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { ButtonDirective } from '@lumaui/angular';
+import { LmButtonDirective } from '@lumaui/angular';
 import { DocsRegistryService } from '../../services/docs-registry.service';
 import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterModule, ButtonDirective],
+  imports: [RouterModule, LmButtonDirective],
   templateUrl: './sidebar.component.html',
   styles: [
     `

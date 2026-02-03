@@ -7,7 +7,7 @@ import {
 
 import { toastContainerVariants, ToastPosition } from '@lumaui/core';
 import { Toast } from './toast.tokens';
-import { ToastItemComponent } from './toast-item.component';
+import { LmToastItemComponent } from './toast-item.component';
 
 /**
  * ToastContainerComponent
@@ -99,9 +99,9 @@ import { ToastItemComponent } from './toast-item.component';
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ToastItemComponent],
+  imports: [LmToastItemComponent],
 })
-export class ToastContainerComponent {
+export class LmToastContainerComponent {
   /** Toasts signal passed from ToastService */
   _toasts!: Signal<Toast[]>;
 

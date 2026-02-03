@@ -9,8 +9,8 @@ import {
   Toast,
   provideToastConfig,
 } from './toast.tokens';
-import { ToastService } from './toast.service';
-import { ToastItemComponent } from './toast-item.component';
+import { LmToastService } from './toast.service';
+import { LmToastItemComponent } from './toast-item.component';
 
 // ============================================
 // TOKEN CONSTANTS
@@ -224,7 +224,7 @@ function createMockToast(overrides: Partial<Toast> = {}): Toast {
   template: `
     <luma-toast-item [toast]="toast()" (dismiss)="onDismiss($event)" />
   `,
-  imports: [ToastItemComponent],
+  imports: [LmToastItemComponent],
 })
 class ToastItemTestHostComponent {
   toast = signal<Toast>(createMockToast());
@@ -239,7 +239,7 @@ class ToastItemTestHostComponent {
   template: `
     <luma-toast-item [toast]="toast()" (dismiss)="onDismiss($event)" />
   `,
-  imports: [ToastItemComponent],
+  imports: [LmToastItemComponent],
 })
 class ToastItemWithTitleTestHostComponent {
   toast = signal<Toast>(
@@ -256,7 +256,7 @@ class ToastItemWithTitleTestHostComponent {
   template: `
     <luma-toast-item [toast]="toast()" (dismiss)="onDismiss($event)" />
   `,
-  imports: [ToastItemComponent],
+  imports: [LmToastItemComponent],
 })
 class ToastItemNonDismissibleTestHostComponent {
   toast = signal<Toast>(createMockToast({ dismissible: false }));
@@ -271,7 +271,7 @@ class ToastItemNonDismissibleTestHostComponent {
   template: `
     <luma-toast-item [toast]="toast()" (dismiss)="onDismiss($event)" />
   `,
-  imports: [ToastItemComponent],
+  imports: [LmToastItemComponent],
 })
 class ToastItemErrorTestHostComponent {
   toast = signal<Toast>(createMockToast({ variant: 'error', role: 'alert' }));
@@ -291,18 +291,18 @@ const mockLiveAnnouncer = {
 // TOAST SERVICE TESTS
 // ============================================
 
-describe('ToastService', () => {
-  let service: ToastService;
+describe('LmToastService', () => {
+  let service: LmToastService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ToastService,
+        LmToastService,
         { provide: LiveAnnouncer, useValue: mockLiveAnnouncer },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     });
-    service = TestBed.inject(ToastService);
+    service = TestBed.inject(LmToastService);
   });
 
   afterEach(() => {
@@ -507,13 +507,13 @@ describe('ToastService', () => {
   });
 });
 
-describe('ToastService with custom config', () => {
-  let service: ToastService;
+describe('LmToastService with custom config', () => {
+  let service: LmToastService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ToastService,
+        LmToastService,
         { provide: LiveAnnouncer, useValue: mockLiveAnnouncer },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideToastConfig({
@@ -523,7 +523,7 @@ describe('ToastService with custom config', () => {
         }),
       ],
     });
-    service = TestBed.inject(ToastService);
+    service = TestBed.inject(LmToastService);
   });
 
   afterEach(() => {
@@ -557,7 +557,7 @@ describe('ToastService with custom config', () => {
 // TOAST ITEM COMPONENT TESTS
 // ============================================
 
-describe('ToastItemComponent', () => {
+describe('LmToastItemComponent', () => {
   describe('Basic Creation', () => {
     let fixture: ComponentFixture<ToastItemTestHostComponent>;
 
@@ -578,7 +578,7 @@ describe('ToastItemComponent', () => {
       fixture.detectChanges();
 
       const toastItem = fixture.debugElement.query(
-        By.directive(ToastItemComponent),
+        By.directive(LmToastItemComponent),
       );
       expect(toastItem).toBeTruthy();
     });
@@ -639,7 +639,7 @@ describe('ToastItemComponent', () => {
         fixture.detectChanges();
 
         const toastItem = fixture.debugElement.query(
-          By.directive(ToastItemComponent),
+          By.directive(LmToastItemComponent),
         );
         expect(toastItem.nativeElement.getAttribute('role')).toBe('status');
       });
@@ -648,7 +648,7 @@ describe('ToastItemComponent', () => {
         fixture.detectChanges();
 
         const toastItem = fixture.debugElement.query(
-          By.directive(ToastItemComponent),
+          By.directive(LmToastItemComponent),
         );
         expect(toastItem.nativeElement.getAttribute('aria-live')).toBe(
           'polite',
@@ -659,7 +659,7 @@ describe('ToastItemComponent', () => {
         fixture.detectChanges();
 
         const toastItem = fixture.debugElement.query(
-          By.directive(ToastItemComponent),
+          By.directive(LmToastItemComponent),
         );
         expect(toastItem.nativeElement.getAttribute('aria-atomic')).toBe(
           'true',
@@ -687,7 +687,7 @@ describe('ToastItemComponent', () => {
         fixture.detectChanges();
 
         const toastItem = fixture.debugElement.query(
-          By.directive(ToastItemComponent),
+          By.directive(LmToastItemComponent),
         );
         expect(toastItem.nativeElement.getAttribute('role')).toBe('alert');
       });
@@ -696,7 +696,7 @@ describe('ToastItemComponent', () => {
         fixture.detectChanges();
 
         const toastItem = fixture.debugElement.query(
-          By.directive(ToastItemComponent),
+          By.directive(LmToastItemComponent),
         );
         expect(toastItem.nativeElement.getAttribute('aria-live')).toBe(
           'assertive',
@@ -797,7 +797,7 @@ describe('ToastItemComponent', () => {
       fixture.detectChanges();
 
       const toastItem = fixture.debugElement.query(
-        By.directive(ToastItemComponent),
+        By.directive(LmToastItemComponent),
       );
       const event = new KeyboardEvent('keydown', { key: 'Escape' });
       toastItem.nativeElement.dispatchEvent(event);
@@ -809,7 +809,7 @@ describe('ToastItemComponent', () => {
       fixture.detectChanges();
 
       const toastItem = fixture.debugElement.query(
-        By.directive(ToastItemComponent),
+        By.directive(LmToastItemComponent),
       );
       expect(toastItem.nativeElement.getAttribute('tabindex')).toBe('0');
     });
@@ -835,9 +835,9 @@ describe('ToastItemComponent', () => {
       fixture.detectChanges();
 
       const toastItem = fixture.debugElement.query(
-        By.directive(ToastItemComponent),
+        By.directive(LmToastItemComponent),
       );
-      const component = toastItem.componentInstance as ToastItemComponent;
+      const component = toastItem.componentInstance as LmToastItemComponent;
       const classes = component['itemClasses']();
 
       expect(classes).toContain('flex');

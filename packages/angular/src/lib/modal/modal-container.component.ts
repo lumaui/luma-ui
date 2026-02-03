@@ -48,7 +48,7 @@ const FOCUSABLE_SELECTOR =
     '[attr.data-state]': 'modal.isOpen() ? "open" : "closed"',
   },
 })
-export class ModalContainerComponent implements AfterViewInit, OnDestroy {
+export class LmModalContainerComponent implements AfterViewInit, OnDestroy {
   readonly modal = inject(MODAL_CONTEXT);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly platformId = inject(PLATFORM_ID);

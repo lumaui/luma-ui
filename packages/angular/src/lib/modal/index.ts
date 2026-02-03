@@ -1,12 +1,12 @@
 // Modal Component & Directives
-export { ModalComponent } from './modal.component';
-export { ModalOverlayComponent } from './modal-overlay.component';
-export { ModalContainerComponent } from './modal-container.component';
-export { ModalHeaderDirective } from './modal-header.directive';
-export { ModalTitleDirective } from './modal-title.directive';
-export { ModalContentDirective } from './modal-content.directive';
-export { ModalFooterDirective } from './modal-footer.directive';
-export { ModalCloseComponent } from './modal-close.component';
+export { LmModalComponent } from './modal.component';
+export { LmModalOverlayComponent } from './modal-overlay.component';
+export { LmModalContainerComponent } from './modal-container.component';
+export { LmModalHeaderDirective } from './modal-header.directive';
+export { LmModalTitleDirective } from './modal-title.directive';
+export { LmModalContentDirective } from './modal-content.directive';
+export { LmModalFooterDirective } from './modal-footer.directive';
+export { LmModalCloseComponent } from './modal-close.component';
 
 // Tokens
 export {

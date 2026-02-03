@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-import { BadgeDirective } from '@lumaui/angular';
+import { LmBadgeDirective } from '@lumaui/angular';
 
 @Component({
   selector: 'app-badge-previews',
-  imports: [BadgeDirective],
+  imports: [LmBadgeDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (exampleId()) {

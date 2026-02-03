@@ -1,18 +1,18 @@
 import { Component, computed, input } from '@angular/core';
 import {
-  CardComponent,
-  CardHeaderDirective,
-  CardTitleDirective,
-  CardContentDirective,
+  LmCardComponent,
+  LmCardHeaderDirective,
+  LmCardTitleDirective,
+  LmCardContentDirective,
 } from '@lumaui/angular';
 
 @Component({
   selector: 'app-getting-started',
   imports: [
-    CardComponent,
-    CardHeaderDirective,
-    CardTitleDirective,
-    CardContentDirective,
+    LmCardComponent,
+    LmCardHeaderDirective,
+    LmCardTitleDirective,
+    LmCardContentDirective,
   ],
   templateUrl: './getting-started.component.html',
   styles: [

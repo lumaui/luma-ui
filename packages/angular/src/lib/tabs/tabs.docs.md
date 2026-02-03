@@ -4,6 +4,15 @@ type: component
 selector: luma-tabs
 category: Layout
 description: Tabbed interface for organizing content into switchable panels with full accessibility and keyboard navigation
+imports:
+  - name: LmTabsComponent
+    module: '@lumaui/angular'
+  - name: LmTabsListDirective
+    module: '@lumaui/angular'
+  - name: LmTabsTriggerDirective
+    module: '@lumaui/angular'
+  - name: LmTabsPanelDirective
+    module: '@lumaui/angular'
 inputs:
   - name: lmValue
     type: 'string | null'

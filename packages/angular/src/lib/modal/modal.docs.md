@@ -4,6 +4,23 @@ type: component
 selector: luma-modal
 category: Feedback
 description: HTML-first modal dialog with compositional structure, focus trap, and smooth animations
+imports:
+  - name: LmModalComponent
+    module: '@lumaui/angular'
+  - name: LmModalOverlayComponent
+    module: '@lumaui/angular'
+  - name: LmModalContainerComponent
+    module: '@lumaui/angular'
+  - name: LmModalHeaderDirective
+    module: '@lumaui/angular'
+  - name: LmModalTitleDirective
+    module: '@lumaui/angular'
+  - name: LmModalContentDirective
+    module: '@lumaui/angular'
+  - name: LmModalFooterDirective
+    module: '@lumaui/angular'
+  - name: LmModalCloseComponent
+    module: '@lumaui/angular'
 inputs:
   - name: lmOpen
     type: 'boolean | null'

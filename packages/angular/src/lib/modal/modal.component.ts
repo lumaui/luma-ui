@@ -61,14 +61,14 @@ let uniqueId = 0;
   providers: [
     {
       provide: MODAL_CONTEXT,
-      useExisting: ModalComponent,
+      useExisting: LmModalComponent,
     },
   ],
   host: {
     '[attr.data-state]': 'isOpen() ? "open" : "closed"',
   },
 })
-export class ModalComponent implements ModalContext, OnDestroy {
+export class LmModalComponent implements ModalContext, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
 

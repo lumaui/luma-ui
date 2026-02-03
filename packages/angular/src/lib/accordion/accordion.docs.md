@@ -4,6 +4,19 @@ type: component
 selector: luma-accordion-item
 category: Layout
 description: Expandable content sections with smooth animations and full accessibility support
+imports:
+  - name: LmAccordionGroupComponent
+    module: '@lumaui/angular'
+  - name: LmAccordionItemComponent
+    module: '@lumaui/angular'
+  - name: LmAccordionTriggerDirective
+    module: '@lumaui/angular'
+  - name: LmAccordionTitleDirective
+    module: '@lumaui/angular'
+  - name: LmAccordionIconDirective
+    module: '@lumaui/angular'
+  - name: LmAccordionContentDirective
+    module: '@lumaui/angular'
 inputs:
   - name: lmVariant
     type: "'default' | 'bordered' | 'filled'"

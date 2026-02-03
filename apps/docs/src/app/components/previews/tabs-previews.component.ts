@@ -5,21 +5,21 @@ import {
   signal,
 } from '@angular/core';
 import {
-  TabsComponent,
-  TabsListDirective,
-  TabsTriggerDirective,
-  TabsPanelDirective,
-  TabsIndicatorComponent,
+  LmTabsComponent,
+  LmTabsListDirective,
+  LmTabsTriggerDirective,
+  LmTabsPanelDirective,
+  LmTabsIndicatorComponent,
 } from '@lumaui/angular';
 
 @Component({
   selector: 'app-tabs-previews',
   imports: [
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
-    TabsIndicatorComponent,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
+    LmTabsIndicatorComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

@@ -12,7 +12,7 @@ import {
     '[attr.disabled]': 'lmDisabled() ? "" : null',
   },
 })
-export class ButtonDirective {
+export class LmButtonDirective {
   // Signal-based inputs with lm prefix (Angular 20+)
   lmVariant = input<ButtonVariant>('primary');
   lmSize = input<ButtonSize>('md');

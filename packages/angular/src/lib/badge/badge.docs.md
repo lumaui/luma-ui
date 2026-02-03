@@ -4,6 +4,9 @@ type: directive
 selector: '[lumaBadge]'
 category: Layout
 description: A layout container for compact labels. Provides structural styling (padding, radius, typography) while the user controls colors via Tailwind or CSS classes.
+imports:
+  - name: LmBadgeDirective
+    module: '@lumaui/angular'
 tokenGroups:
   - name: Typography
     tokens:

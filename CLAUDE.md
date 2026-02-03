@@ -1659,18 +1659,52 @@ const componentVariants = cva(
 );
 ```
 
+### Class Naming Convention
+
+All Luma component, directive, and service classes use the `Lm` prefix to provide a consistent namespace and prevent naming conflicts.
+
+**Pattern:** `Lm` + PascalCase class name
+
+| Category  | Pattern             | Example                                   |
+| --------- | ------------------- | ----------------------------------------- |
+| Component | `Lm{Name}Component` | `LmCardComponent`, `LmTabsComponent`      |
+| Directive | `Lm{Name}Directive` | `LmButtonDirective`, `LmTooltipDirective` |
+| Service   | `Lm{Name}Service`   | `LmToastService`                          |
+
+**Complete Class List:**
+
+| Package   | Classes                                                                                                                                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button    | `LmButtonDirective`                                                                                                                                                                                         |
+| Badge     | `LmBadgeDirective`                                                                                                                                                                                          |
+| Card      | `LmCardComponent`, `LmCardTitleDirective`, `LmCardDescriptionDirective`, `LmCardHeaderDirective`, `LmCardContentDirective`                                                                                  |
+| Accordion | `LmAccordionGroupComponent`, `LmAccordionItemComponent`, `LmAccordionTriggerDirective`, `LmAccordionTitleDirective`, `LmAccordionIconDirective`, `LmAccordionContentDirective`                              |
+| Tooltip   | `LmTooltipDirective`                                                                                                                                                                                        |
+| Tabs      | `LmTabsComponent`, `LmTabsListDirective`, `LmTabsTriggerDirective`, `LmTabsPanelDirective`, `LmTabsIndicatorComponent`                                                                                      |
+| Modal     | `LmModalComponent`, `LmModalOverlayComponent`, `LmModalContainerComponent`, `LmModalCloseComponent`, `LmModalHeaderDirective`, `LmModalTitleDirective`, `LmModalContentDirective`, `LmModalFooterDirective` |
+| Toast     | `LmToastService`, `LmToastContainerComponent`, `LmToastItemComponent`, `LmToastCloseComponent`                                                                                                              |
+
+**Why the prefix:**
+
+- Creates consistent namespace for design system classes
+- Prevents naming conflicts with Angular core or third-party libraries
+- Makes Luma classes easy to identify in imports and IDE autocomplete
+- Follows common design system practices (similar to `Mat` prefix in Angular Material)
+
+**Note:** Selectors remain unchanged (`lumaButton`, `luma-card`, etc.) - only TypeScript class names use the `Lm` prefix.
+
 ### Input Naming Convention
 
 All Luma directive inputs use the `lm` prefix to clearly distinguish them from native HTML attributes and other libraries.
 
 **Pattern:** `lm` + PascalCase of the original name
 
-| Original   | Prefixed     | Component                                                     |
-| ---------- | ------------ | ------------------------------------------------------------- |
-| `variant`  | `lmVariant`  | ButtonDirective                                               |
-| `size`     | `lmSize`     | ButtonDirective, CardTitleDirective, CardDescriptionDirective |
-| `disabled` | `lmDisabled` | ButtonDirective                                               |
-| `type`     | `lmType`     | ButtonDirective                                               |
+| Original   | Prefixed     | Component                                                           |
+| ---------- | ------------ | ------------------------------------------------------------------- |
+| `variant`  | `lmVariant`  | LmButtonDirective                                                   |
+| `size`     | `lmSize`     | LmButtonDirective, LmCardTitleDirective, LmCardDescriptionDirective |
+| `disabled` | `lmDisabled` | LmButtonDirective                                                   |
+| `type`     | `lmType`     | LmButtonDirective                                                   |
 
 **Usage Example:**
 
@@ -1699,7 +1733,7 @@ All Luma directive inputs use the `lm` prefix to clearly distinguish them from n
     '[attr.disabled]': 'lmDisabled() ? "" : null',
   },
 })
-export class ButtonDirective {
+export class LmButtonDirective {
   lmVariant = input<ButtonVariant>('primary');
   lmSize = input<ButtonSize>('md');
   lmDisabled = input<boolean>(false);

@@ -33,7 +33,7 @@ import { TABS_GROUP } from './tabs.tokens';
     '[class]': 'classes()',
   },
 })
-export class TabsTriggerDirective implements OnInit, OnDestroy {
+export class LmTabsTriggerDirective implements OnInit, OnDestroy {
   private readonly el = inject(ElementRef<HTMLElement>);
   private readonly tabsGroup = inject(TABS_GROUP);
 

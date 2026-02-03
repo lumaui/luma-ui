@@ -1,7 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BadgeDirective } from './badge.directive';
+import { LmBadgeDirective } from './badge.directive';
 import { By } from '@angular/platform-browser';
 
 // ============================================================
@@ -10,13 +10,13 @@ import { By } from '@angular/platform-browser';
 
 @Component({
   template: ` <span lumaBadge> Test Badge </span> `,
-  imports: [BadgeDirective],
+  imports: [LmBadgeDirective],
 })
 class BadgeTestHostComponent {}
 
 @Component({
   template: `<div lumaBadge>Badge on Div</div>`,
-  imports: [BadgeDirective],
+  imports: [LmBadgeDirective],
 })
 class DivBadgeTestHostComponent {}
 
@@ -67,23 +67,23 @@ function cleanupBadgeTokens(): void {
 // TEST SUITES
 // ============================================================
 
-describe('BadgeDirective', () => {
+describe('LmBadgeDirective', () => {
   let fixture: ComponentFixture<BadgeTestHostComponent>;
   let badgeElement: DebugElement;
-  let directive: BadgeDirective;
+  let directive: LmBadgeDirective;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        BadgeDirective,
+        LmBadgeDirective,
         BadgeTestHostComponent,
         DivBadgeTestHostComponent,
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BadgeTestHostComponent);
-    badgeElement = fixture.debugElement.query(By.directive(BadgeDirective));
-    directive = badgeElement.injector.get(BadgeDirective);
+    badgeElement = fixture.debugElement.query(By.directive(LmBadgeDirective));
+    directive = badgeElement.injector.get(LmBadgeDirective);
 
     setupBadgeTokens();
   });
@@ -266,7 +266,7 @@ describe('BadgeDirective', () => {
       divFixture.detectChanges();
 
       const divBadge = divFixture.debugElement.query(
-        By.directive(BadgeDirective),
+        By.directive(LmBadgeDirective),
       );
       expect(divBadge.nativeElement.tagName).toBe('DIV');
     });
@@ -276,9 +276,9 @@ describe('BadgeDirective', () => {
       divFixture.detectChanges();
 
       const divBadge = divFixture.debugElement.query(
-        By.directive(BadgeDirective),
+        By.directive(LmBadgeDirective),
       );
-      const divDirective = divBadge.injector.get(BadgeDirective);
+      const divDirective = divBadge.injector.get(LmBadgeDirective);
       expect(divDirective.classes()).toContain('inline-flex');
       expect(divDirective.classes()).toContain('lm-rounded-badge');
     });

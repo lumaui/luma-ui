@@ -35,14 +35,14 @@ import { TABS_GROUP, type TabsGroupBase } from './tabs.tokens';
   providers: [
     {
       provide: TABS_GROUP,
-      useExisting: TabsComponent,
+      useExisting: LmTabsComponent,
     },
   ],
   host: {
     '[class]': '"block w-full"',
   },
 })
-export class TabsComponent implements TabsGroupBase {
+export class LmTabsComponent implements TabsGroupBase {
   /** Controlled value - currently selected tab */
   lmValue = input<string | null>(null);
 

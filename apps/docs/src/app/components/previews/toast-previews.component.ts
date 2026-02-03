@@ -4,11 +4,15 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { ButtonDirective, ToastService, ToastPosition } from '@lumaui/angular';
+import {
+  LmButtonDirective,
+  LmToastService,
+  ToastPosition,
+} from '@lumaui/angular';
 
 @Component({
   selector: 'app-toast-previews',
-  imports: [ButtonDirective],
+  imports: [LmButtonDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (exampleId()) {
@@ -68,7 +72,7 @@ import { ButtonDirective, ToastService, ToastPosition } from '@lumaui/angular';
 })
 export class ToastPreviewsComponent {
   exampleId = input.required<string>();
-  private toast = inject(ToastService);
+  private toast = inject(LmToastService);
 
   positions: ToastPosition[] = [
     'top-left',

@@ -27,7 +27,7 @@ import { TABS_GROUP, TABS_LIST, type TabsListBase } from './tabs.tokens';
   providers: [
     {
       provide: TABS_LIST,
-      useExisting: TabsListDirective,
+      useExisting: LmTabsListDirective,
     },
   ],
   host: {
@@ -36,7 +36,7 @@ import { TABS_GROUP, TABS_LIST, type TabsListBase } from './tabs.tokens';
     '[class]': 'classes()',
   },
 })
-export class TabsListDirective implements TabsListBase {
+export class LmTabsListDirective implements TabsListBase {
   readonly elementRef = inject(ElementRef<HTMLElement>);
   protected readonly tabsGroup = inject(TABS_GROUP);
 

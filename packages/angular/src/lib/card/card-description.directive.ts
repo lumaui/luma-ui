@@ -10,7 +10,7 @@ import {
     '[class]': 'classes()',
   },
 })
-export class CardDescriptionDirective {
+export class LmCardDescriptionDirective {
   // Signal-based inputs with lm prefix (Angular 20+)
   lmSize = input<CardDescriptionSize>('normal');
 

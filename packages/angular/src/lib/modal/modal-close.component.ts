@@ -60,7 +60,7 @@ import { MODAL_CONTEXT } from './modal.tokens';
     class: 'contents',
   },
 })
-export class ModalCloseComponent {
+export class LmModalCloseComponent {
   readonly modal = inject(MODAL_CONTEXT);
 
   /** Accessible label for the close button */

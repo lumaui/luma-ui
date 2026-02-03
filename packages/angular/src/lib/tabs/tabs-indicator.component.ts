@@ -38,7 +38,7 @@ import { TABS_GROUP, TABS_LIST } from './tabs.tokens';
     '[style.transform]': 'indicatorTransform()',
   },
 })
-export class TabsIndicatorComponent implements AfterViewInit, OnDestroy {
+export class LmTabsIndicatorComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly tabsGroup = inject(TABS_GROUP);
   private readonly tabsList = inject(TABS_LIST);

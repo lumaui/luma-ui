@@ -20,7 +20,7 @@ import {
   ToastState,
 } from '@lumaui/core';
 import { Toast, ToastVariant } from './toast.tokens';
-import { ToastCloseComponent } from './toast-close.component';
+import { LmToastCloseComponent } from './toast-close.component';
 
 /**
  * ToastItemComponent
@@ -116,9 +116,9 @@ import { ToastCloseComponent } from './toast-close.component';
     '(keydown.escape)': 'onEscapeKey()',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ToastCloseComponent],
+  imports: [LmToastCloseComponent],
 })
-export class ToastItemComponent implements OnInit, OnDestroy {
+export class LmToastItemComponent implements OnInit, OnDestroy {
   /** Toast data */
   toast = input.required<Toast>();
 

@@ -1,7 +1,7 @@
 import { Directive, inject, computed } from '@angular/core';
 import { accordionContentVariants } from '@lumaui/core';
 import { ACCORDION_ITEM } from './accordion.tokens';
-import { AccordionTriggerDirective } from './accordion-trigger.directive';
+import { LmAccordionTriggerDirective } from './accordion-trigger.directive';
 
 let uniqueId = 0;
 
@@ -28,9 +28,9 @@ let uniqueId = 0;
     '[attr.hidden]': '!item.isOpen() ? "" : null',
   },
 })
-export class AccordionContentDirective {
+export class LmAccordionContentDirective {
   protected item = inject(ACCORDION_ITEM);
-  protected trigger = inject(AccordionTriggerDirective, { optional: true });
+  protected trigger = inject(LmAccordionTriggerDirective, { optional: true });
 
   private id = ++uniqueId;
   contentId = `luma-accordion-content-${this.id}`;

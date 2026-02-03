@@ -1,9 +1,9 @@
 import {
-  CardComponent,
-  TabsComponent,
-  TabsListDirective,
-  TabsPanelDirective,
-  TabsTriggerDirective,
+  LmCardComponent,
+  LmTabsComponent,
+  LmTabsListDirective,
+  LmTabsPanelDirective,
+  LmTabsTriggerDirective,
 } from '@lumaui/angular';
 import {
   ChangeDetectionStrategy,
@@ -33,11 +33,11 @@ import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component
     TabsPreviewsComponent,
     ModalPreviewsComponent,
     ToastPreviewsComponent,
-    CardComponent,
-    TabsComponent,
-    TabsListDirective,
-    TabsTriggerDirective,
-    TabsPanelDirective,
+    LmCardComponent,
+    LmTabsComponent,
+    LmTabsListDirective,
+    LmTabsTriggerDirective,
+    LmTabsPanelDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

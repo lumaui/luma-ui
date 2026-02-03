@@ -24,7 +24,7 @@ import { modalContentVariants } from '@lumaui/core';
     '[class]': 'classes()',
   },
 })
-export class ModalContentDirective {
+export class LmModalContentDirective {
   /** Enable scroll when content overflows */
   lmScrollable = input<boolean>(true);
 

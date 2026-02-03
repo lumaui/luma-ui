@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-import { ButtonDirective } from '@lumaui/angular';
+import { LmButtonDirective } from '@lumaui/angular';
 
 @Component({
   selector: 'app-button-previews',
-  imports: [ButtonDirective],
+  imports: [LmButtonDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (exampleId()) {
