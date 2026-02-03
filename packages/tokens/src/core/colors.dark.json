@@ -150,9 +150,35 @@
           "type": "color",
           "description": "Tertiary text, placeholders (dark)"
         }
+      },
+      "info": {
+        "50": {
+          "value": "oklch(0.78 0.09 232)",
+          "type": "color",
+          "description": "Info default (dark theme) - readable on dark surfaces"
+        },
+        "60": {
+          "value": "oklch(0.72 0.11 232)",
+          "type": "color",
+          "description": "Info strong (dark theme)"
+        },
+        "70": {
+          "value": "oklch(0.66 0.13 232)",
+          "type": "color",
+          "description": "Info hover (dark theme)"
+        },
+        "80": {
+          "value": "oklch(0.60 0.14 232)",
+          "type": "color",
+          "description": "Info active (dark theme)"
+        },
+        "90": {
+          "value": "oklch(0.54 0.13 232)",
+          "type": "color",
+          "description": "Info critical / emphasis (dark theme)"
+        }
       }
     },
-
     "focus": {
       "ring": {
         "color": {

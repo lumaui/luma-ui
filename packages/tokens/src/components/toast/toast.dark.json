@@ -1,0 +1,141 @@
+{
+  "luma": {
+    "toast": {
+      "container": {
+        "shadow": {
+          "value": "0 4px 12px oklch(0 0 0 / 0.24), 0 2px 4px oklch(0 0 0 / 0.12)",
+          "type": "shadow",
+          "description": "Deeper shadow for dark mode"
+        }
+      },
+      "info": {
+        "bg": {
+          "value": "oklch(0.25 0.04 232)",
+          "type": "color",
+          "description": "Info variant background (dark) - muted blue"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Info variant text color (dark)"
+        },
+        "icon-color": {
+          "value": "{luma.color.info.50}",
+          "type": "color",
+          "description": "Info variant icon color (dark)"
+        },
+        "close-color": {
+          "value": "{luma.color.info.60}",
+          "type": "color",
+          "description": "Info variant close button color (dark)"
+        },
+        "close-hover": {
+          "value": "{luma.color.info.70}",
+          "type": "color",
+          "description": "Info variant close button hover color (dark)"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Info variant border color (dark)"
+        }
+      },
+      "success": {
+        "bg": {
+          "value": "oklch(0.25 0.045 155)",
+          "type": "color",
+          "description": "Success variant background (dark) - muted green"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Success variant text color (dark)"
+        },
+        "icon-color": {
+          "value": "{luma.color.success.50}",
+          "type": "color",
+          "description": "Success variant icon color (dark)"
+        },
+        "close-color": {
+          "value": "{luma.color.success.60}",
+          "type": "color",
+          "description": "Success variant close button color (dark)"
+        },
+        "close-hover": {
+          "value": "{luma.color.success.70}",
+          "type": "color",
+          "description": "Success variant close button hover color (dark)"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Success variant border color (dark)"
+        }
+      },
+      "warning": {
+        "bg": {
+          "value": "oklch(0.27 0.05 95)",
+          "type": "color",
+          "description": "Warning variant background (dark) - muted yellow"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Warning variant text color (dark)"
+        },
+        "icon-color": {
+          "value": "{luma.color.warning.60}",
+          "type": "color",
+          "description": "Warning variant icon color (dark)"
+        },
+        "close-color": {
+          "value": "{luma.color.warning.60}",
+          "type": "color",
+          "description": "Warning variant close button color (dark)"
+        },
+        "close-hover": {
+          "value": "{luma.color.warning.70}",
+          "type": "color",
+          "description": "Warning variant close button hover color (dark)"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Warning variant border color (dark)"
+        }
+      },
+      "error": {
+        "bg": {
+          "value": "oklch(0.25 0.045 28)",
+          "type": "color",
+          "description": "Error variant background (dark) - muted rose"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Error variant text color (dark)"
+        },
+        "icon-color": {
+          "value": "{luma.color.error.50}",
+          "type": "color",
+          "description": "Error variant icon color (dark)"
+        },
+        "close-color": {
+          "value": "{luma.color.error.60}",
+          "type": "color",
+          "description": "Error variant close button color (dark)"
+        },
+        "close-hover": {
+          "value": "{luma.color.error.70}",
+          "type": "color",
+          "description": "Error variant close button hover color (dark)"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Error variant border color (dark)"
+        }
+      }
+    }
+  }
+}

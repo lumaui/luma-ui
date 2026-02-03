@@ -420,6 +420,145 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 </section>
               }
 
+              <!-- Global Configuration -->
+              @if (comp.globalConfig) {
+                <section>
+                  <h3 class="text-lg font-medium lm-text-primary mb-4">
+                    Global Configuration
+                  </h3>
+                  <p class="lm-text-secondary text-sm mb-4">
+                    {{ comp.globalConfig.description }}
+                  </p>
+
+                  <!-- Code Example -->
+                  <luma-card lmVariant="preview" class="mb-6">
+                    <div class="-m-5 overflow-hidden rounded-[inherit]">
+                      <div
+                        class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
+                      >
+                        <span class="text-xs lm-text-secondary font-mono"
+                          >app.config.ts</span
+                        >
+                        <button
+                          (click)="copyCode(comp.globalConfig.code)"
+                          class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
+                        >
+                          <svg
+                            class="w-3.5 h-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <span>Copy</span>
+                        </button>
+                      </div>
+                      <pre
+                        class="p-4 overflow-x-auto text-sm"
+                      ><code class="font-mono lm-text-primary whitespace-pre">{{ comp.globalConfig.code }}</code></pre>
+                    </div>
+                  </luma-card>
+
+                  <!-- Options Table -->
+                  @if (
+                    comp.globalConfig.options &&
+                    comp.globalConfig.options.length > 0
+                  ) {
+                    <h4 class="text-base font-medium lm-text-primary mb-3">
+                      Configuration Options
+                    </h4>
+
+                    <!-- Desktop Table (md+) -->
+                    <div class="hidden md:block overflow-x-auto">
+                      <table class="w-full text-left">
+                        <thead>
+                          <tr class="lm-text-secondary">
+                            <th class="pb-3 pr-6 font-medium text-sm">
+                              Option
+                            </th>
+                            <th class="pb-3 pr-6 font-medium text-sm">Type</th>
+                            <th class="pb-3 pr-6 font-medium text-sm">
+                              Default
+                            </th>
+                            <th class="pb-3 font-medium text-sm">
+                              Description
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @for (
+                            option of comp.globalConfig.options;
+                            track option.name
+                          ) {
+                            <tr class="text-sm table-row-striped">
+                              <td class="py-3 pr-6">
+                                <code
+                                  class="font-mono text-xs lm-bg-surface-base px-2 py-1 rounded"
+                                  >{{ option.name }}</code
+                                >
+                              </td>
+                              <td class="py-3 pr-6">
+                                <code
+                                  class="font-mono text-xs lm-text-secondary"
+                                  >{{ option.type }}</code
+                                >
+                              </td>
+                              <td class="py-3 pr-6">
+                                <code
+                                  class="font-mono text-xs lm-text-secondary"
+                                  >{{ option.default }}</code
+                                >
+                              </td>
+                              <td class="py-3 lm-text-secondary">
+                                {{ option.description }}
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- Mobile Cards (< md) -->
+                    <div class="md:hidden space-y-3">
+                      @for (
+                        option of comp.globalConfig.options;
+                        track option.name
+                      ) {
+                        <luma-card>
+                          <div class="flex items-center gap-2 mb-2">
+                            <code
+                              class="font-mono text-sm font-medium lm-text-primary"
+                              >{{ option.name }}</code
+                            >
+                            @if (option.default) {
+                              <span
+                                class="text-xs px-1.5 py-0.5 rounded lm-bg-primary-50/10 lm-text-secondary"
+                              >
+                                = {{ option.default }}
+                              </span>
+                            }
+                          </div>
+                          <p class="text-sm lm-text-secondary mb-2">
+                            {{ option.description }}
+                          </p>
+                          <code
+                            class="text-sm font-mono lm-text-secondary/70 block break-all"
+                          >
+                            {{ option.type }}
+                          </code>
+                        </luma-card>
+                      }
+                    </div>
+                  }
+                </section>
+              }
+
               <!-- Selector -->
               <section>
                 <h3 class="text-lg font-medium lm-text-primary mb-4">

@@ -30,6 +30,11 @@
   --luma-color-text-primary: oklch(0.22 0.014 290);
   --luma-color-text-secondary: oklch(0.48 0.01 290);
   --luma-color-text-tertiary: oklch(0.86 0.008 290);
+  --luma-color-info-50: oklch(0.65 0.10 232);
+  --luma-color-info-60: oklch(0.58 0.13 232);
+  --luma-color-info-70: oklch(0.50 0.14 232);
+  --luma-color-info-80: oklch(0.43 0.13 232);
+  --luma-color-info-90: oklch(0.36 0.12 232);
 
   /* Focus */
   --luma-focus-ring-color: oklch(0.55 0.10 300 / 0.35);
@@ -234,6 +239,52 @@
   --luma-modal-close-radius: 6px;
   --luma-modal-transition-duration: 250ms;
   --luma-modal-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Toast */
+  --luma-toast-container-radius: 18px;
+  --luma-toast-container-shadow: 0 4px 12px oklch(0 0 0 / 0.08), 0 2px 4px oklch(0 0 0 / 0.04);
+  --luma-toast-container-padding-x: 16px;
+  --luma-toast-container-padding-y: 12px;
+  --luma-toast-container-gap: 12px;
+  --luma-toast-container-max-width: 360px;
+  --luma-toast-container-min-width: 280px;
+  --luma-toast-container-stack-gap: 12px;
+  --luma-toast-container-border-width: 0px;
+  --luma-toast-container-border-color: rgba(0, 0, 0, 0);
+  --luma-toast-icon-size: 20px;
+  --luma-toast-title-font-size: 14px;
+  --luma-toast-title-font-weight: 500;
+  --luma-toast-title-line-height: 1.4;
+  --luma-toast-message-font-size: 14px;
+  --luma-toast-message-line-height: 1.5;
+  --luma-toast-close-size: 16px;
+  --luma-toast-close-radius: 4px;
+  --luma-toast-info-bg: oklch(0.95 0.02 232);
+  --luma-toast-info-text: oklch(0.22 0.014 290);
+  --luma-toast-info-icon-color: oklch(0.65 0.10 232);
+  --luma-toast-info-close-color: oklch(0.58 0.13 232);
+  --luma-toast-info-close-hover: oklch(0.50 0.14 232);
+  --luma-toast-info-border: rgba(0, 0, 0, 0);
+  --luma-toast-success-bg: oklch(0.94 0.025 155);
+  --luma-toast-success-text: oklch(0.22 0.014 290);
+  --luma-toast-success-icon-color: oklch(0.72 0.07 155);
+  --luma-toast-success-close-color: oklch(0.66 0.08 155);
+  --luma-toast-success-close-hover: oklch(0.60 0.08 155);
+  --luma-toast-success-border: rgba(0, 0, 0, 0);
+  --luma-toast-warning-bg: oklch(0.96 0.03 95);
+  --luma-toast-warning-text: oklch(0.22 0.014 290);
+  --luma-toast-warning-icon-color: oklch(0.74 0.10 95);
+  --luma-toast-warning-close-color: oklch(0.74 0.10 95);
+  --luma-toast-warning-close-hover: oklch(0.68 0.09 95);
+  --luma-toast-warning-border: rgba(0, 0, 0, 0);
+  --luma-toast-error-bg: oklch(0.93 0.025 28);
+  --luma-toast-error-text: oklch(0.22 0.014 290);
+  --luma-toast-error-icon-color: oklch(0.63 0.10 28);
+  --luma-toast-error-close-color: oklch(0.57 0.11 28);
+  --luma-toast-error-close-hover: oklch(0.51 0.10 28);
+  --luma-toast-error-border: rgba(0, 0, 0, 0);
+  --luma-toast-transition-duration: 200ms;
+  --luma-toast-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 
 }
 
@@ -502,6 +553,66 @@
 
 @utility lm-border-error-80 {
   border-color: var(--luma-color-error-80);
+}
+
+@utility lm-bg-info-50 {
+  background-color: var(--luma-color-info-50);
+}
+
+@utility lm-text-info-50 {
+  color: var(--luma-color-info-50);
+}
+
+@utility lm-border-info-50 {
+  border-color: var(--luma-color-info-50);
+}
+
+@utility lm-bg-info-60 {
+  background-color: var(--luma-color-info-60);
+}
+
+@utility lm-text-info-60 {
+  color: var(--luma-color-info-60);
+}
+
+@utility lm-border-info-60 {
+  border-color: var(--luma-color-info-60);
+}
+
+@utility lm-bg-info-70 {
+  background-color: var(--luma-color-info-70);
+}
+
+@utility lm-text-info-70 {
+  color: var(--luma-color-info-70);
+}
+
+@utility lm-border-info-70 {
+  border-color: var(--luma-color-info-70);
+}
+
+@utility lm-bg-info-80 {
+  background-color: var(--luma-color-info-80);
+}
+
+@utility lm-text-info-80 {
+  color: var(--luma-color-info-80);
+}
+
+@utility lm-border-info-80 {
+  border-color: var(--luma-color-info-80);
+}
+
+@utility lm-bg-info-90 {
+  background-color: var(--luma-color-info-90);
+}
+
+@utility lm-text-info-90 {
+  color: var(--luma-color-info-90);
+}
+
+@utility lm-border-info-90 {
+  border-color: var(--luma-color-info-90);
 }
 
 /* Semantic Text Utilities */
@@ -1147,5 +1258,192 @@
 
 @utility lm-ease-modal {
   transition-timing-function: var(--luma-modal-transition-timing);
+}
+
+/* Toast Container Utilities */
+@utility lm-rounded-toast {
+  border-radius: var(--luma-toast-container-radius);
+}
+
+@utility lm-shadow-toast {
+  box-shadow: var(--luma-toast-container-shadow);
+}
+
+@utility lm-px-toast {
+  padding-left: var(--luma-toast-container-padding-x);
+  padding-right: var(--luma-toast-container-padding-x);
+}
+
+@utility lm-py-toast {
+  padding-top: var(--luma-toast-container-padding-y);
+  padding-bottom: var(--luma-toast-container-padding-y);
+}
+
+@utility lm-gap-toast {
+  gap: var(--luma-toast-container-gap);
+}
+
+@utility lm-max-w-toast {
+  max-width: var(--luma-toast-container-max-width);
+}
+
+@utility lm-min-w-toast {
+  min-width: var(--luma-toast-container-min-width);
+}
+
+@utility lm-gap-toast-stack {
+  gap: var(--luma-toast-container-stack-gap);
+}
+
+@utility lm-border-toast {
+  border-width: var(--luma-toast-container-border-width);
+  border-color: var(--luma-toast-container-border-color);
+}
+
+/* Toast Icon Utilities */
+@utility lm-size-toast-icon {
+  width: var(--luma-toast-icon-size);
+  height: var(--luma-toast-icon-size);
+}
+
+/* Toast Title Utilities */
+@utility lm-text-size-toast-title {
+  font-size: var(--luma-toast-title-font-size);
+}
+
+@utility lm-font-toast-title {
+  font-weight: var(--luma-toast-title-font-weight);
+}
+
+@utility lm-leading-toast-title {
+  line-height: var(--luma-toast-title-line-height);
+}
+
+/* Toast Message Utilities */
+@utility lm-text-size-toast-message {
+  font-size: var(--luma-toast-message-font-size);
+}
+
+@utility lm-leading-toast-message {
+  line-height: var(--luma-toast-message-line-height);
+}
+
+/* Toast Close Button Utilities */
+@utility lm-size-toast-close {
+  width: var(--luma-toast-close-size);
+  height: var(--luma-toast-close-size);
+}
+
+@utility lm-rounded-toast-close {
+  border-radius: var(--luma-toast-close-radius);
+}
+
+/* Toast Variant Utilities - Info */
+@utility lm-bg-toast-info {
+  background-color: var(--luma-toast-info-bg);
+}
+
+@utility lm-text-toast-info {
+  color: var(--luma-toast-info-text);
+}
+
+@utility lm-text-toast-icon-info {
+  color: var(--luma-toast-info-icon-color);
+}
+
+@utility lm-text-toast-close-info {
+  color: var(--luma-toast-info-close-color);
+}
+
+@utility lm-text-toast-close-info-hover {
+  color: var(--luma-toast-info-close-hover);
+}
+
+@utility lm-border-toast-info {
+  border-color: var(--luma-toast-info-border);
+}
+
+/* Toast Variant Utilities - Success */
+@utility lm-bg-toast-success {
+  background-color: var(--luma-toast-success-bg);
+}
+
+@utility lm-text-toast-success {
+  color: var(--luma-toast-success-text);
+}
+
+@utility lm-text-toast-icon-success {
+  color: var(--luma-toast-success-icon-color);
+}
+
+@utility lm-text-toast-close-success {
+  color: var(--luma-toast-success-close-color);
+}
+
+@utility lm-text-toast-close-success-hover {
+  color: var(--luma-toast-success-close-hover);
+}
+
+@utility lm-border-toast-success {
+  border-color: var(--luma-toast-success-border);
+}
+
+/* Toast Variant Utilities - Warning */
+@utility lm-bg-toast-warning {
+  background-color: var(--luma-toast-warning-bg);
+}
+
+@utility lm-text-toast-warning {
+  color: var(--luma-toast-warning-text);
+}
+
+@utility lm-text-toast-icon-warning {
+  color: var(--luma-toast-warning-icon-color);
+}
+
+@utility lm-text-toast-close-warning {
+  color: var(--luma-toast-warning-close-color);
+}
+
+@utility lm-text-toast-close-warning-hover {
+  color: var(--luma-toast-warning-close-hover);
+}
+
+@utility lm-border-toast-warning {
+  border-color: var(--luma-toast-warning-border);
+}
+
+/* Toast Variant Utilities - Error */
+@utility lm-bg-toast-error {
+  background-color: var(--luma-toast-error-bg);
+}
+
+@utility lm-text-toast-error {
+  color: var(--luma-toast-error-text);
+}
+
+@utility lm-text-toast-icon-error {
+  color: var(--luma-toast-error-icon-color);
+}
+
+@utility lm-text-toast-close-error {
+  color: var(--luma-toast-error-close-color);
+}
+
+@utility lm-text-toast-close-error-hover {
+  color: var(--luma-toast-error-close-hover);
+}
+
+@utility lm-border-toast-error {
+  border-color: var(--luma-toast-error-border);
+}
+
+/* Toast Transition Utilities */
+@utility lm-duration-toast {
+  transition-duration: var(--luma-toast-transition-duration);
+}
+
+@utility lm-ease-toast {
+  transition-timing-function: var(--luma-toast-transition-timing);
 }
 

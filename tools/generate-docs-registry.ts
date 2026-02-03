@@ -101,6 +101,20 @@ interface DocCustomization {
   examples: CustomizationExample[];
 }
 
+interface GlobalConfigOption {
+  name: string;
+  type: string;
+  default: string;
+  description: string;
+}
+
+interface DocGlobalConfig {
+  provider: string;
+  description: string;
+  code: string;
+  options: GlobalConfigOption[];
+}
+
 interface DocFrontMatter {
   name: string;
   type: 'component' | 'directive';
@@ -110,6 +124,7 @@ interface DocFrontMatter {
   inputs?: DocInput[];
   tokens?: DocToken[];
   tokenGroups?: DocTokenGroup[];
+  globalConfig?: DocGlobalConfig;
 }
 
 interface DocComponent {
@@ -122,6 +137,7 @@ interface DocComponent {
   inputs: DocInput[];
   tokens: DocToken[];
   tokenGroups: DocTokenGroup[];
+  globalConfig?: DocGlobalConfig;
   examples: DocExample[];
   useCases: DocUseCase[];
   customization: DocCustomization;
@@ -454,17 +470,19 @@ function extractCustomization(content: string): DocCustomization {
 }
 
 /**
- * Extract code examples from markdown content (excluding Customizing section)
+ * Extract code examples from markdown content (only from ## Usage Examples section)
  */
 function extractExamples(content: string): DocExample[] {
-  // Remove the Customizing section before extracting examples
-  const contentWithoutCustomizing = content.replace(
-    /## Customizing\n\n[\s\S]*?(?=\n## |$)/,
-    '',
+  // Extract only the Usage Examples section
+  const usageExamplesMatch = content.match(
+    /## Usage Examples\n\n([\s\S]*?)(?=\n## |$)/,
   );
+  if (!usageExamplesMatch) return [];
+
+  const usageExamplesContent = usageExamplesMatch[1];
 
   const examples: DocExample[] = [];
-  const lines = contentWithoutCustomizing.split('\n');
+  const lines = usageExamplesContent.split('\n');
 
   let currentTitle = '';
   let inCodeBlock = false;
@@ -500,7 +518,7 @@ function extractExamples(content: string): DocExample[] {
           language: currentLanguage,
         });
       }
-      currentTitle = '';
+      // Title preserved for consecutive code blocks under same heading
       continue;
     }
 
@@ -630,6 +648,7 @@ function parseDocFile(filePath: string): DocComponent | null {
       inputs: frontMatter.inputs || [],
       tokens: frontMatter.tokens || [],
       tokenGroups: frontMatter.tokenGroups || [],
+      globalConfig: frontMatter.globalConfig,
       examples,
       useCases,
       customization,

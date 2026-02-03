@@ -840,26 +840,6 @@
       ],
       "examples": [
         {
-          "title": "Default",
-          "code": "<luma-card>\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Default Card</h3>\n    <p lumaCardDescription>Card with solid border</p>\n  </div>\n  <div lumaCardContent>\n    <p>Content with clean border styling.</p>\n  </div>\n</luma-card>",
-          "language": "html"
-        },
-        {
-          "title": "Shadow",
-          "code": "<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Shadow Card</h3>\n    <p lumaCardDescription>Elevated card with subtle shadow</p>\n  </div>\n  <div lumaCardContent>\n    <p>Primary content with clean, elevated appearance.</p>\n  </div>\n</luma-card>",
-          "language": "html"
-        },
-        {
-          "title": "Nested",
-          "code": "<luma-card lmVariant=\"shadow\">\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Parent Card</h3>\n  </div>\n  <div lumaCardContent>\n    <!-- Nested card inside -->\n    <luma-card lmVariant=\"nested\">\n      <div lumaCardContent>\n        <p>Nested content with subtle differentiation.</p>\n      </div>\n    </luma-card>\n  </div>\n</luma-card>",
-          "language": "html"
-        },
-        {
-          "title": "Preview",
-          "code": "<luma-card lmVariant=\"preview\">\n  <div lumaCardContent>\n    <div class=\"flex items-center justify-center p-8\">\n      <!-- Component preview -->\n      <button lumaButton lmVariant=\"primary\">Preview Button</button>\n    </div>\n  </div>\n</luma-card>",
-          "language": "html"
-        },
-        {
           "title": "Basic Card",
           "code": "<luma-card>\n  <div lumaCardHeader>\n    <h3 lumaCardTitle>Card Title</h3>\n    <p lumaCardDescription>This is a description of the card content.</p>\n  </div>\n  <div lumaCardContent>\n    <p>Main content goes here.</p>\n  </div>\n</luma-card>",
           "language": "html"
@@ -1123,21 +1103,6 @@
           "title": "Footer Alignment",
           "code": "<!-- End aligned (default) -->\n<div lumaModalFooter>\n  <button lumaButton>Action</button>\n</div>\n\n<!-- Space between -->\n<div lumaModalFooter lmAlign=\"between\">\n  <button lumaButton lmVariant=\"danger\">Delete</button>\n  <button lumaButton>Save</button>\n</div>\n\n<!-- Center aligned -->\n<div lumaModalFooter lmAlign=\"center\">\n  <button lumaButton>Got it</button>\n</div>\n\n<!-- Start aligned -->\n<div lumaModalFooter lmAlign=\"start\">\n  <button lumaButton>Back</button>\n</div>",
           "language": "html"
-        },
-        {
-          "title": "Lazy Loading",
-          "code": "@Component({\n  template: `\n    <button lumaButton (click)=\"openUserModal()\">View User</button>\n\n    <luma-modal [lmOpen]=\"isOpen()\" (lmOpenChange)=\"isOpen.set($event)\">\n      <luma-modal-overlay>\n        <luma-modal-container>\n          <luma-modal-close />\n          <div lumaModalHeader>\n            <h2 lumaModalTitle>User Details</h2>\n          </div>\n          <div lumaModalContent>\n            @if (loading()) {\n              <div class=\"flex justify-center py-8\">\n                <span class=\"lm-text-secondary\">Loading...</span>\n              </div>\n            } @else if (user()) {\n              <div class=\"space-y-2\">\n                <p><strong>Name:</strong> {{ user()?.name }}</p>\n                <p><strong>Email:</strong> {{ user()?.email }}</p>\n              </div>\n            }\n          </div>\n        </luma-modal-container>\n      </luma-modal-overlay>\n    </luma-modal>\n  `,\n})\nexport class UserModalComponent {\n  private userService = inject(UserService);\n\n  isOpen = signal(false);\n  loading = signal(false);\n  user = signal<User | null>(null);\n\n  openUserModal() {\n    this.isOpen.set(true);\n    this.loading.set(true);\n\n    this.userService\n      .getUser(123)\n      .pipe(\n        tap((user) => this.user.set(user)),\n        finalize(() => this.loading.set(false)),\n      )\n      .subscribe();\n  }\n}",
-          "language": "typescript"
-        },
-        {
-          "title": "Save on Close",
-          "code": "@Component({\n  template: `\n    <luma-modal [lmOpen]=\"isOpen()\" (lmOpenChange)=\"handleOpenChange($event)\">\n      <luma-modal-overlay>\n        <luma-modal-container>\n          <div lumaModalHeader>\n            <h2 lumaModalTitle>Edit Profile</h2>\n            <luma-modal-close />\n          </div>\n          <div lumaModalContent>\n            <input [(ngModel)]=\"formData().name\" placeholder=\"Name\" />\n            <input [(ngModel)]=\"formData().email\" placeholder=\"Email\" />\n          </div>\n          <div lumaModalFooter>\n            <button lumaButton lmVariant=\"ghost\" (click)=\"cancel()\">\n              Cancel\n            </button>\n            <button lumaButton lmVariant=\"primary\" (click)=\"save()\">\n              Save\n            </button>\n          </div>\n        </luma-modal-container>\n      </luma-modal-overlay>\n    </luma-modal>\n  `,\n})\nexport class EditProfileModalComponent {\n  isOpen = signal(false);\n  formData = signal({ name: '', email: '' });\n\n  handleOpenChange(open: boolean) {\n    if (!open) {\n      // Modal closing - execute cleanup\n      this.formData.set({ name: '', email: '' });\n      this.analytics.track('profile_modal_closed');\n    }\n    this.isOpen.set(open);\n  }\n\n  save() {\n    this.profileService.update(this.formData());\n    this.isOpen.set(false);\n  }\n\n  cancel() {\n    this.isOpen.set(false);\n  }\n}",
-          "language": "typescript"
-        },
-        {
-          "title": "Confirm Before Close",
-          "code": "@Component({\n  template: `\n    <luma-modal\n      [lmOpen]=\"isOpen()\"\n      (lmOpenChange)=\"handleOpenChange($event)\"\n      [lmCloseOnOverlay]=\"!hasChanges()\"\n      [lmCloseOnEscape]=\"!hasChanges()\"\n    >\n      <luma-modal-overlay>\n        <luma-modal-container>\n          <div lumaModalHeader>\n            <h2 lumaModalTitle>Document</h2>\n            <luma-modal-close />\n          </div>\n          <div lumaModalContent>\n            <textarea\n              [ngModel]=\"content()\"\n              (ngModelChange)=\"onContentChange($event)\"\n            ></textarea>\n          </div>\n          <div lumaModalFooter>\n            <button\n              lumaButton\n              lmVariant=\"ghost\"\n              (click)=\"handleOpenChange(false)\"\n            >\n              Close\n            </button>\n            <button\n              lumaButton\n              lmVariant=\"primary\"\n              [disabled]=\"!hasChanges()\"\n              (click)=\"save()\"\n            >\n              Save\n            </button>\n          </div>\n        </luma-modal-container>\n      </luma-modal-overlay>\n    </luma-modal>\n\n    <!-- Confirmation modal -->\n    <luma-modal\n      [lmOpen]=\"showConfirm()\"\n      (lmOpenChange)=\"showConfirm.set($event)\"\n    >\n      <luma-modal-overlay>\n        <luma-modal-container>\n          <div lumaModalContent>\n            <p>You have unsaved changes. Discard and close?</p>\n          </div>\n          <div lumaModalFooter>\n            <button\n              lumaButton\n              lmVariant=\"ghost\"\n              (click)=\"showConfirm.set(false)\"\n            >\n              Keep editing\n            </button>\n            <button lumaButton lmVariant=\"danger\" (click)=\"discardAndClose()\">\n              Discard changes\n            </button>\n          </div>\n        </luma-modal-container>\n      </luma-modal-overlay>\n    </luma-modal>\n  `,\n})\nexport class DocumentModalComponent {\n  isOpen = signal(false);\n  showConfirm = signal(false);\n  content = signal('');\n  originalContent = signal('');\n\n  hasChanges = computed(() => this.content() !== this.originalContent());\n\n  onContentChange(value: string) {\n    this.content.set(value);\n  }\n\n  handleOpenChange(open: boolean) {\n    if (!open && this.hasChanges()) {\n      this.showConfirm.set(true);\n      return;\n    }\n    this.isOpen.set(open);\n  }\n\n  discardAndClose() {\n    this.showConfirm.set(false);\n    this.content.set(this.originalContent());\n    this.isOpen.set(false);\n  }\n\n  save() {\n    this.originalContent.set(this.content());\n    this.isOpen.set(false);\n  }\n}",
-          "language": "typescript"
         }
       ],
       "useCases": [
@@ -1379,11 +1344,6 @@
           "title": "Pill Style",
           "code": "<luma-tabs lmDefaultValue=\"tab-1\" lmVariant=\"pill\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">All</button>\n    <button lumaTabsTrigger=\"tab-2\">Active</button>\n    <button lumaTabsTrigger=\"tab-3\">Completed</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">All items...</div>\n  <div lumaTabsPanel=\"tab-2\">Active items...</div>\n  <div lumaTabsPanel=\"tab-3\">Completed items...</div>\n</luma-tabs>",
           "language": "html"
-        },
-        {
-          "title": "Lazy Loading",
-          "code": "<!-- Default: lazy loading enabled -->\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <!-- Only rendered when tab-1 is selected (default) -->\n  <div lumaTabsPanel=\"tab-1\">\n    <expensive-component />\n  </div>\n\n  <!-- Only rendered when tab-2 is first selected -->\n  <div lumaTabsPanel=\"tab-2\">\n    <another-expensive-component />\n  </div>\n</luma-tabs>\n\n<!-- Disable lazy loading to render all panels immediately -->\n<luma-tabs lmDefaultValue=\"tab-1\" [lmLazy]=\"false\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Content 1</div>\n  <div lumaTabsPanel=\"tab-2\">Content 2</div>\n</luma-tabs>",
-          "language": "html"
         }
       ],
       "useCases": [],
@@ -1399,6 +1359,437 @@
       },
       "docPath": "packages/angular/src/lib/tabs/tabs.docs.md",
       "markdownContent": "\n# Tabs\n\n## Purpose\n\nTabs organize content into separate views where only one view can be visible at a time. The Tabs component follows WAI-ARIA tabs pattern with full keyboard navigation and supports three visual styles to match different UI contexts.\n\n## Usage Examples\n\n### Basic Tabs\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Overview</button>\n    <button lumaTabsTrigger=\"tab-2\">Features</button>\n    <button lumaTabsTrigger=\"tab-3\">Pricing</button>\n    <button lumaTabsTrigger=\"tab-4\" [lmDisabled]=\"true\">Disabled</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Overview content goes here...</div>\n  <div lumaTabsPanel=\"tab-2\">Features content goes here...</div>\n  <div lumaTabsPanel=\"tab-3\">Pricing content goes here...</div>\n</luma-tabs>\n```\n\n### Controlled Tabs\n\n```html\n<luma-tabs [lmValue]=\"selectedTab()\" (lmValueChange)=\"onTabChange($event)\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"account\">Account</button>\n    <button lumaTabsTrigger=\"security\">Security</button>\n    <button lumaTabsTrigger=\"notifications\">Notifications</button>\n  </div>\n\n  <div lumaTabsPanel=\"account\">Account settings...</div>\n  <div lumaTabsPanel=\"security\">Security settings...</div>\n  <div lumaTabsPanel=\"notifications\">Notification preferences...</div>\n</luma-tabs>\n```\n\n### Background Style\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\" lmVariant=\"background\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Dashboard</button>\n    <button lumaTabsTrigger=\"tab-2\">Analytics</button>\n    <button lumaTabsTrigger=\"tab-3\">Reports</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Dashboard content...</div>\n  <div lumaTabsPanel=\"tab-2\">Analytics content...</div>\n  <div lumaTabsPanel=\"tab-3\">Reports content...</div>\n</luma-tabs>\n```\n\n### Pill Style\n\n```html\n<luma-tabs lmDefaultValue=\"tab-1\" lmVariant=\"pill\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">All</button>\n    <button lumaTabsTrigger=\"tab-2\">Active</button>\n    <button lumaTabsTrigger=\"tab-3\">Completed</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">All items...</div>\n  <div lumaTabsPanel=\"tab-2\">Active items...</div>\n  <div lumaTabsPanel=\"tab-3\">Completed items...</div>\n</luma-tabs>\n```\n\n## Performance\n\n### Lazy Loading\n\nTabs panels are **lazy loaded by default** (`lmLazy=\"true\"`). This means panel content is only rendered when the tab is first selected, improving initial page load performance for tabs with heavy content.\n\n**How it works:**\n\n- Panel content is not rendered until the tab is selected for the first time\n- Once rendered, the content stays in the DOM (cached) for instant switching\n- Set `[lmLazy]=\"false\"` to render all panels immediately\n\n```html\n<!-- Default: lazy loading enabled -->\n<luma-tabs lmDefaultValue=\"tab-1\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <!-- Only rendered when tab-1 is selected (default) -->\n  <div lumaTabsPanel=\"tab-1\">\n    <expensive-component />\n  </div>\n\n  <!-- Only rendered when tab-2 is first selected -->\n  <div lumaTabsPanel=\"tab-2\">\n    <another-expensive-component />\n  </div>\n</luma-tabs>\n\n<!-- Disable lazy loading to render all panels immediately -->\n<luma-tabs lmDefaultValue=\"tab-1\" [lmLazy]=\"false\">\n  <div lumaTabsList>\n    <button lumaTabsTrigger=\"tab-1\">Tab 1</button>\n    <button lumaTabsTrigger=\"tab-2\">Tab 2</button>\n  </div>\n\n  <div lumaTabsPanel=\"tab-1\">Content 1</div>\n  <div lumaTabsPanel=\"tab-2\">Content 2</div>\n</luma-tabs>\n```\n\n**When to disable lazy loading:**\n\n- When you need to measure all panel heights upfront\n- When panels contain forms that must be pre-validated\n- When switching speed is more important than initial load\n\n## Accessibility\n\nThe Tabs component implements the WAI-ARIA Tabs pattern:\n\n- **Roles**: `tablist` on the list container, `tab` on triggers, `tabpanel` on panels\n- **Roving Tabindex**: Only the selected tab is in the tab order (tabindex=\"0\"), others are tabindex=\"-1\"\n- **ARIA Attributes**:\n  - `aria-selected`: Indicates the selected tab\n  - `aria-controls`: Links tab to its panel\n  - `aria-labelledby`: Links panel to its tab\n  - `aria-orientation`: Indicates horizontal layout\n\n### Keyboard Navigation\n\n| Key         | Action                        |\n| ----------- | ----------------------------- |\n| Arrow Right | Focus and select next tab     |\n| Arrow Left  | Focus and select previous tab |\n| Home        | Focus and select first tab    |\n| End         | Focus and select last tab     |\n| Enter/Space | Activate focused tab          |\n\n## Neo-Minimal Principles\n\n### Visual Silence\n\nThe three tab styles offer different levels of visual weight:\n\n- **Underline**: Minimal, just a 2px indicator line\n- **Background**: Subtle fill on selected tab\n- **Pill**: Contained design with soft background\n\n### Calm Interactions\n\n- **Smooth transitions**: 200ms with ease-out easing\n- **Animated indicator**: Slides naturally between tabs\n- **No jarring effects**: Focus rings are visible but subtle\n\n### Functional Whitespace\n\n- Consistent padding creates rhythm\n- Gap between tabs provides visual separation\n- Panel padding gives content breathing room\n"
+    },
+    {
+      "name": "Toast",
+      "slug": "toast",
+      "type": "component",
+      "category": "Feedback",
+      "description": "Non-blocking notification system for displaying brief messages to users",
+      "selector": "ToastService",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string",
+          "default": "required",
+          "description": "Toast message content"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "undefined",
+          "description": "Optional toast title"
+        },
+        {
+          "name": "variant",
+          "type": "'info' | 'success' | 'warning' | 'error'",
+          "default": "'info'",
+          "description": "Visual variant determining background color and icon"
+        },
+        {
+          "name": "position",
+          "type": "'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'",
+          "default": "'top-right'",
+          "description": "Screen position for toast display"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "5000",
+          "description": "Auto-close duration in milliseconds (0 = no auto-close)"
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show close button"
+        },
+        {
+          "name": "pauseOnHover",
+          "type": "boolean",
+          "default": "true",
+          "description": "Pause auto-close timer on hover"
+        },
+        {
+          "name": "role",
+          "type": "'alert' | 'status'",
+          "default": "'status' (auto: 'alert' for error variant)",
+          "description": "ARIA role for screen reader announcements"
+        }
+      ],
+      "tokens": [],
+      "tokenGroups": [
+        {
+          "name": "Container",
+          "tokens": [
+            {
+              "name": "--luma-toast-container-radius",
+              "value": "var(--luma-radius-lg)",
+              "description": "Toast border radius"
+            },
+            {
+              "name": "--luma-toast-container-shadow",
+              "value": "0 4px 12px oklch(0 0 0 / 0.08)",
+              "description": "Toast shadow"
+            },
+            {
+              "name": "--luma-toast-container-padding-x",
+              "value": "16px",
+              "description": "Horizontal padding"
+            },
+            {
+              "name": "--luma-toast-container-padding-y",
+              "value": "12px",
+              "description": "Vertical padding"
+            },
+            {
+              "name": "--luma-toast-container-gap",
+              "value": "12px",
+              "description": "Gap between icon, content, and close button"
+            },
+            {
+              "name": "--luma-toast-container-border-width",
+              "value": "0px",
+              "description": "Toast border width"
+            },
+            {
+              "name": "--luma-toast-container-border-color",
+              "value": "transparent",
+              "description": "Toast border color"
+            }
+          ]
+        },
+        {
+          "name": "Typography",
+          "tokens": [
+            {
+              "name": "--luma-toast-title-font-size",
+              "value": "14px",
+              "description": "Toast title font size"
+            },
+            {
+              "name": "--luma-toast-title-font-weight",
+              "value": "500",
+              "description": "Toast title font weight"
+            },
+            {
+              "name": "--luma-toast-title-line-height",
+              "value": "1.4",
+              "description": "Toast title line height"
+            },
+            {
+              "name": "--luma-toast-message-font-size",
+              "value": "14px",
+              "description": "Toast message font size"
+            },
+            {
+              "name": "--luma-toast-message-line-height",
+              "value": "1.5",
+              "description": "Toast message line height"
+            }
+          ]
+        },
+        {
+          "name": "Icon",
+          "tokens": [
+            {
+              "name": "--luma-toast-icon-size",
+              "value": "20px",
+              "description": "Icon size"
+            }
+          ]
+        },
+        {
+          "name": "Close Button",
+          "tokens": [
+            {
+              "name": "--luma-toast-close-size",
+              "value": "16px",
+              "description": "Close button icon size"
+            },
+            {
+              "name": "--luma-toast-close-radius",
+              "value": "4px",
+              "description": "Close button border radius"
+            }
+          ]
+        },
+        {
+          "name": "Info Variant",
+          "tokens": [
+            {
+              "name": "--luma-toast-info-bg",
+              "value": "oklch(0.95 0.02 232)",
+              "description": "Info variant background - soft blue tint"
+            },
+            {
+              "name": "--luma-toast-info-text",
+              "value": "var(--luma-color-text-primary)",
+              "description": "Info variant text color"
+            },
+            {
+              "name": "--luma-toast-info-border",
+              "value": "transparent",
+              "description": "Info variant border color"
+            },
+            {
+              "name": "--luma-toast-info-icon-color",
+              "value": "var(--luma-color-info-50)",
+              "description": "Info variant icon color"
+            },
+            {
+              "name": "--luma-toast-info-close-color",
+              "value": "var(--luma-color-info-60)",
+              "description": "Info variant close button color"
+            },
+            {
+              "name": "--luma-toast-info-close-hover",
+              "value": "var(--luma-color-info-70)",
+              "description": "Info variant close button hover color"
+            }
+          ]
+        },
+        {
+          "name": "Success Variant",
+          "tokens": [
+            {
+              "name": "--luma-toast-success-bg",
+              "value": "oklch(0.94 0.025 155)",
+              "description": "Success variant background - soft green tint"
+            },
+            {
+              "name": "--luma-toast-success-text",
+              "value": "var(--luma-color-text-primary)",
+              "description": "Success variant text color"
+            },
+            {
+              "name": "--luma-toast-success-border",
+              "value": "transparent",
+              "description": "Success variant border color"
+            },
+            {
+              "name": "--luma-toast-success-icon-color",
+              "value": "var(--luma-color-success-50)",
+              "description": "Success variant icon color"
+            },
+            {
+              "name": "--luma-toast-success-close-color",
+              "value": "var(--luma-color-success-60)",
+              "description": "Success variant close button color"
+            },
+            {
+              "name": "--luma-toast-success-close-hover",
+              "value": "var(--luma-color-success-70)",
+              "description": "Success variant close button hover color"
+            }
+          ]
+        },
+        {
+          "name": "Warning Variant",
+          "tokens": [
+            {
+              "name": "--luma-toast-warning-bg",
+              "value": "oklch(0.96 0.03 95)",
+              "description": "Warning variant background - soft yellow tint"
+            },
+            {
+              "name": "--luma-toast-warning-text",
+              "value": "var(--luma-color-text-primary)",
+              "description": "Warning variant text color"
+            },
+            {
+              "name": "--luma-toast-warning-border",
+              "value": "transparent",
+              "description": "Warning variant border color"
+            },
+            {
+              "name": "--luma-toast-warning-icon-color",
+              "value": "var(--luma-color-warning-60)",
+              "description": "Warning variant icon color"
+            },
+            {
+              "name": "--luma-toast-warning-close-color",
+              "value": "var(--luma-color-warning-60)",
+              "description": "Warning variant close button color"
+            },
+            {
+              "name": "--luma-toast-warning-close-hover",
+              "value": "var(--luma-color-warning-70)",
+              "description": "Warning variant close button hover color"
+            }
+          ]
+        },
+        {
+          "name": "Error Variant",
+          "tokens": [
+            {
+              "name": "--luma-toast-error-bg",
+              "value": "oklch(0.93 0.025 28)",
+              "description": "Error variant background - soft rose tint"
+            },
+            {
+              "name": "--luma-toast-error-text",
+              "value": "var(--luma-color-text-primary)",
+              "description": "Error variant text color"
+            },
+            {
+              "name": "--luma-toast-error-border",
+              "value": "transparent",
+              "description": "Error variant border color"
+            },
+            {
+              "name": "--luma-toast-error-icon-color",
+              "value": "var(--luma-color-error-50)",
+              "description": "Error variant icon color"
+            },
+            {
+              "name": "--luma-toast-error-close-color",
+              "value": "var(--luma-color-error-60)",
+              "description": "Error variant close button color"
+            },
+            {
+              "name": "--luma-toast-error-close-hover",
+              "value": "var(--luma-color-error-70)",
+              "description": "Error variant close button hover color"
+            }
+          ]
+        },
+        {
+          "name": "Transition",
+          "tokens": [
+            {
+              "name": "--luma-toast-transition-duration",
+              "value": "var(--luma-duration-base)",
+              "description": "Animation duration"
+            },
+            {
+              "name": "--luma-toast-transition-timing",
+              "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+              "description": "Animation easing"
+            }
+          ]
+        }
+      ],
+      "globalConfig": {
+        "provider": "provideToastConfig",
+        "description": "Configure default toast behavior at the application level",
+        "code": "import { provideToastConfig } from '@lumaui/angular';\n\nexport const appConfig: ApplicationConfig = {\n  providers: [\n    provideToastConfig({\n      position: 'bottom-right',\n      duration: 4000,\n      dismissible: true,\n      maxVisible: 3,\n      pauseOnHover: true,\n    }),\n  ],\n};\n",
+        "options": [
+          {
+            "name": "position",
+            "type": "ToastPosition",
+            "default": "'top-right'",
+            "description": "Default screen position"
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "default": "5000",
+            "description": "Auto-close duration (0 = no auto)"
+          },
+          {
+            "name": "dismissible",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show close button by default"
+          },
+          {
+            "name": "maxVisible",
+            "type": "number",
+            "default": "5",
+            "description": "Maximum visible toasts"
+          },
+          {
+            "name": "pauseOnHover",
+            "type": "boolean",
+            "default": "true",
+            "description": "Pause timer on hover"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "All Variants",
+          "code": "<button lumaButton lmVariant=\"outline\" (click)=\"toast.info('This is an info message')\">\n  Info\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Changes saved successfully!')\">\n  Success\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.warning('Your session will expire soon')\">\n  Warning\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.error('Failed to save changes')\">\n  Error\n</button>",
+          "language": "html"
+        },
+        {
+          "title": "Persistent Toast",
+          "code": "<button lumaButton lmVariant=\"primary\" (click)=\"showPersistent()\">\n  Show Persistent Toast\n</button>\n<button lumaButton lmVariant=\"ghost\" (click)=\"toast.dismissAll()\">\n  Dismiss All\n</button>",
+          "language": "html"
+        },
+        {
+          "title": "Different Positions",
+          "code": "<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-left', { position: 'top-left' })\">\n  top-left\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-center', { position: 'top-center' })\">\n  top-center\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-right', { position: 'top-right' })\">\n  top-right\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-left', { position: 'bottom-left' })\">\n  bottom-left\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-center', { position: 'bottom-center' })\">\n  bottom-center\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-right', { position: 'bottom-right' })\">\n  bottom-right\n</button>",
+          "language": "html"
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Toast with Title",
+          "description": "Display a prominent title above the message for important notifications.",
+          "code": "this.toast.error('Unable to connect to server', {\n  title: 'Connection Failed',\n  duration: 0,  // Keep open until dismissed\n});",
+          "language": "typescript"
+        },
+        {
+          "title": "Programmatic Dismiss with ToastRef",
+          "description": "Control toasts programmatically using the returned reference.",
+          "code": "@Component({\n  template: `\n    <button lumaButton (click)=\"startUpload()\">Start Upload</button>\n  `,\n})\nexport class UploadComponent {\n  private toast = inject(ToastService);\n  private uploadToast: ToastRef | null = null;\n\n  async startUpload() {\n    // Show persistent toast\n    this.uploadToast = this.toast.info('Uploading file...', {\n      duration: 0,\n      dismissible: false,\n    });\n\n    try {\n      await this.uploadService.upload(file);\n      this.uploadToast.dismiss();\n      this.toast.success('Upload complete!');\n    } catch (error) {\n      this.uploadToast.dismiss();\n      this.toast.error('Upload failed');\n    }\n  }\n}",
+          "language": "typescript"
+        },
+        {
+          "title": "React to Toast Dismissal",
+          "description": "Use `afterDismissed` observable to execute logic when a toast is closed.",
+          "code": "const toastRef = this.toast.success('Item deleted', {\n  title: 'Deleted',\n});\n\ntoastRef.afterDismissed.subscribe(() => {\n  console.log('Toast was dismissed');\n  this.analytics.track('toast_dismissed');\n});",
+          "language": "typescript"
+        },
+        {
+          "title": "Form Validation Errors",
+          "description": "Show multiple validation errors as toasts.",
+          "code": "onSubmit() {\n  if (this.form.invalid) {\n    const errors = this.getFormErrors();\n\n    errors.forEach((error, index) => {\n      // Stagger toasts to prevent overlap\n      setTimeout(() => {\n        this.toast.error(error.message, {\n          title: error.field,\n          duration: 5000,\n        });\n      }, index * 200);\n    });\n\n    return;\n  }\n\n  // Submit form...\n}",
+          "language": "typescript"
+        },
+        {
+          "title": "Success After API Call",
+          "description": "Common pattern for showing feedback after async operations.",
+          "code": "async saveChanges() {\n  try {\n    await this.api.save(this.data);\n    this.toast.success('Changes saved successfully!');\n  } catch (error) {\n    this.toast.error(error.message || 'Failed to save changes', {\n      title: 'Save Error',\n      duration: 0,  // Keep visible until dismissed\n    });\n  }\n}",
+          "language": "typescript"
+        }
+      ],
+      "customization": {
+        "intro": "### Override Globally\n\nCustomize toast appearance across your entire application:\n\n```css\n:root {\n  --luma-toast-container-radius: 8px;\n  --luma-toast-container-shadow: 0 2px 8px oklch(0 0 0 / 0.1);\n  --luma-toast-transition-duration: 150ms;\n}\n```",
+        "examples": [
+          {
+            "title": "Override Globally",
+            "description": "Customize toast appearance across your entire application:",
+            "code": ":root {\n  --luma-toast-container-radius: 8px;\n  --luma-toast-container-shadow: 0 2px 8px oklch(0 0 0 / 0.1);\n  --luma-toast-transition-duration: 150ms;\n}",
+            "language": "css",
+            "overrideType": "global"
+          },
+          {
+            "title": "Override Per Theme",
+            "description": "Apply different values for light and dark themes:",
+            "code": "/* Light mode - softer shadows */\n:root {\n  --luma-toast-container-shadow: 0 4px 12px oklch(0 0 0 / 0.08);\n  --luma-toast-info-bg: oklch(0.95 0.02 232);\n}\n\n/* Dark mode - deeper shadows */\n.dark {\n  --luma-toast-container-shadow: 0 4px 12px oklch(0 0 0 / 0.24);\n  --luma-toast-info-bg: oklch(0.25 0.04 232);\n}",
+            "language": "css",
+            "overrideType": "theme"
+          },
+          {
+            "title": "Override Per Component",
+            "description": "Scope changes to specific contexts:",
+            "code": "/* Custom \"neutral\" variant */\n:root {\n  --luma-toast-info-bg: oklch(0.96 0.005 265);\n  --luma-toast-info-icon-color: oklch(0.45 0.01 265);\n}",
+            "language": "css",
+            "overrideType": "component"
+          }
+        ]
+      },
+      "sections": {
+        "purpose": "Toast provides non-blocking notifications that appear temporarily to inform users about the result of an action or important system events. Following Neo-Minimal principles, toasts use semantic background colors and gentle animations to provide feedback without demanding attention.",
+        "accessibility": "- Uses `role=\"status\"` for info/success/warning (polite announcements)\n- Uses `role=\"alert\"` for error toasts (assertive announcements)\n- Screen reader announcements via Angular CDK LiveAnnouncer\n- Keyboard accessible: Escape to dismiss, Tab for navigation\n- Timer pauses on focus for keyboard users\n- Minimum contrast ratios maintained for all variants",
+        "neoMinimal": "The Toast component embodies Neo-Minimal design through:\n\n- **Visual Silence**: Semantic background colors that inform without demanding attention\n- **Calm Interactions**: Smooth animations with natural deceleration (ease-out)\n- **Functional Whitespace**: Generous padding and gap create clear visual hierarchy\n- **Silent Accessibility**: Focus states are discrete but clear, ARIA attributes ensure screen reader support\n- **No Decoration**: Icons serve semantic purpose, not visual ornament",
+        "usage": "### All Variants\n\n```html\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.info('This is an info message')\">\n  Info\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Changes saved successfully!')\">\n  Success\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.warning('Your session will expire soon')\">\n  Warning\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.error('Failed to save changes')\">\n  Error\n</button>\n```\n\n### Persistent Toast\n\n```html\n<button lumaButton lmVariant=\"primary\" (click)=\"showPersistent()\">\n  Show Persistent Toast\n</button>\n<button lumaButton lmVariant=\"ghost\" (click)=\"toast.dismissAll()\">\n  Dismiss All\n</button>\n```\n\n\n\n### Different Positions\n\n```html\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-left', { position: 'top-left' })\">\n  top-left\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-center', { position: 'top-center' })\">\n  top-center\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-right', { position: 'top-right' })\">\n  top-right\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-left', { position: 'bottom-left' })\">\n  bottom-left\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-center', { position: 'bottom-center' })\">\n  bottom-center\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-right', { position: 'bottom-right' })\">\n  bottom-right\n</button>\n```"
+      },
+      "docPath": "packages/angular/src/lib/toast/toast.docs.md",
+      "markdownContent": "\n# Toast\n\n## Purpose\n\nToast provides non-blocking notifications that appear temporarily to inform users about the result of an action or important system events. Following Neo-Minimal principles, toasts use semantic background colors and gentle animations to provide feedback without demanding attention.\n\n## Usage Examples\n\n### All Variants\n\n```html\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.info('This is an info message')\">\n  Info\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Changes saved successfully!')\">\n  Success\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.warning('Your session will expire soon')\">\n  Warning\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.error('Failed to save changes')\">\n  Error\n</button>\n```\n\n### Persistent Toast\n\n```html\n<button lumaButton lmVariant=\"primary\" (click)=\"showPersistent()\">\n  Show Persistent Toast\n</button>\n<button lumaButton lmVariant=\"ghost\" (click)=\"toast.dismissAll()\">\n  Dismiss All\n</button>\n```\n\n\n\n### Different Positions\n\n```html\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-left', { position: 'top-left' })\">\n  top-left\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-center', { position: 'top-center' })\">\n  top-center\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at top-right', { position: 'top-right' })\">\n  top-right\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-left', { position: 'bottom-left' })\">\n  bottom-left\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-center', { position: 'bottom-center' })\">\n  bottom-center\n</button>\n<button lumaButton lmVariant=\"outline\" (click)=\"toast.success('Toast at bottom-right', { position: 'bottom-right' })\">\n  bottom-right\n</button>\n```\n\n## Accessibility\n\n- Uses `role=\"status\"` for info/success/warning (polite announcements)\n- Uses `role=\"alert\"` for error toasts (assertive announcements)\n- Screen reader announcements via Angular CDK LiveAnnouncer\n- Keyboard accessible: Escape to dismiss, Tab for navigation\n- Timer pauses on focus for keyboard users\n- Minimum contrast ratios maintained for all variants\n\n## Neo-Minimal Principles\n\nThe Toast component embodies Neo-Minimal design through:\n\n- **Visual Silence**: Semantic background colors that inform without demanding attention\n- **Calm Interactions**: Smooth animations with natural deceleration (ease-out)\n- **Functional Whitespace**: Generous padding and gap create clear visual hierarchy\n- **Silent Accessibility**: Focus states are discrete but clear, ARIA attributes ensure screen reader support\n- **No Decoration**: Icons serve semantic purpose, not visual ornament\n\n## Use Cases\n\n### Toast with Title\n\nDisplay a prominent title above the message for important notifications.\n\n```typescript\nthis.toast.error('Unable to connect to server', {\n  title: 'Connection Failed',\n  duration: 0,  // Keep open until dismissed\n});\n```\n\n### Programmatic Dismiss with ToastRef\n\nControl toasts programmatically using the returned reference.\n\n```typescript\n@Component({\n  template: `\n    <button lumaButton (click)=\"startUpload()\">Start Upload</button>\n  `,\n})\nexport class UploadComponent {\n  private toast = inject(ToastService);\n  private uploadToast: ToastRef | null = null;\n\n  async startUpload() {\n    // Show persistent toast\n    this.uploadToast = this.toast.info('Uploading file...', {\n      duration: 0,\n      dismissible: false,\n    });\n\n    try {\n      await this.uploadService.upload(file);\n      this.uploadToast.dismiss();\n      this.toast.success('Upload complete!');\n    } catch (error) {\n      this.uploadToast.dismiss();\n      this.toast.error('Upload failed');\n    }\n  }\n}\n```\n\n### React to Toast Dismissal\n\nUse `afterDismissed` observable to execute logic when a toast is closed.\n\n```typescript\nconst toastRef = this.toast.success('Item deleted', {\n  title: 'Deleted',\n});\n\ntoastRef.afterDismissed.subscribe(() => {\n  console.log('Toast was dismissed');\n  this.analytics.track('toast_dismissed');\n});\n```\n\n### Form Validation Errors\n\nShow multiple validation errors as toasts.\n\n```typescript\nonSubmit() {\n  if (this.form.invalid) {\n    const errors = this.getFormErrors();\n\n    errors.forEach((error, index) => {\n      // Stagger toasts to prevent overlap\n      setTimeout(() => {\n        this.toast.error(error.message, {\n          title: error.field,\n          duration: 5000,\n        });\n      }, index * 200);\n    });\n\n    return;\n  }\n\n  // Submit form...\n}\n```\n\n### Success After API Call\n\nCommon pattern for showing feedback after async operations.\n\n```typescript\nasync saveChanges() {\n  try {\n    await this.api.save(this.data);\n    this.toast.success('Changes saved successfully!');\n  } catch (error) {\n    this.toast.error(error.message || 'Failed to save changes', {\n      title: 'Save Error',\n      duration: 0,  // Keep visible until dismissed\n    });\n  }\n}\n```\n\n## Customizing\n\n### Override Globally\n\nCustomize toast appearance across your entire application:\n\n```css\n:root {\n  --luma-toast-container-radius: 8px;\n  --luma-toast-container-shadow: 0 2px 8px oklch(0 0 0 / 0.1);\n  --luma-toast-transition-duration: 150ms;\n}\n```\n\n### Override Per Theme\n\nApply different values for light and dark themes:\n\n```css\n/* Light mode - softer shadows */\n:root {\n  --luma-toast-container-shadow: 0 4px 12px oklch(0 0 0 / 0.08);\n  --luma-toast-info-bg: oklch(0.95 0.02 232);\n}\n\n/* Dark mode - deeper shadows */\n.dark {\n  --luma-toast-container-shadow: 0 4px 12px oklch(0 0 0 / 0.24);\n  --luma-toast-info-bg: oklch(0.25 0.04 232);\n}\n```\n\n### Override Per Component\n\nScope changes to specific contexts:\n\n```css\n/* Custom \"neutral\" variant */\n:root {\n  --luma-toast-info-bg: oklch(0.96 0.005 265);\n  --luma-toast-info-icon-color: oklch(0.45 0.01 265);\n}\n```\n"
     },
     {
       "name": "Tooltip",
@@ -1601,6 +1992,46 @@
               "darkValue": "oklch(0.54 0.095 28)",
               "type": "color",
               "description": "Error active"
+            }
+          ]
+        },
+        {
+          "name": "Info",
+          "tokens": [
+            {
+              "name": "--luma-color-info-50",
+              "value": "oklch(0.65 0.10 232)",
+              "darkValue": "oklch(0.78 0.09 232)",
+              "type": "color",
+              "description": "Info default - main informational color"
+            },
+            {
+              "name": "--luma-color-info-60",
+              "value": "oklch(0.58 0.13 232)",
+              "darkValue": "oklch(0.72 0.11 232)",
+              "type": "color",
+              "description": "Info strong - emphasized informational elements"
+            },
+            {
+              "name": "--luma-color-info-70",
+              "value": "oklch(0.50 0.14 232)",
+              "darkValue": "oklch(0.66 0.13 232)",
+              "type": "color",
+              "description": "Info hover - hover state"
+            },
+            {
+              "name": "--luma-color-info-80",
+              "value": "oklch(0.43 0.13 232)",
+              "darkValue": "oklch(0.60 0.14 232)",
+              "type": "color",
+              "description": "Info active - pressed/active state"
+            },
+            {
+              "name": "--luma-color-info-90",
+              "value": "oklch(0.36 0.12 232)",
+              "darkValue": "oklch(0.54 0.13 232)",
+              "type": "color",
+              "description": "Info critical - strongest informational emphasis"
             }
           ]
         },
@@ -2054,5 +2485,5 @@
     }
   ],
   "categories": ["Feedback", "Form", "Layout"],
-  "generatedAt": "2026-02-02T17:57:25.185Z"
+  "generatedAt": "2026-02-03T12:35:45.790Z"
 }

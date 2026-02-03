@@ -33,3 +33,6 @@ export * from './lib/tabs/tabs.tokens';
 
 // Modal exports
 export * from './lib/modal';
+
+// Toast exports
+export * from './lib/toast';

@@ -147,6 +147,33 @@
           "type": "color",
           "description": "Tertiary text color - placeholders, captions"
         }
+      },
+      "info": {
+        "50": {
+          "value": "oklch(0.65 0.10 232)",
+          "type": "color",
+          "description": "Info default - main informational color"
+        },
+        "60": {
+          "value": "oklch(0.58 0.13 232)",
+          "type": "color",
+          "description": "Info strong - emphasized informational elements"
+        },
+        "70": {
+          "value": "oklch(0.50 0.14 232)",
+          "type": "color",
+          "description": "Info hover - hover state"
+        },
+        "80": {
+          "value": "oklch(0.43 0.13 232)",
+          "type": "color",
+          "description": "Info active - pressed/active state"
+        },
+        "90": {
+          "value": "oklch(0.36 0.12 232)",
+          "type": "color",
+          "description": "Info critical - strongest informational emphasis"
+        }
       }
     },
     "focus": {

@@ -5,3 +5,4 @@ export * from './badge.variants';
 export * from './tooltip.variants';
 export * from './tabs.variants';
 export * from './modal.variants';
+export * from './toast.variants';

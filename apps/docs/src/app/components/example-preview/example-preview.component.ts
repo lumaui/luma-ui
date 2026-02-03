@@ -19,6 +19,7 @@ import { ButtonPreviewsComponent } from '../previews/button-previews.component';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
 import { ModalPreviewsComponent } from '../previews/modal-previews.component';
 import { TabsPreviewsComponent } from '../previews/tabs-previews.component';
+import { ToastPreviewsComponent } from '../previews/toast-previews.component';
 import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component';
 
 @Component({
@@ -31,6 +32,7 @@ import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component
     TooltipPreviewsComponent,
     TabsPreviewsComponent,
     ModalPreviewsComponent,
+    ToastPreviewsComponent,
     CardComponent,
     TabsComponent,
     TabsListDirective,
@@ -127,6 +129,9 @@ import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component
                   <div class="w-full max-w-xl">
                     <app-modal-previews [exampleId]="exampleId()" />
                   </div>
+                }
+                @case ('toast') {
+                  <app-toast-previews [exampleId]="exampleId()" />
                 }
                 @default {
                   <div class="lm-text-secondary text-sm">

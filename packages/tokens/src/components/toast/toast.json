@@ -1,0 +1,246 @@
+{
+  "luma": {
+    "toast": {
+      "container": {
+        "radius": {
+          "value": "{luma.radius.lg}",
+          "type": "dimension",
+          "description": "Toast border radius - organic feel"
+        },
+        "shadow": {
+          "value": "0 4px 12px oklch(0 0 0 / 0.08), 0 2px 4px oklch(0 0 0 / 0.04)",
+          "type": "shadow",
+          "description": "Subtle shadow for elevation without visual noise"
+        },
+        "padding-x": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Horizontal padding"
+        },
+        "padding-y": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Vertical padding"
+        },
+        "gap": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Gap between icon, content, and close button"
+        },
+        "max-width": {
+          "value": "360px",
+          "type": "dimension",
+          "description": "Maximum toast width"
+        },
+        "min-width": {
+          "value": "280px",
+          "type": "dimension",
+          "description": "Minimum toast width for readability"
+        },
+        "stack-gap": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Gap between stacked toasts"
+        },
+        "border-width": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Toast border width (default: no border)"
+        },
+        "border-color": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Toast border color (default: transparent)"
+        }
+      },
+      "icon": {
+        "size": {
+          "value": "20px",
+          "type": "dimension",
+          "description": "Icon size"
+        }
+      },
+      "title": {
+        "font-size": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Toast title font size"
+        },
+        "font-weight": {
+          "value": "500",
+          "type": "string",
+          "description": "Toast title font weight - medium for hierarchy without boldness"
+        },
+        "line-height": {
+          "value": "1.4",
+          "type": "string",
+          "description": "Toast title line height"
+        }
+      },
+      "message": {
+        "font-size": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Toast message font size"
+        },
+        "line-height": {
+          "value": "1.5",
+          "type": "string",
+          "description": "Toast message line height - generous for readability"
+        }
+      },
+      "close": {
+        "size": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Close button icon size"
+        },
+        "radius": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Close button border radius"
+        }
+      },
+      "info": {
+        "bg": {
+          "value": "oklch(0.95 0.02 232)",
+          "type": "color",
+          "description": "Info variant background - soft blue tint"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Info variant text color"
+        },
+        "icon-color": {
+          "value": "{luma.color.info.50}",
+          "type": "color",
+          "description": "Info variant icon color"
+        },
+        "close-color": {
+          "value": "{luma.color.info.60}",
+          "type": "color",
+          "description": "Info variant close button color"
+        },
+        "close-hover": {
+          "value": "{luma.color.info.70}",
+          "type": "color",
+          "description": "Info variant close button hover color"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Info variant border color"
+        }
+      },
+      "success": {
+        "bg": {
+          "value": "oklch(0.94 0.025 155)",
+          "type": "color",
+          "description": "Success variant background - soft green tint"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Success variant text color"
+        },
+        "icon-color": {
+          "value": "{luma.color.success.50}",
+          "type": "color",
+          "description": "Success variant icon color"
+        },
+        "close-color": {
+          "value": "{luma.color.success.60}",
+          "type": "color",
+          "description": "Success variant close button color"
+        },
+        "close-hover": {
+          "value": "{luma.color.success.70}",
+          "type": "color",
+          "description": "Success variant close button hover color"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Success variant border color"
+        }
+      },
+      "warning": {
+        "bg": {
+          "value": "oklch(0.96 0.03 95)",
+          "type": "color",
+          "description": "Warning variant background - soft yellow tint"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Warning variant text color"
+        },
+        "icon-color": {
+          "value": "{luma.color.warning.60}",
+          "type": "color",
+          "description": "Warning variant icon color - using 60 for better visibility"
+        },
+        "close-color": {
+          "value": "{luma.color.warning.60}",
+          "type": "color",
+          "description": "Warning variant close button color"
+        },
+        "close-hover": {
+          "value": "{luma.color.warning.70}",
+          "type": "color",
+          "description": "Warning variant close button hover color"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Warning variant border color"
+        }
+      },
+      "error": {
+        "bg": {
+          "value": "oklch(0.93 0.025 28)",
+          "type": "color",
+          "description": "Error variant background - soft rose tint"
+        },
+        "text": {
+          "value": "{luma.color.text.primary}",
+          "type": "color",
+          "description": "Error variant text color"
+        },
+        "icon-color": {
+          "value": "{luma.color.error.50}",
+          "type": "color",
+          "description": "Error variant icon color"
+        },
+        "close-color": {
+          "value": "{luma.color.error.60}",
+          "type": "color",
+          "description": "Error variant close button color"
+        },
+        "close-hover": {
+          "value": "{luma.color.error.70}",
+          "type": "color",
+          "description": "Error variant close button hover color"
+        },
+        "border": {
+          "value": "transparent",
+          "type": "color",
+          "description": "Error variant border color"
+        }
+      },
+      "transition": {
+        "duration": {
+          "value": "{luma.duration.base}",
+          "type": "duration",
+          "description": "Toast enter/exit animation duration"
+        },
+        "timing": {
+          "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "type": "string",
+          "description": "Smooth easing for natural feel"
+        }
+      }
+    }
+  }
+}

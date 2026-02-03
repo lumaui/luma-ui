@@ -59,6 +59,7 @@ const config = {
     'src/components/tooltip/tooltip.dark.json',
     'src/components/tabs/tabs.dark.json',
     'src/components/modal/modal.dark.json',
+    'src/components/toast/toast.dark.json',
   ],
   platforms: {
     'css-dark': {

@@ -75,6 +75,20 @@ export interface DocCustomization {
   examples: CustomizationExample[];
 }
 
+export interface GlobalConfigOption {
+  name: string;
+  type: string;
+  default: string;
+  description: string;
+}
+
+export interface DocGlobalConfig {
+  provider: string;
+  description: string;
+  code: string;
+  options: GlobalConfigOption[];
+}
+
 export interface DocDirective {
   name: string;
   selector: string;
@@ -92,6 +106,7 @@ export interface DocComponent {
   inputs: DocInput[];
   tokens: DocToken[];
   tokenGroups: DocTokenGroup[];
+  globalConfig?: DocGlobalConfig;
   examples: DocExample[];
   useCases: DocUseCase[];
   customization: DocCustomization;

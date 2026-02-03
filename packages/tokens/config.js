@@ -158,6 +158,26 @@ StyleDictionary.registerFormat({
         output += `}\n\n`;
       });
 
+      // Info scale utilities (50, 60, 70, 80, 90)
+      const infoScaleTokens = dictionary.allTokens.filter(
+        (t) =>
+          t.path[1] === 'color' &&
+          t.path[2] === 'info' &&
+          ['50', '60', '70', '80', '90'].includes(t.path[3]),
+      );
+      infoScaleTokens.forEach((token) => {
+        const scale = token.path[3];
+        output += `@utility lm-bg-info-${scale} {\n`;
+        output += `  background-color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-text-info-${scale} {\n`;
+        output += `  color: var(${token.name});\n`;
+        output += `}\n\n`;
+        output += `@utility lm-border-info-${scale} {\n`;
+        output += `  border-color: var(${token.name});\n`;
+        output += `}\n\n`;
+      });
+
       // ============================================
       // SEMANTIC TEXT UTILITIES
       // ============================================
@@ -1845,6 +1865,591 @@ StyleDictionary.registerFormat({
         output += `  transition-timing-function: var(${modalTiming.name});\n`;
         output += `}\n\n`;
       }
+
+      // ============================================
+      // TOAST UTILITIES
+      // ============================================
+
+      output += `/* Toast Container Utilities */\n`;
+
+      // Toast container radius
+      const toastRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'radius',
+      );
+      if (toastRadius) {
+        output += `@utility lm-rounded-toast {\n`;
+        output += `  border-radius: var(${toastRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast container shadow
+      const toastShadow = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'shadow',
+      );
+      if (toastShadow) {
+        output += `@utility lm-shadow-toast {\n`;
+        output += `  box-shadow: var(${toastShadow.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast container padding
+      const toastPaddingX = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'padding-x',
+      );
+      if (toastPaddingX) {
+        output += `@utility lm-px-toast {\n`;
+        output += `  padding-left: var(${toastPaddingX.name});\n`;
+        output += `  padding-right: var(${toastPaddingX.name});\n`;
+        output += `}\n\n`;
+      }
+
+      const toastPaddingY = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'padding-y',
+      );
+      if (toastPaddingY) {
+        output += `@utility lm-py-toast {\n`;
+        output += `  padding-top: var(${toastPaddingY.name});\n`;
+        output += `  padding-bottom: var(${toastPaddingY.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast container gap
+      const toastGap = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'gap',
+      );
+      if (toastGap) {
+        output += `@utility lm-gap-toast {\n`;
+        output += `  gap: var(${toastGap.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast container max-width
+      const toastMaxWidth = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'max-width',
+      );
+      if (toastMaxWidth) {
+        output += `@utility lm-max-w-toast {\n`;
+        output += `  max-width: var(${toastMaxWidth.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast container min-width
+      const toastMinWidth = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'min-width',
+      );
+      if (toastMinWidth) {
+        output += `@utility lm-min-w-toast {\n`;
+        output += `  min-width: var(${toastMinWidth.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast stack gap
+      const toastStackGap = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'stack-gap',
+      );
+      if (toastStackGap) {
+        output += `@utility lm-gap-toast-stack {\n`;
+        output += `  gap: var(${toastStackGap.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast border (using border-width and border-color from container)
+      const toastBorderWidth = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'border-width',
+      );
+      const toastBorderColor = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'container' &&
+          t.path[3] === 'border-color',
+      );
+      if (toastBorderWidth && toastBorderColor) {
+        output += `@utility lm-border-toast {\n`;
+        output += `  border-width: var(${toastBorderWidth.name});\n`;
+        output += `  border-color: var(${toastBorderColor.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Icon Utilities */\n`;
+
+      // Toast icon size
+      const toastIconSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' && t.path[2] === 'icon' && t.path[3] === 'size',
+      );
+      if (toastIconSize) {
+        output += `@utility lm-size-toast-icon {\n`;
+        output += `  width: var(${toastIconSize.name});\n`;
+        output += `  height: var(${toastIconSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Title Utilities */\n`;
+
+      // Toast title font size
+      const toastTitleFontSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-size',
+      );
+      if (toastTitleFontSize) {
+        output += `@utility lm-text-size-toast-title {\n`;
+        output += `  font-size: var(${toastTitleFontSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast title font weight
+      const toastTitleFontWeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'font-weight',
+      );
+      if (toastTitleFontWeight) {
+        output += `@utility lm-font-toast-title {\n`;
+        output += `  font-weight: var(${toastTitleFontWeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast title line height
+      const toastTitleLineHeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'title' &&
+          t.path[3] === 'line-height',
+      );
+      if (toastTitleLineHeight) {
+        output += `@utility lm-leading-toast-title {\n`;
+        output += `  line-height: var(${toastTitleLineHeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Message Utilities */\n`;
+
+      // Toast message font size
+      const toastMsgFontSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'message' &&
+          t.path[3] === 'font-size',
+      );
+      if (toastMsgFontSize) {
+        output += `@utility lm-text-size-toast-message {\n`;
+        output += `  font-size: var(${toastMsgFontSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast message line height
+      const toastMsgLineHeight = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'message' &&
+          t.path[3] === 'line-height',
+      );
+      if (toastMsgLineHeight) {
+        output += `@utility lm-leading-toast-message {\n`;
+        output += `  line-height: var(${toastMsgLineHeight.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Close Button Utilities */\n`;
+
+      // Toast close size
+      const toastCloseSize = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'close' &&
+          t.path[3] === 'size',
+      );
+      if (toastCloseSize) {
+        output += `@utility lm-size-toast-close {\n`;
+        output += `  width: var(${toastCloseSize.name});\n`;
+        output += `  height: var(${toastCloseSize.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast close radius
+      const toastCloseRadius = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'close' &&
+          t.path[3] === 'radius',
+      );
+      if (toastCloseRadius) {
+        output += `@utility lm-rounded-toast-close {\n`;
+        output += `  border-radius: var(${toastCloseRadius.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Variant Utilities - Info */\n`;
+
+      // Toast info background - uses token value directly
+      const toastInfoBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' && t.path[2] === 'info' && t.path[3] === 'bg',
+      );
+      if (toastInfoBg) {
+        output += `@utility lm-bg-toast-info {\n`;
+        output += `  background-color: var(${toastInfoBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast info text
+      const toastInfoText = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' && t.path[2] === 'info' && t.path[3] === 'text',
+      );
+      if (toastInfoText) {
+        output += `@utility lm-text-toast-info {\n`;
+        output += `  color: var(${toastInfoText.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast info icon color
+      const toastInfoIcon = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'info' &&
+          t.path[3] === 'icon-color',
+      );
+      if (toastInfoIcon) {
+        output += `@utility lm-text-toast-icon-info {\n`;
+        output += `  color: var(${toastInfoIcon.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast info close color
+      const toastInfoClose = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'info' &&
+          t.path[3] === 'close-color',
+      );
+      if (toastInfoClose) {
+        output += `@utility lm-text-toast-close-info {\n`;
+        output += `  color: var(${toastInfoClose.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast info close hover
+      const toastInfoCloseHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'info' &&
+          t.path[3] === 'close-hover',
+      );
+      if (toastInfoCloseHover) {
+        output += `@utility lm-text-toast-close-info-hover {\n`;
+        output += `  color: var(${toastInfoCloseHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast info border color
+      const toastInfoBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'info' &&
+          t.path[3] === 'border',
+      );
+      if (toastInfoBorder) {
+        output += `@utility lm-border-toast-info {\n`;
+        output += `  border-color: var(${toastInfoBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Variant Utilities - Success */\n`;
+
+      // Toast success background - uses token value directly
+      const toastSuccessBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'success' &&
+          t.path[3] === 'bg',
+      );
+      if (toastSuccessBg) {
+        output += `@utility lm-bg-toast-success {\n`;
+        output += `  background-color: var(${toastSuccessBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast success text
+      const toastSuccessText = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'success' &&
+          t.path[3] === 'text',
+      );
+      if (toastSuccessText) {
+        output += `@utility lm-text-toast-success {\n`;
+        output += `  color: var(${toastSuccessText.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast success icon color
+      const toastSuccessIcon = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'success' &&
+          t.path[3] === 'icon-color',
+      );
+      if (toastSuccessIcon) {
+        output += `@utility lm-text-toast-icon-success {\n`;
+        output += `  color: var(${toastSuccessIcon.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast success close color
+      const toastSuccessClose = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'success' &&
+          t.path[3] === 'close-color',
+      );
+      if (toastSuccessClose) {
+        output += `@utility lm-text-toast-close-success {\n`;
+        output += `  color: var(${toastSuccessClose.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast success close hover
+      const toastSuccessCloseHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'success' &&
+          t.path[3] === 'close-hover',
+      );
+      if (toastSuccessCloseHover) {
+        output += `@utility lm-text-toast-close-success-hover {\n`;
+        output += `  color: var(${toastSuccessCloseHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast success border color
+      const toastSuccessBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'success' &&
+          t.path[3] === 'border',
+      );
+      if (toastSuccessBorder) {
+        output += `@utility lm-border-toast-success {\n`;
+        output += `  border-color: var(${toastSuccessBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Variant Utilities - Warning */\n`;
+
+      // Toast warning background - uses token value directly
+      const toastWarningBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'warning' &&
+          t.path[3] === 'bg',
+      );
+      if (toastWarningBg) {
+        output += `@utility lm-bg-toast-warning {\n`;
+        output += `  background-color: var(${toastWarningBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast warning text
+      const toastWarningText = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'warning' &&
+          t.path[3] === 'text',
+      );
+      if (toastWarningText) {
+        output += `@utility lm-text-toast-warning {\n`;
+        output += `  color: var(${toastWarningText.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast warning icon color
+      const toastWarningIcon = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'warning' &&
+          t.path[3] === 'icon-color',
+      );
+      if (toastWarningIcon) {
+        output += `@utility lm-text-toast-icon-warning {\n`;
+        output += `  color: var(${toastWarningIcon.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast warning close color
+      const toastWarningClose = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'warning' &&
+          t.path[3] === 'close-color',
+      );
+      if (toastWarningClose) {
+        output += `@utility lm-text-toast-close-warning {\n`;
+        output += `  color: var(${toastWarningClose.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast warning close hover
+      const toastWarningCloseHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'warning' &&
+          t.path[3] === 'close-hover',
+      );
+      if (toastWarningCloseHover) {
+        output += `@utility lm-text-toast-close-warning-hover {\n`;
+        output += `  color: var(${toastWarningCloseHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast warning border color
+      const toastWarningBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'warning' &&
+          t.path[3] === 'border',
+      );
+      if (toastWarningBorder) {
+        output += `@utility lm-border-toast-warning {\n`;
+        output += `  border-color: var(${toastWarningBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Variant Utilities - Error */\n`;
+
+      // Toast error background - uses token value directly
+      const toastErrorBg = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' && t.path[2] === 'error' && t.path[3] === 'bg',
+      );
+      if (toastErrorBg) {
+        output += `@utility lm-bg-toast-error {\n`;
+        output += `  background-color: var(${toastErrorBg.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast error text
+      const toastErrorText = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'error' &&
+          t.path[3] === 'text',
+      );
+      if (toastErrorText) {
+        output += `@utility lm-text-toast-error {\n`;
+        output += `  color: var(${toastErrorText.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast error icon color
+      const toastErrorIcon = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'error' &&
+          t.path[3] === 'icon-color',
+      );
+      if (toastErrorIcon) {
+        output += `@utility lm-text-toast-icon-error {\n`;
+        output += `  color: var(${toastErrorIcon.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast error close color
+      const toastErrorClose = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'error' &&
+          t.path[3] === 'close-color',
+      );
+      if (toastErrorClose) {
+        output += `@utility lm-text-toast-close-error {\n`;
+        output += `  color: var(${toastErrorClose.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast error close hover
+      const toastErrorCloseHover = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'error' &&
+          t.path[3] === 'close-hover',
+      );
+      if (toastErrorCloseHover) {
+        output += `@utility lm-text-toast-close-error-hover {\n`;
+        output += `  color: var(${toastErrorCloseHover.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast error border color
+      const toastErrorBorder = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'error' &&
+          t.path[3] === 'border',
+      );
+      if (toastErrorBorder) {
+        output += `@utility lm-border-toast-error {\n`;
+        output += `  border-color: var(${toastErrorBorder.name});\n`;
+        output += `}\n\n`;
+      }
+
+      output += `/* Toast Transition Utilities */\n`;
+
+      // Toast transition duration
+      const toastDuration = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'duration',
+      );
+      if (toastDuration) {
+        output += `@utility lm-duration-toast {\n`;
+        output += `  transition-duration: var(${toastDuration.name});\n`;
+        output += `}\n\n`;
+      }
+
+      // Toast transition timing
+      const toastTiming = dictionary.allTokens.find(
+        (t) =>
+          t.path[1] === 'toast' &&
+          t.path[2] === 'transition' &&
+          t.path[3] === 'timing',
+      );
+      if (toastTiming) {
+        output += `@utility lm-ease-toast {\n`;
+        output += `  transition-timing-function: var(${toastTiming.name});\n`;
+        output += `}\n\n`;
+      }
     }
 
     return output;
@@ -1902,6 +2507,7 @@ const config = {
     'src/components/tooltip/tooltip.json',
     'src/components/tabs/tabs.json',
     'src/components/modal/modal.json',
+    'src/components/toast/toast.json',
   ],
   platforms: {
     'css-light': {
