@@ -96,6 +96,12 @@ export interface DocDirective {
   inputs?: DocInput[];
 }
 
+export interface DocImport {
+  name: string;
+  module: string;
+  description?: string;
+}
+
 export interface DocComponent {
   name: string;
   slug: string;
@@ -103,6 +109,7 @@ export interface DocComponent {
   category: string;
   description: string;
   selector: string;
+  imports: DocImport[];
   inputs: DocInput[];
   tokens: DocToken[];
   tokenGroups: DocTokenGroup[];

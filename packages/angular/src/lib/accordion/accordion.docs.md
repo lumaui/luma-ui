@@ -485,6 +485,108 @@ luma-accordion-item[data-variant='filled'] {
 }
 ```
 
+## Use Cases
+
+### FAQ Section
+
+Common questions with expandable answers.
+
+```typescript
+@Component({
+  template: `
+    @for (faq of faqs; track faq.id) {
+      <luma-accordion-item>
+        <div lumaAccordionTrigger>
+          <span lumaAccordionTitle>{{ faq.question }}</span>
+          <span lumaAccordionIcon>
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </span>
+        </div>
+        <div lumaAccordionContent>
+          <p>{{ faq.answer }}</p>
+        </div>
+      </luma-accordion-item>
+    }
+  `,
+})
+export class FaqComponent {
+  faqs = [
+    { id: 1, question: 'How do I reset my password?', answer: '...' },
+    { id: 2, question: 'What payment methods are accepted?', answer: '...' },
+  ];
+}
+```
+
+### Collapsible Sidebar
+
+Navigation with expandable sections.
+
+```html
+<nav>
+  <luma-accordion-group>
+    <luma-accordion-item lmId="products">
+      <div lumaAccordionTrigger>
+        <span lumaAccordionTitle>Products</span>
+      </div>
+      <div lumaAccordionContent>
+        <a href="/products/new">New Arrivals</a>
+        <a href="/products/sale">On Sale</a>
+      </div>
+    </luma-accordion-item>
+    <luma-accordion-item lmId="account">
+      <div lumaAccordionTrigger>
+        <span lumaAccordionTitle>Account</span>
+      </div>
+      <div lumaAccordionContent>
+        <a href="/account/profile">Profile</a>
+        <a href="/account/orders">Orders</a>
+      </div>
+    </luma-accordion-item>
+  </luma-accordion-group>
+</nav>
+```
+
+### Form Sections
+
+Organize long forms into collapsible sections.
+
+```html
+<form>
+  <luma-accordion-group lmMode="multiple">
+    <luma-accordion-item lmId="personal" lmDefaultOpen>
+      <div lumaAccordionTrigger>
+        <span lumaAccordionTitle>Personal Information</span>
+      </div>
+      <div lumaAccordionContent>
+        <input type="text" placeholder="Full Name" />
+        <input type="email" placeholder="Email" />
+      </div>
+    </luma-accordion-item>
+    <luma-accordion-item lmId="address">
+      <div lumaAccordionTrigger>
+        <span lumaAccordionTitle>Shipping Address</span>
+      </div>
+      <div lumaAccordionContent>
+        <input type="text" placeholder="Street" />
+        <input type="text" placeholder="City" />
+      </div>
+    </luma-accordion-item>
+  </luma-accordion-group>
+</form>
+```
+
 ## Neo-Minimal Principles
 
 The Accordion component embodies Neo-Minimal design:

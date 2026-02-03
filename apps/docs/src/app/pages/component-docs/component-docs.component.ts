@@ -9,7 +9,10 @@ import {
 import { Component, computed, inject } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { DocsRegistryService } from '../../services/docs-registry.service';
+import {
+  DocsRegistryService,
+  DocImport,
+} from '../../services/docs-registry.service';
 import { ExamplePreviewComponent } from '../../components/example-preview/example-preview.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
@@ -341,6 +344,49 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
             <!-- Specification Panel -->
             <div lumaTabsPanel="specification" class="space-y-8">
+              <!-- Imports -->
+              @if (comp.imports && comp.imports.length > 0) {
+                <section>
+                  <h3 class="text-lg font-medium lm-text-primary mb-4">
+                    Imports
+                  </h3>
+
+                  <luma-card lmVariant="preview">
+                    <div class="-m-5 overflow-hidden rounded-[inherit]">
+                      <div
+                        class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
+                      >
+                        <span class="text-xs lm-text-secondary font-mono"
+                          >TypeScript</span
+                        >
+                        <button
+                          (click)="copyCode(getImportStatement(comp.imports))"
+                          class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
+                        >
+                          <svg
+                            class="w-3.5 h-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <span>Copy</span>
+                        </button>
+                      </div>
+                      <pre
+                        class="p-4 overflow-x-auto text-sm"
+                      ><code class="font-mono lm-text-primary whitespace-pre">{{ getImportStatement(comp.imports) }}</code></pre>
+                    </div>
+                  </luma-card>
+                </section>
+              }
+
               <!-- Inputs -->
               @if (comp.inputs.length > 0) {
                 <section>
@@ -588,7 +634,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                       [componentSlug]="comp.slug"
                       [exampleId]="slugify(useCase.title)"
                       [code]="useCase.code"
-                      [language]="useCase.language || 'typescript'"
+                      [language]="'typescript'"
                     />
                   </section>
                 }
@@ -657,5 +703,35 @@ export class ComponentDocsComponent {
     } catch (err) {
       console.error('Failed to copy code:', err);
     }
+  }
+
+  /**
+   * Generate TypeScript import statement from imports array
+   */
+  getImportStatement(imports: DocImport[]): string {
+    if (!imports || imports.length === 0) return '';
+
+    // Group imports by module
+    const byModule = new Map<string, string[]>();
+    for (const imp of imports) {
+      const names = byModule.get(imp.module) || [];
+      names.push(imp.name);
+      byModule.set(imp.module, names);
+    }
+
+    // Generate import statements
+    const statements: string[] = [];
+    for (const [module, names] of byModule) {
+      if (names.length <= 2) {
+        // Single line for 1-2 imports
+        statements.push(`import { ${names.join(', ')} } from '${module}';`);
+      } else {
+        // Multi-line for 3+ imports
+        const formattedNames = names.map((n) => `  ${n},`).join('\n');
+        statements.push(`import {\n${formattedNames}\n} from '${module}';`);
+      }
+    }
+
+    return statements.join('\n\n');
   }
 }

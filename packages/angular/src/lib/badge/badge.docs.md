@@ -67,6 +67,53 @@ Override badge layout tokens in your global styles:
 }
 ```
 
+## Use Cases
+
+### Notification Counter
+
+Display unread notification count.
+
+```html
+<button class="relative">
+  <span>Notifications</span>
+  @if (unreadCount() > 0) {
+  <span lumaBadge class="absolute -top-2 -right-2 bg-red-500 text-white">
+    {{ unreadCount() > 99 ? '99+' : unreadCount() }}
+  </span>
+  }
+</button>
+```
+
+### Status Indicator
+
+Show item status in a list.
+
+```html
+<div class="flex items-center gap-2">
+  <span>Order #1234</span>
+  <span lumaBadge [class]="getStatusClasses(order.status)">
+    {{ order.status }}
+  </span>
+</div>
+```
+
+### Feature Tags
+
+Label features or categories.
+
+```html
+<article>
+  <h2>Article Title</h2>
+  <div class="flex gap-1">
+    @for (tag of article.tags; track tag) {
+    <span lumaBadge class="bg-gray-100 text-gray-700 border-gray-200">
+      {{ tag }}
+    </span>
+    }
+  </div>
+</article>
+```
+
 ## Neo-Minimal Principles
 
 The badge design embodies core Neo-Minimal values:

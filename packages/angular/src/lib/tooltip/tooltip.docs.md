@@ -147,6 +147,65 @@ Override tooltip tokens in your global styles:
 }
 ```
 
+## Use Cases
+
+### Icon Button Explanation
+
+Clarify icon-only buttons.
+
+```html
+<button [lumaTooltip]="'Edit profile'" class="p-2">
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+    />
+  </svg>
+</button>
+```
+
+### Form Field Help
+
+Provide additional context for inputs.
+
+```html
+<label class="flex items-center gap-1">
+  Password
+  <span
+    [lumaTooltip]="'Must be at least 8 characters with one number'"
+    class="cursor-help text-gray-400"
+  >
+    ⓘ
+  </span>
+</label>
+<input type="password" />
+```
+
+### Truncated Text
+
+Show full content on hover.
+
+```html
+<span
+  [lumaTooltip]="item.fullDescription"
+  class="truncate max-w-[200px] inline-block"
+>
+  {{ item.fullDescription }}
+</span>
+```
+
+### Disabled Button Explanation
+
+Explain why an action is unavailable.
+
+```html
+<span [lumaTooltip]="'Please fill all required fields'">
+  <button lumaButton [lmDisabled]="!form.valid">Submit</button>
+</span>
+```
+
 ## Neo-Minimal Principles
 
 The tooltip design embodies core Neo-Minimal values:

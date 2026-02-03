@@ -220,6 +220,62 @@ Scope the radius change to specific contexts:
 
 **Default value:** `var(--luma-radius-md)` → `10px`
 
+## Use Cases
+
+### Submit Form Button
+
+Trigger form submission with loading state feedback.
+
+```typescript
+@Component({
+  template: `
+    <form (ngSubmit)="onSubmit()">
+      <button lumaButton lmVariant="primary" [lmDisabled]="isLoading()">
+        {{ isLoading() ? 'Saving...' : 'Save Changes' }}
+      </button>
+    </form>
+  `,
+})
+export class FormComponent {
+  isLoading = signal(false);
+
+  async onSubmit() {
+    this.isLoading.set(true);
+    await this.api.save();
+    this.isLoading.set(false);
+  }
+}
+```
+
+### Confirmation Action
+
+Use danger variant for destructive actions with confirmation.
+
+```typescript
+@Component({
+  template: `
+    <button lumaButton lmVariant="danger" (click)="confirmDelete()">
+      Delete Account
+    </button>
+  `,
+})
+export class DeleteComponent {
+  confirmDelete() {
+    if (confirm('Are you sure? This cannot be undone.')) {
+      this.accountService.delete();
+    }
+  }
+}
+```
+
+### Navigation Link
+
+Use anchor element for page navigation.
+
+```html
+<a lumaButton lmVariant="ghost" routerLink="/settings"> Go to Settings </a>
+```
+
 ## Neo-Minimal Principles
 
 The button design embodies core Neo-Minimal values:

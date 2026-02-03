@@ -387,6 +387,68 @@ Scope token overrides to specific contexts or containers:
 }
 ```
 
+## Use Cases
+
+### Product Card
+
+Display product information with action buttons.
+
+```html
+<luma-card lmVariant="elevated">
+  <img [src]="product.image" alt="" class="w-full h-48 object-cover" />
+  <div lumaCardHeader>
+    <h3 lumaCardTitle>{{ product.name }}</h3>
+    <p lumaCardDescription>{{ product.price | currency }}</p>
+  </div>
+  <div lumaCardContent>
+    <p class="text-sm">{{ product.description }}</p>
+  </div>
+  <div class="p-4 pt-0 flex gap-2">
+    <button lumaButton lmVariant="primary" class="flex-1">Add to Cart</button>
+    <button lumaButton lmVariant="ghost">♡</button>
+  </div>
+</luma-card>
+```
+
+### Settings Section
+
+Group related settings.
+
+```html
+<luma-card>
+  <div lumaCardHeader>
+    <h3 lumaCardTitle>Privacy Settings</h3>
+    <p lumaCardDescription>Control how your data is used</p>
+  </div>
+  <div lumaCardContent class="space-y-4">
+    <label class="flex items-center justify-between">
+      <span>Share analytics</span>
+      <input type="checkbox" />
+    </label>
+    <label class="flex items-center justify-between">
+      <span>Marketing emails</span>
+      <input type="checkbox" />
+    </label>
+  </div>
+</luma-card>
+```
+
+### Dashboard Widget
+
+Display metrics with visual indicators.
+
+```html
+<luma-card lmVariant="elevated">
+  <div lumaCardHeader>
+    <p lumaCardDescription>Total Revenue</p>
+    <h3 lumaCardTitle lmSize="large">$45,231.89</h3>
+  </div>
+  <div lumaCardContent>
+    <span class="text-green-600 text-sm">+20.1% from last month</span>
+  </div>
+</luma-card>
+```
+
 ## Neo-Minimal Principles
 
 The Card design embodies core Neo-Minimal values:

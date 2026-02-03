@@ -290,6 +290,88 @@ The Tabs component implements the WAI-ARIA Tabs pattern:
 | End         | Focus and select last tab     |
 | Enter/Space | Activate focused tab          |
 
+## Use Cases
+
+### Settings Page
+
+Organize user preferences.
+
+```typescript
+@Component({
+  template: `
+    <luma-tabs [lmValue]="activeTab()" (lmValueChange)="activeTab.set($event)">
+      <div lumaTabsList>
+        <button lumaTabsTrigger="profile">Profile</button>
+        <button lumaTabsTrigger="security">Security</button>
+        <button lumaTabsTrigger="notifications">Notifications</button>
+      </div>
+
+      <div lumaTabsPanel="profile">
+        <profile-settings />
+      </div>
+      <div lumaTabsPanel="security">
+        <security-settings />
+      </div>
+      <div lumaTabsPanel="notifications">
+        <notification-settings />
+      </div>
+    </luma-tabs>
+  `,
+})
+export class SettingsComponent {
+  activeTab = signal('profile');
+}
+```
+
+### Product Details
+
+Switch between product information sections.
+
+```html
+<luma-tabs lmDefaultValue="description">
+  <div lumaTabsList>
+    <button lumaTabsTrigger="description">Description</button>
+    <button lumaTabsTrigger="specs">Specifications</button>
+    <button lumaTabsTrigger="reviews">Reviews ({{ reviewCount }})</button>
+  </div>
+
+  <div lumaTabsPanel="description">
+    <p>{{ product.description }}</p>
+  </div>
+  <div lumaTabsPanel="specs">
+    <dl>
+      @for (spec of product.specs; track spec.name) {
+      <dt>{{ spec.name }}</dt>
+      <dd>{{ spec.value }}</dd>
+      }
+    </dl>
+  </div>
+  <div lumaTabsPanel="reviews">
+    <review-list [productId]="product.id" />
+  </div>
+</luma-tabs>
+```
+
+### Dashboard Filters
+
+Quick data view switching.
+
+```html
+<luma-tabs lmDefaultValue="day" lmVariant="pill">
+  <div lumaTabsList>
+    <button lumaTabsTrigger="day">Today</button>
+    <button lumaTabsTrigger="week">This Week</button>
+    <button lumaTabsTrigger="month">This Month</button>
+    <button lumaTabsTrigger="year">This Year</button>
+  </div>
+
+  <div lumaTabsPanel="day"><daily-chart /></div>
+  <div lumaTabsPanel="week"><weekly-chart /></div>
+  <div lumaTabsPanel="month"><monthly-chart /></div>
+  <div lumaTabsPanel="year"><yearly-chart /></div>
+</luma-tabs>
+```
+
 ## Neo-Minimal Principles
 
 ### Visual Silence
