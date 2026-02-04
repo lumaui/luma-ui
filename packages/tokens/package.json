@@ -17,12 +17,14 @@
   ],
   "scripts": {
     "build": "npm run build:light && npm run build:dark && npm run build:manifest",
+    "postbuild": "node scripts/copy-to-docs.js",
     "build:light": "style-dictionary build --config config.js",
     "build:dark": "style-dictionary build --config config.dark.js",
     "build:manifest": "npx ts-node --esm ../../tools/generate-class-manifest.ts",
-    "watch": "npm run build && npm run watch:light & npm run watch:dark",
+    "watch": "npm run build && npm run watch:light & npm run watch:dark & npm run watch:copy",
     "watch:light": "style-dictionary build --config config.js --watch",
-    "watch:dark": "style-dictionary build --config config.dark.js --watch"
+    "watch:dark": "style-dictionary build --config config.dark.js --watch",
+    "watch:copy": "node scripts/watch-and-copy.js"
   },
   "keywords": [
     "design-tokens",

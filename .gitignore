@@ -50,3 +50,10 @@ vitest.config.*.timestamp*
 # Generated files
 static/
 graph.html
+
+# Token build artifacts (gerados por Style Dictionary)
+packages/tokens/build/
+
+# Token copies (gerados durante build)
+apps/docs/public/assets/tokens/
+apps/docs/src/assets/tokens/

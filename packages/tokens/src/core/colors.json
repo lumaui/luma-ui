@@ -133,7 +133,7 @@
       },
       "text": {
         "primary": {
-          "value": "{luma.color.neutral.100}",
+          "value": "{luma.color.neutral.80}",
           "type": "color",
           "description": "Primary text color - main body text"
         },
