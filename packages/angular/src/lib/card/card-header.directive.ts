@@ -1,12 +1,13 @@
-import { Directive } from '@angular/core';
+import { Directive, computed } from '@angular/core';
+import { cardHeaderVariants } from '@lumaui/core';
 
 @Directive({
   selector: '[lumaCardHeader]',
   host: {
-    class: 'mb-4',
+    '[class]': 'classes()',
   },
 })
 export class LmCardHeaderDirective {
-  // Structural directive for semantic card header region
-  // Provides bottom margin for spacing between header and content
+  // Computed class string
+  classes = computed(() => cardHeaderVariants());
 }

@@ -75,7 +75,7 @@ import {
           </luma-modal>
         </div>
       }
-      @case ('different-sizes') {
+      @case ('sizes') {
         <div class="flex flex-wrap gap-2 justify-center">
           @for (size of sizes; track size) {
             <button lumaButton lmVariant="outline" (click)="openSize(size)">

@@ -93,7 +93,7 @@ export class LmTabsIndicatorComponent implements AfterViewInit, OnDestroy {
       this.updateIndicatorPosition();
     });
 
-    this.resizeObserver.observe(this.tabsList.elementRef.nativeElement);
+    this.resizeObserver.observe(this.tabsList.getListContainer());
   }
 
   ngOnDestroy(): void {
@@ -108,11 +108,11 @@ export class LmTabsIndicatorComponent implements AfterViewInit, OnDestroy {
     }
 
     const triggerRect = activeTrigger.getBoundingClientRect();
-    const listRect =
-      this.tabsList.elementRef.nativeElement.getBoundingClientRect();
+    const listContainer = this.tabsList.getListContainer();
+    const listRect = listContainer.getBoundingClientRect();
 
-    // Horizontal positioning
-    this.indicatorPosition.set(triggerRect.left - listRect.left);
+    // Horizontal positioning (account for scroll offset in scrollable mode)
+    this.indicatorPosition.set(triggerRect.left - listRect.left + listContainer.scrollLeft);
     this.indicatorWidth.set(triggerRect.width);
   }
 }

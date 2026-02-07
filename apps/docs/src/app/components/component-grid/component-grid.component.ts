@@ -17,7 +17,6 @@ import {
   LmTabsComponent,
   LmTabsListDirective,
   LmTabsTriggerDirective,
-  LmTabsPanelDirective,
 } from '@lumaui/angular';
 
 interface ComponentCard {
@@ -50,7 +49,6 @@ interface ComponentCard {
     LmTabsComponent,
     LmTabsListDirective,
     LmTabsTriggerDirective,
-    LmTabsPanelDirective,
   ],
   templateUrl: './component-grid.component.html',
   styles: [

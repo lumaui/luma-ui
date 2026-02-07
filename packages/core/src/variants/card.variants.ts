@@ -1,43 +1,32 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 /**
- * Card wrapper variants with support for different card styles
+ * Card wrapper variants - semantic styling with Tailwind utilities
  */
 export const cardVariants = cva(
   [
-    // Base classes for all card variants
+    // Base layout
     'relative',
     'flex',
+    'flex-col',
     'h-full',
     'w-full',
+    // Semantic styling
+    'rounded-[var(--radius-5)]',
+    'border',
+    'border-gray-200',
+    'bg-white',
+    'text-gray-900',
   ],
   {
     variants: {
       variant: {
-        // Default card style with solid border
-        default: ['lm-rounded-lg', 'border', 'lm-border-neutral-60'],
-        // Shadow card - elevated with shadow
-        shadow: [
-          'lm-rounded-card-shadow',
-          'lm-bg-card-shadow',
-          'border',
-          'lm-border-card-shadow',
-          'lm-shadow-card-shadow',
-        ],
-        // Nested card - subtle background for sections within cards
-        nested: [
-          'lm-rounded-card-nested',
-          'lm-bg-card-nested',
-          'border',
-          'lm-border-card-nested',
-        ],
-        // Preview card - for documentation examples
-        preview: [
-          'lm-rounded-card-preview',
-          'lm-bg-card-preview',
-          'border',
-          'lm-border-card-preview',
-        ],
+        // Default card - simple border with subtle shadow
+        default: ['shadow-[var(--shadow-2)]'],
+        // Elevated card with medium shadow
+        elevated: ['shadow-[var(--shadow-3)]'],
+        // Ghost card - no border
+        ghost: ['border-transparent', 'shadow-none'],
       },
     },
     defaultVariants: {
@@ -47,62 +36,63 @@ export const cardVariants = cva(
 );
 
 /**
- * Card content area variants
+ * Card content area - provides padding
  */
-export const cardContentVariants = cva(
-  ['lm-text-primary', 'flex', 'flex-col', 'h-full', 'w-full'],
-  {
-    variants: {
-      variant: {
-        // Content inside default wrapper uses same radius
-        default: ['lm-rounded-lg', 'lm-bg-card-background', 'lm-p-card'],
-        // Shadow/nested/preview cards have padding directly
-        shadow: ['lm-p-card'],
-        nested: ['lm-p-card'],
-        preview: ['lm-p-card'],
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
+export const cardContentVariants = cva(['p-6', 'flex', 'flex-col', 'gap-4']);
 
+/**
+ * Card header - typically contains title and description
+ */
+export const cardHeaderVariants = cva(['flex', 'flex-col', 'gap-1.5']);
+
+/**
+ * Card title - prominent heading
+ */
 export const cardTitleVariants = cva(
-  ['font-medium', 'tracking-tight', 'mb-1', 'lm-text-primary'],
+  ['font-semibold', 'leading-none', 'tracking-tight'],
   {
     variants: {
       size: {
-        small: ['text-sm'],
-        normal: ['text-lg'],
-        large: ['text-2xl'],
+        sm: 'text-lg',
+        md: 'text-xl',
+        lg: 'text-2xl',
       },
     },
     defaultVariants: {
-      size: 'normal',
+      size: 'md',
     },
   },
 );
 
-export const cardDescriptionVariants = cva(['lm-text-secondary', 'mb-5'], {
+/**
+ * Card description - supporting text
+ */
+export const cardDescriptionVariants = cva(['text-sm', 'text-gray-600'], {
   variants: {
     size: {
-      small: ['text-xs'],
-      normal: ['text-sm'],
-      large: ['text-base'],
+      sm: 'text-xs',
+      md: 'text-sm',
+      lg: 'text-base',
     },
   },
   defaultVariants: {
-    size: 'normal',
+    size: 'md',
   },
 });
 
+/**
+ * Card footer - actions area at bottom
+ */
+export const cardFooterVariants = cva(['flex', 'items-center', 'gap-2']);
+
+// Export types
 export type CardVariants = VariantProps<typeof cardVariants>;
 export type CardContentVariants = VariantProps<typeof cardContentVariants>;
+export type CardHeaderVariants = VariantProps<typeof cardHeaderVariants>;
 export type CardTitleVariants = VariantProps<typeof cardTitleVariants>;
-export type CardDescriptionVariants = VariantProps<
-  typeof cardDescriptionVariants
->;
+export type CardDescriptionVariants = VariantProps<typeof cardDescriptionVariants>;
+export type CardFooterVariants = VariantProps<typeof cardFooterVariants>;
+
 export type CardVariant = NonNullable<CardVariants['variant']>;
 export type CardTitleSize = NonNullable<CardTitleVariants['size']>;
 export type CardDescriptionSize = NonNullable<CardDescriptionVariants['size']>;

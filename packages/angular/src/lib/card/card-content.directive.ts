@@ -1,13 +1,13 @@
-import { Directive } from '@angular/core';
+import { Directive, computed } from '@angular/core';
+import { cardContentVariants } from '@lumaui/core';
 
 @Directive({
   selector: '[lumaCardContent]',
   host: {
-    class: '',
+    '[class]': 'classes()',
   },
 })
 export class LmCardContentDirective {
-  // Semantic marker for card content region
-  // No styles applied to preserve maximum flexibility
-  // Maintained for backward compatibility and semantic HTML structure
+  // Computed class string
+  classes = computed(() => cardContentVariants());
 }

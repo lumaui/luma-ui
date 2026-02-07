@@ -2,106 +2,91 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
   [
-    // Base classes
+    // Layout
     'inline-flex',
     'items-center',
     'justify-center',
+    'gap-2',
+
+    // Typography
     'font-medium',
-    'leading-snug',
-    'transition-[color_var(--luma-button-transition-duration)_var(--luma-button-transition-timing)]',
-    'focus:outline-none',
-    'focus-visible:lm-ring-button-focus',
+    'whitespace-nowrap',
+
+    // Transitions (calm interactions)
+    'transition-colors',
+    'duration-200',
+
+    // Accessibility
+    'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-ring',
+    'focus-visible:ring-offset-2',
+
+    // Disabled state
+    'disabled:pointer-events-none',
     'disabled:opacity-50',
-    'disabled:cursor-not-allowed',
   ],
   {
     variants: {
       variant: {
         primary: [
-          'lm-bg-button-primary-bg',
-          'lm-text-button-primary-text',
-          'hover:lm-bg-button-primary-bg-hover',
-          'active:lm-bg-button-primary-bg-active',
+          'bg-primary',
+          'text-white',
+          'hover:bg-primary/90',
+          'active:bg-primary/95',
+        ],
+        secondary: [
+          'bg-secondary',
+          'text-secondary-foreground',
+          'hover:bg-secondary/80',
+          'active:bg-secondary/90',
         ],
         outline: [
-          'bg-transparent',
-          'lm-text-button-outline-text',
           'border',
-          'lm-border-button-outline-border',
-          'hover:lm-border-button-outline-border-hover',
-          'hover:lm-bg-button-outline-bg-hover',
+          'text-primary',
+          'border-primary',
+          'hover:bg-primary/10',
+          'active:bg-primary/10',
         ],
         ghost: [
-          'lm-bg-button-ghost-bg',
-          'lm-text-button-ghost-text',
-          'hover:lm-bg-button-ghost-bg-hover',
+          'text-primary',
+          'hover:bg-primary/10',
+          'active:bg-primary/90',
         ],
-        danger: [
-          'lm-bg-button-danger-bg',
-          'lm-text-button-danger-text',
-          'hover:lm-bg-button-danger-bg-hover',
-          'active:lm-bg-button-danger-bg-active',
+        destructive: [
+          'bg-destructive',
+          'text-destructive-foreground',
+          'hover:bg-destructive/90',
+          'active:bg-destructive/95',
         ],
       },
       size: {
         sm: [
-          'px-[var(--luma-button-padding-x-sm)]',
-          'py-[var(--luma-button-padding-y-sm)]',
-          'text-sm',
-          'lm-rounded-button',
+          'text-xs',        // 12px
+          'px-3',           // 12px
+          'py-2',           // 8px
         ],
         md: [
-          'px-[var(--luma-button-padding-x-md)]',
-          'py-[var(--luma-button-padding-y-md)]',
-          'lm-text-size-base',
-          'lm-rounded-button',
+          'text-sm',        // 14px
+          'px-4',           // 16px
+          'py-2.5',         // 10px
         ],
         lg: [
-          'px-[var(--luma-button-padding-x-lg)]',
-          'py-[var(--luma-button-padding-y-lg)]',
-          'text-lg',
-          'lm-rounded-button',
+          'text-base',      // 16px
+          'px-5',           // 20px
+          'py-3',           // 12px
         ],
-        full: ['w-full'],
+      },
+      radius: {
+        default: ['rounded-[var(--radius-4)]'],  // 8px - uses radius-4 token
+        square: ['rounded-none'],                // 0px - sharp corners
+        full: ['rounded-full'],                  // 9999px - pill shape
       },
     },
-    compoundVariants: [
-      {
-        size: 'full',
-        variant: 'primary',
-        class: [
-          'px-[var(--luma-button-padding-x-md)]',
-          'py-[var(--luma-button-padding-y-md)]',
-        ],
-      },
-      {
-        size: 'full',
-        variant: 'outline',
-        class: [
-          'px-[var(--luma-button-padding-x-md)]',
-          'py-[var(--luma-button-padding-y-md)]',
-        ],
-      },
-      {
-        size: 'full',
-        variant: 'ghost',
-        class: [
-          'px-[var(--luma-button-padding-x-md)]',
-          'py-[var(--luma-button-padding-y-md)]',
-        ],
-      },
-      {
-        size: 'full',
-        variant: 'danger',
-        class: [
-          'px-[var(--luma-button-padding-x-md)]',
-          'py-[var(--luma-button-padding-y-md)]',
-        ],
-      },
-    ],
     defaultVariants: {
       variant: 'primary',
       size: 'md',
+      radius: 'default',
     },
   },
 );
@@ -109,3 +94,4 @@ export const buttonVariants = cva(
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 export type ButtonVariant = NonNullable<ButtonVariants['variant']>;
 export type ButtonSize = NonNullable<ButtonVariants['size']>;
+export type ButtonRadius = NonNullable<ButtonVariants['radius']>;

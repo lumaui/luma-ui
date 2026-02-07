@@ -10,6 +10,7 @@ export * from './lib/card/card-title.directive';
 export * from './lib/card/card-description.directive';
 export * from './lib/card/card-header.directive';
 export * from './lib/card/card-content.directive';
+export * from './lib/card/card-footer.directive';
 
 // Accordion exports
 export * from './lib/accordion/accordion-group.component';

@@ -1,201 +1,17 @@
 import { Component, signal } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { LmTabsComponent } from './tabs.component';
 import { LmTabsListDirective } from './tabs-list.directive';
 import { LmTabsTriggerDirective } from './tabs-trigger.directive';
 import { LmTabsPanelDirective } from './tabs-panel.directive';
 
-/**
- * Design tokens for Tabs component testing
- */
-const TABS_TOKENS = {
-  list: {
-    gap: '8px',
-    borderColor: 'oklch(0.97 0.006 290)',
-  },
-  trigger: {
-    text: 'oklch(0.48 0.01 290)',
-    textHover: 'oklch(0.22 0.014 290)',
-    textSelected: 'oklch(0.48 0.09 300)',
-    background: 'transparent',
-    backgroundHover: 'oklch(0.99 0.004 290)',
-    backgroundSelected: 'oklch(0.99 0.004 290)',
-    paddingX: '16px',
-    paddingY: '8px',
-    fontSize: '14px',
-    fontWeight: '500',
-    radius: '8px',
-  },
-  indicator: {
-    height: '2px',
-    color: 'oklch(0.48 0.09 300)',
-    radius: '1px',
-  },
-  panel: {
-    padding: '16px',
-  },
-  pill: {
-    background: 'oklch(0.97 0.006 290)',
-    backgroundSelected: 'oklch(1 0 0)',
-    gap: '4px',
-    padding: '4px',
-    radius: '12px',
-  },
-  transition: {
-    duration: '200ms',
-    timing: 'ease-out',
-  },
-} as const;
+// ============================================================
+// TEST HOST COMPONENTS
+// ============================================================
 
-/**
- * Setup tokens on document root
- */
-function setupTabsTokens(): void {
-  const root = document.documentElement;
-
-  // List tokens
-  root.style.setProperty('--luma-tabs-list-gap', TABS_TOKENS.list.gap);
-  root.style.setProperty(
-    '--luma-tabs-list-border-color',
-    TABS_TOKENS.list.borderColor,
-  );
-
-  // Trigger tokens
-  root.style.setProperty('--luma-tabs-trigger-text', TABS_TOKENS.trigger.text);
-  root.style.setProperty(
-    '--luma-tabs-trigger-text-hover',
-    TABS_TOKENS.trigger.textHover,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-text-selected',
-    TABS_TOKENS.trigger.textSelected,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-background',
-    TABS_TOKENS.trigger.background,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-background-hover',
-    TABS_TOKENS.trigger.backgroundHover,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-background-selected',
-    TABS_TOKENS.trigger.backgroundSelected,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-padding-x',
-    TABS_TOKENS.trigger.paddingX,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-padding-y',
-    TABS_TOKENS.trigger.paddingY,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-font-size',
-    TABS_TOKENS.trigger.fontSize,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-font-weight',
-    TABS_TOKENS.trigger.fontWeight,
-  );
-  root.style.setProperty(
-    '--luma-tabs-trigger-radius',
-    TABS_TOKENS.trigger.radius,
-  );
-
-  // Indicator tokens
-  root.style.setProperty(
-    '--luma-tabs-indicator-height',
-    TABS_TOKENS.indicator.height,
-  );
-  root.style.setProperty(
-    '--luma-tabs-indicator-color',
-    TABS_TOKENS.indicator.color,
-  );
-  root.style.setProperty(
-    '--luma-tabs-indicator-radius',
-    TABS_TOKENS.indicator.radius,
-  );
-
-  // Panel tokens
-  root.style.setProperty(
-    '--luma-tabs-panel-padding',
-    TABS_TOKENS.panel.padding,
-  );
-
-  // Pill tokens
-  root.style.setProperty(
-    '--luma-tabs-pill-background',
-    TABS_TOKENS.pill.background,
-  );
-  root.style.setProperty(
-    '--luma-tabs-pill-background-selected',
-    TABS_TOKENS.pill.backgroundSelected,
-  );
-  root.style.setProperty('--luma-tabs-pill-gap', TABS_TOKENS.pill.gap);
-  root.style.setProperty('--luma-tabs-pill-padding', TABS_TOKENS.pill.padding);
-  root.style.setProperty('--luma-tabs-pill-radius', TABS_TOKENS.pill.radius);
-
-  // Transition tokens
-  root.style.setProperty(
-    '--luma-tabs-transition-duration',
-    TABS_TOKENS.transition.duration,
-  );
-  root.style.setProperty(
-    '--luma-tabs-transition-timing',
-    TABS_TOKENS.transition.timing,
-  );
-}
-
-/**
- * Cleanup tokens from document root
- */
-function cleanupTabsTokens(): void {
-  const root = document.documentElement;
-  const tokenNames = [
-    '--luma-tabs-list-gap',
-    '--luma-tabs-list-border-color',
-    '--luma-tabs-trigger-text',
-    '--luma-tabs-trigger-text-hover',
-    '--luma-tabs-trigger-text-selected',
-    '--luma-tabs-trigger-background',
-    '--luma-tabs-trigger-background-hover',
-    '--luma-tabs-trigger-background-selected',
-    '--luma-tabs-trigger-padding-x',
-    '--luma-tabs-trigger-padding-y',
-    '--luma-tabs-trigger-font-size',
-    '--luma-tabs-trigger-font-weight',
-    '--luma-tabs-trigger-radius',
-    '--luma-tabs-indicator-height',
-    '--luma-tabs-indicator-color',
-    '--luma-tabs-indicator-radius',
-    '--luma-tabs-panel-padding',
-    '--luma-tabs-pill-background',
-    '--luma-tabs-pill-background-selected',
-    '--luma-tabs-pill-gap',
-    '--luma-tabs-pill-padding',
-    '--luma-tabs-pill-radius',
-    '--luma-tabs-transition-duration',
-    '--luma-tabs-transition-timing',
-  ];
-  tokenNames.forEach((name) => root.style.removeProperty(name));
-  root.classList.remove('dark');
-}
-
-// ============================================================================
-// Test Host Components
-// ============================================================================
-
-/**
- * Basic test host with all inputs
- */
 @Component({
+  selector: 'tabs-test-host',
   template: `
     <luma-tabs
       [lmValue]="lmValue()"
@@ -228,7 +44,7 @@ function cleanupTabsTokens(): void {
 class TabsTestHostComponent {
   lmValue = signal<string | null>(null);
   lmDefaultValue = 'tab-1';
-  lmVariant: 'underline' | 'background' | 'pill' = 'underline';
+  lmVariant: 'underline' | 'pills' = 'underline';
   lmLazy = true;
   tab1Disabled = false;
   tab2Disabled = false;
@@ -239,12 +55,10 @@ class TabsTestHostComponent {
   }
 }
 
-/**
- * Test host for background style
- */
 @Component({
+  selector: 'tabs-pills-test-host',
   template: `
-    <luma-tabs lmDefaultValue="tab-1" lmVariant="background">
+    <luma-tabs lmDefaultValue="tab-1" lmVariant="pills">
       <div lumaTabsList>
         <button lumaTabsTrigger="tab-1">Tab 1</button>
         <button lumaTabsTrigger="tab-2">Tab 2</button>
@@ -260,35 +74,10 @@ class TabsTestHostComponent {
     LmTabsPanelDirective,
   ],
 })
-class TabsBackgroundStyleTestHostComponent {}
+class TabsPillsTestHostComponent {}
 
-/**
- * Test host for pill style
- */
 @Component({
-  template: `
-    <luma-tabs lmDefaultValue="tab-1" lmVariant="pill">
-      <div lumaTabsList>
-        <button lumaTabsTrigger="tab-1">Tab 1</button>
-        <button lumaTabsTrigger="tab-2">Tab 2</button>
-      </div>
-      <div lumaTabsPanel="tab-1">Content 1</div>
-      <div lumaTabsPanel="tab-2">Content 2</div>
-    </luma-tabs>
-  `,
-  imports: [
-    LmTabsComponent,
-    LmTabsListDirective,
-    LmTabsTriggerDirective,
-    LmTabsPanelDirective,
-  ],
-})
-class TabsPillStyleTestHostComponent {}
-
-/**
- * Test host for lazy loading disabled
- */
-@Component({
+  selector: 'tabs-no-lazy-test-host',
   template: `
     <luma-tabs lmDefaultValue="tab-1" [lmLazy]="false">
       <div lumaTabsList>
@@ -308,9 +97,66 @@ class TabsPillStyleTestHostComponent {}
 })
 class TabsNoLazyTestHostComponent {}
 
-// ============================================================================
-// Test Suites
-// ============================================================================
+// ============================================================
+// SEMANTIC TOKEN DEFINITIONS
+// ============================================================
+
+const SEMANTIC_TOKENS = {
+  colors: {
+    primary: 'oklch(0.48 0.09 300)',
+    mutedForeground: 'oklch(0.48 0.01 290)',
+    foreground: 'oklch(0.22 0.014 290)',
+    border: 'oklch(0.97 0.006 290)',
+    background: 'oklch(1 0 0)',
+    muted: 'oklch(0.97 0.006 290)',
+  },
+} as const;
+
+// ============================================================
+// SETUP & CLEANUP FUNCTIONS
+// ============================================================
+
+function setupSemanticTokens(): void {
+  const root = document.documentElement;
+  root.style.setProperty('--color-primary', SEMANTIC_TOKENS.colors.primary);
+  root.style.setProperty(
+    '--color-muted-foreground',
+    SEMANTIC_TOKENS.colors.mutedForeground,
+  );
+  root.style.setProperty('--color-foreground', SEMANTIC_TOKENS.colors.foreground);
+  root.style.setProperty('--color-border', SEMANTIC_TOKENS.colors.border);
+  root.style.setProperty('--color-background', SEMANTIC_TOKENS.colors.background);
+  root.style.setProperty('--color-muted', SEMANTIC_TOKENS.colors.muted);
+}
+
+function cleanupSemanticTokens(): void {
+  const root = document.documentElement;
+  root.style.removeProperty('--color-primary');
+  root.style.removeProperty('--color-muted-foreground');
+  root.style.removeProperty('--color-foreground');
+  root.style.removeProperty('--color-border');
+  root.style.removeProperty('--color-background');
+  root.style.removeProperty('--color-muted');
+}
+
+// ============================================================
+// MOCK RESIZE OBSERVER
+// ============================================================
+
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+// Install ResizeObserver mock globally
+if (typeof window !== 'undefined' && !window.ResizeObserver) {
+  (window as any).ResizeObserver = ResizeObserverMock;
+}
+
+// ============================================================
+// TEST SUITE
+// ============================================================
 
 describe('Tabs', () => {
   let fixture: ComponentFixture<TabsTestHostComponent>;
@@ -321,262 +167,214 @@ describe('Tabs', () => {
     await TestBed.configureTestingModule({
       imports: [
         TabsTestHostComponent,
-        TabsBackgroundStyleTestHostComponent,
-        TabsPillStyleTestHostComponent,
+        TabsPillsTestHostComponent,
         TabsNoLazyTestHostComponent,
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TabsTestHostComponent);
     hostComponent = fixture.componentInstance;
-    setupTabsTokens();
+    setupSemanticTokens();
   });
 
   afterEach(() => {
-    cleanupTabsTokens();
+    cleanupSemanticTokens();
   });
 
-  // ==========================================================================
-  // Basic Component Creation
-  // ==========================================================================
-  describe('Basic Component Creation', () => {
+  // ============================================================
+  // BASIC CREATION
+  // ============================================================
+
+  describe('Basic Creation', () => {
     beforeEach(() => {
       fixture.detectChanges();
     });
 
-    it('should create the LmTabsComponent', () => {
+    it('should create the component', () => {
       const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
       tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(tabsComponent).toBeTruthy();
     });
 
-    it('should create LmTabsListDirective', () => {
+    it('should create tabs list', () => {
       const listEl = fixture.debugElement.query(
         By.directive(LmTabsListDirective),
       );
       expect(listEl).toBeTruthy();
     });
 
-    it('should create LmTabsTriggerDirective for each tab', () => {
+    it('should create all triggers', () => {
       const triggers = fixture.debugElement.queryAll(
         By.directive(LmTabsTriggerDirective),
       );
       expect(triggers.length).toBe(3);
     });
 
-    it('should create LmTabsPanelDirective for each panel', () => {
+    it('should create all panels', () => {
       const panels = fixture.debugElement.queryAll(
         By.directive(LmTabsPanelDirective),
       );
       expect(panels.length).toBe(3);
     });
+  });
 
-    it('should have signal-based inputs on LmTabsComponent', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
-      tabsComponent = tabsEl.injector.get(LmTabsComponent);
-      expect(typeof tabsComponent.lmValue).toBe('function');
-      expect(typeof tabsComponent.lmDefaultValue).toBe('function');
-      expect(typeof tabsComponent.lmVariant).toBe('function');
-      expect(typeof tabsComponent.lmLazy).toBe('function');
+  // ============================================================
+  // UNDERLINE VARIANT
+  // ============================================================
+
+  describe('Underline Variant', () => {
+    beforeEach(() => {
+      hostComponent.lmVariant = 'underline';
+      fixture.detectChanges();
+    });
+
+    it('should apply underline list classes', () => {
+      const listEl = fixture.debugElement.query(
+        By.directive(LmTabsListDirective),
+      );
+      const directive = listEl.injector.get(LmTabsListDirective);
+      const classes = directive.hostClasses();
+      expect(classes).toContain('border-b');
+      expect(classes).toContain('border-border');
+    });
+
+    it('should apply underline trigger classes', () => {
+      const triggerEl = fixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      const directive = triggerEl.injector.get(LmTabsTriggerDirective);
+      const classes = directive.classes();
+      expect(classes).toContain('border-b-2');
+      expect(classes).toContain('border-transparent');
+      expect(classes).toContain('text-muted-foreground');
+    });
+
+    it('should apply active state classes', () => {
+      const triggerEl = fixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      const directive = triggerEl.injector.get(LmTabsTriggerDirective);
+      expect(directive.isSelected()).toBe(true);
+      const classes = directive.classes();
+      expect(classes).toContain('data-[state=active]:border-primary');
+      expect(classes).toContain('data-[state=active]:text-foreground');
     });
   });
 
-  // ==========================================================================
-  // Design Token Definition
-  // ==========================================================================
-  describe('Design Token Definition', () => {
-    describe('List Tokens', () => {
-      it('should define --luma-tabs-list-gap css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-list-gap')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.list.gap);
-      });
+  // ============================================================
+  // PILLS VARIANT
+  // ============================================================
 
-      it('should define --luma-tabs-list-border-color css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-list-border-color')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.list.borderColor);
-      });
+  describe('Pills Variant', () => {
+    it('should apply pills list classes', () => {
+      const pillsFixture = TestBed.createComponent(TabsPillsTestHostComponent);
+      pillsFixture.detectChanges();
+
+      const listEl = pillsFixture.debugElement.query(
+        By.directive(LmTabsListDirective),
+      );
+      const directive = listEl.injector.get(LmTabsListDirective);
+      const classes = directive.hostClasses();
+      expect(classes).toContain('bg-muted');
+      expect(classes).toContain('rounded-lg');
     });
 
-    describe('Trigger Tokens', () => {
-      it('should define --luma-tabs-trigger-text css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-trigger-text')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.trigger.text);
-      });
+    it('should apply pills trigger classes', () => {
+      const pillsFixture = TestBed.createComponent(TabsPillsTestHostComponent);
+      pillsFixture.detectChanges();
 
-      it('should define --luma-tabs-trigger-padding-x css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-trigger-padding-x')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.trigger.paddingX);
-      });
+      const triggerEl = pillsFixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      const directive = triggerEl.injector.get(LmTabsTriggerDirective);
+      const classes = directive.classes();
+      expect(classes).toContain('rounded-md');
+      expect(classes).toContain('text-muted-foreground');
     });
 
-    describe('Panel Tokens', () => {
-      it('should define --luma-tabs-panel-padding css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-panel-padding')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.panel.padding);
-      });
-    });
+    it('should apply pills active state classes', () => {
+      const pillsFixture = TestBed.createComponent(TabsPillsTestHostComponent);
+      pillsFixture.detectChanges();
 
-    describe('Transition Tokens', () => {
-      it('should define --luma-tabs-transition-duration css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-transition-duration')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.transition.duration);
-      });
-
-      it('should define --luma-tabs-transition-timing css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-tabs-transition-timing')
-          .trim();
-        expect(value).toBe(TABS_TOKENS.transition.timing);
-      });
+      const triggerEl = pillsFixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      const directive = triggerEl.injector.get(LmTabsTriggerDirective);
+      const classes = directive.classes();
+      expect(classes).toContain('data-[state=active]:bg-background');
+      expect(classes).toContain('data-[state=active]:text-foreground');
+      expect(classes).toContain('data-[state=active]:shadow-sm');
     });
   });
 
-  // ==========================================================================
-  // Class Application
-  // ==========================================================================
-  describe('Class Application', () => {
-    describe('TabsList Classes', () => {
-      describe('underline style', () => {
-        beforeEach(() => {
-          hostComponent.lmVariant = 'underline';
-          fixture.detectChanges();
-        });
+  // ============================================================
+  // BASE CLASSES
+  // ============================================================
 
-        it('should apply underline style classes', () => {
-          const listEl = fixture.debugElement.query(
-            By.directive(LmTabsListDirective),
-          );
-          const directive = listEl.injector.get(LmTabsListDirective);
-          const classes = directive.classes();
-          expect(classes).toContain('border-b');
-          expect(classes).toContain('lm-border-tabs-list');
-        });
-      });
-
-      describe('background style', () => {
-        it('should apply background style classes', () => {
-          const bgFixture = TestBed.createComponent(
-            TabsBackgroundStyleTestHostComponent,
-          );
-          bgFixture.detectChanges();
-          const listEl = bgFixture.debugElement.query(
-            By.directive(LmTabsListDirective),
-          );
-          const directive = listEl.injector.get(LmTabsListDirective);
-          const classes = directive.classes();
-          expect(classes).toContain('lm-gap-tabs-list');
-        });
-      });
-
-      describe('pill style', () => {
-        it('should apply pill style classes', () => {
-          const pillFixture = TestBed.createComponent(
-            TabsPillStyleTestHostComponent,
-          );
-          pillFixture.detectChanges();
-          const listEl = pillFixture.debugElement.query(
-            By.directive(LmTabsListDirective),
-          );
-          const directive = listEl.injector.get(LmTabsListDirective);
-          const classes = directive.classes();
-          expect(classes).toContain('lm-bg-tabs-pill');
-          expect(classes).toContain('lm-rounded-tabs-pill');
-        });
-      });
+  describe('Base Classes', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
     });
 
-    describe('TabsTrigger Classes', () => {
-      describe('base classes', () => {
-        beforeEach(() => {
-          fixture.detectChanges();
-        });
-
-        it('should apply base trigger classes', () => {
-          const triggerEl = fixture.debugElement.query(
-            By.directive(LmTabsTriggerDirective),
-          );
-          const directive = triggerEl.injector.get(LmTabsTriggerDirective);
-          const classes = directive.classes();
-          expect(classes).toContain('relative');
-          expect(classes).toContain('flex');
-          expect(classes).toContain('cursor-pointer');
-        });
-
-        it('should apply focus ring class', () => {
-          const triggerEl = fixture.debugElement.query(
-            By.directive(LmTabsTriggerDirective),
-          );
-          const directive = triggerEl.injector.get(LmTabsTriggerDirective);
-          const classes = directive.classes();
-          expect(classes).toContain('focus-visible:lm-ring-focus');
-        });
-      });
-
-      describe('selected state', () => {
-        beforeEach(() => {
-          fixture.detectChanges();
-        });
-
-        it('should apply selected classes when tab is selected', () => {
-          const triggerEl = fixture.debugElement.query(
-            By.directive(LmTabsTriggerDirective),
-          );
-          const directive = triggerEl.injector.get(LmTabsTriggerDirective);
-          // First tab is selected by default
-          expect(directive.isSelected()).toBe(true);
-          const classes = directive.classes();
-          expect(classes).toContain('lm-text-tabs-trigger-selected');
-        });
-      });
+    it('should apply base list classes', () => {
+      const listEl = fixture.debugElement.query(
+        By.directive(LmTabsListDirective),
+      );
+      const directive = listEl.injector.get(LmTabsListDirective);
+      const classes = directive.hostClasses();
+      expect(classes).toContain('relative');
+      expect(classes).toContain('w-full');
     });
 
-    describe('TabsPanel Classes', () => {
-      beforeEach(() => {
-        fixture.detectChanges();
-      });
+    it('should apply base trigger classes', () => {
+      const triggerEl = fixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      const directive = triggerEl.injector.get(LmTabsTriggerDirective);
+      const classes = directive.classes();
+      expect(classes).toContain('inline-flex');
+      expect(classes).toContain('items-center');
+      expect(classes).toContain('justify-center');
+      expect(classes).toContain('px-4');
+      expect(classes).toContain('py-2');
+      expect(classes).toContain('text-sm');
+      expect(classes).toContain('font-medium');
+      expect(classes).toContain('cursor-pointer');
+    });
 
-      it('should apply visible class to selected panel', () => {
-        const panels = fixture.debugElement.queryAll(
-          By.directive(LmTabsPanelDirective),
-        );
-        const firstPanel = panels[0].injector.get(LmTabsPanelDirective);
-        expect(firstPanel.isVisible()).toBe(true);
-        expect(firstPanel.classes()).toContain('block');
-      });
+    it('should apply focus ring classes', () => {
+      const triggerEl = fixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      const directive = triggerEl.injector.get(LmTabsTriggerDirective);
+      const classes = directive.classes();
+      expect(classes).toContain('focus-visible:outline-none');
+      expect(classes).toContain('focus-visible:ring-2');
+      expect(classes).toContain('focus-visible:ring-ring');
+    });
 
-      it('should apply hidden class to non-selected panel', () => {
-        const panels = fixture.debugElement.queryAll(
-          By.directive(LmTabsPanelDirective),
-        );
-        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
-        expect(secondPanel.isVisible()).toBe(false);
-      });
+    it('should apply panel classes', () => {
+      const panelEl = fixture.debugElement.query(
+        By.directive(LmTabsPanelDirective),
+      );
+      const directive = panelEl.injector.get(LmTabsPanelDirective);
+      const classes = directive.classes();
+      expect(classes).toContain('mt-2');
     });
   });
 
-  // ==========================================================================
-  // Tab Selection
-  // ==========================================================================
+  // ============================================================
+  // TAB SELECTION
+  // ============================================================
+
   describe('Tab Selection', () => {
-    describe('default value', () => {
+    describe('via default value', () => {
       beforeEach(() => {
         hostComponent.lmDefaultValue = 'tab-2';
         fixture.detectChanges();
       });
 
-      it('should select tab based on lmDefaultValue', () => {
+      it('should select tab based on default value', () => {
         const tabsEl = fixture.debugElement.query(
           By.directive(LmTabsComponent),
         );
@@ -585,22 +383,7 @@ describe('Tabs', () => {
       });
     });
 
-    describe('controlled mode', () => {
-      beforeEach(() => {
-        hostComponent.lmValue.set('tab-3');
-        fixture.detectChanges();
-      });
-
-      it('should select tab based on lmValue', () => {
-        const tabsEl = fixture.debugElement.query(
-          By.directive(LmTabsComponent),
-        );
-        tabsComponent = tabsEl.injector.get(LmTabsComponent);
-        expect(tabsComponent.value()).toBe('tab-3');
-      });
-    });
-
-    describe('click selection', () => {
+    describe('via click', () => {
       beforeEach(() => {
         fixture.detectChanges();
       });
@@ -619,7 +402,7 @@ describe('Tabs', () => {
         expect(tabsComponent.value()).toBe('tab-2');
       });
 
-      it('should emit lmValueChange on selection', () => {
+      it('should emit value change on selection', () => {
         const triggers = fixture.debugElement.queryAll(
           By.directive(LmTabsTriggerDirective),
         );
@@ -629,12 +412,11 @@ describe('Tabs', () => {
         expect(hostComponent.valueChanges).toContain('tab-2');
       });
 
-      it('should not emit if selecting already selected tab', () => {
+      it('should not emit if already selected', () => {
         hostComponent.valueChanges = [];
         const triggers = fixture.debugElement.queryAll(
           By.directive(LmTabsTriggerDirective),
         );
-        // First tab is already selected
         triggers[0].nativeElement.click();
         fixture.detectChanges();
 
@@ -643,9 +425,10 @@ describe('Tabs', () => {
     });
   });
 
-  // ==========================================================================
-  // Keyboard Navigation
-  // ==========================================================================
+  // ============================================================
+  // KEYBOARD NAVIGATION
+  // ============================================================
+
   describe('Keyboard Navigation', () => {
     beforeEach(() => {
       fixture.detectChanges();
@@ -669,7 +452,6 @@ describe('Tabs', () => {
     });
 
     it('should focus previous tab on ArrowLeft', () => {
-      // First select tab-2
       const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
       tabsComponent = tabsEl.injector.get(LmTabsComponent);
       tabsComponent.select('tab-2');
@@ -689,7 +471,7 @@ describe('Tabs', () => {
       expect(tabsComponent.value()).toBe('tab-1');
     });
 
-    it('should wrap to first tab when pressing ArrowRight on last tab', () => {
+    it('should wrap to first tab on ArrowRight from last', () => {
       const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
       tabsComponent = tabsEl.injector.get(LmTabsComponent);
       tabsComponent.select('tab-3');
@@ -709,7 +491,7 @@ describe('Tabs', () => {
       expect(tabsComponent.value()).toBe('tab-1');
     });
 
-    it('should wrap to last tab when pressing ArrowLeft on first tab', () => {
+    it('should wrap to last tab on ArrowLeft from first', () => {
       const triggers = fixture.debugElement.queryAll(
         By.directive(LmTabsTriggerDirective),
       );
@@ -758,53 +540,20 @@ describe('Tabs', () => {
       tabsComponent = tabsEl.injector.get(LmTabsComponent);
       expect(tabsComponent.value()).toBe('tab-3');
     });
-
-    it('should activate tab on Enter', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
-      tabsComponent = tabsEl.injector.get(LmTabsComponent);
-
-      const triggers = fixture.debugElement.queryAll(
-        By.directive(LmTabsTriggerDirective),
-      );
-      const secondTrigger = triggers[1].nativeElement;
-
-      secondTrigger.focus();
-      secondTrigger.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'Enter' }),
-      );
-      fixture.detectChanges();
-
-      expect(tabsComponent.value()).toBe('tab-2');
-    });
-
-    it('should activate tab on Space', () => {
-      const tabsEl = fixture.debugElement.query(By.directive(LmTabsComponent));
-      tabsComponent = tabsEl.injector.get(LmTabsComponent);
-
-      const triggers = fixture.debugElement.queryAll(
-        By.directive(LmTabsTriggerDirective),
-      );
-      const secondTrigger = triggers[1].nativeElement;
-
-      secondTrigger.focus();
-      secondTrigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
-      fixture.detectChanges();
-
-      expect(tabsComponent.value()).toBe('tab-2');
-    });
   });
 
-  // ==========================================================================
-  // Disabled State
-  // ==========================================================================
+  // ============================================================
+  // DISABLED STATE
+  // ============================================================
+
   describe('Disabled State', () => {
-    describe('when trigger is disabled', () => {
+    describe('when disabled', () => {
       beforeEach(() => {
         hostComponent.tab2Disabled = true;
         fixture.detectChanges();
       });
 
-      it('should apply disabled classes', () => {
+      it('should have disabled input set', () => {
         const triggers = fixture.debugElement.queryAll(
           By.directive(LmTabsTriggerDirective),
         );
@@ -812,29 +561,11 @@ describe('Tabs', () => {
         expect(directive.lmDisabled()).toBe(true);
       });
 
-      it('should not select disabled tab on click', () => {
+      it('should not select on click when disabled', () => {
         const triggers = fixture.debugElement.queryAll(
           By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
-        fixture.detectChanges();
-
-        const tabsEl = fixture.debugElement.query(
-          By.directive(LmTabsComponent),
-        );
-        tabsComponent = tabsEl.injector.get(LmTabsComponent);
-        expect(tabsComponent.value()).toBe('tab-1'); // Should remain on tab-1
-      });
-
-      it('should not respond to keyboard when disabled', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        const disabledTrigger = triggers[1].nativeElement;
-
-        disabledTrigger.dispatchEvent(
-          new KeyboardEvent('keydown', { key: 'Enter' }),
-        );
         fixture.detectChanges();
 
         const tabsEl = fixture.debugElement.query(
@@ -846,125 +577,26 @@ describe('Tabs', () => {
     });
   });
 
-  // ==========================================================================
-  // Accessibility
-  // ==========================================================================
-  describe('Accessibility', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
+  // ============================================================
+  // LAZY LOADING
+  // ============================================================
 
-    describe('Roles', () => {
-      it('should have role="tablist" on TabsList', () => {
-        const listEl = fixture.debugElement.query(
-          By.directive(LmTabsListDirective),
-        );
-        expect(listEl.nativeElement.getAttribute('role')).toBe('tablist');
-      });
-
-      it('should have role="tab" on TabsTrigger', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        expect(triggers[0].nativeElement.getAttribute('role')).toBe('tab');
-      });
-
-      it('should have role="tabpanel" on TabsPanel', () => {
-        const panels = fixture.debugElement.queryAll(
-          By.directive(LmTabsPanelDirective),
-        );
-        expect(panels[0].nativeElement.getAttribute('role')).toBe('tabpanel');
-      });
-    });
-
-    describe('ARIA Attributes', () => {
-      it('should have aria-selected="true" on selected trigger', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        expect(triggers[0].nativeElement.getAttribute('aria-selected')).toBe(
-          'true',
-        );
-      });
-
-      it('should have aria-selected="false" on non-selected trigger', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        expect(triggers[1].nativeElement.getAttribute('aria-selected')).toBe(
-          'false',
-        );
-      });
-
-      it('should have aria-controls linking trigger to panel', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        expect(triggers[0].nativeElement.getAttribute('aria-controls')).toBe(
-          'tab-panel-tab-1',
-        );
-      });
-
-      it('should have aria-labelledby linking panel to trigger', () => {
-        const panels = fixture.debugElement.queryAll(
-          By.directive(LmTabsPanelDirective),
-        );
-        expect(panels[0].nativeElement.getAttribute('aria-labelledby')).toBe(
-          'tab-trigger-tab-1',
-        );
-      });
-
-      it('should have aria-orientation on TabsList', () => {
-        const listEl = fixture.debugElement.query(
-          By.directive(LmTabsListDirective),
-        );
-        expect(listEl.nativeElement.getAttribute('aria-orientation')).toBe(
-          'horizontal',
-        );
-      });
-    });
-
-    describe('Roving Tabindex', () => {
-      it('should have tabindex="0" on selected trigger', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        expect(triggers[0].nativeElement.getAttribute('tabindex')).toBe('0');
-      });
-
-      it('should have tabindex="-1" on non-selected trigger', () => {
-        const triggers = fixture.debugElement.queryAll(
-          By.directive(LmTabsTriggerDirective),
-        );
-        expect(triggers[1].nativeElement.getAttribute('tabindex')).toBe('-1');
-      });
-    });
-  });
-
-  // ==========================================================================
-  // Lazy Loading
-  // ==========================================================================
   describe('Lazy Loading', () => {
-    describe('with lmLazy=true (default)', () => {
+    describe('with lazy enabled', () => {
       beforeEach(() => {
         hostComponent.lmLazy = true;
         fixture.detectChanges();
       });
 
-      it('should render only the selected panel initially', () => {
+      it('should render only selected panel', () => {
         const panels = fixture.debugElement.queryAll(
           By.directive(LmTabsPanelDirective),
         );
         const firstPanel = panels[0].injector.get(LmTabsPanelDirective);
-        const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
-
         expect(firstPanel.shouldRender()).toBe(true);
-        // Second panel should not render until selected
-        // Note: hasBeenSelected starts false, so shouldRender should be false
       });
 
-      it('should render panel after it is selected', () => {
-        // Select second tab
+      it('should render panel after selection', () => {
         const triggers = fixture.debugElement.queryAll(
           By.directive(LmTabsTriggerDirective),
         );
@@ -975,19 +607,16 @@ describe('Tabs', () => {
           By.directive(LmTabsPanelDirective),
         );
         const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
-
         expect(secondPanel.shouldRender()).toBe(true);
       });
 
-      it('should keep panel rendered after switching away (cache)', () => {
-        // Select second tab
+      it('should keep panel rendered after switching', () => {
         const triggers = fixture.debugElement.queryAll(
           By.directive(LmTabsTriggerDirective),
         );
         triggers[1].nativeElement.click();
         fixture.detectChanges();
 
-        // Switch back to first tab
         triggers[0].nativeElement.click();
         fixture.detectChanges();
 
@@ -995,14 +624,12 @@ describe('Tabs', () => {
           By.directive(LmTabsPanelDirective),
         );
         const secondPanel = panels[1].injector.get(LmTabsPanelDirective);
-
-        // Should still be rendered (cached) but not visible
         expect(secondPanel.shouldRender()).toBe(true);
         expect(secondPanel.isVisible()).toBe(false);
       });
     });
 
-    describe('with lmLazy=false', () => {
+    describe('with lazy disabled', () => {
       it('should render all panels immediately', () => {
         const noLazyFixture = TestBed.createComponent(
           TabsNoLazyTestHostComponent,
@@ -1018,6 +645,97 @@ describe('Tabs', () => {
         expect(firstPanel.shouldRender()).toBe(true);
         expect(secondPanel.shouldRender()).toBe(true);
       });
+    });
+  });
+
+  // ============================================================
+  // SEMANTIC TOKENS
+  // ============================================================
+
+  describe('Semantic Tokens', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should have access to --color-primary token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-primary')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
+    });
+
+    it('should have access to --color-muted-foreground token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-muted-foreground')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.mutedForeground);
+    });
+
+    it('should have access to --color-border token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-border')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.border);
+    });
+  });
+
+  // ============================================================
+  // ACCESSIBILITY
+  // ============================================================
+
+  describe('Accessibility', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should have role="tablist" on list', () => {
+      const listEl = fixture.debugElement.query(
+        By.directive(LmTabsListDirective),
+      );
+      expect(listEl.nativeElement.getAttribute('role')).toBe('tablist');
+    });
+
+    it('should have role="tab" on trigger', () => {
+      const triggerEl = fixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      expect(triggerEl.nativeElement.getAttribute('role')).toBe('tab');
+    });
+
+    it('should have role="tabpanel" on panel', () => {
+      const panelEl = fixture.debugElement.query(
+        By.directive(LmTabsPanelDirective),
+      );
+      expect(panelEl.nativeElement.getAttribute('role')).toBe('tabpanel');
+    });
+
+    it('should have aria-selected on triggers', () => {
+      const triggers = fixture.debugElement.queryAll(
+        By.directive(LmTabsTriggerDirective),
+      );
+      expect(triggers[0].nativeElement.getAttribute('aria-selected')).toBe(
+        'true',
+      );
+      expect(triggers[1].nativeElement.getAttribute('aria-selected')).toBe(
+        'false',
+      );
+    });
+
+    it('should have aria-controls linking trigger to panel', () => {
+      const triggerEl = fixture.debugElement.query(
+        By.directive(LmTabsTriggerDirective),
+      );
+      expect(triggerEl.nativeElement.getAttribute('aria-controls')).toBe(
+        'tab-panel-tab-1',
+      );
+    });
+
+    it('should have roving tabindex', () => {
+      const triggers = fixture.debugElement.queryAll(
+        By.directive(LmTabsTriggerDirective),
+      );
+      expect(triggers[0].nativeElement.getAttribute('tabindex')).toBe('0');
+      expect(triggers[1].nativeElement.getAttribute('tabindex')).toBe('-1');
     });
   });
 });

@@ -18,18 +18,34 @@ import { LmButtonDirective } from '@lumaui/angular';
           <button lumaButton lmVariant="primary">Primary</button>
           <button lumaButton lmVariant="outline">Outline</button>
           <button lumaButton lmVariant="ghost">Ghost</button>
-          <button lumaButton lmVariant="danger">Delete</button>
+          <button lumaButton lmVariant="destructive">Delete</button>
         </div>
       }
       @case ('sizes') {
-        <div class="space-y-4">
-          <div class="flex flex-wrap items-center gap-4 justify-center">
-            <button lumaButton lmSize="sm">Small</button>
-            <button lumaButton lmSize="md">Medium</button>
-            <button lumaButton lmSize="lg">Large</button>
+        <div class="flex flex-wrap items-center gap-4 justify-center">
+          <button lumaButton lmSize="sm">Small (12px)</button>
+          <button lumaButton lmSize="md">Medium (14px)</button>
+          <button lumaButton lmSize="lg">Large (16px)</button>
+        </div>
+      }
+      @case ('radius-options') {
+        <div class="flex flex-wrap items-center gap-4 justify-center">
+          <button lumaButton lmRadius="default">Default</button>
+          <button lumaButton lmRadius="square">Square</button>
+          <button lumaButton lmRadius="full">Pill Shape</button>
+        </div>
+      }
+      @case ('combining-size-radius') {
+        <div class="flex flex-col gap-4 items-center">
+          <div class="flex gap-4">
+            <button lumaButton lmSize="sm" lmRadius="full">Small Pill</button>
+            <button lumaButton lmSize="md" lmRadius="full">Medium Pill</button>
+            <button lumaButton lmSize="lg" lmRadius="full">Large Pill</button>
           </div>
-          <div>
-            <button lumaButton lmSize="full">Full Width</button>
+          <div class="flex gap-4">
+            <button lumaButton lmSize="sm" lmRadius="square">Small Square</button>
+            <button lumaButton lmSize="md" lmRadius="square">Medium Square</button>
+            <button lumaButton lmSize="lg" lmRadius="square">Large Square</button>
           </div>
         </div>
       }

@@ -1,21 +1,25 @@
 import {
   LmCardContentDirective,
   LmCardDescriptionDirective,
+  LmCardFooterDirective,
   LmCardHeaderDirective,
   LmCardTitleDirective,
 } from './';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
+import { LmCardComponent } from './card.component';
 
-// Test host components for each directive
+// ============================================================
+// TEST HOST COMPONENTS
+// ============================================================
+
 @Component({
   template: `<h3 lumaCardTitle [lmSize]="lmSize">Test Title</h3>`,
   imports: [LmCardTitleDirective],
 })
 class CardTitleTestComponent {
-  lmSize: 'small' | 'normal' | 'large' = 'normal';
+  lmSize: 'sm' | 'md' | 'lg' = 'md';
 }
 
 @Component({
@@ -23,7 +27,7 @@ class CardTitleTestComponent {
   imports: [LmCardDescriptionDirective],
 })
 class CardDescriptionTestComponent {
-  lmSize: 'small' | 'normal' | 'large' = 'normal';
+  lmSize: 'sm' | 'md' | 'lg' = 'md';
 }
 
 @Component({
@@ -38,9 +42,47 @@ class CardHeaderTestComponent {}
 })
 class CardContentTestComponent {}
 
+@Component({
+  template: `<div lumaCardFooter>Test Footer</div>`,
+  imports: [LmCardFooterDirective],
+})
+class CardFooterTestComponent {}
+
+@Component({
+  template: `
+    <luma-card [lmVariant]="variant">
+      <div lumaCardHeader>
+        <h3 lumaCardTitle lmSize="lg">Card Title</h3>
+        <p lumaCardDescription lmSize="md">Card description</p>
+      </div>
+      <div lumaCardContent>
+        <p>Card content</p>
+      </div>
+      <div lumaCardFooter>
+        <button>Action</button>
+      </div>
+    </luma-card>
+  `,
+  imports: [
+    LmCardComponent,
+    LmCardHeaderDirective,
+    LmCardTitleDirective,
+    LmCardDescriptionDirective,
+    LmCardContentDirective,
+    LmCardFooterDirective,
+  ],
+})
+class FullCardTestComponent {
+  variant: 'default' | 'elevated' | 'subtle' = 'default';
+}
+
+// ============================================================
+// CARD TITLE TESTS
+// ============================================================
+
 describe('LmCardTitleDirective', () => {
   let fixture: ComponentFixture<CardTitleTestComponent>;
-  let _component: CardTitleTestComponent;
+  let component: CardTitleTestComponent;
   let titleElement: DebugElement;
   let directive: LmCardTitleDirective;
 
@@ -50,54 +92,65 @@ describe('LmCardTitleDirective', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardTitleTestComponent);
-    _component = fixture.componentInstance;
+    component = fixture.componentInstance;
     titleElement = fixture.debugElement.query(
       By.directive(LmCardTitleDirective),
     );
     directive = titleElement.injector.get(LmCardTitleDirective);
-    await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should apply base classes', () => {
+  it('should apply base typography classes', () => {
     fixture.detectChanges();
-
     const classes = directive.classes();
-
-    expect(classes).toContain('font-medium');
+    expect(classes).toContain('font-semibold');
+    expect(classes).toContain('leading-none');
     expect(classes).toContain('tracking-tight');
-    expect(classes).toContain('mb-1');
-    expect(classes).toContain('lm-text-primary');
   });
 
-  it('should apply normal size by default', () => {
+  it('should apply medium size by default', () => {
     fixture.detectChanges();
+    const classes = directive.classes();
+    expect(classes).toContain('text-xl');
+  });
 
+  it('should apply small size classes', () => {
+    component.lmSize = 'sm';
+    fixture.detectChanges();
     const classes = directive.classes();
     expect(classes).toContain('text-lg');
   });
 
+  it('should apply large size classes', () => {
+    component.lmSize = 'lg';
+    fixture.detectChanges();
+    const classes = directive.classes();
+    expect(classes).toContain('text-2xl');
+  });
+
   it('should use computed signal for classes', () => {
     expect(typeof directive.classes).toBe('function');
-
     const classes = directive.classes();
     expect(typeof classes).toBe('string');
   });
 
   it('should use signal-based input for size', () => {
     expect(typeof directive.lmSize).toBe('function');
-
     const size = directive.lmSize();
-    expect(size).toBe('normal');
+    expect(size).toBe('md');
   });
 });
 
+// ============================================================
+// CARD DESCRIPTION TESTS
+// ============================================================
+
 describe('LmCardDescriptionDirective', () => {
   let fixture: ComponentFixture<CardDescriptionTestComponent>;
-  let _component: CardDescriptionTestComponent;
+  let component: CardDescriptionTestComponent;
   let descriptionElement: DebugElement;
   let directive: LmCardDescriptionDirective;
 
@@ -107,48 +160,60 @@ describe('LmCardDescriptionDirective', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardDescriptionTestComponent);
-    _component = fixture.componentInstance;
+    component = fixture.componentInstance;
     descriptionElement = fixture.debugElement.query(
       By.directive(LmCardDescriptionDirective),
     );
     directive = descriptionElement.injector.get(LmCardDescriptionDirective);
-    await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should apply base classes', () => {
+  it('should apply base text classes', () => {
     fixture.detectChanges();
-
     const classes = directive.classes();
-
-    expect(classes).toContain('lm-text-secondary');
-    expect(classes).toContain('mb-5');
+    expect(classes).toContain('text-sm');
+    expect(classes).toContain('text-muted-foreground');
   });
 
-  it('should apply normal size by default', () => {
+  it('should apply medium size by default', () => {
     fixture.detectChanges();
-
     const classes = directive.classes();
     expect(classes).toContain('text-sm');
   });
 
+  it('should apply small size classes', () => {
+    component.lmSize = 'sm';
+    fixture.detectChanges();
+    const classes = directive.classes();
+    expect(classes).toContain('text-xs');
+  });
+
+  it('should apply large size classes', () => {
+    component.lmSize = 'lg';
+    fixture.detectChanges();
+    const classes = directive.classes();
+    expect(classes).toContain('text-base');
+  });
+
   it('should use computed signal for classes', () => {
     expect(typeof directive.classes).toBe('function');
-
     const classes = directive.classes();
     expect(typeof classes).toBe('string');
   });
 
   it('should use signal-based input for size', () => {
     expect(typeof directive.lmSize).toBe('function');
-
     const size = directive.lmSize();
-    expect(size).toBe('normal');
+    expect(size).toBe('md');
   });
 });
+
+// ============================================================
+// CARD HEADER TESTS
+// ============================================================
 
 describe('LmCardHeaderDirective', () => {
   let fixture: ComponentFixture<CardHeaderTestComponent>;
@@ -165,26 +230,29 @@ describe('LmCardHeaderDirective', () => {
       By.directive(LmCardHeaderDirective),
     );
     directive = headerElement.injector.get(LmCardHeaderDirective);
-    await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should apply mb-4 class for spacing', () => {
+  it('should apply flex layout classes', () => {
     fixture.detectChanges();
-
     const element = headerElement.nativeElement as HTMLElement;
-    expect(element.className).toContain('mb-4');
+    expect(element.className).toContain('flex');
+    expect(element.className).toContain('flex-col');
+    expect(element.className).toContain('gap-1.5');
   });
 
   it('should be a structural directive with no inputs', () => {
     expect(directive).toBeDefined();
-
     expect(directive).toBeTruthy();
   });
 });
+
+// ============================================================
+// CARD CONTENT TESTS
+// ============================================================
 
 describe('LmCardContentDirective', () => {
   let fixture: ComponentFixture<CardContentTestComponent>;
@@ -201,111 +269,154 @@ describe('LmCardContentDirective', () => {
       By.directive(LmCardContentDirective),
     );
     directive = contentElement.injector.get(LmCardContentDirective);
-    await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should exist as semantic marker without applying styles', () => {
+  it('should apply padding and flex layout classes', () => {
     fixture.detectChanges();
-
-    // Should have empty class or just the directive itself
-    // No specific styling should be applied
-    expect(directive).toBeDefined();
+    const element = contentElement.nativeElement as HTMLElement;
+    expect(element.className).toContain('p-6');
+    expect(element.className).toContain('flex');
+    expect(element.className).toContain('flex-col');
+    expect(element.className).toContain('gap-4');
   });
 
-  it('should be a structural directive with no inputs', () => {
-    // Verify it's a simple structural directive
-    expect(directive).toBeDefined();
-
-    // Directive exists for semantic HTML structure
-    // No API surface to test - existence is sufficient
+  it('should exist as semantic marker without applying styles', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should serve as backward compatibility marker', () => {
-    // Directive exists primarily for semantic HTML and backward compatibility
-    // No functional behavior to test beyond existence
+  it('should be a structural directive with no inputs', () => {
+    expect(directive).toBeDefined();
     expect(directive).toBeTruthy();
   });
 });
 
-// Integration test for all directives together
-@Component({
-  template: `
-    <div lumaCardHeader>
-      <h3 lumaCardTitle lmSize="large">Integration Test</h3>
-      <p lumaCardDescription lmSize="small">Testing all directives together</p>
-    </div>
-    <div lumaCardContent>
-      <p>Content area</p>
-    </div>
-  `,
-  imports: [
-    LmCardHeaderDirective,
-    LmCardTitleDirective,
-    LmCardDescriptionDirective,
-    LmCardContentDirective,
-  ],
-})
-class IntegrationTestComponent {}
+// ============================================================
+// CARD FOOTER TESTS
+// ============================================================
 
-describe('Card Directives Integration', () => {
-  let fixture: ComponentFixture<IntegrationTestComponent>;
+describe('LmCardFooterDirective', () => {
+  let fixture: ComponentFixture<CardFooterTestComponent>;
+  let footerElement: DebugElement;
+  let directive: LmCardFooterDirective;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LmCardFooterDirective, CardFooterTestComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CardFooterTestComponent);
+    footerElement = fixture.debugElement.query(
+      By.directive(LmCardFooterDirective),
+    );
+    directive = footerElement.injector.get(LmCardFooterDirective);
+  });
+
+  it('should create', () => {
+    expect(directive).toBeTruthy();
+  });
+
+  it('should apply flex layout and gap classes', () => {
+    fixture.detectChanges();
+    const element = footerElement.nativeElement as HTMLElement;
+    expect(element.className).toContain('flex');
+    expect(element.className).toContain('items-center');
+    expect(element.className).toContain('gap-2');
+  });
+
+  it('should be a structural directive with no inputs', () => {
+    expect(directive).toBeDefined();
+    expect(directive).toBeTruthy();
+  });
+});
+
+// ============================================================
+// FULL CARD COMPOSITION TESTS
+// ============================================================
+
+describe('Full Card Composition', () => {
+  let fixture: ComponentFixture<FullCardTestComponent>;
+  let component: FullCardTestComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        LmCardComponent,
         LmCardHeaderDirective,
         LmCardTitleDirective,
         LmCardDescriptionDirective,
         LmCardContentDirective,
-        IntegrationTestComponent,
+        LmCardFooterDirective,
+        FullCardTestComponent,
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(IntegrationTestComponent);
-    await fixture.whenStable();
+    fixture = TestBed.createComponent(FullCardTestComponent);
+    component = fixture.componentInstance;
   });
 
   it('should work together in a composed structure', () => {
     fixture.detectChanges();
 
-    const headerElement = fixture.debugElement.query(
+    const card = fixture.debugElement.query(By.directive(LmCardComponent));
+    const header = fixture.debugElement.query(
       By.directive(LmCardHeaderDirective),
     );
-    const titleElement = fixture.debugElement.query(
-      By.directive(LmCardTitleDirective),
-    );
-    const descriptionElement = fixture.debugElement.query(
+    const title = fixture.debugElement.query(By.directive(LmCardTitleDirective));
+    const description = fixture.debugElement.query(
       By.directive(LmCardDescriptionDirective),
     );
-    const contentElement = fixture.debugElement.query(
+    const content = fixture.debugElement.query(
       By.directive(LmCardContentDirective),
     );
+    const footer = fixture.debugElement.query(
+      By.directive(LmCardFooterDirective),
+    );
 
-    expect(headerElement).toBeTruthy();
-    expect(titleElement).toBeTruthy();
-    expect(descriptionElement).toBeTruthy();
-    expect(contentElement).toBeTruthy();
+    expect(card).toBeTruthy();
+    expect(header).toBeTruthy();
+    expect(title).toBeTruthy();
+    expect(description).toBeTruthy();
+    expect(content).toBeTruthy();
+    expect(footer).toBeTruthy();
   });
 
   it('should apply all directive classes correctly', () => {
     fixture.detectChanges();
 
-    const titleDirective = fixture.debugElement
-      .query(By.directive(LmCardTitleDirective))
-      .injector.get(LmCardTitleDirective);
-    const descriptionDirective = fixture.debugElement
-      .query(By.directive(LmCardDescriptionDirective))
-      .injector.get(LmCardDescriptionDirective);
+    // Card classes are on the inner div, not the host element
+    const card = fixture.debugElement.query(By.directive(LmCardComponent));
+    const cardInnerDiv = card.nativeElement.querySelector('div');
+    const titleElement = fixture.debugElement.query(
+      By.directive(LmCardTitleDirective),
+    ).nativeElement;
+    const descriptionElement = fixture.debugElement.query(
+      By.directive(LmCardDescriptionDirective),
+    ).nativeElement;
 
-    const titleClasses = titleDirective.classes();
-    const descriptionClasses = descriptionDirective.classes();
+    // Card should have base classes
+    expect(cardInnerDiv.className).toContain('rounded-lg');
+    expect(cardInnerDiv.className).toContain('border');
+    expect(cardInnerDiv.className).toContain('bg-card');
 
-    expect(titleClasses).toContain('text-2xl'); // large size
-    expect(descriptionClasses).toContain('text-xs'); // small size
+    // Title should have typography classes
+    expect(titleElement.className).toContain('font-semibold');
+    expect(titleElement.className).toContain('text-2xl');
+
+    // Description should have muted foreground
+    expect(descriptionElement.className).toContain('text-muted-foreground');
+  });
+
+  it('should support card variants', () => {
+    component.variant = 'elevated';
+    fixture.detectChanges();
+
+    const card = fixture.debugElement.query(By.directive(LmCardComponent));
+    const cardInnerDiv = card.nativeElement.querySelector('div');
+
+    expect(cardInnerDiv.className).toContain('shadow-sm');
   });
 });

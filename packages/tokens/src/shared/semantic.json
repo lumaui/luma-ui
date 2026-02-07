@@ -1,0 +1,40 @@
+{
+  "luma": {
+    "destructive": {
+      "background": {
+        "value": "oklch(0.63 0.10 28)",
+        "type": "color",
+        "description": "Destructive actions background - errors, delete buttons"
+      },
+      "foreground": {
+        "value": "oklch(1 0 0)",
+        "type": "color",
+        "description": "Text on destructive background"
+      }
+    },
+    "warning": {
+      "background": {
+        "value": "oklch(0.80 0.09 95)",
+        "type": "color",
+        "description": "Warning state background - caution, alerts"
+      },
+      "foreground": {
+        "value": "oklch(0.22 0.014 290)",
+        "type": "color",
+        "description": "Text on warning background"
+      }
+    },
+    "success": {
+      "background": {
+        "value": "oklch(0.72 0.07 155)",
+        "type": "color",
+        "description": "Success state background - confirmations, positive feedback"
+      },
+      "foreground": {
+        "value": "oklch(1 0 0)",
+        "type": "color",
+        "description": "Text on success background"
+      }
+    }
+  }
+}

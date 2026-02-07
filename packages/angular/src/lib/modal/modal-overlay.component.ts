@@ -35,11 +35,7 @@ export class LmModalOverlayComponent {
   private readonly modal = inject(MODAL_CONTEXT);
 
   /** Computed classes from CVA */
-  classes = computed(() =>
-    modalOverlayVariants({
-      open: this.modal.isOpen(),
-    }),
-  );
+  classes = computed(() => modalOverlayVariants());
 
   /**
    * Handle click on overlay (not on children)

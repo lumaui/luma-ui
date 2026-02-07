@@ -9,13 +9,17 @@ imports:
     module: '@lumaui/angular'
 inputs:
   - name: lmVariant
-    type: "'primary' | 'outline' | 'ghost' | 'danger'"
+    type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive'"
     default: "'primary'"
     description: Visual style variant of the button
   - name: lmSize
-    type: "'sm' | 'md' | 'lg' | 'full'"
+    type: "'sm' | 'md' | 'lg'"
     default: "'md'"
-    description: Size of the button
+    description: Size of the button (sm=12px, md=14px, lg=16px font size)
+  - name: lmRadius
+    type: "'default' | 'square' | 'full'"
+    default: "'default'"
+    description: Border radius of the button (default uses radius-4 token, square is sharp corners, full is pill shape)
   - name: lmDisabled
     type: boolean
     default: 'false'
@@ -24,113 +28,45 @@ inputs:
     type: "'button' | 'submit' | 'reset'"
     default: "'button'"
     description: HTML button type attribute
-tokenGroups:
-  - name: Primary Variant
-    tokens:
-      - name: --luma-button-primary-bg
-        value: oklch(0.54 0.1 230)
-        description: Primary button background
-      - name: --luma-button-primary-bg-hover
-        value: oklch(0.49 0.09 230)
-        description: Primary button hover background
-      - name: --luma-button-primary-bg-active
-        value: oklch(0.44 0.08 230)
-        description: Primary button active background
-      - name: --luma-button-primary-text
-        value: oklch(1 0 0)
-        description: Primary button text color
-  - name: Outline Variant
-    tokens:
-      - name: --luma-button-outline-border
-        value: oklch(0.97 0 0)
-        description: Outline button border color
-      - name: --luma-button-outline-border-hover
-        value: oklch(0.45 0.01 265)
-        description: Outline button hover border
-      - name: --luma-button-outline-bg-hover
-        value: oklch(0.99 0 0)
-        description: Outline button hover background
-      - name: --luma-button-outline-text
-        value: oklch(0.22 0.01 265)
-        description: Outline button text color
-  - name: Ghost Variant
-    tokens:
-      - name: --luma-button-ghost-bg
-        value: transparent
-        description: Ghost button background
-      - name: --luma-button-ghost-bg-hover
-        value: oklch(0.99 0 0)
-        description: Ghost button hover background
-      - name: --luma-button-ghost-text
-        value: oklch(0.22 0.01 265)
-        description: Ghost button text color
-  - name: Danger Variant
-    tokens:
-      - name: --luma-button-danger-bg
-        value: oklch(0.62 0.11 25)
-        description: Danger button background
-      - name: --luma-button-danger-bg-hover
-        value: oklch(0.50 0.09 25)
-        description: Danger button hover background
-      - name: --luma-button-danger-bg-active
-        value: oklch(0.44 0.08 25)
-        description: Danger button active background
-      - name: --luma-button-danger-text
-        value: oklch(1 0 0)
-        description: Danger button text color
-  - name: Sizing
-    tokens:
-      - name: --luma-button-padding-x-sm
-        value: 1rem
-        description: Small button horizontal padding
-      - name: --luma-button-padding-x-md
-        value: 1.5rem
-        description: Medium button horizontal padding
-      - name: --luma-button-padding-x-lg
-        value: 2rem
-        description: Large button horizontal padding
-      - name: --luma-button-padding-y-sm
-        value: 0.5rem
-        description: Small button vertical padding
-      - name: --luma-button-padding-y-md
-        value: 0.75rem
-        description: Medium button vertical padding
-      - name: --luma-button-padding-y-lg
-        value: 1rem
-        description: Large button vertical padding
-  - name: Radius & Transition
-    tokens:
-      - name: --luma-button-radius
-        value: 10px
-        description: Button border radius
-      - name: --luma-button-transition-duration
-        value: 200ms
-        description: Transition duration
-      - name: --luma-button-transition-timing
-        value: ease-out
-        description: Transition timing function (Neo-Minimal)
-  - name: Focus
-    tokens:
-      - name: --luma-button-focus-ring-width
-        value: 2px
-        description: Focus ring width (WCAG 2.4.7 minimum)
-      - name: --luma-button-focus-ring-color
-        value: oklch(0.63 0.14 232.13 / 0.45)
-        description: Focus ring color
 ---
 
 # Button
 
 ## Purpose
 
-The Button component provides a versatile, accessible button element that follows Neo-Minimal design principles with calm interactions and visual silence.
+The Button component provides a versatile, accessible button element that follows Neo-Minimal design principles with calm interactions and visual silence. It uses **semantic tokens** for styling, making it easy to customize without touching component code.
+
+## Semantic Token Usage
+
+Buttons use the following semantic tokens:
+
+- **Primary variant:** `bg-primary`, `text-primary-foreground`
+- **Secondary variant:** `bg-secondary`, `text-secondary-foreground`
+- **Outline variant:** `border-input`, `bg-background`, `hover:bg-accent`
+- **Ghost variant:** `hover:bg-accent`, `hover:text-accent-foreground`
+- **Destructive variant:** `bg-destructive`, `text-destructive-foreground`
+
+All variants share common tokens for:
+- **Border radius:** Controlled by `lmRadius` input (default uses `--radius-4`)
+- **Focus ring:** `ring-ring` (uses `--color-ring`)
+- **Spacing:** Padding-based sizing (not fixed height) for natural button dimensions
+
+## Size Specifications
+
+| Size | Font Size | Padding X | Padding Y | Height |
+|------|-----------|-----------|-----------|--------|
+| sm   | 12px (text-xs) | 12px (px-3) | 8px (py-2) | Natural (~28px) |
+| md   | 14px (text-sm) | 16px (px-4) | 10px (py-2.5) | Natural (~34px) |
+| lg   | 16px (text-base) | 20px (px-5) | 12px (py-3) | Natural (~40px) |
+
+**Note:** Border radius is now controlled independently via the `lmRadius` input (not size-dependent). Buttons use padding-based sizing (not fixed `h-*` classes) to accommodate text naturally. This follows Neo-Minimal principles of organic form over rigid geometry.
 
 ## States
 
 - **Default**: Base appearance with calm visual presence
-- **Hover**: Gentle background color transition, no scale or shadow
+- **Hover**: Gentle background color transition with inline opacity modifier (`hover:bg-primary/90`)
 - **Focus**: Clear ring outline for keyboard navigation
-- **Active**: Slightly darker background on click
+- **Active**: No special styling (hover state persists)
 - **Disabled**: Reduced opacity (50%) with disabled cursor
 
 ## Usage Examples
@@ -145,18 +81,36 @@ The Button component provides a versatile, accessible button element that follow
 
 ```html
 <button lumaButton lmVariant="primary">Primary</button>
+<button lumaButton lmVariant="secondary">Secondary</button>
 <button lumaButton lmVariant="outline">Outline</button>
 <button lumaButton lmVariant="ghost">Ghost</button>
-<button lumaButton lmVariant="danger">Delete</button>
+<button lumaButton lmVariant="destructive">Delete</button>
 ```
 
 ### Sizes
 
 ```html
-<button lumaButton lmSize="sm">Small</button>
-<button lumaButton lmSize="md">Medium</button>
-<button lumaButton lmSize="lg">Large</button>
-<button lumaButton lmSize="full">Full Width</button>
+<button lumaButton lmSize="sm">Small (12px)</button>
+<button lumaButton lmSize="md">Medium (14px)</button>
+<button lumaButton lmSize="lg">Large (16px)</button>
+```
+
+### Radius Options
+
+```html
+<button lumaButton lmRadius="default">Default (8px)</button>
+<button lumaButton lmRadius="square">Square (no radius)</button>
+<button lumaButton lmRadius="full">Pill Shape</button>
+```
+
+### Combining Size and Radius
+
+```html
+<!-- Small pill button -->
+<button lumaButton lmSize="sm" lmRadius="full">Small Pill</button>
+
+<!-- Large square button -->
+<button lumaButton lmSize="lg" lmRadius="square">Large Square</button>
 ```
 
 ### Disabled State
@@ -173,117 +127,85 @@ The Button component provides a versatile, accessible button element that follow
 
 ## Customizing
 
-The button appearance can be customized using CSS variables. The most common customization is the border-radius, controlled by `--luma-button-radius`.
+Buttons use **semantic tokens** that can be customized at any scope without touching component code.
 
-### Override Globally
+### Pattern 1: Global Theme Override
 
-Override the button border-radius in your global styles or component:
+Change button colors across your entire application:
 
 ```css
 /* In your global styles.css */
 :root {
-  --luma-button-radius: 4px; /* More sharp */
+  --color-primary: oklch(0.60 0.15 180);  /* Cyan brand color */
+  --color-primary-foreground: oklch(1 0 0);  /* White text */
+  --radius-md: 0.25rem;  /* Sharper corners (4px) */
 }
+/* All primary buttons automatically use cyan */
 ```
 
-### Override Per Theme
+### Pattern 2: Component Instance Override
 
-Apply different radius values for light and dark themes:
+Override colors for a specific button using `className`:
 
-```css
-/* Light mode - subtle rounding */
-:root {
-  --luma-button-radius: 8px;
-}
+```html
+<button lumaButton className="bg-accent hover:bg-accent/80">
+  Custom Color Button
+</button>
 
-/* Dark mode - more pronounced rounding */
-.dark {
-  --luma-button-radius: 16px;
-}
+<button lumaButton className="rounded-full">
+  Pill Button
+</button>
 ```
 
-### Override Per Component
+### Pattern 3: Scoped Override
 
-Scope the radius change to specific contexts:
+Apply custom colors to buttons in specific sections:
 
 ```css
 /* Only buttons in the header */
 .header {
-  --luma-button-radius: 4px;
+  --color-primary: oklch(0.70 0.12 340);  /* Pink */
 }
 
 /* Only buttons in cards */
-.card {
-  --luma-button-radius: 12px;
+.card-actions {
+  --radius-md: 1rem;  /* More rounded */
 }
 ```
 
-**Default value:** `var(--luma-radius-md)` → `10px`
+### Pattern 4: Dark Theme
 
-## Use Cases
+Buttons automatically adapt to dark mode:
 
-### Submit Form Button
-
-Trigger form submission with loading state feedback.
-
-```typescript
-@Component({
-  template: `
-    <form (ngSubmit)="onSubmit()">
-      <button lumaButton lmVariant="primary" [lmDisabled]="isLoading()">
-        {{ isLoading() ? 'Saving...' : 'Save Changes' }}
-      </button>
-    </form>
-  `,
-})
-export class FormComponent {
-  isLoading = signal(false);
-
-  async onSubmit() {
-    this.isLoading.set(true);
-    await this.api.save();
-    this.isLoading.set(false);
-  }
+```css
+.dark {
+  --color-primary: oklch(0.72 0.12 300);
+  --color-primary-foreground: oklch(1 0 0);
+  /* Buttons automatically use dark theme colors */
 }
 ```
 
-### Confirmation Action
+### Available Customization Tokens
 
-Use danger variant for destructive actions with confirmation.
-
-```typescript
-@Component({
-  template: `
-    <button lumaButton lmVariant="danger" (click)="confirmDelete()">
-      Delete Account
-    </button>
-  `,
-})
-export class DeleteComponent {
-  confirmDelete() {
-    if (confirm('Are you sure? This cannot be undone.')) {
-      this.accountService.delete();
-    }
-  }
-}
-```
-
-### Navigation Link
-
-Use anchor element for page navigation.
-
-```html
-<a lumaButton lmVariant="ghost" routerLink="/settings"> Go to Settings </a>
-```
+| Token | Default (Light) | Default (Dark) | Affects |
+|-------|----------------|----------------|---------|
+| `--color-primary` | oklch(0.48 0.09 300) | oklch(0.72 0.12 300) | Primary variant background |
+| `--color-primary-foreground` | oklch(1 0 0) | oklch(1 0 0) | Primary variant text |
+| `--color-secondary` | oklch(0.97 0.006 290) | oklch(0.22 0.008 290) | Secondary variant background |
+| `--color-destructive` | oklch(0.63 0.10 28) | oklch(0.72 0.12 28) | Destructive variant background |
+| `--color-accent` | oklch(0.65 0.10 232) | oklch(0.78 0.09 232) | Ghost/outline hover background |
+| `--color-border` | oklch(0.97 0.006 290) | oklch(0.28 0.01 290) | Outline variant border |
+| `--radius-4` | 0.5rem (8px) | 0.5rem (8px) | Border radius |
+| `--color-ring` | oklch(0.55 0.10 300 / 0.35) | oklch(0.78 0.12 300 / 0.4) | Focus ring |
 
 ## Neo-Minimal Principles
 
 The button design embodies core Neo-Minimal values:
 
 - **Visual Silence**: Colors are slightly desaturated, close to gray, comfortable for long viewing
-- **Calm Interactions**: Transitions are gentle (150ms) with no scale or elastic effects
+- **Calm Interactions**: Transitions are gentle (200ms ease-out) with no scale or elastic effects
 - **Organic Geometry**: Border radius is generous enough to feel "drawn" not "calculated"
-- **Functional Whitespace**: Padding uses design tokens for consistent rhythm
+- **Functional Whitespace**: Padding uses standard Tailwind scale for consistent rhythm
 - **Silent Accessibility**: Focus states are clear but discrete, touch areas are comfortable (44px+)
 
 ## Accessibility
@@ -293,11 +215,13 @@ The button design embodies core Neo-Minimal values:
 - ✅ **Screen reader friendly**: Proper ARIA attributes and semantic HTML
 - ✅ **Touch-friendly**: Minimum touch target size of 44x44px
 - ✅ **Disabled state**: Properly communicated via `disabled` attribute
+- ✅ **Focus visible**: 2px ring with sufficient contrast (WCAG 2.4.7, 2.4.11)
 
 ## Implementation Notes
 
 - Uses Angular 20+ signal-based inputs (`input()`)
-- Styled with Tailwind CSS v4 arbitrary values
+- Styled with **semantic tokens** via standard Tailwind CSS utilities
 - Type-safe variants via class-variance-authority (CVA)
 - OnPush change detection for optimal performance
 - Works as both `<button>` and `<a>` elements
+- Zero component-specific tokens - fully customizable via semantic tokens

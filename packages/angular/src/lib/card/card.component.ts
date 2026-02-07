@@ -4,11 +4,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-import {
-  cardVariants,
-  cardContentVariants,
-  type CardVariant,
-} from '@lumaui/core';
+import { cardVariants, type CardVariant } from '@lumaui/core';
 
 @Component({
   selector: 'luma-card',
@@ -18,16 +14,12 @@ import {
 export class LmCardComponent {
   /**
    * Card visual style variant
-   * - default: Gradient border wrapper style (default)
-   * - shadow: Elevated card with shadow for primary content
-   * - nested: Subtle background for sections within cards
-   * - preview: For documentation examples
+   * - default: Simple border card
+   * - elevated: Card with shadow elevation
+   * - subtle: Muted background card
    */
   lmVariant = input<CardVariant>('default');
 
-  // Computed class strings based on variant
-  wrapperClasses = computed(() => cardVariants({ variant: this.lmVariant() }));
-  contentClasses = computed(() =>
-    cardContentVariants({ variant: this.lmVariant() }),
-  );
+  // Computed class string based on variant
+  classes = computed(() => cardVariants({ variant: this.lmVariant() }));
 }

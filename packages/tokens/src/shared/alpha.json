@@ -1,0 +1,41 @@
+{
+  "luma": {
+    "alpha": {
+      "gray-a2": {
+        "value": "oklch(0.5 0 0 / 0.02)",
+        "type": "color",
+        "description": "Alpha gray - 2% opacity for shadows"
+      },
+      "gray-a3": {
+        "value": "oklch(0.5 0 0 / 0.03)",
+        "type": "color",
+        "description": "Alpha gray - 3% opacity for shadows"
+      },
+      "gray-a5": {
+        "value": "oklch(0.5 0 0 / 0.05)",
+        "type": "color",
+        "description": "Alpha gray - 5% opacity for shadows"
+      },
+      "gray-a7": {
+        "value": "oklch(0.5 0 0 / 0.07)",
+        "type": "color",
+        "description": "Alpha gray - 7% opacity for shadows"
+      },
+      "black-a1": {
+        "value": "oklch(0 0 0 / 0.05)",
+        "type": "color",
+        "description": "Alpha black - 5% opacity for shadows"
+      },
+      "black-a2": {
+        "value": "oklch(0 0 0 / 0.10)",
+        "type": "color",
+        "description": "Alpha black - 10% opacity for shadows"
+      },
+      "black-a3": {
+        "value": "oklch(0 0 0 / 0.15)",
+        "type": "color",
+        "description": "Alpha black - 15% opacity for shadows"
+      }
+    }
+  }
+}

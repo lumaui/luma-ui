@@ -11,38 +11,18 @@ export const accordionItemVariants = cva(
     'group',
     'relative',
     'w-full',
-    'lm-rounded-accordion-item',
-    // Transition
-    'transition-[border-color,box-shadow,background-color]',
-    'lm-duration-accordion',
-    'lm-ease-accordion',
+    'border-b',
+    'border-gray-200',
   ],
   {
     variants: {
       variant: {
-        default: [
-          'lm-bg-accordion-item',
-          'lm-border-accordion-item',
-          'hover:lm-border-accordion-item-hover',
-        ],
-        bordered: [
-          'border',
-          'lm-border-accordion-item',
-          'hover:lm-border-accordion-item-hover',
-          'lm-bg-accordion-bordered',
-          'hover:lm-bg-accordion-bordered-hover',
-          'lm-rounded-accordion-bordered',
-        ],
+        default: [],
         filled: [
           'border',
-          'lm-border-accordion-filled',
-          'hover:lm-border-accordion-filled-hover',
-          'lm-bg-accordion-filled',
-          'lm-rounded-accordion-filled',
-          '[&_div[lumaAccordionTrigger]]:bg-transparent',
-          '[&_div[lumaAccordionTrigger]]:hover:lm-bg-accordion-filled-hover',
-          '[&_div[lumaAccordionTrigger]]:active:bg-transparent',
-          '[&_[lumaAccordionContent]]:bg-transparent',
+          'rounded-[var(--radius-4)]',
+          'mb-2',
+          'bg-primary-2',
         ],
       },
     },
@@ -59,26 +39,21 @@ export const accordionTriggerVariants = cva([
   'flex',
   'items-center',
   'justify-between',
-  'lm-gap-accordion-trigger',
+  'gap-2',
   'text-left',
   'cursor-pointer',
-  // Background via utilities
-  'lm-bg-accordion-trigger',
-  'hover:lm-bg-accordion-trigger-hover',
-  'active:lm-bg-accordion-trigger-active',
-  // Padding via utilities
-  'lm-px-accordion-trigger',
-  'lm-py-accordion-trigger',
-  // Focus
+  'py-4',
+  'px-0',
+  'font-medium',
+  'transition-all',
+  'hover:bg-primary-2',
   'focus:outline-none',
-  'focus-visible:lm-ring-accordion-focus',
-  // Disabled
+  'focus-visible:ring-2',
+  'focus-visible:ring-primary-9',
+  'focus-visible:ring-offset-2',
   'disabled:opacity-50',
   'disabled:cursor-not-allowed',
-  // Transition
-  'transition-[background-color]',
-  'lm-duration-accordion',
-  'lm-ease-accordion',
+  '[&[data-state=open]>svg]:rotate-180',
 ]);
 
 /**
@@ -86,19 +61,13 @@ export const accordionTriggerVariants = cva([
  * Typography for the accordion header
  */
 export const accordionTitleVariants = cva(
-  [
-    'flex-1',
-    'lm-text-accordion-title',
-    'lm-font-accordion-title',
-    'lm-leading-accordion-title',
-    'lm-tracking-accordion-title',
-  ],
+  ['flex-1', 'text-gray-900'],
   {
     variants: {
       size: {
-        sm: ['lm-text-accordion-title-sm'],
-        md: ['lm-text-accordion-title-md'],
-        lg: ['lm-text-accordion-title-lg'],
+        sm: 'text-sm',
+        md: 'text-base',
+        lg: 'text-lg',
       },
     },
     defaultVariants: { size: 'md' },
@@ -111,18 +80,18 @@ export const accordionTitleVariants = cva(
  */
 export const accordionIconVariants = cva(
   [
-    'lm-text-accordion-icon',
     'shrink-0',
-    'lm-size-accordion-icon',
+    'h-4',
+    'w-4',
+    'text-gray-600',
     'transition-transform',
-    'lm-duration-accordion-icon',
-    'lm-ease-accordion',
+    'duration-200',
   ],
   {
     variants: {
       open: {
-        true: ['lm-rotate-accordion-icon'],
-        false: ['rotate-0'],
+        true: 'rotate-180',
+        false: 'rotate-0',
       },
     },
     defaultVariants: { open: false },
@@ -134,17 +103,12 @@ export const accordionIconVariants = cva(
  * Grid wrapper for height animation
  */
 export const accordionContentWrapperVariants = cva(
-  [
-    'grid',
-    'transition-[grid-template-rows]',
-    'lm-duration-accordion',
-    'lm-ease-accordion',
-  ],
+  ['grid', 'transition-[grid-template-rows]', 'duration-200', 'ease-out'],
   {
     variants: {
       open: {
-        true: ['grid-rows-[1fr]'],
-        false: ['grid-rows-[0fr]'],
+        true: 'grid-rows-[1fr]',
+        false: 'grid-rows-[0fr]',
       },
     },
     defaultVariants: { open: false },
@@ -157,22 +121,19 @@ export const accordionContentWrapperVariants = cva(
  */
 export const accordionContentVariants = cva(
   [
-    'lm-text-accordion-content',
-    'lm-bg-accordion-content',
-    'lm-text-size-accordion-content',
-    'lm-leading-accordion-content',
-    'lm-px-accordion-content',
-    'lm-pt-accordion-content',
-    'lm-pb-accordion-content',
+    'overflow-hidden',
+    'text-sm',
+    'text-gray-600',
+    'pb-4',
+    'pt-0',
     'transition-opacity',
-    'lm-duration-accordion-content',
-    'lm-ease-accordion',
+    'duration-200',
   ],
   {
     variants: {
       open: {
-        true: ['opacity-100'],
-        false: ['opacity-0'],
+        true: 'opacity-100',
+        false: 'opacity-0',
       },
     },
     defaultVariants: { open: false },

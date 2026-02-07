@@ -41,7 +41,7 @@ import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <luma-card lmVariant="preview">
+    <luma-card lmVariant="elevated">
       <div class="-m-5 overflow-hidden rounded-[inherit]">
         <luma-tabs [lmDefaultValue]="defaultTab()" [lmLazy]="false">
           <!-- Header with tabs and copy button -->
@@ -144,9 +144,16 @@ import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component
 
           <!-- Code Panel -->
           <div lumaTabsPanel="code">
-            <pre
-              class="p-4 overflow-x-auto text-sm"
-            ><code class="font-mono lm-text-primary whitespace-pre">{{ code() }}</code></pre>
+            @if (highlightedCode()) {
+              <div
+                class="p-4 overflow-x-auto text-sm [&_pre]:!bg-transparent [&_code]:font-mono"
+                [innerHTML]="highlightedCode()"
+              ></div>
+            } @else {
+              <pre
+                class="p-4 overflow-x-auto text-sm"
+              ><code class="font-mono lm-text-primary whitespace-pre">{{ code() }}</code></pre>
+            }
           </div>
         </luma-tabs>
       </div>
@@ -163,6 +170,7 @@ export class ExamplePreviewComponent {
   exampleId = input.required<string>();
   code = input.required<string>();
   language = input<string>('html');
+  highlightedCode = input<string | undefined>();
 
   copied = signal(false);
 

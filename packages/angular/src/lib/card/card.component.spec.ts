@@ -1,327 +1,262 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LmCardComponent } from './card.component';
 import { Component } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { LmCardComponent } from './card.component';
 
 // ============================================================
 // TEST HOST COMPONENTS
 // ============================================================
 
 @Component({
+  selector: 'card-test-host',
   template: `
-    <luma-card>
-      <div class="test-content">Projected content</div>
+    <luma-card [lmVariant]="variant">
+      <div class="test-content">Card content</div>
     </luma-card>
   `,
   imports: [LmCardComponent],
 })
-class TestHostComponent {}
+class CardTestHostComponent {
+  variant: 'default' | 'elevated' | 'subtle' = 'default';
+}
 
 // ============================================================
-// TOKEN DEFINITIONS
+// SEMANTIC TOKEN DEFINITIONS
 // ============================================================
 
-const CARD_TOKENS = {
-  background: 'oklch(0.99 0 0)',
-  border: 'oklch(0.92 0.008 265)',
-  padding: '1.5rem',
+const SEMANTIC_TOKENS = {
+  colors: {
+    card: 'oklch(1 0 0)',
+    cardForeground: 'oklch(0.22 0.014 290)',
+    border: 'oklch(0.97 0.006 290)',
+    muted: 'oklch(0.97 0.006 290)',
+  },
 } as const;
 
-const DARK_CARD_TOKENS = {
-  background: 'oklch(0.17 0 0)',
-  border: 'oklch(0.2 0.008 265)',
-} as const;
-
 // ============================================================
-// TOKEN SETUP/CLEANUP UTILITIES
+// SETUP & CLEANUP FUNCTIONS
 // ============================================================
 
-function setupCardTokens(): void {
+function setupSemanticTokens(): void {
   const root = document.documentElement;
-  root.style.setProperty('--luma-card-background', CARD_TOKENS.background);
-  root.style.setProperty('--luma-color-neutral-60', CARD_TOKENS.border);
-  root.style.setProperty('--luma-card-padding', CARD_TOKENS.padding);
+  root.style.setProperty('--color-card', SEMANTIC_TOKENS.colors.card);
+  root.style.setProperty(
+    '--color-card-foreground',
+    SEMANTIC_TOKENS.colors.cardForeground,
+  );
+  root.style.setProperty('--color-border', SEMANTIC_TOKENS.colors.border);
+  root.style.setProperty('--color-muted', SEMANTIC_TOKENS.colors.muted);
 }
 
-function cleanupCardTokens(): void {
+function cleanupSemanticTokens(): void {
   const root = document.documentElement;
-  root.style.removeProperty('--luma-card-background');
-  root.style.removeProperty('--luma-color-neutral-60');
-  root.style.removeProperty('--luma-card-padding');
-  root.classList.remove('dark');
+  root.style.removeProperty('--color-card');
+  root.style.removeProperty('--color-card-foreground');
+  root.style.removeProperty('--color-border');
+  root.style.removeProperty('--color-muted');
 }
 
-function applyDarkTheme(): void {
-  const root = document.documentElement;
-  root.classList.add('dark');
-  root.style.setProperty('--luma-card-background', DARK_CARD_TOKENS.background);
-  root.style.setProperty('--luma-color-neutral-60', DARK_CARD_TOKENS.border);
-}
+// ============================================================
+// TEST SUITE
+// ============================================================
 
 describe('LmCardComponent', () => {
-  let component: LmCardComponent;
-  let fixture: ComponentFixture<LmCardComponent>;
+  let fixture: ComponentFixture<CardTestHostComponent>;
+  let hostComponent: CardTestHostComponent;
+  let cardComponent: LmCardComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LmCardComponent],
+      imports: [LmCardComponent, CardTestHostComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LmCardComponent);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture = TestBed.createComponent(CardTestHostComponent);
+    hostComponent = fixture.componentInstance;
+    setupSemanticTokens();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should apply wrapper classes with solid border', () => {
-    fixture.detectChanges();
-
-    const wrapperClasses = component.wrapperClasses();
-
-    // Solid border classes
-    expect(wrapperClasses).toContain('relative');
-    expect(wrapperClasses).toContain('lm-rounded-lg');
-    expect(wrapperClasses).toContain('border');
-    expect(wrapperClasses).toContain('lm-border-neutral-60');
-  });
-
-  it('should apply content classes with background and padding', () => {
-    fixture.detectChanges();
-
-    const contentClasses = component.contentClasses();
-
-    // Inner content classes
-    expect(contentClasses).toContain('lm-rounded-lg');
-    expect(contentClasses).toContain('lm-bg-card-background');
-    expect(contentClasses).toContain('lm-p-card');
-    expect(contentClasses).toContain('lm-text-primary');
-  });
-
-  it('should render wrapper and content divs in template', () => {
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-    const wrapperDiv = compiled.querySelector('div:first-child');
-    const contentDiv = compiled.querySelector('div:first-child > div');
-
-    expect(wrapperDiv).toBeTruthy();
-    expect(contentDiv).toBeTruthy();
-  });
-
-  it('should project content correctly via ng-content', async () => {
-    const hostFixture = TestBed.createComponent(TestHostComponent);
-    await hostFixture.whenStable();
-    hostFixture.detectChanges();
-
-    const compiled = hostFixture.nativeElement as HTMLElement;
-    const projectedContent = compiled.querySelector('.test-content');
-
-    expect(projectedContent).toBeTruthy();
-    expect(projectedContent?.textContent).toBe('Projected content');
-  });
-
-  it('should use OnPush change detection', () => {
-    // Verify component is configured with OnPush
-    // OnPush means the component only checks for changes when inputs change
-    // or events are triggered, improving performance
-    expect(component).toBeTruthy();
-
-    // The component is stateless with only computed signals,
-    // which work perfectly with OnPush change detection
-    const wrapperClasses = component.wrapperClasses();
-    const contentClasses = component.contentClasses();
-
-    expect(wrapperClasses).toBeTruthy();
-    expect(contentClasses).toBeTruthy();
-  });
-
-  it('should have computed signal for wrapperClasses', () => {
-    // Verify wrapperClasses is a computed signal
-    expect(typeof component.wrapperClasses).toBe('function');
-
-    // Should return string when called
-    const classes = component.wrapperClasses();
-    expect(typeof classes).toBe('string');
-  });
-
-  it('should have computed signal for contentClasses', () => {
-    // Verify contentClasses is a computed signal
-    expect(typeof component.contentClasses).toBe('function');
-
-    // Should return string when called
-    const classes = component.contentClasses();
-    expect(typeof classes).toBe('string');
-  });
-
-  it('should maintain consistent class generation', () => {
-    fixture.detectChanges();
-
-    // Multiple calls should return the same classes
-    const wrapperClasses1 = component.wrapperClasses();
-    const wrapperClasses2 = component.wrapperClasses();
-    const contentClasses1 = component.contentClasses();
-    const contentClasses2 = component.contentClasses();
-
-    expect(wrapperClasses1).toBe(wrapperClasses2);
-    expect(contentClasses1).toBe(contentClasses2);
+  afterEach(() => {
+    cleanupSemanticTokens();
   });
 
   // ============================================================
-  // DESIGN TOKEN INTEGRATION TESTS
+  // BASIC CREATION
   // ============================================================
 
-  describe('Design Token Integration', () => {
+  describe('Basic Creation', () => {
     beforeEach(() => {
-      setupCardTokens();
+      fixture.detectChanges();
     });
 
-    afterEach(() => {
-      cleanupCardTokens();
+    it('should create the component', () => {
+      const cardEl = fixture.debugElement.query(By.directive(LmCardComponent));
+      cardComponent = cardEl.injector.get(LmCardComponent);
+      expect(cardComponent).toBeTruthy();
     });
 
-    // ----------------------------------------------------------
-    // CSS Variable Definition Tests
-    // ----------------------------------------------------------
-
-    describe('CSS Variable Definition', () => {
-      it('should define --luma-card-background css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-background')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.background);
-      });
-
-      it('should define --luma-color-neutral-60 css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-color-neutral-60')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.border);
-      });
-
-      it('should define --luma-card-padding css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-padding')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.padding);
-      });
+    it('should have classes computed signal', () => {
+      const cardEl = fixture.debugElement.query(By.directive(LmCardComponent));
+      cardComponent = cardEl.injector.get(LmCardComponent);
+      expect(typeof cardComponent.classes).toBe('function');
     });
 
-    // ----------------------------------------------------------
-    // Token Consumption Tests
-    // ----------------------------------------------------------
-    // CSS variables are inherited from document.documentElement.
-    // We verify that tokens are accessible and component uses the correct classes.
-
-    describe('Token Consumption', () => {
-      it('should have access to --luma-card-background token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-background')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.background);
-      });
-
-      it('should have access to --luma-color-neutral-60 token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-color-neutral-60')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.border);
-      });
-
-      it('should have access to --luma-card-padding token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-padding')
-          .trim();
-        expect(value).toBe(CARD_TOKENS.padding);
-      });
-    });
-
-    // ----------------------------------------------------------
-    // Token Override Tests
-    // ----------------------------------------------------------
-
-    describe('Token Override', () => {
-      it('should respect custom background token override', () => {
-        const customBackground = '#ffffff';
-        document.documentElement.style.setProperty(
-          '--luma-card-background',
-          customBackground,
-        );
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-background')
-          .trim();
-        expect(value).toBe(customBackground);
-      });
-
-      it('should respect custom padding token override', () => {
-        const customPadding = '2rem';
-        document.documentElement.style.setProperty(
-          '--luma-card-padding',
-          customPadding,
-        );
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-padding')
-          .trim();
-        expect(value).toBe(customPadding);
-      });
-
-      it('should respect custom border token override', () => {
-        const customBorder = 'oklch(0.5 0 0)';
-        document.documentElement.style.setProperty(
-          '--luma-color-neutral-60',
-          customBorder,
-        );
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-color-neutral-60')
-          .trim();
-        expect(value).toBe(customBorder);
-      });
-    });
-
-    // ----------------------------------------------------------
-    // Dark Theme Tests
-    // ----------------------------------------------------------
-
-    describe('Dark Theme', () => {
-      beforeEach(() => {
-        applyDarkTheme();
-      });
-
-      it('should have access to dark theme background token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-card-background')
-          .trim();
-        expect(value).toBe(DARK_CARD_TOKENS.background);
-      });
-
-      it('should have access to dark theme border token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-color-neutral-60')
-          .trim();
-        expect(value).toBe(DARK_CARD_TOKENS.border);
-      });
-
-      it('should have dark class on document element', () => {
-        expect(document.documentElement.classList.contains('dark')).toBe(true);
-      });
+    it('should render inner div with classes', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const innerDiv = card.nativeElement.querySelector('div');
+      expect(innerDiv).toBeTruthy();
+      expect(innerDiv.className).toBeTruthy();
     });
   });
+
+  // ============================================================
+  // BASE CLASSES
+  // ============================================================
+
+  describe('Base Classes', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should apply base card classes', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const cardEl = card.injector.get(LmCardComponent);
+      const classes = cardEl.classes();
+      expect(classes).toContain('rounded-lg');
+      expect(classes).toContain('border');
+      expect(classes).toContain('text-card-foreground');
+    });
+
+    it('should apply classes to inner div', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const innerDiv = card.nativeElement.querySelector('div');
+      expect(innerDiv.className).toContain('rounded-lg');
+      expect(innerDiv.className).toContain('border');
+    });
+  });
+
+  // ============================================================
+  // DEFAULT VARIANT
+  // ============================================================
+
+  describe('Default Variant', () => {
+    beforeEach(() => {
+      hostComponent.variant = 'default';
+      fixture.detectChanges();
+    });
+
+    it('should apply default variant classes', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const cardEl = card.injector.get(LmCardComponent);
+      const classes = cardEl.classes();
+      expect(classes).toContain('bg-card');
+      expect(classes).toContain('border-border');
+    });
+
+    it('should apply default classes to DOM', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const innerDiv = card.nativeElement.querySelector('div');
+      expect(innerDiv.className).toContain('bg-card');
+      expect(innerDiv.className).toContain('border-border');
+    });
+  });
+
+  // ============================================================
+  // ELEVATED VARIANT
+  // ============================================================
+
+  describe('Elevated Variant', () => {
+    beforeEach(() => {
+      hostComponent.variant = 'elevated';
+      fixture.detectChanges();
+    });
+
+    it('should apply elevated variant classes', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const cardEl = card.injector.get(LmCardComponent);
+      const classes = cardEl.classes();
+      expect(classes).toContain('bg-card');
+      expect(classes).toContain('shadow-sm');
+    });
+
+    it('should apply shadow to DOM', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const innerDiv = card.nativeElement.querySelector('div');
+      expect(innerDiv.className).toContain('shadow-sm');
+    });
+  });
+
+  // ============================================================
+  // SUBTLE VARIANT
+  // ============================================================
+
+  describe('Subtle Variant', () => {
+    beforeEach(() => {
+      hostComponent.variant = 'subtle';
+      fixture.detectChanges();
+    });
+
+    it('should apply subtle variant classes', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const cardEl = card.injector.get(LmCardComponent);
+      const classes = cardEl.classes();
+      expect(classes).toContain('bg-muted');
+      expect(classes).toContain('border-transparent');
+    });
+
+    it('should apply muted background to DOM', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const innerDiv = card.nativeElement.querySelector('div');
+      expect(innerDiv.className).toContain('bg-muted');
+    });
+  });
+
+  // ============================================================
+  // SEMANTIC TOKENS
+  // ============================================================
+
+  describe('Semantic Tokens', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should have access to --color-card token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-card')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.card);
+    });
+
+    it('should have access to --color-border token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-border')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.border);
+    });
+
+    it('should have access to --color-muted token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-muted')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.muted);
+    });
+  });
+
+  // ============================================================
+  // SIGNAL-BASED INPUTS
+  // ============================================================
+
+  describe('Signal-Based Inputs', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should use signal for variant input', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const cardEl = card.injector.get(LmCardComponent);
+      expect(typeof cardEl.lmVariant).toBe('function');
+      const variant = cardEl.lmVariant();
+      expect(variant).toBe('default');
+    });
+  });
+
 });

@@ -18,7 +18,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           </button>
         </div>
       }
-      @case ('positioned-tooltips') {
+      @case ('positioning') {
         <div class="flex flex-wrap gap-4 justify-center items-center">
           <button
             lumaButton

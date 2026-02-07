@@ -31,9 +31,5 @@ export class LmModalTitleDirective {
   titleId = computed(() => `${this.modal.modalId}-title`);
 
   /** Computed classes from CVA */
-  classes = computed(() =>
-    modalTitleVariants({
-      size: this.lmSize(),
-    }),
-  );
+  classes = computed(() => modalTitleVariants());
 }

@@ -16,14 +16,14 @@
         routerLink="/"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="text-base font-medium lm-text-secondary hover:lm-text-primary transition-colors"
+        class="text-base font-medium text-foreground hover:text-foreground transition-colors"
       >
         Home
       </a>
       <a
         routerLink="/docs"
         routerLinkActive="active"
-        class="text-base font-medium lm-text-secondary hover:lm-text-primary transition-colors"
+        class="text-base font-medium text-foreground hover:text-foreground transition-colors"
       >
         Docs
       </a>
@@ -42,7 +42,7 @@
       <!-- Mobile Menu Button -->
       <button
         (click)="toggleMobileMenu()"
-        class="md:hidden p-2 lm-text-primary hover:text-primary transition-colors"
+        class="md:hidden p-2 text-foreground hover:text-primary transition-colors"
         [attr.aria-label]="mobileMenuOpen() ? 'Close menu' : 'Open menu'"
         [attr.aria-expanded]="mobileMenuOpen()"
       >
@@ -83,7 +83,7 @@
   <!-- Mobile Menu Overlay -->
   @if (mobileMenuOpen()) {
     <div
-      class="fixed inset-0 top-14 sm:top-16 z-40 lm-bg-surface-base md:hidden"
+      class="fixed inset-0 top-14 sm:top-16 z-40 bg-background md:hidden"
       (click)="closeMobileMenu()"
       (keydown.escape)="closeMobileMenu()"
       role="dialog"
@@ -96,7 +96,7 @@
           routerLinkActive="active-mobile"
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="closeMobileMenu()"
-          class="px-4 py-3 text-base lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          class="px-4 py-3 text-base text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
         >
           Home
         </a>
@@ -104,7 +104,7 @@
           routerLink="/docs"
           routerLinkActive="active-mobile"
           (click)="closeMobileMenu()"
-          class="px-4 py-3 text-base lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          class="px-4 py-3 text-base text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
         >
           Docs
         </a>

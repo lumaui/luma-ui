@@ -7,7 +7,7 @@ import {
   effect,
   computed,
 } from '@angular/core';
-import { type TabsStyle } from '@lumaui/core';
+import { type TabsVariant } from '@lumaui/core';
 import { TABS_GROUP, type TabsGroupBase } from './tabs.tokens';
 
 /**
@@ -50,7 +50,7 @@ export class LmTabsComponent implements TabsGroupBase {
   lmDefaultValue = input<string>('');
 
   /** Visual style: underline, background, or pill */
-  lmVariant = input<TabsStyle>('underline');
+  lmVariant = input<TabsVariant>('underline');
 
   /** Whether to lazy load panel content */
   lmLazy = input<boolean>(true);

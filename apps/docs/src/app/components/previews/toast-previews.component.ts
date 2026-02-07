@@ -16,6 +16,13 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (exampleId()) {
+      @case ('basic-toast') {
+        <div class="flex justify-center">
+          <button lumaButton lmVariant="primary" (click)="showInfo()">
+            Show Toast
+          </button>
+        </div>
+      }
       @case ('all-variants') {
         <div class="flex flex-wrap gap-2 justify-center">
           <button lumaButton lmVariant="outline" (click)="showInfo()">

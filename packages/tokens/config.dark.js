@@ -1,158 +1,151 @@
 import StyleDictionary from 'style-dictionary';
 
 /**
- * Custom transform to add -- prefix to CSS variable names
+ * Purple Theme Configuration (Dark Mode)
+ * Uses 12-step color scale + background/foreground
+ * Structural tokens (radius, shadow, alpha) from shared/
  */
-StyleDictionary.registerTransform({
-  name: 'name/css-custom-properties',
-  type: 'name',
-  transform: (token) => {
-    return '--' + token.path.join('-');
-  },
-});
 
-/**
- * Custom format for dark theme
- * Supports runtime token composition via outputReferences option
- */
 StyleDictionary.registerFormat({
-  name: 'css/luma-dark',
-  format: ({ dictionary, options }) => {
-    const { outputReferencesTransformed } = options;
+  name: 'css/theme-dark',
+  format: ({ dictionary }) => {
+    let output = `@import "tailwindcss";\n\n`;
+    output += `.dark {\n`;
+    output += `  /* Luma Design System - Purple Theme (Dark) */\n\n`;
 
-    /**
-     * Helper para obter o valor de um token, respeitando outputReferences
-     * Se outputReferencesTransformed retornar true, gera var() reference
-     */
-    const getTokenValue = (token) => {
-      // Se tem função de filtro e ela retorna true, gerar referência
-      if (
-        outputReferencesTransformed &&
-        outputReferencesTransformed(token, options)
-      ) {
-        // Encontrar o token referenciado
-        // token.original.value é algo como "{luma.color.primary.50}"
-        const refPath = token.original.value
-          .replace(/\{/g, '')
-          .replace(/\}/g, '')
-          .split('.');
+    // Process primary color scale (12-step)
+    const primaryTokens = dictionary.allTokens.filter(t => t.path[1] === 'primary');
+    if (primaryTokens.length > 0) {
+      output += `  /* Primary Color Scale (12-step Radix-inspired) */\n`;
+      primaryTokens.forEach((token) => {
+        const step = token.path[2];
+        output += `  --color-primary-${step}: ${token.value};\n`;
+      });
+      output += `\n`;
 
-        // Construir o nome da variável CSS referenciada
-        const refName = '--' + refPath.join('-');
-        return `var(${refName})`;
+      // Create semantic mappings from primary scale
+      output += `  /* Semantic Primary Mappings */\n`;
+      const primary5 = primaryTokens.find(t => t.path[2] === '5');
+      const primary12 = primaryTokens.find(t => t.path[2] === '12');
+      const primary2 = primaryTokens.find(t => t.path[2] === '2');
+      const primary4 = primaryTokens.find(t => t.path[2] === '4');
+      const primary3 = primaryTokens.find(t => t.path[2] === '3');
+      const primary6 = primaryTokens.find(t => t.path[2] === '6');
+
+      if (primary5) output += `  --color-primary: ${primary5.value};\n`;
+      if (primary12) output += `  --color-primary-foreground: ${primary12.value};\n`;
+
+      // Derived semantic colors from primary scale
+      if (primary2) {
+        output += `  --color-secondary: ${primary2.value};\n`;
+        if (primary12) output += `  --color-secondary-foreground: ${primary12.value};\n`;
+      }
+      if (primary4) {
+        output += `  --color-accent: ${primary4.value};\n`;
+        if (primary12) output += `  --color-accent-foreground: ${primary12.value};\n`;
       }
 
-      // Caso contrário, usar valor hardcoded
-      return token.value;
-    };
+      // Border and input from lighter primary shades
+      if (primary3) output += `  --color-border: ${primary3.value};\n`;
+      if (primary2) output += `  --color-input: ${primary2.value};\n`;
 
-    let output = `/* Luma Design System - Dark Theme */\n`;
-    output += `.dark {\n`;
+      // Focus ring with alpha
+      if (primary6) output += `  --color-ring: oklch(0.78 0.125 300 / 0.35);\n`;
 
-    dictionary.allTokens.forEach((token) => {
-      const value = getTokenValue(token);
-      output += `  ${token.name}: ${value};\n`;
-    });
+      output += `\n`;
+    }
+
+    // Process background and foreground
+    const backgroundToken = dictionary.allTokens.find(t => t.path[1] === 'background');
+    const foregroundToken = dictionary.allTokens.find(t => t.path[1] === 'foreground');
+    const popoverToken = dictionary.allTokens.find(t => t.path[1] === 'popover' && t.path.length === 2);
+    const popoverForegroundToken = dictionary.allTokens.find(t => t.path[1] === 'popover-foreground');
+
+    if (backgroundToken || foregroundToken || popoverToken) {
+      output += `  /* Surface Colors */\n`;
+      if (backgroundToken) {
+        output += `  --color-background: ${backgroundToken.value};\n`;
+        // Card and popover use background as default
+        output += `  --color-card: ${backgroundToken.value};\n`;
+        // Use explicit popover token if exists, otherwise fallback to background
+        if (!popoverToken) {
+          output += `  --color-popover: ${backgroundToken.value};\n`;
+        }
+        // Muted uses same as background
+        output += `  --color-muted: ${backgroundToken.value};\n`;
+      }
+      if (foregroundToken) {
+        output += `  --color-foreground: ${foregroundToken.value};\n`;
+        // Card foreground uses same
+        output += `  --color-card-foreground: ${foregroundToken.value};\n`;
+        // Use explicit popover-foreground if exists, otherwise fallback to foreground
+        if (!popoverForegroundToken) {
+          output += `  --color-popover-foreground: ${foregroundToken.value};\n`;
+        }
+        // Muted foreground with reduced opacity (conceptual - using darker value for dark mode)
+        output += `  --color-muted-foreground: oklch(0.55 0.01 290);\n`;
+      }
+      // Add explicit popover tokens if they exist
+      if (popoverToken) {
+        output += `  --color-popover: ${popoverToken.value};\n`;
+      }
+      if (popoverForegroundToken) {
+        output += `  --color-popover-foreground: ${popoverForegroundToken.value};\n`;
+      }
+      output += `\n`;
+    }
+
+    // Process semantic states (destructive, warning, success) - values may differ in dark mode
+    const destructiveBg = dictionary.allTokens.find(t =>
+      t.path[1] === 'destructive' && t.path[2] === 'background'
+    );
+    const destructiveFg = dictionary.allTokens.find(t =>
+      t.path[1] === 'destructive' && t.path[2] === 'foreground'
+    );
+    const warningBg = dictionary.allTokens.find(t =>
+      t.path[1] === 'warning' && t.path[2] === 'background'
+    );
+    const warningFg = dictionary.allTokens.find(t =>
+      t.path[1] === 'warning' && t.path[2] === 'foreground'
+    );
+    const successBg = dictionary.allTokens.find(t =>
+      t.path[1] === 'success' && t.path[2] === 'background'
+    );
+    const successFg = dictionary.allTokens.find(t =>
+      t.path[1] === 'success' && t.path[2] === 'foreground'
+    );
+
+    if (destructiveBg || warningBg || successBg) {
+      output += `  /* Semantic States (from shared/semantic.json) */\n`;
+      if (destructiveBg) output += `  --color-destructive: ${destructiveBg.value};\n`;
+      if (destructiveFg) output += `  --color-destructive-foreground: ${destructiveFg.value};\n`;
+      if (warningBg) output += `  --color-warning: ${warningBg.value};\n`;
+      if (warningFg) output += `  --color-warning-foreground: ${warningFg.value};\n`;
+      if (successBg) output += `  --color-success: ${successBg.value};\n`;
+      if (successFg) output += `  --color-success-foreground: ${successFg.value};\n`;
+      output += `\n`;
+    }
 
     output += `}\n`;
-
     return output;
   },
 });
 
-/**
- * Custom transform group for dark theme
- */
-StyleDictionary.registerTransformGroup({
-  name: 'luma/css',
-  transforms: [
-    'name/css-custom-properties',
-    'time/seconds',
-    'html/icon',
-    'size/rem',
-    'color/css',
-  ],
-});
-
-/**
- * Filtro de referências para dark theme - lógica idêntica ao light theme
- * MANTER SINCRONIZADO COM config.js
- *
- * @param {object} token - Token object from Style Dictionary
- * @param {object} options - Options passed to the format
- * @returns {boolean} - true para gerar var(), false para valor hardcoded
- */
-const shouldOutputReference = (token, options) => {
-  // Core tokens sempre geram valores reais (são a fonte)
-  const coreCategories = [
-    'color',
-    'spacing',
-    'radius',
-    'duration',
-    'transition',
-    'focus',
-  ];
-  if (coreCategories.includes(token.path[1])) {
-    return false;
-  }
-
-  // Component tokens: verificar se tem referência original
-  const componentCategories = [
-    'button',
-    'card',
-    'badge',
-    'accordion',
-    'tooltip',
-    'tabs',
-    'modal',
-    'toast',
-    'code',
-  ];
-  if (componentCategories.includes(token.path[1])) {
-    // Se o token original tinha uma referência (ex: "{luma.color.primary.50}"),
-    // então gerar var() reference
-    if (token.original && token.original.value) {
-      const originalValue = token.original.value;
-      return typeof originalValue === 'string' && originalValue.startsWith('{');
-    }
-  }
-
-  return false;
-};
-
-// Dark theme config - only .dark.json files
-const config = {
-  log: {
-    verbosity: 'silent',
-    warnings: 'disabled',
-  },
+export default {
   source: [
-    'src/core/colors.dark.json',
-    'src/components/button/button.dark.json',
-    'src/components/card/card.dark.json',
-    'src/components/badge/badge.dark.json',
-    'src/components/accordion/accordion.dark.json',
-    'src/components/tooltip/tooltip.dark.json',
-    'src/components/tabs/tabs.dark.json',
-    'src/components/modal/modal.dark.json',
-    'src/components/toast/toast.dark.json',
+    'src/themes/purple/purple.dark.json',  // Purple dark theme colors (primary scale + surfaces)
+    'src/shared/**/*.json',                // Structural tokens (radius, shadow, alpha, typography, semantic)
   ],
   platforms: {
-    'css-dark': {
-      transformGroup: 'luma/css',
+    css: {
+      transformGroup: 'css',
       buildPath: 'build/',
       files: [
         {
           destination: 'luma-dark.css',
-          format: 'css/luma-dark',
-          options: {
-            outputReferences: true,
-            outputReferencesTransformed: shouldOutputReference,
-          },
+          format: 'css/theme-dark',
         },
       ],
     },
   },
 };
-
-export default config;

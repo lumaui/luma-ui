@@ -9,25 +9,12 @@ export const modalOverlayVariants = cva(
     'fixed',
     'inset-0',
     'z-50',
-    'flex',
-    'items-center',
-    'justify-center',
-    'lm-bg-modal-overlay',
-    'transition-[opacity,visibility]',
-    'lm-duration-modal',
-    'lm-ease-modal',
+    'bg-black/80',
+    'data-[state=open]:animate-in',
+    'data-[state=closed]:animate-out',
+    'data-[state=closed]:fade-out-0',
+    'data-[state=open]:fade-in-0',
   ],
-  {
-    variants: {
-      open: {
-        true: ['opacity-100', 'visible'],
-        false: ['opacity-0', 'invisible', 'pointer-events-none'],
-      },
-    },
-    defaultVariants: {
-      open: false,
-    },
-  },
 );
 
 /**
@@ -36,41 +23,45 @@ export const modalOverlayVariants = cva(
  */
 export const modalContainerVariants = cva(
   [
-    'relative',
+    'fixed',
+    'left-[50%]',
+    'top-[50%]',
     'z-50',
-    'lm-bg-modal',
-    'lm-rounded-modal',
-    'lm-shadow-modal',
-    'flex',
-    'flex-col',
-    'max-h-[90vh]',
-    'transition-[opacity,visibility]',
-    'lm-duration-modal',
-    'lm-ease-modal',
-    'focus:outline-none',
+    'translate-x-[-50%]',
+    'translate-y-[-50%]',
+    'grid',
+    'w-full',
+    'gap-4',
+    'border',
+    'border-gray-200',
+    'bg-white',
+    'p-6',
+    'shadow-[var(--shadow-6)]',
+    'duration-200',
+    'data-[state=open]:animate-in',
+    'data-[state=closed]:animate-out',
+    'data-[state=closed]:fade-out-0',
+    'data-[state=open]:fade-in-0',
+    'data-[state=closed]:zoom-out-95',
+    'data-[state=open]:zoom-in-95',
+    'data-[state=closed]:slide-out-to-left-1/2',
+    'data-[state=closed]:slide-out-to-top-[48%]',
+    'data-[state=open]:slide-in-from-left-1/2',
+    'data-[state=open]:slide-in-from-top-[48%]',
+    'rounded-[var(--radius-6)]',
   ],
   {
     variants: {
       size: {
-        sm: ['w-full', 'max-w-sm'],
-        md: ['w-full', 'max-w-md'],
-        lg: ['w-full', 'max-w-lg'],
-        xl: ['w-full', 'max-w-xl'],
-        full: ['w-[95vw]', 'h-[95vh]'],
-      },
-      open: {
-        true: [
-          'opacity-100',
-          'translate-y-0',
-          'visible',
-          'transition-[opacity,transform,visibility]', // Animate transform only on open
-        ],
-        false: ['opacity-0', 'invisible'],
+        sm: 'max-w-sm',
+        md: 'max-w-md',
+        lg: 'max-w-lg',
+        xl: 'max-w-xl',
+        full: 'max-w-[95vw] h-[95vh]',
       },
     },
     defaultVariants: {
       size: 'md',
-      open: false,
     },
   },
 );
@@ -80,13 +71,11 @@ export const modalContainerVariants = cva(
  * Container for title and close button
  */
 export const modalHeaderVariants = cva([
-  'relative',
   'flex',
-  'items-center',
-  'justify-between',
-  'lm-px-modal-header',
-  'lm-py-modal-header',
-  'shrink-0',
+  'flex-col',
+  'gap-1.5',
+  'text-center',
+  'sm:text-left',
 ]);
 
 /**
@@ -94,60 +83,40 @@ export const modalHeaderVariants = cva([
  * Typography for modal title
  */
 export const modalTitleVariants = cva(
-  ['lm-text-modal-title', 'lm-font-modal-title', 'leading-tight'],
-  {
-    variants: {
-      size: {
-        sm: ['text-base'],
-        md: ['text-lg'],
-        lg: ['text-xl'],
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  },
+  ['text-lg', 'font-semibold', 'leading-none', 'tracking-tight'],
 );
+
+/**
+ * Modal Description Variants
+ * Supporting text below title
+ */
+export const modalDescriptionVariants = cva([
+  'text-sm',
+  'text-gray-600',
+]);
 
 /**
  * Modal Content Variants
  * Main content area with optional scrolling
  */
-export const modalContentVariants = cva(
-  ['lm-px-modal-content', 'lm-py-modal-content', 'flex-1', 'min-h-0'],
-  {
-    variants: {
-      scrollable: {
-        true: ['overflow-y-auto'],
-        false: ['overflow-visible'],
-      },
-    },
-    defaultVariants: {
-      scrollable: true,
-    },
-  },
-);
+export const modalContentVariants = cva([
+  'max-h-[60vh]',
+  'overflow-y-auto',
+]);
 
 /**
  * Modal Footer Variants
  * Container for action buttons
  */
 export const modalFooterVariants = cva(
-  [
-    'flex',
-    'items-center',
-    'gap-3',
-    'lm-px-modal-footer',
-    'lm-py-modal-footer',
-    'shrink-0',
-  ],
+  ['flex', 'gap-2'],
   {
     variants: {
       align: {
-        start: ['justify-start'],
-        center: ['justify-center'],
-        end: ['justify-end'],
-        between: ['justify-between'],
+        start: 'justify-start',
+        center: 'justify-center',
+        end: 'justify-end',
+        between: 'justify-between',
       },
     },
     defaultVariants: {
@@ -162,17 +131,20 @@ export const modalFooterVariants = cva(
  */
 export const modalCloseVariants = cva([
   'absolute',
-  'top-3',
-  'right-3',
-  'p-1.5',
-  'lm-rounded-modal-close',
-  'lm-text-modal-close',
-  'hover:lm-bg-modal-close-hover',
-  'transition-colors',
-  'lm-duration-modal',
+  'right-4',
+  'top-4',
+  'rounded-sm',
+  'opacity-70',
+  'ring-offset-2',
+  'transition-opacity',
+  'hover:opacity-100',
   'focus:outline-none',
-  'focus-visible:lm-ring-focus',
-  'cursor-pointer',
+  'focus:ring-2',
+  'focus:ring-primary-9',
+  'focus:ring-offset-2',
+  'disabled:pointer-events-none',
+  'data-[state=open]:bg-primary-2',
+  'data-[state=open]:text-gray-600',
 ]);
 
 // Type exports
@@ -182,6 +154,7 @@ export type ModalContainerVariants = VariantProps<
 >;
 export type ModalHeaderVariants = VariantProps<typeof modalHeaderVariants>;
 export type ModalTitleVariants = VariantProps<typeof modalTitleVariants>;
+export type ModalDescriptionVariants = VariantProps<typeof modalDescriptionVariants>;
 export type ModalContentVariants = VariantProps<typeof modalContentVariants>;
 export type ModalFooterVariants = VariantProps<typeof modalFooterVariants>;
 export type ModalCloseVariants = VariantProps<typeof modalCloseVariants>;

@@ -5,14 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
  * Fixed-position container that holds all toasts
  */
 export const toastContainerVariants = cva(
-  [
-    'fixed',
-    'z-[100]',
-    'flex',
-    'flex-col',
-    'pointer-events-none',
-    'lm-gap-toast-stack',
-  ],
+  ['fixed', 'z-[100]', 'flex', 'flex-col', 'gap-2', 'pointer-events-none'],
   {
     variants: {
       position: {
@@ -52,68 +45,58 @@ export const toastContainerVariants = cva(
  */
 export const toastItemVariants = cva(
   [
-    // Layout
     'flex',
     'items-start',
+    'gap-3',
     'pointer-events-auto',
-    // Sizing
-    'lm-rounded-toast',
-    'lm-shadow-toast',
-    'lm-px-toast',
-    'lm-py-toast',
-    'lm-gap-toast',
-    'lm-max-w-toast',
-    'lm-min-w-toast',
-    // Border (defaults to transparent)
-    'lm-border-toast',
-    'border-solid',
-    // Transitions
-    'transition-[opacity,transform]',
-    'lm-duration-toast',
-    'lm-ease-toast',
+    'rounded-[var(--radius-4)]',
+    'shadow-[var(--shadow-4)]',
+    'px-4',
+    'py-3',
+    'min-w-[320px]',
+    'max-w-md',
+    'border',
+    'transition-all',
+    'duration-300',
   ],
   {
     variants: {
       variant: {
         info: [
-          'lm-bg-toast-info',
-          'lm-text-toast-info',
-          'lm-border-toast-info',
+          'bg-primary-2',
+          'text-primary-12',
+          'border-primary-7',
         ],
         success: [
-          'lm-bg-toast-success',
-          'lm-text-toast-success',
-          'lm-border-toast-success',
+          'bg-success-background',
+          'text-success-foreground',
+          'border-success-background',
         ],
         warning: [
-          'lm-bg-toast-warning',
-          'lm-text-toast-warning',
-          'lm-border-toast-warning',
+          'bg-warning-background',
+          'text-warning-foreground',
+          'border-warning-background',
         ],
         error: [
-          'lm-bg-toast-error',
-          'lm-text-toast-error',
-          'lm-border-toast-error',
+          'bg-destructive-background',
+          'text-destructive-foreground',
+          'border-destructive-background',
         ],
       },
       state: {
         entering: [
-          'opacity-100',
-          'translate-x-0',
-          'translate-y-0',
-          'scale-100',
+          'animate-in',
+          'slide-in-from-top-2',
+          'fade-in',
         ],
-        visible: ['opacity-100', 'translate-x-0', 'translate-y-0', 'scale-100'],
-        exiting: ['opacity-0', 'scale-95'],
+        visible: ['opacity-100'],
+        exiting: [
+          'animate-out',
+          'slide-out-to-top-2',
+          'fade-out',
+        ],
       },
     },
-    compoundVariants: [
-      // Initial state for entering animations (will be animated to 'entering')
-      {
-        state: 'entering',
-        class: [],
-      },
-    ],
     defaultVariants: {
       variant: 'info',
       state: 'visible',
@@ -125,13 +108,13 @@ export const toastItemVariants = cva(
  * Toast Icon Variants
  * Icon container with variant-specific colors
  */
-export const toastIconVariants = cva(['shrink-0', 'lm-size-toast-icon'], {
+export const toastIconVariants = cva(['shrink-0', 'h-5', 'w-5'], {
   variants: {
     variant: {
-      info: ['lm-text-toast-icon-info'],
-      success: ['lm-text-toast-icon-success'],
-      warning: ['lm-text-toast-icon-warning'],
-      error: ['lm-text-toast-icon-error'],
+      info: ['text-primary-12'],
+      success: ['text-success-foreground'],
+      warning: ['text-warning-foreground'],
+      error: ['text-destructive-foreground'],
     },
   },
   defaultVariants: {
@@ -146,6 +129,7 @@ export const toastIconVariants = cva(['shrink-0', 'lm-size-toast-icon'], {
 export const toastContentVariants = cva([
   'flex',
   'flex-col',
+  'gap-1',
   'flex-1',
   'min-w-0',
 ]);
@@ -155,9 +139,9 @@ export const toastContentVariants = cva([
  * Title text styling
  */
 export const toastTitleVariants = cva([
-  'lm-text-size-toast-title',
-  'lm-font-toast-title',
-  'lm-leading-toast-title',
+  'text-sm',
+  'font-semibold',
+  'leading-none',
 ]);
 
 /**
@@ -165,8 +149,9 @@ export const toastTitleVariants = cva([
  * Message text styling
  */
 export const toastMessageVariants = cva([
-  'lm-text-size-toast-message',
-  'lm-leading-toast-message',
+  'text-sm',
+  'leading-relaxed',
+  'opacity-90',
 ]);
 
 /**
@@ -176,35 +161,25 @@ export const toastMessageVariants = cva([
 export const toastCloseVariants = cva(
   [
     'shrink-0',
+    'rounded-md',
     'p-1',
-    'lm-rounded-toast-close',
-    'transition-colors',
-    'lm-duration-toast',
+    'opacity-70',
+    'transition-opacity',
+    'hover:opacity-100',
     'focus:outline-none',
-    'focus-visible:lm-ring-focus',
+    'focus:ring-2',
+    'focus:ring-primary-9',
     'cursor-pointer',
     '-mr-1',
-    '-mt-1',
+    '-mt-0.5',
   ],
   {
     variants: {
       variant: {
-        info: [
-          'lm-text-toast-close-info',
-          'hover:lm-text-toast-close-info-hover',
-        ],
-        success: [
-          'lm-text-toast-close-success',
-          'hover:lm-text-toast-close-success-hover',
-        ],
-        warning: [
-          'lm-text-toast-close-warning',
-          'hover:lm-text-toast-close-warning-hover',
-        ],
-        error: [
-          'lm-text-toast-close-error',
-          'hover:lm-text-toast-close-error-hover',
-        ],
+        info: ['text-primary-12'],
+        success: ['text-success-foreground'],
+        warning: ['text-warning-foreground'],
+        error: ['text-destructive-foreground'],
       },
     },
     defaultVariants: {

@@ -3,6 +3,7 @@ import {
   buttonVariants,
   type ButtonVariant,
   type ButtonSize,
+  type ButtonRadius,
 } from '@lumaui/core';
 
 @Directive({
@@ -16,6 +17,7 @@ export class LmButtonDirective {
   // Signal-based inputs with lm prefix (Angular 20+)
   lmVariant = input<ButtonVariant>('primary');
   lmSize = input<ButtonSize>('md');
+  lmRadius = input<ButtonRadius>('default');
   lmDisabled = input<boolean>(false);
   lmType = input<'button' | 'submit' | 'reset'>('button');
 
@@ -24,6 +26,7 @@ export class LmButtonDirective {
     buttonVariants({
       variant: this.lmVariant(),
       size: this.lmSize(),
+      radius: this.lmRadius(),
     }),
   );
 

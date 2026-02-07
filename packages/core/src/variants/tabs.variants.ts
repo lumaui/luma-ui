@@ -5,32 +5,22 @@ import { cva, type VariantProps } from 'class-variance-authority';
  * Container for tab triggers (role="tablist")
  */
 export const tabsListVariants = cva(
-  ['relative', 'flex', 'items-center', 'w-full'],
+  ['relative', 'w-full'], // Removed flex, items-center (now in wrapper/container)
   {
     variants: {
-      style: {
-        underline: ['lm-gap-tabs-list', 'border-b', 'lm-border-tabs-list'],
-        background: ['lm-gap-tabs-list'],
-        pill: [
-          'lm-gap-tabs-pill',
-          'lm-p-tabs-pill',
-          'lm-bg-tabs-pill',
-          'lm-rounded-tabs-pill',
-        ],
-      },
-      scrollable: {
-        true: [
-          'overflow-x-auto',
-          'scrollbar-none',
-          '-webkit-overflow-scrolling-touch',
-        ],
-        false: ['overflow-visible'],
+      variant: {
+        underline: ['border-b', 'border-border'], // Removed gap-4 (now in scroll container)
+        pills: [
+          'p-1',
+          'bg-muted',
+          'rounded-lg',
+          'inline-flex',
+          'w-auto',
+        ], // Removed gap-1 (now in scroll container)
       },
     },
-    compoundVariants: [],
     defaultVariants: {
-      style: 'underline',
-      scrollable: false,
+      variant: 'underline',
     },
   },
 );
@@ -42,107 +32,71 @@ export const tabsListVariants = cva(
 export const tabsTriggerVariants = cva(
   [
     'relative',
-    'flex',
+    'inline-flex',
     'items-center',
     'justify-center',
     'whitespace-nowrap',
+    'px-4',
+    'py-2',
+    'text-sm',
+    'font-medium',
     'cursor-pointer',
-    // Typography
-    'lm-text-size-tabs-trigger',
-    'lm-font-tabs-trigger',
-    // Padding
-    'lm-px-tabs-trigger',
-    'lm-py-tabs-trigger',
-    // Transitions
-    'transition-[color,background-color]',
-    'lm-duration-tabs',
-    'lm-ease-tabs',
-    // Focus
-    'focus:outline-none',
-    'focus-visible:lm-ring-focus',
-    // Disabled - more visible with grayscale
-    'disabled:opacity-30',
-    'disabled:grayscale',
-    'disabled:cursor-not-allowed',
+    'transition-all',
+    'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-ring',
+    'focus-visible:ring-offset-2',
     'disabled:pointer-events-none',
+    'disabled:opacity-50',
   ],
   {
     variants: {
-      style: {
+      variant: {
         underline: [
+          'border-b-2',
+          'border-transparent',
           'bg-transparent',
-          'lm-text-tabs-trigger',
-          'hover:lm-text-tabs-trigger-hover',
+          'text-muted-foreground',
+          'hover:text-primary',
+          'data-[state=active]:border-primary',
+          'data-[state=active]:text-foreground',
         ],
-        background: [
-          'lm-rounded-tabs-trigger',
-          'lm-text-tabs-trigger',
-          'hover:lm-text-tabs-trigger-hover',
-          'hover:lm-bg-tabs-trigger-hover',
+        pills: [
+          'rounded-md',
+          'text-muted-foreground',
+          'hover:text-primary',
+          'data-[state=active]:bg-background',
+          'data-[state=active]:text-foreground',
+          'data-[state=active]:shadow-sm',
         ],
-        pill: [
-          'lm-rounded-tabs-trigger',
-          'lm-text-tabs-trigger',
-          'hover:lm-text-tabs-trigger-hover',
-        ],
-      },
-      selected: {
-        true: [],
-        false: [],
       },
     },
-    compoundVariants: [
-      // Underline selected
-      {
-        style: 'underline',
-        selected: true,
-        class: ['lm-text-tabs-trigger-selected'],
-      },
-      // Background selected
-      {
-        style: 'background',
-        selected: true,
-        class: ['lm-text-tabs-trigger-selected', 'lm-bg-tabs-trigger-selected'],
-      },
-      // Pill selected
-      {
-        style: 'pill',
-        selected: true,
-        class: [
-          'lm-text-tabs-trigger-selected',
-          'lm-bg-tabs-pill-selected',
-          'shadow-sm',
-        ],
-      },
-    ],
     defaultVariants: {
-      style: 'underline',
-      selected: false,
+      variant: 'underline',
     },
   },
 );
 
 /**
  * Tabs Indicator Variants
- * Animated indicator for underline style
+ * Animated indicator for underline style (optional visual enhancement)
  */
 export const tabsIndicatorVariants = cva(
   [
     'absolute',
     'bottom-0',
     'left-0',
-    'lm-h-tabs-indicator',
-    'lm-bg-tabs-indicator',
-    'lm-rounded-tabs-indicator',
-    'transition-[transform,width]',
-    'lm-duration-tabs',
-    'lm-ease-tabs',
+    'h-0.5',
+    'bg-primary',
+    'rounded-full',
+    'transition-all',
+    'duration-200',
   ],
   {
     variants: {
       visible: {
-        true: ['opacity-100'],
-        false: ['opacity-0'],
+        true: 'opacity-100',
+        false: 'opacity-0',
       },
     },
     defaultVariants: {
@@ -152,16 +106,65 @@ export const tabsIndicatorVariants = cva(
 );
 
 /**
+ * Tabs Scroll Arrow Variants
+ * Navigation arrows for scrollable tabs
+ */
+export const tabsScrollArrowVariants = cva(
+  [
+    // Layout - FLEX ITEM (not absolute)
+    'flex',
+    'items-center',
+    'justify-center',
+    'flex-shrink-0', // Prevent shrinking in flex container
+
+    // Size (adequate touch target)
+    'w-8',
+    'h-8',
+
+    // Typography
+    'text-primary',
+    'text-base',
+
+    // Transitions (gentle)
+    'transition-all',
+    'duration-200',
+
+    // Interactions (calm hover) - NO BACKGROUND
+    'hover:text-foreground',
+    'hover:opacity-80',
+    'active:scale-95',
+
+    // Accessibility
+    'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-ring',
+    'focus-visible:ring-offset-2',
+
+    // Disabled state
+    'disabled:opacity-30',
+    'disabled:cursor-not-allowed',
+  ],
+  {
+    variants: {
+      direction: {
+        left: [], // No positioning needed in flex layout
+        right: [], // No positioning needed in flex layout
+      },
+    },
+  },
+);
+
+/**
  * Tabs Panel Variants
  * Content panel (role="tabpanel")
  */
 export const tabsPanelVariants = cva(
-  ['lm-p-tabs-panel', 'focus:outline-none'],
+  ['mt-2', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-ring'],
   {
     variants: {
       visible: {
-        true: ['block'],
-        false: ['hidden'],
+        true: 'block',
+        false: 'hidden',
       },
     },
     defaultVariants: {
@@ -174,7 +177,9 @@ export const tabsPanelVariants = cva(
 export type TabsListVariants = VariantProps<typeof tabsListVariants>;
 export type TabsTriggerVariants = VariantProps<typeof tabsTriggerVariants>;
 export type TabsIndicatorVariants = VariantProps<typeof tabsIndicatorVariants>;
+export type TabsScrollArrowVariants = VariantProps<typeof tabsScrollArrowVariants>;
 export type TabsPanelVariants = VariantProps<typeof tabsPanelVariants>;
 
 // Convenience types
-export type TabsStyle = NonNullable<TabsListVariants['style']>;
+export type TabsVariant = NonNullable<TabsListVariants['variant']>;
+export type TabsScrollArrowDirection = NonNullable<TabsScrollArrowVariants['direction']>;

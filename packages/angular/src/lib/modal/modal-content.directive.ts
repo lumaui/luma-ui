@@ -29,9 +29,5 @@ export class LmModalContentDirective {
   lmScrollable = input<boolean>(true);
 
   /** Computed classes from CVA */
-  classes = computed(() =>
-    modalContentVariants({
-      scrollable: this.lmScrollable(),
-    }),
-  );
+  classes = computed(() => modalContentVariants());
 }

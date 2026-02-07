@@ -1,5 +1,5 @@
 <!-- Mobile Navigation Toggle - Positioned below header -->
-<div class="md:hidden sm:-mx-6 px-4 sm:px-6 py-3 lm-bg-surface-base">
+<div class="md:hidden sm:-mx-6 px-4 sm:px-6 py-3 bg-background">
   <button
     lumaButton
     lmVariant="outline"
@@ -34,16 +34,16 @@
 
     <!-- Drawer Panel -->
     <aside
-      class="drawer-panel absolute left-0 top-0 h-full w-72 lm-bg-surface-base overflow-y-auto shadow-xl"
+      class="drawer-panel absolute left-0 top-0 h-full w-72 bg-background overflow-y-auto shadow-xl"
     >
       <!-- Drawer Header -->
       <div
-        class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 lm-bg-surface-base border-b lm-border-neutral-70"
+        class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 bg-background border-b border-border"
       >
-        <span class="text-sm font-semibold lm-text-primary">Docs</span>
+        <span class="text-sm font-semibold text-foreground">Docs</span>
         <button
           (click)="closeDrawer()"
-          class="p-1.5 lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+          class="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
           aria-label="Close navigation"
         >
           <svg
@@ -69,7 +69,7 @@
           <a
             routerLink="/docs/getting-started"
             routerLinkActive="active-sidebar"
-            class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+            class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
           >
             Getting Started
           </a>
@@ -78,7 +78,7 @@
             routerLink="/docs/components"
             routerLinkActive="active-sidebar"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+            class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
           >
             All Components
           </a>
@@ -88,7 +88,7 @@
         @if (themePages().length > 0) {
           <div>
             <div
-              class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+              class="text-sm font-semibold text-muted-foreground tracking-wider mb-3"
             >
               Theme
             </div>
@@ -96,7 +96,7 @@
               <a
                 [routerLink]="'/docs/theme/' + page.slug"
                 routerLinkActive="active-sidebar"
-                class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
               >
                 {{ page.name }}
               </a>
@@ -107,7 +107,7 @@
         @for (category of categories(); track category) {
           <div>
             <div
-              class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+              class="text-sm font-semibold text-muted-foreground tracking-wider mb-3"
             >
               {{ category }}
             </div>
@@ -115,7 +115,7 @@
               <a
                 [routerLink]="'/docs/' + comp.slug"
                 routerLinkActive="active-sidebar"
-                class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
               >
                 {{ comp.name }}
               </a>
@@ -137,7 +137,7 @@
       <a
         routerLink="/docs/getting-started"
         routerLinkActive="active-sidebar"
-        class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+        class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
       >
         Getting Started
       </a>
@@ -146,7 +146,7 @@
         routerLink="/docs/components"
         routerLinkActive="active-sidebar"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="block py-2 px-2 text-sm font-medium lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+        class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
       >
         All Components
       </a>
@@ -156,7 +156,7 @@
     @if (themePages().length > 0) {
       <div>
         <div
-          class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+          class="text-sm font-semibold text-muted-foreground tracking-wider mb-3"
         >
           Theme
         </div>
@@ -164,7 +164,7 @@
           <a
             [routerLink]="'/docs/theme/' + page.slug"
             routerLinkActive="active-sidebar"
-            class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+            class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
           >
             {{ page.name }}
           </a>
@@ -175,7 +175,7 @@
     @for (category of categories(); track category) {
       <div>
         <div
-          class="text-sm font-semibold lm-text-secondary tracking-wider mb-3"
+          class="text-sm font-semibold text-muted-foreground tracking-wider mb-3"
         >
           {{ category }}
         </div>
@@ -183,7 +183,7 @@
           <a
             [routerLink]="'/docs/' + comp.slug"
             routerLinkActive="active-sidebar"
-            class="block px-3 py-2 text-sm lm-text-secondary hover:lm-text-primary hover:bg-text-secondary/5 lm-rounded-md transition-colors"
+            class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
           >
             {{ comp.name }}
           </a>

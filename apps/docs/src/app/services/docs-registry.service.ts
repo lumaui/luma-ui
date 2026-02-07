@@ -53,6 +53,7 @@ export interface DocExample {
   title: string;
   code: string;
   language: string;
+  highlightedCode?: string;
 }
 
 export interface DocUseCase {

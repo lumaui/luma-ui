@@ -12,7 +12,7 @@ import {
 })
 export class LmCardDescriptionDirective {
   // Signal-based inputs with lm prefix (Angular 20+)
-  lmSize = input<CardDescriptionSize>('normal');
+  lmSize = input<CardDescriptionSize>('md');
 
   // Computed class string
   classes = computed(() => cardDescriptionVariants({ size: this.lmSize() }));

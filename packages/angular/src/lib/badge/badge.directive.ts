@@ -1,12 +1,25 @@
-import { Directive, computed, HostBinding } from '@angular/core';
-import { badgeVariants } from '@lumaui/core';
+import { Directive, input, computed, HostBinding } from '@angular/core';
+import {
+  badgeVariants,
+  type BadgeVariant,
+  type BadgeRadius,
+} from '@lumaui/core';
 
 @Directive({
   selector: '[lumaBadge]',
 })
 export class LmBadgeDirective {
-  // Computed class string - layout only, no variants
-  classes = computed(() => badgeVariants());
+  // Signal-based inputs with lm prefix (Angular 20+)
+  lmVariant = input<BadgeVariant>('default');
+  lmRadius = input<BadgeRadius>('default');
+
+  // Computed class string
+  classes = computed(() =>
+    badgeVariants({
+      variant: this.lmVariant(),
+      radius: this.lmRadius(),
+    }),
+  );
 
   @HostBinding('class')
   get hostClasses(): string {

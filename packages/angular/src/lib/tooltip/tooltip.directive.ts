@@ -2,6 +2,7 @@ import {
   Directive,
   ElementRef,
   HostListener,
+  NgZone,
   Renderer2,
   computed,
   effect,
@@ -11,20 +12,23 @@ import {
   OnDestroy,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { tooltipVariants, type TooltipPosition } from '@lumaui/core';
+
+const TOOLTIP_GAP = 8;
 
 @Directive({
   selector: '[lumaTooltip]',
   host: {
     '[attr.aria-describedby]': 'tooltipId',
-    '[style.position]': '"relative"',
   },
 })
 export class LmTooltipDirective implements OnDestroy {
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
   private platformId = inject(PLATFORM_ID);
+  private document = inject(DOCUMENT);
+  private ngZone = inject(NgZone);
 
   // Inputs with lm prefix following Lumo convention
   lumaTooltip = input.required<string>();
@@ -40,10 +44,12 @@ export class LmTooltipDirective implements OnDestroy {
 
   private tooltipElement: HTMLElement | null = null;
   private showTimeout: ReturnType<typeof setTimeout> | null = null;
+  private scrollListener: (() => void) | null = null;
+  private resizeListener: (() => void) | null = null;
+  private captureScrollHandler: (() => void) | null = null;
 
   classes = computed(() =>
     tooltipVariants({
-      position: this.actualPosition(),
       visible: this.isVisible(),
     }),
   );
@@ -65,7 +71,8 @@ export class LmTooltipDirective implements OnDestroy {
     this.tooltipElement = this.renderer.createElement('div');
     this.renderer.setAttribute(this.tooltipElement, 'id', this.tooltipId);
     this.renderer.setAttribute(this.tooltipElement, 'role', 'tooltip');
-    this.renderer.appendChild(this.el.nativeElement, this.tooltipElement);
+    // Portal: append to document.body to avoid overflow clipping
+    this.renderer.appendChild(this.document.body, this.tooltipElement);
   }
 
   private updateContent(): void {
@@ -84,6 +91,83 @@ export class LmTooltipDirective implements OnDestroy {
     this.tooltipElement.className = this.classes();
   }
 
+  private updatePosition(): void {
+    if (!this.tooltipElement || !isPlatformBrowser(this.platformId)) return;
+
+    const triggerRect = this.el.nativeElement.getBoundingClientRect();
+    const position = this.actualPosition();
+
+    let top: number;
+    let left: number;
+    let transform: string;
+
+    switch (position) {
+      case 'top':
+        left = triggerRect.left + triggerRect.width / 2;
+        top = triggerRect.top - TOOLTIP_GAP;
+        transform = 'translate(-50%, -100%)';
+        break;
+      case 'bottom':
+        left = triggerRect.left + triggerRect.width / 2;
+        top = triggerRect.bottom + TOOLTIP_GAP;
+        transform = 'translate(-50%, 0%)';
+        break;
+      case 'left':
+        left = triggerRect.left - TOOLTIP_GAP;
+        top = triggerRect.top + triggerRect.height / 2;
+        transform = 'translate(-100%, -50%)';
+        break;
+      case 'right':
+        left = triggerRect.right + TOOLTIP_GAP;
+        top = triggerRect.top + triggerRect.height / 2;
+        transform = 'translate(0%, -50%)';
+        break;
+    }
+
+    this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
+    this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);
+    this.renderer.setStyle(this.tooltipElement, 'transform', transform);
+  }
+
+  private addPositionListeners(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Run outside Angular zone for performance — no change detection needed
+    this.ngZone.runOutsideAngular(() => {
+      const onReposition = () => this.updatePosition();
+
+      this.scrollListener = this.renderer.listen(
+        'window',
+        'scroll',
+        onReposition,
+      );
+      // Capture phase catches scroll events on any ancestor
+      this.document.addEventListener('scroll', onReposition, true);
+      this.captureScrollHandler = onReposition;
+      this.resizeListener = this.renderer.listen(
+        'window',
+        'resize',
+        onReposition,
+      );
+    });
+  }
+
+  private removePositionListeners(): void {
+    if (this.scrollListener) {
+      this.scrollListener();
+      this.scrollListener = null;
+    }
+    if (this.resizeListener) {
+      this.resizeListener();
+      this.resizeListener = null;
+    }
+    // Remove capture-phase scroll listener
+    if (this.captureScrollHandler) {
+      this.document.removeEventListener('scroll', this.captureScrollHandler, true);
+      this.captureScrollHandler = null;
+    }
+  }
+
   private isTouchDevice(): boolean {
     if (!isPlatformBrowser(this.platformId)) return false;
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -98,26 +182,31 @@ export class LmTooltipDirective implements OnDestroy {
     const tooltipRect = this.tooltipElement.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    const offset = 8; // --luma-tooltip-offset
 
     switch (preferred) {
       case 'top':
-        if (triggerRect.top - tooltipRect.height - offset < 0) {
+        if (triggerRect.top - tooltipRect.height - TOOLTIP_GAP < 0) {
           return 'bottom';
         }
         break;
       case 'bottom':
-        if (triggerRect.bottom + tooltipRect.height + offset > viewportHeight) {
+        if (
+          triggerRect.bottom + tooltipRect.height + TOOLTIP_GAP >
+          viewportHeight
+        ) {
           return 'top';
         }
         break;
       case 'left':
-        if (triggerRect.left - tooltipRect.width - offset < 0) {
+        if (triggerRect.left - tooltipRect.width - TOOLTIP_GAP < 0) {
           return 'right';
         }
         break;
       case 'right':
-        if (triggerRect.right + tooltipRect.width + offset > viewportWidth) {
+        if (
+          triggerRect.right + tooltipRect.width + TOOLTIP_GAP >
+          viewportWidth
+        ) {
           return 'left';
         }
         break;
@@ -171,7 +260,12 @@ export class LmTooltipDirective implements OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (this.lmTrigger() !== 'click' && !this.isTouchDevice()) return;
-    if (!this.el.nativeElement.contains(event.target)) {
+    const target = event.target as Node;
+    // Check both trigger and portal tooltip (tooltip is now in body, not trigger)
+    if (
+      !this.el.nativeElement.contains(target) &&
+      !this.tooltipElement?.contains(target)
+    ) {
       this.hide();
     }
   }
@@ -179,7 +273,11 @@ export class LmTooltipDirective implements OnDestroy {
   @HostListener('document:touchstart', ['$event'])
   onDocumentTouch(event: TouchEvent): void {
     if (!this.isVisible()) return;
-    if (!this.el.nativeElement.contains(event.target)) {
+    const target = event.target as Node;
+    if (
+      !this.el.nativeElement.contains(target) &&
+      !this.tooltipElement?.contains(target)
+    ) {
       this.hide();
     }
   }
@@ -189,12 +287,15 @@ export class LmTooltipDirective implements OnDestroy {
 
     const delay = this.lmDelay();
     const showAction = () => {
+      // Calculate position with auto-flip
+      const actualPosition = this.getFlippedPosition(this.lmPosition());
+      this.actualPosition.set(actualPosition);
       this.isVisible.set(true);
-      // Calculate position with auto-flip after tooltip is visible
+      this.updateClasses();
+      // Position after DOM paint so tooltip dimensions are available
       requestAnimationFrame(() => {
-        const actualPosition = this.getFlippedPosition(this.lmPosition());
-        this.actualPosition.set(actualPosition);
-        this.updateClasses();
+        this.updatePosition();
+        this.addPositionListeners();
       });
     };
 
@@ -212,6 +313,7 @@ export class LmTooltipDirective implements OnDestroy {
     }
     this.isVisible.set(false);
     this.updateClasses();
+    this.removePositionListeners();
   }
 
   toggle(): void {
@@ -224,8 +326,9 @@ export class LmTooltipDirective implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this.showTimeout) clearTimeout(this.showTimeout);
+    this.removePositionListeners();
     if (this.tooltipElement) {
-      this.renderer.removeChild(this.el.nativeElement, this.tooltipElement);
+      this.renderer.removeChild(this.document.body, this.tooltipElement);
     }
   }
 }

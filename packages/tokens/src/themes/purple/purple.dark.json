@@ -1,0 +1,86 @@
+{
+  "luma": {
+    "primary": {
+      "1": {
+        "value": "oklch(0.13 0.030 300)",
+        "type": "color",
+        "description": "Very dark background"
+      },
+      "2": {
+        "value": "oklch(0.18 0.045 300)",
+        "type": "color",
+        "description": "Dark background"
+      },
+      "3": {
+        "value": "oklch(0.23 0.055 300)",
+        "type": "color",
+        "description": "Medium-dark"
+      },
+      "4": {
+        "value": "oklch(0.33 0.075 300)",
+        "type": "color",
+        "description": "Medium"
+      },
+      "5": {
+        "value": "oklch(0.72 0.120 300)",
+        "type": "color",
+        "description": "BASE COLOR - brighter in dark mode for better contrast"
+      },
+      "6": {
+        "value": "oklch(0.78 0.125 300)",
+        "type": "color",
+        "description": "Lighter hover"
+      },
+      "7": {
+        "value": "oklch(0.83 0.115 300)",
+        "type": "color",
+        "description": "Light"
+      },
+      "8": {
+        "value": "oklch(0.88 0.100 300)",
+        "type": "color",
+        "description": "Lighter"
+      },
+      "9": {
+        "value": "oklch(0.91 0.080 300)",
+        "type": "color",
+        "description": "Very light"
+      },
+      "10": {
+        "value": "oklch(0.94 0.060 300)",
+        "type": "color",
+        "description": "Near-white"
+      },
+      "11": {
+        "value": "oklch(0.96 0.040 300)",
+        "type": "color",
+        "description": "Very light tint"
+      },
+      "12": {
+        "value": "oklch(0.98 0.020 300)",
+        "type": "color",
+        "description": "Text/links (nearly white)"
+      }
+    },
+    "background": {
+      "value": "oklch(0.16 0.006 290)",
+      "type": "color",
+      "description": "App background (dark theme)"
+    },
+    "foreground": {
+      "value": "oklch(0.92 0.01 290)",
+      "type": "color",
+      "description": "Primary text color (light gray in dark theme)"
+    },
+    "popover": {
+      "value": "oklch(0.98 0.020 300)",
+      "type": "color",
+      "description": "Popover/tooltip background (light for high contrast in dark theme)"
+    },
+    "popover-foreground": {
+      "value": "oklch(0.16 0.006 290)",
+      "type": "color",
+      "description": "Popover/tooltip text (dark for high contrast in dark theme)"
+    }
+  }
+}

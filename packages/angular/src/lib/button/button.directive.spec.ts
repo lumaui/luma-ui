@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
       lumaButton
       [lmVariant]="lmVariant"
       [lmSize]="lmSize"
+      [lmRadius]="lmRadius"
       [lmDisabled]="lmDisabled"
       [lmType]="lmType"
     >
@@ -23,8 +24,10 @@ import { By } from '@angular/platform-browser';
   imports: [LmButtonDirective],
 })
 class ButtonTestHostComponent {
-  lmVariant: 'primary' | 'outline' | 'ghost' | 'danger' = 'primary';
-  lmSize: 'sm' | 'md' | 'lg' | 'full' = 'md';
+  lmVariant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' =
+    'primary';
+  lmSize: 'sm' | 'md' | 'lg' = 'md';
+  lmRadius: 'default' | 'square' | 'full' = 'default';
   lmDisabled = false;
   lmType: 'button' | 'submit' | 'reset' = 'button';
 }
@@ -36,7 +39,8 @@ class ButtonTestHostComponent {
   imports: [LmButtonDirective],
 })
 class AnchorButtonTestHostComponent {
-  lmVariant: 'primary' | 'outline' | 'ghost' | 'danger' = 'primary';
+  lmVariant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' =
+    'primary';
 }
 
 @Component({
@@ -52,293 +56,144 @@ class SubmitButtonTestHostComponent {}
 class ResetButtonTestHostComponent {}
 
 // ============================================================
-// TOKEN DEFINITIONS
+// SEMANTIC TOKEN DEFINITIONS
 // ============================================================
 
-const BUTTON_TOKENS = {
-  primary: {
-    bg: 'oklch(0.54 0.1 230)',
-    bgHover: 'oklch(0.49 0.09 230)',
-    bgActive: 'oklch(0.44 0.08 230)',
-    text: 'oklch(1 0 0)',
-  },
-  outline: {
-    border: 'oklch(0.5 0.01 0)',
-    borderHover: 'oklch(0.2 0.005 0)',
-    bgHover: 'oklch(0.96 0.01 230)',
-    text: 'oklch(0.2 0.005 0)',
-  },
-  ghost: {
-    bg: 'rgba(0, 0, 0, 0)',
-    bgHover: 'oklch(0.96 0.01 230)',
-    text: 'oklch(0.2 0.005 0)',
-  },
-  danger: {
-    bg: 'oklch(0.55 0.22 25)',
-    bgHover: 'oklch(0.50 0.20 25)',
-    bgActive: 'oklch(0.45 0.18 25)',
-    text: 'oklch(1 0 0)',
-  },
-  padding: {
-    xSm: '1rem',
-    xMd: '1.5rem',
-    xLg: '2rem',
-    ySm: '0.5rem',
-    yMd: '0.75rem',
-    yLg: '1rem',
-  },
-  radius: '10px',
-  focus: {
-    ringWidth: '2px',
-    ringColor: 'oklch(0.54 0.1 230 / 0.25)',
-  },
-  transition: {
-    duration: '200ms',
-    timing: 'ease-out',
+const SEMANTIC_TOKENS = {
+  colors: {
+    primary: 'oklch(0.48 0.09 300)',
+    primaryForeground: 'oklch(1 0 0)',
+    secondary: 'oklch(0.97 0.006 290)',
+    secondaryForeground: 'oklch(0.22 0.014 290)',
+    destructive: 'oklch(0.63 0.10 28)',
+    destructiveForeground: 'oklch(1 0 0)',
+    accent: 'oklch(0.97 0.006 290)',
+    accentForeground: 'oklch(0.22 0.014 290)',
+    background: 'oklch(1 0 0)',
+    foreground: 'oklch(0.22 0.014 290)',
+    input: 'oklch(0.97 0.006 290)',
+    ring: 'oklch(0.55 0.10 300 / 0.35)',
   },
 } as const;
 
-const DARK_TOKENS = {
-  primary: {
-    bg: 'oklch(0.64 0.12 230)',
-    bgHover: 'oklch(0.69 0.12 230)',
-    bgActive: 'oklch(0.74 0.13 230)',
-    text: 'oklch(0.1 0 0)',
-  },
-  outline: {
-    border: 'oklch(0.65 0.01 0)',
-    borderHover: 'oklch(0.98 0.002 0)',
-    bgHover: 'oklch(0.20 0.01 230)',
-    text: 'oklch(0.98 0.002 0)',
-  },
-  ghost: {
-    bgHover: 'oklch(0.20 0.01 230)',
-    text: 'oklch(0.98 0.002 0)',
-  },
-  danger: {
-    bg: 'oklch(0.60 0.24 25)',
-    bgHover: 'oklch(0.65 0.25 25)',
-    bgActive: 'oklch(0.70 0.26 25)',
-    text: 'oklch(0.1 0 0)',
-  },
-  focus: {
-    ringColor: 'oklch(0.64 0.12 230 / 0.25)',
+const DARK_SEMANTIC_TOKENS = {
+  colors: {
+    primary: 'oklch(0.72 0.12 300)',
+    primaryForeground: 'oklch(1 0 0)',
+    secondary: 'oklch(0.22 0.008 290)',
+    secondaryForeground: 'oklch(0.92 0.01 290)',
+    destructive: 'oklch(0.72 0.12 28)',
+    destructiveForeground: 'oklch(1 0 0)',
+    accent: 'oklch(0.22 0.008 290)',
+    accentForeground: 'oklch(0.92 0.01 290)',
+    background: 'oklch(0.16 0.006 290)',
+    foreground: 'oklch(0.92 0.01 290)',
+    input: 'oklch(0.22 0.008 290)',
+    ring: 'oklch(0.78 0.12 300 / 0.4)',
   },
 } as const;
 
 // ============================================================
-// TOKEN SETUP/CLEANUP UTILITIES
+// SETUP & CLEANUP FUNCTIONS
 // ============================================================
 
-function setupButtonTokens(): void {
+function setupSemanticTokens(): void {
   const root = document.documentElement;
-
-  // Primary variant
-  root.style.setProperty('--luma-button-primary-bg', BUTTON_TOKENS.primary.bg);
+  root.style.setProperty('--color-primary', SEMANTIC_TOKENS.colors.primary);
   root.style.setProperty(
-    '--luma-button-primary-bg-hover',
-    BUTTON_TOKENS.primary.bgHover,
+    '--color-primary-foreground',
+    SEMANTIC_TOKENS.colors.primaryForeground,
+  );
+  root.style.setProperty('--color-secondary', SEMANTIC_TOKENS.colors.secondary);
+  root.style.setProperty(
+    '--color-secondary-foreground',
+    SEMANTIC_TOKENS.colors.secondaryForeground,
   );
   root.style.setProperty(
-    '--luma-button-primary-bg-active',
-    BUTTON_TOKENS.primary.bgActive,
+    '--color-destructive',
+    SEMANTIC_TOKENS.colors.destructive,
   );
   root.style.setProperty(
-    '--luma-button-primary-text',
-    BUTTON_TOKENS.primary.text,
+    '--color-destructive-foreground',
+    SEMANTIC_TOKENS.colors.destructiveForeground,
   );
-
-  // Outline variant
+  root.style.setProperty('--color-accent', SEMANTIC_TOKENS.colors.accent);
   root.style.setProperty(
-    '--luma-button-outline-border',
-    BUTTON_TOKENS.outline.border,
-  );
-  root.style.setProperty(
-    '--luma-button-outline-border-hover',
-    BUTTON_TOKENS.outline.borderHover,
+    '--color-accent-foreground',
+    SEMANTIC_TOKENS.colors.accentForeground,
   );
   root.style.setProperty(
-    '--luma-button-outline-bg-hover',
-    BUTTON_TOKENS.outline.bgHover,
+    '--color-background',
+    SEMANTIC_TOKENS.colors.background,
   );
   root.style.setProperty(
-    '--luma-button-outline-text',
-    BUTTON_TOKENS.outline.text,
+    '--color-foreground',
+    SEMANTIC_TOKENS.colors.foreground,
   );
-
-  // Ghost variant
-  root.style.setProperty('--luma-button-ghost-bg', BUTTON_TOKENS.ghost.bg);
-  root.style.setProperty(
-    '--luma-button-ghost-bg-hover',
-    BUTTON_TOKENS.ghost.bgHover,
-  );
-  root.style.setProperty('--luma-button-ghost-text', BUTTON_TOKENS.ghost.text);
-
-  // Danger variant
-  root.style.setProperty('--luma-button-danger-bg', BUTTON_TOKENS.danger.bg);
-  root.style.setProperty(
-    '--luma-button-danger-bg-hover',
-    BUTTON_TOKENS.danger.bgHover,
-  );
-  root.style.setProperty(
-    '--luma-button-danger-bg-active',
-    BUTTON_TOKENS.danger.bgActive,
-  );
-  root.style.setProperty(
-    '--luma-button-danger-text',
-    BUTTON_TOKENS.danger.text,
-  );
-
-  // Padding
-  root.style.setProperty(
-    '--luma-button-padding-x-sm',
-    BUTTON_TOKENS.padding.xSm,
-  );
-  root.style.setProperty(
-    '--luma-button-padding-x-md',
-    BUTTON_TOKENS.padding.xMd,
-  );
-  root.style.setProperty(
-    '--luma-button-padding-x-lg',
-    BUTTON_TOKENS.padding.xLg,
-  );
-  root.style.setProperty(
-    '--luma-button-padding-y-sm',
-    BUTTON_TOKENS.padding.ySm,
-  );
-  root.style.setProperty(
-    '--luma-button-padding-y-md',
-    BUTTON_TOKENS.padding.yMd,
-  );
-  root.style.setProperty(
-    '--luma-button-padding-y-lg',
-    BUTTON_TOKENS.padding.yLg,
-  );
-
-  // Radius
-  root.style.setProperty('--luma-button-radius', BUTTON_TOKENS.radius);
-
-  // Focus
-  root.style.setProperty(
-    '--luma-button-focus-ring-width',
-    BUTTON_TOKENS.focus.ringWidth,
-  );
-  root.style.setProperty(
-    '--luma-button-focus-ring-color',
-    BUTTON_TOKENS.focus.ringColor,
-  );
-
-  // Transition
-  root.style.setProperty(
-    '--luma-button-transition-duration',
-    BUTTON_TOKENS.transition.duration,
-  );
-  root.style.setProperty(
-    '--luma-button-transition-timing',
-    BUTTON_TOKENS.transition.timing,
-  );
+  root.style.setProperty('--color-input', SEMANTIC_TOKENS.colors.input);
+  root.style.setProperty('--color-ring', SEMANTIC_TOKENS.colors.ring);
 }
 
-function cleanupButtonTokens(): void {
+function cleanupSemanticTokens(): void {
   const root = document.documentElement;
-  const tokenNames = [
-    '--luma-button-primary-bg',
-    '--luma-button-primary-bg-hover',
-    '--luma-button-primary-bg-active',
-    '--luma-button-primary-text',
-    '--luma-button-outline-border',
-    '--luma-button-outline-border-hover',
-    '--luma-button-outline-bg-hover',
-    '--luma-button-outline-text',
-    '--luma-button-ghost-bg',
-    '--luma-button-ghost-bg-hover',
-    '--luma-button-ghost-text',
-    '--luma-button-danger-bg',
-    '--luma-button-danger-bg-hover',
-    '--luma-button-danger-bg-active',
-    '--luma-button-danger-text',
-    '--luma-button-padding-x-sm',
-    '--luma-button-padding-x-md',
-    '--luma-button-padding-x-lg',
-    '--luma-button-padding-y-sm',
-    '--luma-button-padding-y-md',
-    '--luma-button-padding-y-lg',
-    '--luma-button-radius',
-    '--luma-button-focus-ring-width',
-    '--luma-button-focus-ring-color',
-    '--luma-button-transition-duration',
-    '--luma-button-transition-timing',
-  ];
-
-  tokenNames.forEach((name) => root.style.removeProperty(name));
+  root.style.removeProperty('--color-primary');
+  root.style.removeProperty('--color-primary-foreground');
+  root.style.removeProperty('--color-secondary');
+  root.style.removeProperty('--color-secondary-foreground');
+  root.style.removeProperty('--color-destructive');
+  root.style.removeProperty('--color-destructive-foreground');
+  root.style.removeProperty('--color-accent');
+  root.style.removeProperty('--color-accent-foreground');
+  root.style.removeProperty('--color-background');
+  root.style.removeProperty('--color-foreground');
+  root.style.removeProperty('--color-input');
+  root.style.removeProperty('--color-ring');
   root.classList.remove('dark');
 }
 
 function applyDarkTheme(): void {
+  document.documentElement.classList.add('dark');
   const root = document.documentElement;
-  root.classList.add('dark');
-
-  // Primary
-  root.style.setProperty('--luma-button-primary-bg', DARK_TOKENS.primary.bg);
+  root.style.setProperty('--color-primary', DARK_SEMANTIC_TOKENS.colors.primary);
   root.style.setProperty(
-    '--luma-button-primary-bg-hover',
-    DARK_TOKENS.primary.bgHover,
+    '--color-primary-foreground',
+    DARK_SEMANTIC_TOKENS.colors.primaryForeground,
   );
   root.style.setProperty(
-    '--luma-button-primary-bg-active',
-    DARK_TOKENS.primary.bgActive,
+    '--color-secondary',
+    DARK_SEMANTIC_TOKENS.colors.secondary,
   );
   root.style.setProperty(
-    '--luma-button-primary-text',
-    DARK_TOKENS.primary.text,
-  );
-
-  // Outline
-  root.style.setProperty(
-    '--luma-button-outline-border',
-    DARK_TOKENS.outline.border,
+    '--color-secondary-foreground',
+    DARK_SEMANTIC_TOKENS.colors.secondaryForeground,
   );
   root.style.setProperty(
-    '--luma-button-outline-border-hover',
-    DARK_TOKENS.outline.borderHover,
+    '--color-destructive',
+    DARK_SEMANTIC_TOKENS.colors.destructive,
   );
   root.style.setProperty(
-    '--luma-button-outline-bg-hover',
-    DARK_TOKENS.outline.bgHover,
+    '--color-destructive-foreground',
+    DARK_SEMANTIC_TOKENS.colors.destructiveForeground,
+  );
+  root.style.setProperty('--color-accent', DARK_SEMANTIC_TOKENS.colors.accent);
+  root.style.setProperty(
+    '--color-accent-foreground',
+    DARK_SEMANTIC_TOKENS.colors.accentForeground,
   );
   root.style.setProperty(
-    '--luma-button-outline-text',
-    DARK_TOKENS.outline.text,
-  );
-
-  // Ghost
-  root.style.setProperty(
-    '--luma-button-ghost-bg-hover',
-    DARK_TOKENS.ghost.bgHover,
-  );
-  root.style.setProperty('--luma-button-ghost-text', DARK_TOKENS.ghost.text);
-
-  // Danger
-  root.style.setProperty('--luma-button-danger-bg', DARK_TOKENS.danger.bg);
-  root.style.setProperty(
-    '--luma-button-danger-bg-hover',
-    DARK_TOKENS.danger.bgHover,
+    '--color-background',
+    DARK_SEMANTIC_TOKENS.colors.background,
   );
   root.style.setProperty(
-    '--luma-button-danger-bg-active',
-    DARK_TOKENS.danger.bgActive,
+    '--color-foreground',
+    DARK_SEMANTIC_TOKENS.colors.foreground,
   );
-  root.style.setProperty('--luma-button-danger-text', DARK_TOKENS.danger.text);
-
-  // Focus
-  root.style.setProperty(
-    '--luma-button-focus-ring-color',
-    DARK_TOKENS.focus.ringColor,
-  );
+  root.style.setProperty('--color-input', DARK_SEMANTIC_TOKENS.colors.input);
+  root.style.setProperty('--color-ring', DARK_SEMANTIC_TOKENS.colors.ring);
 }
 
 // ============================================================
-// TEST SUITES
+// TEST SUITE
 // ============================================================
 
 describe('LmButtonDirective', () => {
@@ -352,6 +207,7 @@ describe('LmButtonDirective', () => {
       imports: [
         LmButtonDirective,
         ButtonTestHostComponent,
+        AnchorButtonTestHostComponent,
         SubmitButtonTestHostComponent,
         ResetButtonTestHostComponent,
       ],
@@ -361,731 +217,339 @@ describe('LmButtonDirective', () => {
     hostComponent = fixture.componentInstance;
     buttonElement = fixture.debugElement.query(By.directive(LmButtonDirective));
     directive = buttonElement.injector.get(LmButtonDirective);
-
-    setupButtonTokens();
-    // Note: Don't call detectChanges() here - let each test/describe handle it
-    // to avoid ExpressionChangedAfterItHasBeenCheckedError
+    setupSemanticTokens();
   });
 
   afterEach(() => {
-    cleanupButtonTokens();
+    cleanupSemanticTokens();
   });
 
   // ============================================================
-  // BASIC DIRECTIVE TESTS
+  // BASIC CREATION
   // ============================================================
 
-  describe('Basic Directive Creation', () => {
-    it('should create the directive', () => {
-      expect(directive).toBeTruthy();
-    });
-
-    it('should apply as directive on button element', () => {
-      fixture.detectChanges();
-      expect(buttonElement.nativeElement.tagName).toBe('BUTTON');
-    });
-
-    it('should have signal-based inputs', () => {
-      expect(typeof directive.lmVariant).toBe('function');
-      expect(typeof directive.lmSize).toBe('function');
-      expect(typeof directive.lmDisabled).toBe('function');
-      expect(typeof directive.lmType).toBe('function');
-    });
-
-    it('should have computed classes signal', () => {
-      expect(typeof directive.classes).toBe('function');
-      expect(typeof directive.classes()).toBe('string');
-    });
-
-    it('should apply default variant (primary) when not specified', () => {
-      fixture.detectChanges();
-      expect(directive.lmVariant()).toBe('primary');
-    });
-
-    it('should apply default size (md) when not specified', () => {
-      fixture.detectChanges();
-      expect(directive.lmSize()).toBe('md');
-    });
-
-    it('should set type attribute to button by default', () => {
-      fixture.detectChanges();
-      expect(buttonElement.nativeElement.getAttribute('type')).toBe('button');
-    });
-
-    it('should maintain consistent class generation across multiple calls', () => {
-      fixture.detectChanges();
-      const classes1 = directive.classes();
-      const classes2 = directive.classes();
-      expect(classes1).toBe(classes2);
-    });
+  it('should create the directive', () => {
+    expect(directive).toBeTruthy();
   });
 
   // ============================================================
-  // DESIGN TOKEN DEFINITION TESTS
+  // BASE CLASSES TESTS
   // ============================================================
 
-  describe('Design Token Definition', () => {
-    describe('Primary Variant Tokens', () => {
-      it('should define --luma-button-primary-bg css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-bg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.bg);
-      });
-
-      it('should define --luma-button-primary-bg-hover css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.bgHover);
-      });
-
-      it('should define --luma-button-primary-bg-active css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-bg-active')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.bgActive);
-      });
-
-      it('should define --luma-button-primary-text css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.text);
-      });
+  describe('Base Classes', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
     });
 
-    describe('Outline Variant Tokens', () => {
-      it('should define --luma-button-outline-border css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-border')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.border);
-      });
-
-      it('should define --luma-button-outline-border-hover css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-border-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.borderHover);
-      });
-
-      it('should define --luma-button-outline-bg-hover css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.bgHover);
-      });
-
-      it('should define --luma-button-outline-text css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.text);
-      });
+    it('should apply base layout classes', () => {
+      const classes = directive.classes();
+      expect(classes).toContain('inline-flex');
+      expect(classes).toContain('items-center');
+      expect(classes).toContain('justify-center');
+      expect(classes).toContain('gap-2');
     });
 
-    describe('Ghost Variant Tokens', () => {
-      it('should define --luma-button-ghost-bg css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-ghost-bg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.ghost.bg);
-      });
-
-      it('should define --luma-button-ghost-bg-hover css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-ghost-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.ghost.bgHover);
-      });
-
-      it('should define --luma-button-ghost-text css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-ghost-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.ghost.text);
-      });
+    it('should apply typography classes', () => {
+      const classes = directive.classes();
+      expect(classes).toContain('font-medium');
+      expect(classes).toContain('whitespace-nowrap');
     });
 
-    describe('Danger Variant Tokens', () => {
-      it('should define --luma-button-danger-bg css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-bg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.bg);
-      });
-
-      it('should define --luma-button-danger-bg-hover css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.bgHover);
-      });
-
-      it('should define --luma-button-danger-bg-active css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-bg-active')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.bgActive);
-      });
-
-      it('should define --luma-button-danger-text css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.text);
-      });
+    it('should apply calm interaction transition classes', () => {
+      const classes = directive.classes();
+      expect(classes).toContain('transition-colors');
+      expect(classes).toContain('duration-200');
     });
 
-    describe('Dimension Tokens', () => {
-      it('should define --luma-button-padding-x-sm css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-x-sm')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.xSm);
-      });
-
-      it('should define --luma-button-padding-x-md css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-x-md')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.xMd);
-      });
-
-      it('should define --luma-button-padding-x-lg css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-x-lg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.xLg);
-      });
-
-      it('should define --luma-button-padding-y-sm css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-y-sm')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.ySm);
-      });
-
-      it('should define --luma-button-padding-y-md css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-y-md')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.yMd);
-      });
-
-      it('should define --luma-button-padding-y-lg css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-y-lg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.yLg);
-      });
-
-      it('should define --luma-button-radius css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-radius')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.radius);
-      });
+    it('should apply focus-visible ring classes using semantic token', () => {
+      const classes = directive.classes();
+      expect(classes).toContain('focus-visible:outline-none');
+      expect(classes).toContain('focus-visible:ring-2');
+      expect(classes).toContain('focus-visible:ring-ring');
+      expect(classes).toContain('focus-visible:ring-offset-2');
     });
 
-    describe('Focus Tokens', () => {
-      it('should define --luma-button-focus-ring-width css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-focus-ring-width')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.focus.ringWidth);
-      });
-
-      it('should define --luma-button-focus-ring-color css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-focus-ring-color')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.focus.ringColor);
-      });
-    });
-
-    describe('Transition Tokens', () => {
-      it('should define --luma-button-transition-duration css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-transition-duration')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.transition.duration);
-      });
-
-      it('should define --luma-button-transition-timing css variable', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-transition-timing')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.transition.timing);
-      });
+    it('should apply disabled state classes', () => {
+      const classes = directive.classes();
+      expect(classes).toContain('disabled:pointer-events-none');
+      expect(classes).toContain('disabled:opacity-50');
     });
   });
 
   // ============================================================
-  // TOKEN CONSUMPTION TESTS
-  // ============================================================
-  // These tests verify that when a variant is selected, the corresponding
-  // tokens are accessible and the correct classes are applied.
-  // CSS variables are inherited from document.documentElement.
-
-  describe('Token Consumption', () => {
-    describe('Primary Variant', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'primary';
-        fixture.detectChanges();
-      });
-
-      it('should have access to --luma-button-primary-bg token', () => {
-        // Token is set on document root and inherited by all elements
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-bg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.bg);
-      });
-
-      it('should have access to --luma-button-primary-text token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.text);
-      });
-
-      it('should have access to --luma-button-primary-bg-hover token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-primary-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.primary.bgHover);
-      });
-    });
-
-    describe('Outline Variant', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'outline';
-        fixture.detectChanges();
-      });
-
-      it('should have access to --luma-button-outline-border token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-border')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.border);
-      });
-
-      it('should have access to --luma-button-outline-text token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.text);
-      });
-
-      it('should have access to --luma-button-outline-bg-hover token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-outline-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.outline.bgHover);
-      });
-    });
-
-    describe('Ghost Variant', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'ghost';
-        fixture.detectChanges();
-      });
-
-      it('should have access to --luma-button-ghost-bg token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-ghost-bg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.ghost.bg);
-      });
-
-      it('should have access to --luma-button-ghost-text token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-ghost-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.ghost.text);
-      });
-
-      it('should have access to --luma-button-ghost-bg-hover token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-ghost-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.ghost.bgHover);
-      });
-    });
-
-    describe('Danger Variant', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'danger';
-        fixture.detectChanges();
-      });
-
-      it('should have access to --luma-button-danger-bg token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-bg')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.bg);
-      });
-
-      it('should have access to --luma-button-danger-text token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-text')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.text);
-      });
-
-      it('should have access to --luma-button-danger-bg-hover token', () => {
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-danger-bg-hover')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.danger.bgHover);
-      });
-    });
-
-    describe('Dimension Tokens', () => {
-      it('should have access to --luma-button-padding-x-md token', () => {
-        hostComponent.lmSize = 'md';
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-x-md')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.xMd);
-      });
-
-      it('should have access to --luma-button-padding-y-md token', () => {
-        hostComponent.lmSize = 'md';
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-padding-y-md')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.padding.yMd);
-      });
-
-      it('should have access to --luma-button-radius token', () => {
-        fixture.detectChanges();
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--luma-button-radius')
-          .trim();
-        expect(value).toBe(BUTTON_TOKENS.radius);
-      });
-    });
-  });
-
-  // ============================================================
-  // TOKEN OVERRIDE TESTS
+  // PRIMARY VARIANT TESTS
   // ============================================================
 
-  describe('Token Override', () => {
-    it('should respect custom radius token override', () => {
-      const customRadius = '20px';
-      document.documentElement.style.setProperty(
-        '--luma-button-radius',
-        customRadius,
-      );
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-radius')
-        .trim();
-      expect(value).toBe(customRadius);
-    });
-
-    it('should respect custom padding-x override', () => {
-      const customPadding = '3rem';
-      document.documentElement.style.setProperty(
-        '--luma-button-padding-x-md',
-        customPadding,
-      );
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-padding-x-md')
-        .trim();
-      expect(value).toBe(customPadding);
-    });
-
-    it('should respect custom padding-y override', () => {
-      const customPadding = '1.5rem';
-      document.documentElement.style.setProperty(
-        '--luma-button-padding-y-md',
-        customPadding,
-      );
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-padding-y-md')
-        .trim();
-      expect(value).toBe(customPadding);
-    });
-
-    it('should respect custom primary background override', () => {
-      const customColor = 'oklch(0.6 0.15 250)';
-      document.documentElement.style.setProperty(
-        '--luma-button-primary-bg',
-        customColor,
-      );
+  describe('Primary Variant', () => {
+    beforeEach(() => {
       hostComponent.lmVariant = 'primary';
       fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-primary-bg')
-        .trim();
-      expect(value).toBe(customColor);
     });
 
-    it('should respect custom focus ring width override', () => {
-      const customWidth = '4px';
-      document.documentElement.style.setProperty(
-        '--luma-button-focus-ring-width',
-        customWidth,
-      );
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-focus-ring-width')
-        .trim();
-      expect(value).toBe(customWidth);
+    it('should apply primary background class', () => {
+      expect(directive.classes()).toContain('bg-primary');
     });
 
-    it('should respect custom transition duration override', () => {
-      const customDuration = '300ms';
-      document.documentElement.style.setProperty(
-        '--luma-button-transition-duration',
-        customDuration,
-      );
-      fixture.detectChanges();
+    it('should apply primary foreground text class', () => {
+      expect(directive.classes()).toContain('text-primary-foreground');
+    });
 
+    it('should apply primary hover background class', () => {
+      expect(directive.classes()).toContain('hover:bg-primary/90');
+    });
+
+    it('should have access to --color-primary token', () => {
       const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-transition-duration')
+        .getPropertyValue('--color-primary')
         .trim();
-      expect(value).toBe(customDuration);
+      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
+    });
+
+    it('should have access to --color-primary-foreground token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-primary-foreground')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.primaryForeground);
     });
   });
 
   // ============================================================
-  // CLASS APPLICATION TESTS
+  // SECONDARY VARIANT TESTS
   // ============================================================
 
-  describe('Class Application', () => {
-    describe('Base Classes', () => {
-      beforeEach(() => {
-        fixture.detectChanges();
-      });
-
-      it('should apply inline-flex for layout', () => {
-        expect(directive.classes()).toContain('inline-flex');
-      });
-
-      it('should apply items-center for vertical alignment', () => {
-        expect(directive.classes()).toContain('items-center');
-      });
-
-      it('should apply justify-center for horizontal alignment', () => {
-        expect(directive.classes()).toContain('justify-center');
-      });
-
-      it('should apply font-medium for typography', () => {
-        expect(directive.classes()).toContain('font-medium');
-      });
-
-      it('should apply leading-snug for line height', () => {
-        expect(directive.classes()).toContain('leading-snug');
-      });
-
-      it('should remove default focus outline', () => {
-        expect(directive.classes()).toContain('focus:outline-none');
-      });
-
-      it('should apply focus-visible ring class', () => {
-        expect(directive.classes()).toContain(
-          'focus-visible:lm-ring-button-focus',
-        );
-      });
-
-      it('should apply transition class with CSS variables', () => {
-        expect(directive.classes()).toContain(
-          'transition-[color_var(--luma-button-transition-duration)_var(--luma-button-transition-timing)]',
-        );
-      });
+  describe('Secondary Variant', () => {
+    beforeEach(() => {
+      hostComponent.lmVariant = 'secondary';
+      fixture.detectChanges();
     });
 
-    describe('Primary Variant Classes', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'primary';
-        fixture.detectChanges();
-      });
-
-      it('should apply primary background class', () => {
-        expect(directive.classes()).toContain('lm-bg-button-primary-bg');
-      });
-
-      it('should apply primary text class', () => {
-        expect(directive.classes()).toContain('lm-text-button-primary-text');
-      });
-
-      it('should apply primary hover background class', () => {
-        expect(directive.classes()).toContain(
-          'hover:lm-bg-button-primary-bg-hover',
-        );
-      });
-
-      it('should apply primary active background class', () => {
-        expect(directive.classes()).toContain(
-          'active:lm-bg-button-primary-bg-active',
-        );
-      });
+    it('should apply secondary background class', () => {
+      expect(directive.classes()).toContain('bg-secondary');
     });
 
-    describe('Outline Variant Classes', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'outline';
-        fixture.detectChanges();
-      });
-
-      it('should apply transparent background', () => {
-        expect(directive.classes()).toContain('bg-transparent');
-      });
-
-      it('should apply outline text class', () => {
-        expect(directive.classes()).toContain('lm-text-button-outline-text');
-      });
-
-      it('should apply border class', () => {
-        expect(directive.classes()).toContain('border');
-      });
-
-      it('should apply outline border class', () => {
-        expect(directive.classes()).toContain(
-          'lm-border-button-outline-border',
-        );
-      });
-
-      it('should apply border hover class', () => {
-        expect(directive.classes()).toContain(
-          'hover:lm-border-button-outline-border-hover',
-        );
-      });
-
-      it('should apply background hover class', () => {
-        expect(directive.classes()).toContain(
-          'hover:lm-bg-button-outline-bg-hover',
-        );
-      });
+    it('should apply secondary foreground text class', () => {
+      expect(directive.classes()).toContain('text-secondary-foreground');
     });
 
-    describe('Ghost Variant Classes', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'ghost';
-        fixture.detectChanges();
-      });
+    it('should apply secondary hover background class', () => {
+      expect(directive.classes()).toContain('hover:bg-secondary/80');
+    });
+  });
 
-      it('should apply ghost background class', () => {
-        expect(directive.classes()).toContain('lm-bg-button-ghost-bg');
-      });
+  // ============================================================
+  // OUTLINE VARIANT TESTS
+  // ============================================================
 
-      it('should apply ghost text class', () => {
-        expect(directive.classes()).toContain('lm-text-button-ghost-text');
-      });
-
-      it('should apply ghost hover background class', () => {
-        expect(directive.classes()).toContain(
-          'hover:lm-bg-button-ghost-bg-hover',
-        );
-      });
+  describe('Outline Variant', () => {
+    beforeEach(() => {
+      hostComponent.lmVariant = 'outline';
+      fixture.detectChanges();
     });
 
-    describe('Danger Variant Classes', () => {
-      beforeEach(() => {
-        hostComponent.lmVariant = 'danger';
-        fixture.detectChanges();
-      });
-
-      it('should apply danger background class', () => {
-        expect(directive.classes()).toContain('lm-bg-button-danger-bg');
-      });
-
-      it('should apply danger text class', () => {
-        expect(directive.classes()).toContain('lm-text-button-danger-text');
-      });
-
-      it('should apply danger hover background class', () => {
-        expect(directive.classes()).toContain(
-          'hover:lm-bg-button-danger-bg-hover',
-        );
-      });
-
-      it('should apply danger active background class', () => {
-        expect(directive.classes()).toContain(
-          'active:lm-bg-button-danger-bg-active',
-        );
-      });
+    it('should apply border class', () => {
+      expect(directive.classes()).toContain('border');
     });
 
-    describe('Size Classes', () => {
-      it('should apply small size classes', () => {
+    it('should apply border-input class', () => {
+      expect(directive.classes()).toContain('border-input');
+    });
+
+    it('should apply background class', () => {
+      expect(directive.classes()).toContain('bg-background');
+    });
+
+    it('should apply hover accent background class', () => {
+      expect(directive.classes()).toContain('hover:bg-accent');
+    });
+
+    it('should apply hover accent foreground text class', () => {
+      expect(directive.classes()).toContain('hover:text-accent-foreground');
+    });
+  });
+
+  // ============================================================
+  // GHOST VARIANT TESTS
+  // ============================================================
+
+  describe('Ghost Variant', () => {
+    beforeEach(() => {
+      hostComponent.lmVariant = 'ghost';
+      fixture.detectChanges();
+    });
+
+    it('should apply hover accent background class', () => {
+      expect(directive.classes()).toContain('hover:bg-accent');
+    });
+
+    it('should apply hover accent foreground text class', () => {
+      expect(directive.classes()).toContain('hover:text-accent-foreground');
+    });
+
+    it('should not have base background class', () => {
+      expect(directive.classes()).not.toContain('bg-primary');
+      expect(directive.classes()).not.toContain('bg-secondary');
+    });
+  });
+
+  // ============================================================
+  // DESTRUCTIVE VARIANT TESTS
+  // ============================================================
+
+  describe('Destructive Variant', () => {
+    beforeEach(() => {
+      hostComponent.lmVariant = 'destructive';
+      fixture.detectChanges();
+    });
+
+    it('should apply destructive background class', () => {
+      expect(directive.classes()).toContain('bg-destructive');
+    });
+
+    it('should apply destructive foreground text class', () => {
+      expect(directive.classes()).toContain('text-destructive-foreground');
+    });
+
+    it('should apply destructive hover background class', () => {
+      expect(directive.classes()).toContain('hover:bg-destructive/90');
+    });
+
+    it('should have access to --color-destructive token', () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-destructive')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.destructive);
+    });
+  });
+
+  // ============================================================
+  // SIZE VARIANT TESTS
+  // ============================================================
+
+  describe('Size Variants', () => {
+    describe('Small Size (sm)', () => {
+      beforeEach(() => {
         hostComponent.lmSize = 'sm';
         fixture.detectChanges();
-
-        expect(directive.classes()).toContain(
-          'px-[var(--luma-button-padding-x-sm)]',
-        );
-        expect(directive.classes()).toContain(
-          'py-[var(--luma-button-padding-y-sm)]',
-        );
-        expect(directive.classes()).toContain('text-sm');
-        expect(directive.classes()).toContain('lm-rounded-button');
       });
 
-      it('should apply medium size classes', () => {
+      it('should apply small font size class (text-xs = 12px)', () => {
+        expect(directive.classes()).toContain('text-xs');
+      });
+
+      it('should apply small horizontal padding class (px-3 = 12px)', () => {
+        expect(directive.classes()).toContain('px-3');
+      });
+
+      it('should apply small vertical padding class (py-2 = 8px)', () => {
+        expect(directive.classes()).toContain('py-2');
+      });
+    });
+
+    describe('Medium Size (md)', () => {
+      beforeEach(() => {
         hostComponent.lmSize = 'md';
         fixture.detectChanges();
-
-        expect(directive.classes()).toContain(
-          'px-[var(--luma-button-padding-x-md)]',
-        );
-        expect(directive.classes()).toContain(
-          'py-[var(--luma-button-padding-y-md)]',
-        );
-        expect(directive.classes()).toContain('lm-text-size-base');
-        expect(directive.classes()).toContain('lm-rounded-button');
       });
 
-      it('should apply large size classes', () => {
+      it('should apply medium font size class (text-sm = 14px)', () => {
+        expect(directive.classes()).toContain('text-sm');
+      });
+
+      it('should apply medium horizontal padding class (px-4 = 16px)', () => {
+        expect(directive.classes()).toContain('px-4');
+      });
+
+      it('should apply medium vertical padding class (py-2.5 = 10px)', () => {
+        expect(directive.classes()).toContain('py-2.5');
+      });
+    });
+
+    describe('Large Size (lg)', () => {
+      beforeEach(() => {
         hostComponent.lmSize = 'lg';
         fixture.detectChanges();
-
-        expect(directive.classes()).toContain(
-          'px-[var(--luma-button-padding-x-lg)]',
-        );
-        expect(directive.classes()).toContain(
-          'py-[var(--luma-button-padding-y-lg)]',
-        );
-        expect(directive.classes()).toContain('text-lg');
-        expect(directive.classes()).toContain('lm-rounded-button');
       });
 
-      it('should apply full size classes', () => {
-        hostComponent.lmSize = 'full';
-        fixture.detectChanges();
-
-        expect(directive.classes()).toContain('w-full');
+      it('should apply large font size class (text-base = 16px)', () => {
+        expect(directive.classes()).toContain('text-base');
       });
 
-      it('should apply compound variant for full size with primary', () => {
-        hostComponent.lmSize = 'full';
-        hostComponent.lmVariant = 'primary';
+      it('should apply large horizontal padding class (px-5 = 20px)', () => {
+        expect(directive.classes()).toContain('px-5');
+      });
+
+      it('should apply large vertical padding class (py-3 = 12px)', () => {
+        expect(directive.classes()).toContain('py-3');
+      });
+    });
+  });
+
+  // ============================================================
+  // RADIUS VARIANT TESTS
+  // ============================================================
+
+  describe('Radius Variants', () => {
+    describe('Default Radius', () => {
+      beforeEach(() => {
+        hostComponent.lmRadius = 'default';
+        fixture.detectChanges();
+      });
+
+      it('should apply default radius class with CSS variable', () => {
+        const classes = directive.classes();
+        expect(classes).toContain('rounded-[var(--radius-4)]');
+      });
+
+      it('should use radius-4 token (8px)', () => {
+        // Set up radius-4 token
+        document.documentElement.style.setProperty('--radius-4', '0.5rem');
+
+        const value = getComputedStyle(document.documentElement)
+          .getPropertyValue('--radius-4')
+          .trim();
+
+        expect(value).toBe('0.5rem');
+
+        // Cleanup
+        document.documentElement.style.removeProperty('--radius-4');
+      });
+    });
+
+    describe('Square Radius', () => {
+      beforeEach(() => {
+        hostComponent.lmRadius = 'square';
+        fixture.detectChanges();
+      });
+
+      it('should apply no radius (rounded-none)', () => {
+        expect(directive.classes()).toContain('rounded-none');
+      });
+    });
+
+    describe('Full Radius', () => {
+      beforeEach(() => {
+        hostComponent.lmRadius = 'full';
+        fixture.detectChanges();
+      });
+
+      it('should apply full radius (rounded-full)', () => {
+        expect(directive.classes()).toContain('rounded-full');
+      });
+    });
+
+    describe('Default Value', () => {
+      it('should default to "default" radius when not specified', () => {
+        // Don't set lmRadius, should use default
+        const fixture = TestBed.createComponent(ButtonTestHostComponent);
         fixture.detectChanges();
 
-        expect(directive.classes()).toContain(
-          'px-[var(--luma-button-padding-x-md)]',
+        const buttonElement = fixture.debugElement.query(
+          By.directive(LmButtonDirective),
         );
-        expect(directive.classes()).toContain(
-          'py-[var(--luma-button-padding-y-md)]',
-        );
+        const directive = buttonElement.injector.get(LmButtonDirective);
+
+        expect(directive.lmRadius()).toBe('default');
+        expect(directive.classes()).toContain('rounded-[var(--radius-4)]');
       });
     });
   });
@@ -1101,20 +565,20 @@ describe('LmButtonDirective', () => {
         fixture.detectChanges();
       });
 
-      it('should apply disabled opacity class', () => {
-        expect(directive.classes()).toContain('disabled:opacity-50');
-      });
-
-      it('should apply disabled cursor class', () => {
-        expect(directive.classes()).toContain('disabled:cursor-not-allowed');
-      });
-
-      it('should set disabled attribute on element', () => {
+      it('should set disabled attribute', () => {
         expect(buttonElement.nativeElement.hasAttribute('disabled')).toBe(true);
       });
 
       it('should reflect disabled input signal', () => {
         expect(directive.lmDisabled()).toBe(true);
+      });
+
+      it('should have disabled opacity class from base', () => {
+        expect(directive.classes()).toContain('disabled:opacity-50');
+      });
+
+      it('should have disabled pointer-events class from base', () => {
+        expect(directive.classes()).toContain('disabled:pointer-events-none');
       });
     });
 
@@ -1137,27 +601,22 @@ describe('LmButtonDirective', () => {
   });
 
   // ============================================================
-  // ACCESSIBILITY TESTS
+  // HTML ELEMENT TESTS
   // ============================================================
 
-  describe('Accessibility', () => {
+  describe('HTML Element', () => {
     it('should have button element by default', () => {
       fixture.detectChanges();
-      expect(buttonElement.nativeElement.tagName).toBe('BUTTON');
-    });
-
-    it('should apply focus-visible ring for keyboard navigation', () => {
-      const classes = directive.classes();
-      expect(classes).toContain('focus-visible:lm-ring-button-focus');
+      expect(buttonElement.nativeElement.tagName.toLowerCase()).toBe('button');
     });
 
     it('should set type attribute correctly', () => {
+      hostComponent.lmType = 'button';
       fixture.detectChanges();
       expect(buttonElement.nativeElement.getAttribute('type')).toBe('button');
     });
 
     it('should allow submit type', () => {
-      // Use dedicated test host to avoid ExpressionChangedAfterItHasBeenCheckedError
       const submitFixture = TestBed.createComponent(
         SubmitButtonTestHostComponent,
       );
@@ -1169,7 +628,6 @@ describe('LmButtonDirective', () => {
     });
 
     it('should allow reset type', () => {
-      // Use dedicated test host to avoid ExpressionChangedAfterItHasBeenCheckedError
       const resetFixture = TestBed.createComponent(
         ResetButtonTestHostComponent,
       );
@@ -1183,7 +641,7 @@ describe('LmButtonDirective', () => {
     it('should propagate disabled state to DOM', () => {
       hostComponent.lmDisabled = true;
       fixture.detectChanges();
-      expect(buttonElement.nativeElement.hasAttribute('disabled')).toBe(true);
+      expect(buttonElement.nativeElement.disabled).toBe(true);
     });
   });
 
@@ -1195,30 +653,28 @@ describe('LmButtonDirective', () => {
     it('should apply primary variant classes', () => {
       hostComponent.lmVariant = 'primary';
       fixture.detectChanges();
-      expect(directive.classes()).toContain('lm-bg-button-primary');
+      expect(directive.classes()).toContain('bg-primary');
     });
 
     it('should apply outline variant classes', () => {
       hostComponent.lmVariant = 'outline';
       fixture.detectChanges();
-      expect(directive.classes()).toContain('bg-transparent');
-      expect(directive.classes()).toContain('lm-border-button-outline-border');
+      expect(directive.classes()).toContain('border');
+      expect(directive.classes()).toContain('border-input');
     });
 
     it('should apply sm size classes', () => {
       hostComponent.lmSize = 'sm';
       fixture.detectChanges();
-      expect(directive.classes()).toContain(
-        'px-[var(--luma-button-padding-x-sm)]',
-      );
+      expect(directive.classes()).toContain('px-3');
+      expect(directive.classes()).toContain('text-xs');
     });
 
     it('should apply lg size classes', () => {
       hostComponent.lmSize = 'lg';
       fixture.detectChanges();
-      expect(directive.classes()).toContain(
-        'px-[var(--luma-button-padding-x-lg)]',
-      );
+      expect(directive.classes()).toContain('px-5');
+      expect(directive.classes()).toContain('text-base');
     });
   });
 
@@ -1231,120 +687,119 @@ describe('LmButtonDirective', () => {
       applyDarkTheme();
     });
 
-    it('should have access to dark theme primary background', () => {
+    it('should have access to dark theme primary color', () => {
       hostComponent.lmVariant = 'primary';
       fixture.detectChanges();
 
       const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-primary-bg')
+        .getPropertyValue('--color-primary')
         .trim();
-      expect(value).toBe(DARK_TOKENS.primary.bg);
+      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.primary);
     });
 
-    it('should have access to dark theme primary text', () => {
+    it('should have access to dark theme primary foreground', () => {
       hostComponent.lmVariant = 'primary';
       fixture.detectChanges();
 
       const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-primary-text')
+        .getPropertyValue('--color-primary-foreground')
         .trim();
-      expect(value).toBe(DARK_TOKENS.primary.text);
+      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.primaryForeground);
     });
 
-    it('should have access to dark theme outline border', () => {
-      hostComponent.lmVariant = 'outline';
+    it('should have access to dark theme destructive color', () => {
+      hostComponent.lmVariant = 'destructive';
       fixture.detectChanges();
 
       const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-outline-border')
+        .getPropertyValue('--color-destructive')
         .trim();
-      expect(value).toBe(DARK_TOKENS.outline.border);
+      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.destructive);
     });
 
-    it('should have access to dark theme danger background', () => {
-      hostComponent.lmVariant = 'danger';
+    it('should have access to dark theme ring color', () => {
       fixture.detectChanges();
 
       const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-danger-bg')
+        .getPropertyValue('--color-ring')
         .trim();
-      expect(value).toBe(DARK_TOKENS.danger.bg);
-    });
-
-    it('should have access to dark theme focus ring color', () => {
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-button-focus-ring-color')
-        .trim();
-      expect(value).toBe(DARK_TOKENS.focus.ringColor);
+      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.ring);
     });
 
     it('should have dark class on document element', () => {
       expect(document.documentElement.classList.contains('dark')).toBe(true);
     });
   });
-});
 
-// ============================================================
-// ANCHOR ELEMENT TESTS
-// ============================================================
+  // ============================================================
+  // ANCHOR ELEMENT TESTS
+  // ============================================================
 
-describe('LmButtonDirective on Anchor Element', () => {
-  let fixture: ComponentFixture<AnchorButtonTestHostComponent>;
-  let anchorElement: DebugElement;
-  let directive: LmButtonDirective;
+  describe('Anchor Element', () => {
+    it('should create directive on anchor element', () => {
+      const anchorFixture = TestBed.createComponent(
+        AnchorButtonTestHostComponent,
+      );
+      anchorFixture.detectChanges();
+      const anchorButton = anchorFixture.debugElement.query(
+        By.directive(LmButtonDirective),
+      );
+      expect(anchorButton.nativeElement.tagName.toLowerCase()).toBe('a');
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LmButtonDirective, AnchorButtonTestHostComponent],
-    }).compileComponents();
+    it('should apply same base classes as button element', () => {
+      const anchorFixture = TestBed.createComponent(
+        AnchorButtonTestHostComponent,
+      );
+      anchorFixture.detectChanges();
+      const anchorButton = anchorFixture.debugElement.query(
+        By.directive(LmButtonDirective),
+      );
+      const anchorDirective = anchorButton.injector.get(LmButtonDirective);
 
-    fixture = TestBed.createComponent(AnchorButtonTestHostComponent);
-    anchorElement = fixture.debugElement.query(By.directive(LmButtonDirective));
-    directive = anchorElement.injector.get(LmButtonDirective);
+      expect(anchorDirective.classes()).toContain('inline-flex');
+      expect(anchorDirective.classes()).toContain('items-center');
+      expect(anchorDirective.classes()).toContain('justify-center');
+    });
 
-    setupButtonTokens();
-    await fixture.whenStable();
-  });
+    it('should apply variant classes on anchor element', () => {
+      const anchorFixture = TestBed.createComponent(
+        AnchorButtonTestHostComponent,
+      );
+      const anchorHost = anchorFixture.componentInstance;
+      anchorHost.lmVariant = 'primary';
+      anchorFixture.detectChanges();
 
-  afterEach(() => {
-    cleanupButtonTokens();
-  });
+      const anchorButton = anchorFixture.debugElement.query(
+        By.directive(LmButtonDirective),
+      );
+      const anchorDirective = anchorButton.injector.get(LmButtonDirective);
 
-  it('should create directive on anchor element', () => {
-    expect(directive).toBeTruthy();
-    expect(anchorElement.nativeElement.tagName).toBe('A');
-  });
+      expect(anchorDirective.classes()).toContain('bg-primary');
+      expect(anchorDirective.classes()).toContain('text-primary-foreground');
+    });
 
-  it('should apply same base classes as button element', () => {
-    fixture.detectChanges();
+    it('should preserve href attribute', () => {
+      const anchorFixture = TestBed.createComponent(
+        AnchorButtonTestHostComponent,
+      );
+      anchorFixture.detectChanges();
+      const anchorButton = anchorFixture.debugElement.query(
+        By.directive(LmButtonDirective),
+      );
+      expect(anchorButton.nativeElement.getAttribute('href')).toBe('/test');
+    });
 
-    const classes = directive.classes();
-    expect(classes).toContain('inline-flex');
-    expect(classes).toContain('items-center');
-    expect(classes).toContain('justify-center');
-  });
+    it('should have access to tokens on anchor element', () => {
+      const anchorFixture = TestBed.createComponent(
+        AnchorButtonTestHostComponent,
+      );
+      anchorFixture.detectChanges();
 
-  it('should apply variant classes on anchor element', () => {
-    fixture.detectChanges();
-
-    const classes = directive.classes();
-    expect(classes).toContain('lm-bg-button-primary');
-    expect(classes).toContain('lm-text-button-primary-text');
-  });
-
-  it('should preserve href attribute', () => {
-    fixture.detectChanges();
-    expect(anchorElement.nativeElement.getAttribute('href')).toBe('/test');
-  });
-
-  it('should have access to tokens on anchor element', () => {
-    fixture.detectChanges();
-
-    const value = getComputedStyle(document.documentElement)
-      .getPropertyValue('--luma-button-primary-bg')
-      .trim();
-    expect(value).toBe(BUTTON_TOKENS.primary.bg);
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-primary')
+        .trim();
+      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
+    });
   });
 });

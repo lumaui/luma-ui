@@ -1,0 +1,13 @@
+{
+  "luma": {
+    "font": {
+      "family": {
+        "base": {
+          "value": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "type": "fontFamily",
+          "description": "Base font family for the application"
+        }
+      }
+    }
+  }
+}

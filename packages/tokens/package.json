@@ -16,15 +16,15 @@
     "README.md"
   ],
   "scripts": {
-    "build": "npm run build:light && npm run build:dark && npm run build:manifest",
+    "build": "node scripts/build-themes.js && npm run build:old && npm run build:manifest",
+    "build:old": "npm run build:light && npm run build:dark",
     "postbuild": "node scripts/copy-to-docs.js",
     "build:light": "style-dictionary build --config config.js",
     "build:dark": "style-dictionary build --config config.dark.js",
+    "build:themes": "node scripts/build-themes.js",
     "build:manifest": "npx ts-node --esm ../../tools/generate-class-manifest.ts",
-    "watch": "npm run build && npm run watch:light & npm run watch:dark & npm run watch:copy",
-    "watch:light": "style-dictionary build --config config.js --watch",
-    "watch:dark": "style-dictionary build --config config.dark.js --watch",
-    "watch:copy": "node scripts/watch-and-copy.js"
+    "dev": "npm run build",
+    "watch": "npm run build"
   },
   "keywords": [
     "design-tokens",

@@ -63,7 +63,6 @@ export class LmModalContainerComponent implements AfterViewInit, OnDestroy {
   classes = computed(() =>
     modalContainerVariants({
       size: this.modal.size(),
-      open: this.modal.isOpen(),
     }),
   );
 

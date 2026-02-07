@@ -1,11 +1,11 @@
 import { InjectionToken, Signal, WritableSignal } from '@angular/core';
-import { type TabsStyle } from '@lumaui/core';
+import { type TabsVariant } from '@lumaui/core';
 
 export interface TabsGroupBase {
   /** Currently selected tab value */
   value: WritableSignal<string | null>;
   /** Visual style of the tabs (underline, background, pill) */
-  lmVariant: Signal<TabsStyle>;
+  lmVariant: Signal<TabsVariant>;
   /** Whether to lazy load panel content */
   lmLazy: Signal<boolean>;
   /** Select a tab by value */
@@ -31,6 +31,8 @@ export interface TabsListBase {
   elementRef: { nativeElement: HTMLElement };
   /** Get the currently active trigger element */
   getActiveTrigger(): HTMLElement | null;
+  /** Get the element that acts as the semantic tablist container */
+  getListContainer(): HTMLElement;
 }
 
 /**

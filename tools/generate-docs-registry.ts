@@ -11,6 +11,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
+import { codeToHtml } from 'shiki';
 
 // ES Module compatibility
 const __filename = fileURLToPath(import.meta.url);
@@ -82,9 +83,11 @@ interface ThemeFrontMatter {
 }
 
 interface DocExample {
+  id: string;
   title: string;
   code: string;
   language: string;
+  highlightedCode?: string;
 }
 
 interface DocUseCase {
@@ -481,8 +484,14 @@ function extractCustomization(content: string): DocCustomization {
  * Extract code examples from markdown content (only from ## Usage Examples section)
  */
 function extractExamples(content: string): DocExample[] {
+  // Normalize escaped backticks BEFORE parsing
+  // This handles backticks that got escaped during refactoring
+  const normalizedContent = content
+    .replace(/\\`\\`\\`/g, '```') // Fix escaped backticks
+    .replace(/\\`\\`\\`/g, '```'); // Fix double-escaped backticks
+
   // Extract only the Usage Examples section
-  const usageExamplesMatch = content.match(
+  const usageExamplesMatch = normalizedContent.match(
     /## Usage Examples\n\n([\s\S]*?)(?=\n## |$)/,
   );
   if (!usageExamplesMatch) return [];
@@ -520,8 +529,10 @@ function extractExamples(content: string): DocExample[] {
     if (line === '```' && inCodeBlock) {
       inCodeBlock = false;
       if (currentCode.trim()) {
+        const title = currentTitle || `Example ${examples.length + 1}`;
         examples.push({
-          title: currentTitle || `Example ${examples.length + 1}`,
+          id: slugifyTitle(title),
+          title,
           code: currentCode.trim(),
           language: currentLanguage,
         });
@@ -625,6 +636,16 @@ function generateSlug(name: string): string {
 }
 
 /**
+ * Slugify title for example IDs (matches component-docs.component.ts logic)
+ */
+function slugifyTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+/**
  * Parse a single .docs.md file
  */
 function parseDocFile(filePath: string): DocComponent | null {
@@ -672,9 +693,36 @@ function parseDocFile(filePath: string): DocComponent | null {
 }
 
 /**
+ * Add syntax highlighting to all examples
+ */
+async function highlightExamples(components: DocComponent[]): Promise<void> {
+  console.log('\nAdding syntax highlighting to examples...');
+
+  for (const component of components) {
+    for (const example of component.examples) {
+      if (example.code) {
+        try {
+          example.highlightedCode = await codeToHtml(example.code, {
+            lang: example.language || 'html',
+            themes: {
+              light: 'min-light',
+              dark: 'nord',
+            },
+          });
+        } catch (error) {
+          console.warn(`  Warning: Failed to highlight ${component.slug}/${example.id}: ${error}`);
+        }
+      }
+    }
+  }
+
+  console.log('Syntax highlighting complete');
+}
+
+/**
  * Generate the docs registry
  */
-function generateRegistry(): DocsRegistry {
+async function generateRegistry(): Promise<DocsRegistry> {
   console.log('Scanning for component .docs.md files...');
 
   const docFiles = findDocFiles(ANGULAR_LIB_PATH);
@@ -695,6 +743,9 @@ function generateRegistry(): DocsRegistry {
 
   // Sort components by name
   components.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Add syntax highlighting to all examples
+  await highlightExamples(components);
 
   // Sort categories
   const categories = Array.from(categoriesSet).sort();
@@ -744,10 +795,10 @@ function writeRegistry(registry: DocsRegistry): void {
 }
 
 // Main
-function main(): void {
+async function main(): Promise<void> {
   console.log('=== Generate Docs Registry ===\n');
 
-  const registry = generateRegistry();
+  const registry = await generateRegistry();
   writeRegistry(registry);
 
   console.log('\nDone!');

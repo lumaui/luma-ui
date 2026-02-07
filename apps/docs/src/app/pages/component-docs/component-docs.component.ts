@@ -67,7 +67,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
               class="border-b lm-border-neutral-70 mb-6 sm:mb-8 overflow-x-auto"
             >
               <button lumaTabsTrigger="examples">Examples</button>
-              <button lumaTabsTrigger="tokens">Tokens</button>
+              @if (
+                (comp.tokenGroups && comp.tokenGroups.length > 0) ||
+                (comp.tokens && comp.tokens.length > 0)
+              ) {
+                <button lumaTabsTrigger="tokens">Tokens</button>
+              }
               @if (
                 comp.customization && comp.customization.examples.length > 0
               ) {
@@ -92,6 +97,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                     [exampleId]="slugify(example.title)"
                     [code]="example.code"
                     [language]="example.language || 'html'"
+                    [highlightedCode]="example.highlightedCode"
                   />
                 </section>
               }
@@ -304,7 +310,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                         {{ example.description }}
                       </p>
                     }
-                    <luma-card lmVariant="preview">
+                    <luma-card lmVariant="elevated">
                       <div class="-m-5 overflow-hidden rounded-[inherit]">
                         <div
                           class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
@@ -351,7 +357,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                     Imports
                   </h3>
 
-                  <luma-card lmVariant="preview">
+                  <luma-card lmVariant="elevated">
                     <div class="-m-5 overflow-hidden rounded-[inherit]">
                       <div
                         class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
@@ -477,7 +483,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                   </p>
 
                   <!-- Code Example -->
-                  <luma-card lmVariant="preview" class="mb-6">
+                  <luma-card lmVariant="elevated" class="mb-6">
                     <div class="-m-5 overflow-hidden rounded-[inherit]">
                       <div
                         class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"

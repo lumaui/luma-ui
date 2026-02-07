@@ -30,6 +30,7 @@ import { TABS_GROUP } from './tabs.tokens';
     '[attr.aria-selected]': 'isSelected()',
     '[attr.aria-controls]': 'panelId()',
     '[attr.tabindex]': 'isSelected() ? 0 : -1',
+    '[attr.data-state]': 'isSelected() ? "active" : "inactive"',
     '[class]': 'classes()',
   },
 })
@@ -57,8 +58,7 @@ export class LmTabsTriggerDirective implements OnInit, OnDestroy {
   /** Computed: CSS classes from CVA */
   classes = computed(() =>
     tabsTriggerVariants({
-      style: this.tabsGroup.lmVariant(),
-      selected: this.isSelected(),
+      variant: this.tabsGroup.lmVariant(),
     }),
   );
 

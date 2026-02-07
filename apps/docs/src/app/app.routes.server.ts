@@ -23,7 +23,8 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
       // Return all theme page slugs from the registry for prerendering
-      return (registryData.themePages ?? []).map((page) => ({
+      const themePages = (registryData.themePages ?? []) as Array<{ slug: string }>;
+      return themePages.map((page) => ({
         slug: page.slug,
       }));
     },
