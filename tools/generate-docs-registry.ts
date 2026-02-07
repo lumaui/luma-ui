@@ -173,6 +173,10 @@ interface DocsRegistry {
 const ANGULAR_LIB_PATH = path.resolve(__dirname, '../packages/angular/src/lib');
 const TOKENS_DOCS_PATH = path.resolve(__dirname, '../packages/tokens/src/docs');
 const TOKENS_SRC_PATH = path.resolve(__dirname, '../packages/tokens/src');
+const PREVIEW_COMPONENTS_PATH = path.resolve(
+  __dirname,
+  '../apps/docs/src/app/components/previews',
+);
 const OUTPUT_PATH = path.resolve(
   __dirname,
   '../apps/docs/src/generated/docs-registry.json',
@@ -531,7 +535,7 @@ function extractExamples(content: string): DocExample[] {
       if (currentCode.trim()) {
         const title = currentTitle || `Example ${examples.length + 1}`;
         examples.push({
-          id: slugifyTitle(title),
+          id: slugify(title),
           title,
           code: currentCode.trim(),
           language: currentLanguage,
@@ -636,13 +640,86 @@ function generateSlug(name: string): string {
 }
 
 /**
- * Slugify title for example IDs (matches component-docs.component.ts logic)
+ * Slugify title for example IDs
  */
-function slugifyTitle(title: string): string {
+function slugify(title: string): string {
   return title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
+}
+
+/**
+ * Extract preview code from preview component files
+ */
+function extractPreviewCode(): Record<string, Record<string, string>> {
+  const previewMap: Record<string, Record<string, string>> = {};
+
+  if (!fs.existsSync(PREVIEW_COMPONENTS_PATH)) {
+    console.warn(`⚠️  Preview components directory not found`);
+    return previewMap;
+  }
+
+  const files = fs.readdirSync(PREVIEW_COMPONENTS_PATH);
+
+  for (const file of files) {
+    if (file.endsWith('-previews.component.ts')) {
+      const filePath = path.join(PREVIEW_COMPONENTS_PATH, file);
+      const componentSlug = file.replace(/-previews\.component\.ts$/, '');
+
+      const content = fs.readFileSync(filePath, 'utf-8');
+
+      // Find the template string
+      const templateMatch = content.match(/template:\s*`([\s\S]*?)`\s*,/);
+      if (!templateMatch) continue;
+
+      const template = templateMatch[1];
+
+      // Extract all @case blocks
+      const CASE_REGEX = /@case\s*\('([^']+)'\)\s*\{([\s\S]*?)\n\s{6}\}/g;
+      const examples: Record<string, string> = {};
+
+      let match;
+      while ((match = CASE_REGEX.exec(template)) !== null) {
+        const exampleId = match[1];
+        let innerHtml = match[2];
+
+        // Dedent
+        const lines = innerHtml.split('\n');
+        const nonEmptyLines = lines.filter((line) => line.trim().length > 0);
+
+        if (nonEmptyLines.length === 0) continue;
+
+        const minIndent = Math.min(
+          ...nonEmptyLines.map((line) => {
+            const m = line.match(/^(\s*)/);
+            return m ? m[1].length : 0;
+          }),
+        );
+
+        innerHtml = lines
+          .map((line) => line.slice(minIndent))
+          .join('\n')
+          .trim();
+
+        // Remove layout wrapper divs
+        const wrapperMatch = innerHtml.match(
+          /^<div class="[^"]*(?:flex|justify-center|items-center|gap-)[^"]*">\s*([\s\S]*?)\s*<\/div>$/,
+        );
+        if (wrapperMatch) {
+          innerHtml = wrapperMatch[1].trim();
+        }
+
+        examples[exampleId] = innerHtml;
+      }
+
+      if (Object.keys(examples).length > 0) {
+        previewMap[componentSlug] = examples;
+      }
+    }
+  }
+
+  return previewMap;
 }
 
 /**
@@ -690,6 +767,39 @@ function parseDocFile(filePath: string): DocComponent | null {
     console.error(`Error parsing ${filePath}:`, error);
     return null;
   }
+}
+
+/**
+ * Merge preview code into examples (Single Source of Truth)
+ */
+function mergePreviewCode(
+  components: DocComponent[],
+  previewMap: Record<string, Record<string, string>>,
+): void {
+  console.log('\nMerging preview code into examples...');
+
+  for (const component of components) {
+    const previews = previewMap[component.slug] || {};
+
+    for (const example of component.examples) {
+      const previewCode = previews[example.id];
+
+      if (previewCode) {
+        // Preview is the source of truth
+        example.code = previewCode;
+      } else {
+        // Fallback to .docs.md code if no preview exists
+        // (for CSS/TypeScript examples that are code-only)
+        if (!example.code) {
+          console.warn(
+            `  ⚠️  ${component.slug}/${example.id}: No code in preview or docs`,
+          );
+        }
+      }
+    }
+  }
+
+  console.log('Preview code merge complete');
 }
 
 /**
@@ -743,6 +853,12 @@ async function generateRegistry(): Promise<DocsRegistry> {
 
   // Sort components by name
   components.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Extract preview code from preview components
+  const previewMap = extractPreviewCode();
+
+  // Merge preview code into examples (Single Source of Truth)
+  mergePreviewCode(components, previewMap);
 
   // Add syntax highlighting to all examples
   await highlightExamples(components);
