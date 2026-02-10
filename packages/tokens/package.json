@@ -1,6 +1,6 @@
 {
   "name": "@lumaui/tokens",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Design tokens for Luma UI - Neo-Minimal design system",
   "type": "module",
   "main": "./build/luma-complete.css",
@@ -16,12 +16,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "node scripts/build-themes.js && npm run build:old && npm run build:manifest",
-    "build:old": "npm run build:light && npm run build:dark",
+    "build": "npm run build:light && npm run build:dark && npm run build:manifest",
     "postbuild": "node scripts/copy-to-docs.js",
     "build:light": "style-dictionary build --config config.js",
     "build:dark": "style-dictionary build --config config.dark.js",
-    "build:themes": "node scripts/build-themes.js",
     "build:manifest": "npx ts-node --esm ../../tools/generate-class-manifest.ts",
     "dev": "npm run build",
     "watch": "npm run build"

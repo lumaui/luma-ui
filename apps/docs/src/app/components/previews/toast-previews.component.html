@@ -1,0 +1,123 @@
+@switch (exampleId()) {
+  @case ('basic-toast') {
+    <button
+      lumaButton
+      lmVariant="primary"
+      (click)="toast.info('Operation successful')"
+    >
+      Show Toast
+    </button>
+  }
+  @case ('all-variants') {
+    <div class="flex flex-wrap gap-2">
+      <button
+        lumaButton
+        lmVariant="outline"
+        (click)="toast.info('Information')"
+      >
+        Info
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        (click)="toast.success('Success!')"
+      >
+        Success
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        (click)="toast.warning('Warning!')"
+      >
+        Warning
+      </button>
+      <button lumaButton lmVariant="outline" (click)="toast.error('Error!')">
+        Error
+      </button>
+    </div>
+  }
+  @case ('persistent-toast') {
+    <div class="flex flex-wrap gap-2">
+      <button
+        lumaButton
+        lmVariant="primary"
+        (click)="toast.info('Processing...', { duration: 0 })"
+      >
+        Show Persistent Toast
+      </button>
+      <button lumaButton lmVariant="ghost" (click)="toast.dismissAll()">
+        Dismiss All
+      </button>
+    </div>
+  }
+  @case ('different-positions') {
+    <div class="grid grid-cols-3 gap-2">
+      <button
+        lumaButton
+        lmVariant="outline"
+        lmSize="sm"
+        (click)="toast.success('Top left', { position: 'top-left' })"
+      >
+        top-left
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        lmSize="sm"
+        (click)="toast.success('Top center', { position: 'top-center' })"
+      >
+        top-center
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        lmSize="sm"
+        (click)="toast.success('Top right', { position: 'top-right' })"
+      >
+        top-right
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        lmSize="sm"
+        (click)="toast.success('Bottom left', { position: 'bottom-left' })"
+      >
+        bottom-left
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        lmSize="sm"
+        (click)="toast.success('Bottom center', { position: 'bottom-center' })"
+      >
+        bottom-center
+      </button>
+      <button
+        lumaButton
+        lmVariant="outline"
+        lmSize="sm"
+        (click)="toast.success('Bottom right', { position: 'bottom-right' })"
+      >
+        bottom-right
+      </button>
+    </div>
+  }
+  @case ('toast-with-title') {
+    <button
+      lumaButton
+      lmVariant="outline"
+      (click)="
+        toast.error('Unable to connect to server', {
+          title: 'Connection Failed',
+        })
+      "
+    >
+      Show Toast with Title
+    </button>
+  }
+  @default {
+    <div class="lm-text-secondary text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

@@ -1,0 +1,109 @@
+@if (isOpen()) {
+  <!-- Wrapper: Establishes z-50 stacking context -->
+  <div class="drawer-wrapper fixed inset-0 z-50 pointer-events-none">
+    <!-- Backdrop removed for better UX - users need to see theme changes live -->
+
+    <!-- Drawer Panel: absolute inside wrapper, no z-index -->
+    <div
+      class="drawer-panel absolute right-0 top-0 h-full w-full max-w-md overflow-hidden bg-background drop-shadow-lg pointer-events-auto"
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-border p-4">
+        <div>
+          <h2 class="text-foreground text-lg font-semibold">Theme Generator</h2>
+          <p class="text-muted-foreground text-sm">
+            Customize design tokens in real-time
+          </p>
+        </div>
+        <button
+          type="button"
+          (click)="close()"
+          class="flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent transition-colors"
+          aria-label="Close theme generator"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="flex border-b border-border">
+        <button
+          type="button"
+          (click)="switchTab('light')"
+          class="flex-1 px-4 py-3 text-sm font-medium transition-colors"
+          [class.text-primary]="currentTab() === 'light'"
+          [class.bg-accent]="currentTab() === 'light'"
+          [class.text-muted-foreground]="currentTab() !== 'light'"
+        >
+          Light Theme
+        </button>
+        <button
+          type="button"
+          (click)="switchTab('dark')"
+          class="flex-1 px-4 py-3 text-sm font-medium transition-colors"
+          [class.text-primary]="currentTab() === 'dark'"
+          [class.bg-accent]="currentTab() === 'dark'"
+          [class.text-muted-foreground]="currentTab() !== 'dark'"
+        >
+          Dark Theme
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="h-[calc(100%-13rem)] overflow-y-auto p-4">
+        <app-token-category-accordion />
+      </div>
+
+      <!-- Footer -->
+      <div
+        class="absolute bottom-0 left-0 right-0 border-t border-border bg-background p-4"
+      >
+        <div class="flex flex-col gap-2">
+          <div class="flex gap-2">
+            <button
+              type="button"
+              (click)="reset()"
+              class="flex-1 rounded-md px-4 py-2 text-sm font-medium hover:bg-accent text-foreground transition-colors"
+              [disabled]="!hasModifications()"
+            >
+              Reset Current
+            </button>
+            <button
+              type="button"
+              (click)="openExportModal()"
+              class="flex-1 rounded-md px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              [disabled]="!hasModifications()"
+            >
+              Export
+            </button>
+          </div>
+          <button
+            type="button"
+            (click)="resetToDefaults()"
+            class="w-full rounded-md px-4 py-2 text-sm font-medium border border-input bg-background hover:bg-accent text-foreground transition-colors"
+          >
+            Reset to Defaults
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Export Modal -->
+@if (showExportModal()) {
+  <app-export-modal (close)="closeExportModal()" />
+}

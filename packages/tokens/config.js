@@ -3,7 +3,7 @@ import StyleDictionary from 'style-dictionary';
 /**
  * Purple Theme Configuration (Light Mode)
  * Uses 12-step color scale + background/foreground
- * Structural tokens (radius, shadow, alpha) from shared/
+ * Structural tokens (radius, shadow) from shared/
  */
 
 StyleDictionary.registerFormat({
@@ -199,19 +199,6 @@ StyleDictionary.registerFormat({
       output += `\n`;
     }
 
-    // Process alpha tokens
-    const alphaTokens = dictionary.allTokens.filter(
-      (t) => t.path[1] === 'alpha',
-    );
-    if (alphaTokens.length > 0) {
-      output += `  /* Alpha Values (from shared/alpha.json) */\n`;
-      alphaTokens.forEach((token) => {
-        const alphaName = token.path.slice(2).join('-');
-        output += `  --color-${alphaName}: ${token.value};\n`;
-      });
-      output += `\n`;
-    }
-
     output += `}\n`;
     return output;
   },
@@ -220,7 +207,7 @@ StyleDictionary.registerFormat({
 export default {
   source: [
     'src/themes/purple/purple.json', // Purple theme colors (primary scale + surfaces)
-    'src/shared/**/*.json', // Structural tokens (radius, shadow, alpha, typography, semantic)
+    'src/shared/**/*.json', // Structural tokens (radius, shadow, typography, semantic, gray)
   ],
   platforms: {
     css: {

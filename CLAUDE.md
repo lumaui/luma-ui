@@ -188,26 +188,27 @@ This design system doesn't seek attention. It builds **silent confidence, contin
 
 This is an Nx workspace organized as an npm workspaces monorepo with the following key packages:
 
-- **`packages/tokens`** (`@luma/tokens`): Design tokens managed with Style Dictionary
+- **`packages/tokens`** (`@lumaui/tokens`): Design tokens managed with Style Dictionary
   - **Purple theme architecture**: 12-step color scale + background/foreground
   - **14 theme tokens** in `src/themes/purple/purple.json` (light) and `purple.dark.json` (dark)
-  - **20 structural tokens** in `src/shared/` (radius, shadow, alpha, semantic, typography)
-  - Compiled CSS exports in `build/`: `luma.css` (3.1KB), `luma-dark.css` (1.8KB)
+  - **Structural tokens** in `src/shared/` (radius, shadow, gray, semantic, typography)
+  - Compiled CSS exports in `build/`: `luma.css`, `luma-dark.css`
   - **Zero component-specific tokens** - all components use semantic tokens directly
 
-- **`packages/components`** (`@luma/components`): Angular standalone components
+- **`packages/core`** (`@lumaui/core`): Framework-agnostic CVA variant definitions
+  - Contains all CVA variant functions in `src/variants/` (e.g., `button.variants.ts`, `card.variants.ts`)
+  - Shared between Angular components and potentially other framework adapters
+  - Exports variant functions and their TypeScript types
+
+- **`packages/angular`** (`@lumaui/angular`): Angular standalone components
   - Each component follows a feature-folder structure (`lib/button/`, `lib/card/`)
-  - Components use class-variance-authority (CVA) for type-safe variant management
+  - Components consume CVA variants from `@lumaui/core`
   - Exports are managed via `src/index.ts` with individual component index files
 
-- **`packages/luma`** (`luma`): Meta-package that aggregates tokens + components
-  - Re-exports everything from `@luma/tokens` and `@luma/components`
-  - Main entry point for consuming the design system
-  - Handles CSS file exports for themes
-
-- **`apps/playground`**: Development/showcase Angular SSR application
-  - Used for testing and demonstrating components
-  - Runs with Angular's dev server and supports SSR
+- **`apps/docs`**: Documentation site (Angular SSR)
+  - Auto-generated from `.docs.md` files via `npm run generate-docs`
+  - Includes live component previews, token reference, and theming guides
+  - Runs with Angular's dev server and supports SSR/prerendering
 
 ### Key Design Patterns
 
@@ -216,7 +217,7 @@ This is an Nx workspace organized as an npm workspaces monorepo with the followi
 - All components are Angular standalone (no NgModules)
 - Use CVA for variant management with TypeScript type safety
 - Components export both the component class and supporting directives/types
-- Tailwind CSS classes reference design tokens (e.g., `lm-rounded-md`, `lm-text-base`)
+- Tailwind CSS classes reference semantic tokens (e.g., `bg-primary`, `text-foreground`, `rounded-md`)
 
 **Styling Approach:**
 
@@ -248,7 +249,8 @@ packages/tokens/
 │   ├── shared/
 │   │   ├── radius.json          # 6 border radius tokens (structural)
 │   │   ├── shadow.json          # 6 box shadow tokens (structural)
-│   │   ├── alpha.json           # 7 alpha values for shadows (structural)
+│   │   ├── gray.json            # 12-step gray scale (light mode)
+│   │   ├── gray.dark.json       # 12-step gray scale (dark mode)
 │   │   ├── semantic.json        # 6 semantic state colors (structural)
 │   │   └── typography.json      # 1 font family (structural)
 │   └── index.ts                 # Exports
@@ -257,7 +259,7 @@ packages/tokens/
 │   ├── luma.css                 # Compiled light theme (3.1KB)
 │   ├── luma-dark.css            # Compiled dark theme (1.8KB)
 │   ├── luma-complete.css        # Complete bundle (571B)
-│   └── luma-classes.js          # Class manifest (74 classes)
+│   └── luma-classes.js          # Class manifest
 │
 ├── config.js                    # Style Dictionary config (light theme)
 └── config.dark.js               # Style Dictionary config (dark theme)
@@ -266,7 +268,7 @@ packages/tokens/
 **Architecture Philosophy:**
 
 - **Clean separation**: Theme colors in `themes/`, structural tokens in `shared/`
-- **34 total tokens** (14 theme + 20 structural) with zero duplication
+- **45 total tokens** (14 theme + 31 structural) with zero duplication
 - **12-step color scale** inspired by Radix UI for nuanced color usage
 - **Semantic mapping**: Format function creates 30+ semantic aliases from base tokens
 - **Scalable**: Adding new themes (blue, green) only requires copying purple theme with new colors
@@ -322,8 +324,16 @@ Structural tokens in `shared/` are theme-agnostic and used by all themes:
   "luma": {
     "radius": {
       "1": { "value": "0.125rem", "type": "dimension", "description": "2px" },
-      "4": { "value": "0.5rem", "type": "dimension", "description": "8px - buttons" },
-      "5": { "value": "0.75rem", "type": "dimension", "description": "12px - cards" }
+      "4": {
+        "value": "0.5rem",
+        "type": "dimension",
+        "description": "8px - buttons"
+      },
+      "5": {
+        "value": "0.75rem",
+        "type": "dimension",
+        "description": "12px - cards"
+      }
       // ... 6 radius tokens total
     }
   }
@@ -336,10 +346,10 @@ Structural tokens in `shared/` are theme-agnostic and used by all themes:
    - Primary color scale: `primary.1` through `primary.12` (12 steps)
    - Surface colors: `background`, `foreground`
 
-2. **Shared Structural (20 tokens):**
+2. **Shared Structural tokens:**
    - **Radius (6 tokens):** `radius.1` through `radius.6`
    - **Shadow (6 tokens):** `shadow.1` through `shadow.6`
-   - **Alpha (7 tokens):** `gray-a2`, `gray-a3`, `gray-a5`, `gray-a7`, `black-a1`, `black-a2`, `black-a3`
+   - **Gray (12 tokens):** `gray.1` through `gray.12` (neutral scale for borders, secondary text)
    - **Semantic States (6 tokens):** `destructive`, `warning`, `success` (with foregrounds)
    - **Typography (1 token):** `font-family-base`
 
@@ -363,13 +373,13 @@ From the tokens package:
 
 ```bash
 cd packages/tokens
-npm run build:old     # Build both light and dark themes (current)
+npm run build         # Build both light and dark themes + class manifest
 npm run build:light   # Build only light theme
 npm run build:dark    # Build only dark theme
 npm run watch         # Watch mode for both themes
 ```
 
-**Important:** Tokens are automatically built when building the playground app (via Nx dependency graph). You only need to manually build tokens if:
+**Important:** Tokens are automatically built when building the docs app (via Nx dependency graph). You only need to manually build tokens if:
 
 - You're developing tokens in isolation
 - You want to see generated CSS immediately
@@ -382,26 +392,26 @@ Style Dictionary generates:
 - CSS custom properties with `--color-*`, `--radius-*`, `--shadow-*` naming
 - Tailwind v4 `@theme` block mapping tokens to standard utilities
 - Light theme in `luma.css` (3.1KB), dark theme in `luma-dark.css` (1.8KB)
-- Class manifest in `luma-classes.js` (74 classes)
+- Class manifest in `luma-classes.js`
 
 **Generated CSS Example:**
 
 ```css
 /* luma.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Primary Color Scale (12-step Radix-inspired) */
-  --color-primary-1: oklch(0.98 0.010 300);
-  --color-primary-5: oklch(0.48 0.090 300);
-  --color-primary-12: oklch(0.13 0.030 300);
+  --color-primary-1: oklch(0.98 0.01 300);
+  --color-primary-5: oklch(0.48 0.09 300);
+  --color-primary-12: oklch(0.13 0.03 300);
   /* ... steps 2-11 */
 
   /* Semantic Primary Mappings (from format function) */
-  --color-primary: oklch(0.48 0.090 300);              /* Maps to primary.5 */
-  --color-primary-foreground: oklch(0.13 0.030 300);   /* Maps to primary.12 */
-  --color-secondary: oklch(0.94 0.020 300);            /* Maps to primary.2 */
-  --color-accent: oklch(0.78 0.060 300);               /* Maps to primary.4 */
+  --color-primary: oklch(0.48 0.09 300); /* Maps to primary.5 */
+  --color-primary-foreground: oklch(0.13 0.03 300); /* Maps to primary.12 */
+  --color-secondary: oklch(0.94 0.02 300); /* Maps to primary.2 */
+  --color-accent: oklch(0.78 0.06 300); /* Maps to primary.4 */
   /* ... */
 
   /* Surface Colors */
@@ -411,8 +421,8 @@ Style Dictionary generates:
 
   /* Border Radius (from shared/radius.json) */
   --radius-1: 0.125rem;
-  --radius-4: 0.5rem;   /* Buttons use this */
-  --radius-5: 0.75rem;  /* Cards use this */
+  --radius-4: 0.5rem; /* Buttons use this */
+  --radius-5: 0.75rem; /* Cards use this */
   /* ... */
 }
 ```
@@ -424,10 +434,10 @@ Components use **standard Tailwind utilities** that reference semantic tokens:
 ```typescript
 // ✅ Semantic approach - standard Tailwind utilities
 const buttonVariants = cva([
-  'bg-primary',              // Uses --color-primary
+  'bg-primary', // Uses --color-primary
   'text-primary-foreground', // Uses --color-primary-foreground
-  'rounded-md',              // Uses --radius-md
-  'hover:bg-primary/90',     // Inline opacity modifier
+  'rounded-md', // Uses --radius-md
+  'hover:bg-primary/90', // Inline opacity modifier
 ]);
 
 // ❌ Old approach - custom utilities (deprecated)
@@ -442,7 +452,7 @@ const buttonVariants = cva([
 
 **Note:** In most cases, you should NOT add new tokens. The 24 semantic tokens cover all use cases. Only add tokens if absolutely necessary.
 
-1. Edit `src/theme.json` and `src/theme.dark.json`
+1. Edit `src/themes/purple/purple.json` and `purple.dark.json`
 2. Add token following the semantic naming pattern
 3. Run `npm run build` to regenerate CSS
 4. Use via standard Tailwind utility (`bg-your-token`, `text-your-token`, etc.)
@@ -469,8 +479,9 @@ const buttonVariants = cva([
 ```
 
 After building, use in components:
+
 ```typescript
-'bg-info text-info-foreground hover:bg-info/90'
+'bg-info text-info-foreground hover:bg-info/90';
 ```
 
 ### Token Import Rules (CRITICAL)
@@ -496,8 +507,8 @@ After building, use in components:
 **Token Flow:**
 
 ```text
-src/theme.json  →  Style Dictionary  →  build/luma.css
-   (24 tokens)      (config.js)          (Tailwind @theme)
+src/themes/purple/purple.json  →  Style Dictionary  →  build/luma.css
+        + src/shared/*.json       (config.js)          (Tailwind @theme)
 ```
 
 **Customization Flow:**
@@ -540,8 +551,8 @@ Luma supports **runtime theme customization** - all components reference semanti
 ```css
 :root {
   /* Override semantic tokens to change entire theme */
-  --color-primary: oklch(0.60 0.15 180);  /* Cyan brand color */
-  --color-primary-foreground: oklch(1 0 0);  /* White text */
+  --color-primary: oklch(0.6 0.15 180); /* Cyan brand color */
+  --color-primary-foreground: oklch(1 0 0); /* White text */
 }
 /* All buttons, badges, toasts automatically use cyan */
 ```
@@ -598,6 +609,7 @@ Component-Specific (Old)  →  Semantic (New)
 ```
 
 **Benefits:**
+
 - **91.8% fewer tokens** (293 → 24)
 - **Easier customization** (override 1 token affects all components)
 - **Standard Tailwind utilities** (`bg-primary` instead of `lm-bg-button-primary`)
@@ -609,32 +621,32 @@ Component-Specific (Old)  →  Semantic (New)
 
 **Colors (18 tokens):**
 
-| Token | Purpose | Used By |
-|-------|---------|---------|
-| `primary`, `primary-foreground` | Main brand actions | Buttons, links, active states |
-| `secondary`, `secondary-foreground` | Secondary actions | Secondary buttons, subtle highlights |
-| `accent`, `accent-foreground` | Accents & highlights | Hover states, badges |
-| `destructive`, `destructive-foreground` | Destructive actions | Delete buttons, error states |
-| `success`, `success-foreground` | Success feedback | Success toasts, confirmations |
-| `warning`, `warning-foreground` | Warning feedback | Warning toasts, alerts |
-| `muted`, `muted-foreground` | Muted/disabled | Disabled states, placeholder text |
-| `background`, `foreground` | App background/text | Page background, body text |
-| `card`, `card-foreground` | Card surfaces | Card backgrounds |
-| `popover`, `popover-foreground` | Elevated surfaces | Tooltips, popovers, modals |
-| `border` | Borders | All component borders |
-| `input` | Input backgrounds | Form inputs |
-| `ring` | Focus rings | Focus indicators |
+| Token                                   | Purpose              | Used By                              |
+| --------------------------------------- | -------------------- | ------------------------------------ |
+| `primary`, `primary-foreground`         | Main brand actions   | Buttons, links, active states        |
+| `secondary`, `secondary-foreground`     | Secondary actions    | Secondary buttons, subtle highlights |
+| `accent`, `accent-foreground`           | Accents & highlights | Hover states, badges                 |
+| `destructive`, `destructive-foreground` | Destructive actions  | Delete buttons, error states         |
+| `success`, `success-foreground`         | Success feedback     | Success toasts, confirmations        |
+| `warning`, `warning-foreground`         | Warning feedback     | Warning toasts, alerts               |
+| `muted`, `muted-foreground`             | Muted/disabled       | Disabled states, placeholder text    |
+| `background`, `foreground`              | App background/text  | Page background, body text           |
+| `card`, `card-foreground`               | Card surfaces        | Card backgrounds                     |
+| `popover`, `popover-foreground`         | Elevated surfaces    | Tooltips, popovers, modals           |
+| `border`                                | Borders              | All component borders                |
+| `input`                                 | Input backgrounds    | Form inputs                          |
+| `ring`                                  | Focus rings          | Focus indicators                     |
 
 **Border Radius (6 tokens):**
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `none` | 0 | Sharp corners |
-| `sm` | 0.375rem (6px) | Small elements |
-| `md` | 0.5rem (8px) | Default radius |
-| `lg` | 0.75rem (12px) | Cards, modals |
-| `xl` | 1rem (16px) | Large containers |
-| `full` | 9999px | Pills, circles |
+| Token  | Value          | Usage            |
+| ------ | -------------- | ---------------- |
+| `none` | 0              | Sharp corners    |
+| `sm`   | 0.375rem (6px) | Small elements   |
+| `md`   | 0.5rem (8px)   | Default radius   |
+| `lg`   | 0.75rem (12px) | Cards, modals    |
+| `xl`   | 1rem (16px)    | Large containers |
+| `full` | 9999px         | Pills, circles   |
 
 **Note:** Spacing, typography, and transitions use **Tailwind's default scales** (no custom tokens needed).
 
@@ -647,25 +659,25 @@ Components use **standard Tailwind utilities** that reference semantic tokens:
 ```typescript
 // Button Component
 export const buttonVariants = cva([
-  'bg-primary',              // → var(--color-primary)
+  'bg-primary', // → var(--color-primary)
   'text-primary-foreground', // → var(--color-primary-foreground)
-  'rounded-md',              // → var(--radius-md)
-  'hover:bg-primary/90',     // → var(--color-primary) with 90% opacity
+  'rounded-md', // → var(--radius-md)
+  'hover:bg-primary/90', // → var(--color-primary) with 90% opacity
 ]);
 
 // Card Component
 export const cardVariants = cva([
-  'bg-card',                 // → var(--color-card)
-  'text-card-foreground',    // → var(--color-card-foreground)
-  'border-border',           // → var(--color-border)
-  'rounded-lg',              // → var(--radius-lg)
+  'bg-card', // → var(--color-card)
+  'text-card-foreground', // → var(--color-card-foreground)
+  'border-border', // → var(--color-border)
+  'rounded-lg', // → var(--radius-lg)
 ]);
 
 // Toast Component
 export const toastVariants = cva({
   variants: {
     variant: {
-      info: ['bg-primary', 'text-primary-foreground'],      // Reuses primary
+      info: ['bg-primary', 'text-primary-foreground'], // Reuses primary
       success: ['bg-success', 'text-success-foreground'],
       warning: ['bg-warning', 'text-warning-foreground'],
       error: ['bg-destructive', 'text-destructive-foreground'],
@@ -685,7 +697,7 @@ export const toastVariants = cva({
 ```css
 /* Override in your app's CSS */
 :root {
-  --color-primary: oklch(0.60 0.15 180);  /* Change brand color */
+  --color-primary: oklch(0.6 0.15 180); /* Change brand color */
   --color-primary-foreground: oklch(1 0 0);
 }
 /* Affects: all buttons, toasts (info), badges, links automatically */
@@ -710,7 +722,7 @@ export const toastVariants = cva({
 ```css
 /* Override for specific section */
 .my-feature {
-  --color-primary: oklch(0.70 0.12 340);  /* Pink theme */
+  --color-primary: oklch(0.7 0.12 340); /* Pink theme */
 }
 
 /* All Luma components inside .my-feature use pink */
@@ -732,6 +744,7 @@ export const toastVariants = cva({
 #### **Why NOT Component-Specific Tokens?**
 
 **Old Approach (Component-Specific):**
+
 ```json
 {
   "button": {
@@ -747,6 +760,7 @@ export const toastVariants = cva({
 ```
 
 **New Approach (Semantic):**
+
 ```json
 {
   "color": {
@@ -758,12 +772,14 @@ export const toastVariants = cva({
 ```
 
 **Problems with Component-Specific:**
+
 1. **Duplication:** Button primary-bg and Toast info-bg are often the same color
 2. **Customization complexity:** Need to override 10+ tokens to change brand color
 3. **Maintenance burden:** Adding a component requires creating 15-40 new tokens
 4. **Cognitive load:** Developers must learn token naming for each component
 
 **Semantic Advantages:**
+
 1. **Reusability:** One token used by multiple components
 2. **Simple customization:** Change 1 token, update all components
 3. **No new tokens:** Adding components uses existing semantic tokens
@@ -774,6 +790,7 @@ export const toastVariants = cva({
 #### **Token Usage Guidelines**
 
 **✅ DO:**
+
 - Use semantic tokens for all component styling
 - Use standard Tailwind utilities (`bg-primary`, not `lm-bg-button-primary`)
 - Use inline opacity modifiers (`bg-primary/90`, `hover:bg-muted/50`)
@@ -781,6 +798,7 @@ export const toastVariants = cva({
 - Share tokens across components (button primary = toast info)
 
 **❌ DON'T:**
+
 - Create component-specific tokens unless absolutely necessary
 - Hardcode colors in components
 - Use custom utilities when standard Tailwind works
@@ -790,12 +808,14 @@ export const toastVariants = cva({
 **When to Add a New Semantic Token:**
 
 Ask these questions:
+
 1. **Is it used by 3+ components?** If not, use inline styles
 2. **Does it represent a semantic concept?** (e.g., "success", "warning")
 3. **Can it be achieved with existing tokens?** Try combinations first
 4. **Is it themeable?** If not, it might not need a token
 
 **Example - When NOT to add a token:**
+
 ```typescript
 // ❌ Don't create a token for component-specific spacing
 "card-nested-padding-offset": "0.875rem"
@@ -809,21 +829,25 @@ className="p-3.5"  // or p-[0.875rem]
 #### **Migration from Old Architecture**
 
 **Old System:**
+
 - 293 tokens (110 core + 183 component)
 - Custom utilities: `lm-bg-button-primary`, `lm-rounded-card`
 - Component-specific tokens in `src/components/`
 
 **New System:**
+
 - 24 semantic tokens
 - Standard Tailwind: `bg-primary`, `rounded-md`
-- Single file: `src/theme.json`
+- Theme files: `src/themes/purple/purple.json` + shared tokens in `src/shared/`
 
 **Breaking Changes:**
+
 - All custom `lm-*` utilities removed
 - Component-specific tokens eliminated
 - Variant names standardized (e.g., `danger` → `destructive`, `bordered` → `filled`)
 
 **Migration Steps:**
+
 1. Replace custom utilities with standard Tailwind
 2. Map old variant names to new names
 3. Remove references to component-specific tokens
@@ -836,14 +860,16 @@ See `BUILD_ERRORS_FIXED.md` for complete variant name mapping.
 #### **Architecture Validation**
 
 **Proof the system works:**
+
 - ✅ **8 components migrated** (Button, Badge, Card, Tooltip, Accordion, Tabs, Modal, Toast)
 - ✅ **Zero component-specific tokens** remaining
 - ✅ **Build successful** (all TypeScript errors resolved)
 - ✅ **CSS size stable** (2.3KB, no bloat)
-- ✅ **74 classes generated** (down from 214, 65.4% reduction)
+- ✅ **99 classes generated**
 - ✅ **Runtime theming works** (light/dark switching functional)
 
 **Performance Metrics:**
+
 - Token count: **-91.8%** (293 → 24)
 - File count: **-92%** (25 files → 2 files)
 - Class count: **-65.4%** (214 → 74)
@@ -873,6 +899,7 @@ A: Yes, to regenerate CSS. But users can override at runtime without rebuild.
 A: Yes! `bg-red-500`, `text-blue-600` work alongside semantic tokens.
 
 ---
+
 ## Development Commands
 
 ### Running the Development Server
@@ -880,43 +907,50 @@ A: Yes! `bg-red-500`, `text-blue-600` work alongside semantic tokens.
 ```bash
 npm run dev
 # or
-npx nx serve playground
+npx nx serve docs
 ```
 
-Starts the playground app on http://localhost:4200 with hot reload.
+Starts the docs app on http://localhost:4200 with hot reload. The `dev` command automatically builds tokens, generates the docs registry, and starts the dev server with token watch mode.
 
 ### Building
 
-Build the playground app:
+Build the docs app:
 
 ```bash
-npm run build          # Development build
+npm run build          # Development build (generates docs + builds)
 npm run build:prod     # Production build
-npx nx build playground --configuration=production
+npx nx build docs --configuration=production
 ```
 
 Build specific packages (Nx handles dependencies automatically):
 
 ```bash
-npx nx build components
-npx nx build tokens
+npx nx build angular   # Builds angular (auto-builds core + tokens deps)
+npx nx build core      # Builds core package
+npx nx build tokens    # Builds tokens package
+```
+
+Generate docs registry (extracts metadata from `.docs.md` files):
+
+```bash
+npm run generate-docs
 ```
 
 Preview production build:
 
 ```bash
 npm run preview
-# Serves static files from dist/apps/playground/browser on port 4200
+# Serves static files from dist/apps/docs/browser
 ```
 
 ### Testing
 
-Run tests for playground:
+Run tests for docs app:
 
 ```bash
 npm test
 # or
-npx nx test playground
+npx nx test docs
 ```
 
 Run component tests:
@@ -924,19 +958,25 @@ Run component tests:
 ```bash
 npm run test:components
 # or
-npx nx test components
+npx nx test angular
+```
+
+Run a specific test file:
+
+```bash
+npx nx test angular --testFile=tabs.spec.ts
 ```
 
 Test uses `@angular/build:unit-test` executor with Vitest for unit testing (Analogjs integration).
 
 ### Linting
 
-Lint playground:
+Lint docs app:
 
 ```bash
 npm run lint
 # or
-npx nx lint playground
+npx nx lint docs
 ```
 
 Lint all projects:
@@ -962,10 +1002,10 @@ Formats all files with Prettier (single quotes configured in `.prettierrc`).
 ```bash
 npm run e2e
 # or
-npx nx e2e playground-e2e
+npx nx e2e docs-e2e
 ```
 
-Runs Playwright e2e tests for the playground app.
+Runs Playwright e2e tests for the docs app.
 
 ### Dependency Graph
 
@@ -976,19 +1016,6 @@ npx nx graph
 ```
 
 Opens interactive visualization of project dependencies.
-
-### Package Linking (Local Development)
-
-For local package development and testing:
-
-```bash
-npm run link:setup     # Links all packages together
-npm run link:meta      # Links only the luma meta-package
-npm run link:build     # Builds and links everything
-npm run unlink:all     # Removes all npm links
-```
-
-These scripts use `npm link` to create symlinks between packages for local development without publishing.
 
 ## Angular Code Standards
 
@@ -1200,7 +1227,7 @@ it('should respect custom radius token override', () => {
 ### Test File Structure
 
 ```
-packages/components/src/lib/<component>/
+packages/angular/src/lib/<component>/
 ├── <component>.component.ts
 ├── <component>.component.html
 ├── <component>.component.spec.ts    # Component tests
@@ -1310,16 +1337,16 @@ Before committing component tests, verify:
 
 ```bash
 # Run specific component tests
-npx nx test components --testFile=button.directive.spec.ts
+npx nx test angular --testFile=button.directive.spec.ts
 
 # Run all component tests
 npm run test:components
 
 # Run with coverage
-npx nx test components --coverage
+npx nx test angular --coverage
 
 # Run in watch mode during development
-npx nx test components --watch
+npx nx test angular --watch
 ```
 
 ### Angular Testing Patterns (Critical)
@@ -1509,18 +1536,22 @@ This comprehensive protocol ensures every component in Lumo is consistent, scala
 Every component must contain these files:
 
 ```
-packages/components/src/lib/<component-name>/
-  <component-name>.component.ts      # Main component with CVA variants
+packages/angular/src/lib/<component-name>/
+  <component-name>.component.ts      # Main component (imports variants from @lumaui/core)
   <component-name>.component.html    # Template
   <component-name>.component.spec.ts # Unit tests
   <component-name>.docs.md          # Documentation
   index.ts                          # Exports
+
+packages/core/src/variants/
+  <component-name>.variants.ts       # CVA variant definitions (framework-agnostic)
 ```
 
 **Notes:**
 
 - Angular 20+ uses standalone components by default
 - All styling must use Tailwind CSS classes
+- CVA variants are defined in `@lumaui/core`, consumed by Angular components
 - Documentation is mandatory for every component
 
 ### Component Creation Process
@@ -1539,7 +1570,7 @@ Determine the component's category:
 
 - Start with layout structure
 - Use whitespace as the primary tool for hierarchy
-- Follow the design tokens for spacing (`@luma/tokens`)
+- Follow the design tokens for spacing (`@lumaui/tokens`)
 
 #### 3. Define Essential Visual States
 
@@ -1728,7 +1759,7 @@ Before finalizing, verify:
 export * from './<component-name>.component';
 ```
 
-**Package index (`packages/components/src/index.ts`):**
+**Package index (`packages/angular/src/index.ts`):**
 
 ```typescript
 export * from './lib/<component-name>/';
@@ -2031,7 +2062,7 @@ npx nx reset
 ## TypeScript Configuration
 
 - Base config: `tsconfig.base.json`
-- Path mapping for `@luma/components` points to source files
+- Path mappings: `@lumaui/angular`, `@lumaui/core`, `@lumaui/tokens` point to source files
 - Target: ES2015, module: ESNext
 - Decorators enabled for Angular
 

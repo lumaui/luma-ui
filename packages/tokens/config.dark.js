@@ -3,7 +3,7 @@ import StyleDictionary from 'style-dictionary';
 /**
  * Purple Theme Configuration (Dark Mode)
  * Uses 12-step color scale + background/foreground
- * Structural tokens (radius, shadow, alpha) from shared/
+ * Structural tokens (radius, shadow) from shared/
  */
 
 StyleDictionary.registerFormat({
@@ -173,7 +173,6 @@ export default {
     'src/shared/gray.dark.json', // Dark mode gray scale
     'src/shared/radius.json',
     'src/shared/shadow.json',
-    'src/shared/alpha.json',
     'src/shared/semantic.json',
     'src/shared/typography.json',
   ],

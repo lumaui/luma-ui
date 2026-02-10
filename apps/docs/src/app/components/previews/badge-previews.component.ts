@@ -6,41 +6,7 @@ import { LmBadgeDirective } from '@lumaui/angular';
   selector: 'app-badge-previews',
   imports: [LmBadgeDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    @switch (exampleId()) {
-      @case ('variants') {
-        <div class="flex flex-wrap gap-3 justify-center">
-          <span lumaBadge>Default</span>
-          <span lumaBadge lmVariant="outline">Outline</span>
-        </div>
-      }
-      @case ('radius-options') {
-        <div class="flex flex-wrap gap-3 justify-center">
-          <span lumaBadge lmRadius="default">Default</span>
-          <span lumaBadge lmRadius="square">Square</span>
-          <span lumaBadge lmRadius="full">Full</span>
-        </div>
-      }
-      @case ('custom-with-tailwind') {
-        <div class="flex flex-wrap gap-3 justify-center">
-          <span lumaBadge class="bg-purple-500 text-white border-purple-600">
-            Custom Colors
-          </span>
-          <span
-            lumaBadge
-            class="bg-gradient-to-r from-blue-500 to-purple-600 text-white border-transparent"
-          >
-            Gradient Badge
-          </span>
-        </div>
-      }
-      @default {
-        <div class="text-secondary text-sm text-center">
-          Preview not available for this example
-        </div>
-      }
-    }
-  `,
+  templateUrl: './badge-previews.component.html',
 })
 export class BadgePreviewsComponent {
   exampleId = input.required<string>();

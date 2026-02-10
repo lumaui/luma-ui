@@ -1,0 +1,238 @@
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">
+  <app-sidebar />
+  <div class="flex-1 px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+    <!-- Hero Section -->
+    <div class="mb-12">
+      <h1
+        class="text-4xl font-bold text-foreground mb-4 tracking-tight leading-tight"
+      >
+        Styling
+      </h1>
+      <p class="text-lg text-muted-foreground leading-relaxed">
+        Visual reference of Luma's semantic design tokens. These tokens power
+        all components and can be customized via CSS variables. See the
+        <a
+          routerLink="/docs/customizing"
+          class="text-primary hover:underline font-medium"
+          >Customizing</a
+        >
+        page for implementation details.
+      </p>
+    </div>
+
+    <!-- Tailwind-First Philosophy -->
+    <section class="mb-16">
+      <h2
+        class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+      >
+        Tailwind-First Philosophy
+      </h2>
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-muted-foreground leading-relaxed mb-4">
+          Luma leverages Tailwind's utility system with semantic design tokens.
+          This provides unmatched flexibility and a familiar developer
+          experience—if you know Tailwind, you know Luma.
+        </p>
+        <div class="bg-muted/30 rounded-lg p-6 space-y-3 my-6">
+          <h3 class="text-base font-semibold text-foreground mb-3">
+            Key Benefits:
+          </h3>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li class="flex items-start gap-3">
+              <span class="text-primary font-bold text-lg leading-none mt-0.5"
+                >✓</span
+              >
+              <span
+                ><strong class="text-foreground"
+                  >Customize with CSS variables:</strong
+                >
+                Change one token, update all components</span
+              >
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary font-bold text-lg leading-none mt-0.5"
+                >✓</span
+              >
+              <span
+                ><strong class="text-foreground"
+                  >Standard Tailwind utilities:</strong
+                >
+                <code class="text-xs">bg-primary</code>,
+                <code class="text-xs">text-foreground</code>,
+                <code class="text-xs">rounded-md</code> just work</span
+              >
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary font-bold text-lg leading-none mt-0.5"
+                >✓</span
+              >
+              <span
+                ><strong class="text-foreground">No learning curve:</strong>
+                Familiar Tailwind patterns</span
+              >
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary font-bold text-lg leading-none mt-0.5"
+                >✓</span
+              >
+              <span
+                ><strong class="text-foreground">Runtime theming:</strong>
+                Override tokens without rebuilding</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Semantic Tokens -->
+    <section class="mb-16">
+      <h2
+        class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+      >
+        Why Semantic Tokens?
+      </h2>
+      <p class="text-muted-foreground leading-relaxed mb-4">
+        Luma uses semantic tokens instead of hundreds of component-specific
+        tokens. This dramatically simplifies customization while maintaining
+        full design flexibility.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4 my-6">
+        <div class="bg-muted/30 rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-foreground mb-2">
+            ✓ Simple customization
+          </h3>
+          <p class="text-sm text-muted-foreground">
+            Change 1 token, update all components that use it
+          </p>
+        </div>
+        <div class="bg-muted/30 rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-foreground mb-2">
+            ✓ Predictable behavior
+          </h3>
+          <p class="text-sm text-muted-foreground">
+            <code class="text-xs">bg-primary</code> means the same everywhere
+          </p>
+        </div>
+        <div class="bg-muted/30 rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-foreground mb-2">
+            ✓ Zero bloat
+          </h3>
+          <p class="text-sm text-muted-foreground">
+            Standard Tailwind utilities, no custom classes
+          </p>
+        </div>
+        <div class="bg-muted/30 rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-foreground mb-2">
+            ✓ Designer-friendly
+          </h3>
+          <p class="text-sm text-muted-foreground">
+            Semantic names like "primary", "success", "muted"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design Tokens Visual Reference -->
+    <section class="mb-16">
+      <h2
+        class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+      >
+        Design Tokens
+      </h2>
+      <p class="text-muted-foreground leading-relaxed mb-8">
+        Visual reference of all design tokens. For implementation details and
+        CSS variable names, see the
+        <a
+          routerLink="/docs/customizing"
+          class="text-primary hover:underline font-medium"
+          >Customizing</a
+        >
+        page.
+      </p>
+
+      <!-- Primary Colors -->
+      <div class="mb-12">
+        <app-color-grid
+          title="Primary Color Scale"
+          description="12-step color scale for nuanced color usage. Step 5 is the base brand color used in buttons and primary actions."
+          [colors]="primaryColors"
+        />
+      </div>
+
+      <!-- Gray Scale -->
+      <div class="mb-12">
+        <app-color-grid
+          title="Gray Scale"
+          description="Theme-independent neutral colors for structural elements like borders, dividers, and backgrounds."
+          [colors]="grayColors"
+        />
+      </div>
+
+      <!-- Surface Colors -->
+      <div class="mb-12">
+        <app-color-grid
+          title="Surface Colors"
+          description="Background and foreground colors for app surfaces and elevated elements like popovers."
+          [colors]="surfaceColors"
+        />
+      </div>
+
+      <!-- Semantic State Colors -->
+      <div class="mb-12">
+        <app-color-grid
+          title="Semantic State Colors"
+          description="Colors for destructive, warning, and success states with paired foreground colors for text."
+          [colors]="semanticColors"
+        />
+      </div>
+
+      <!-- Border Radius -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold text-foreground mb-4">
+          Border Radius
+        </h3>
+        <p class="text-sm text-muted-foreground mb-6">
+          6 radius values for consistent rounded corners across all components.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6">
+          @for (token of radiusTokens; track token.name) {
+            <app-token-preview [token]="token" />
+          }
+        </div>
+      </div>
+
+      <!-- Shadows -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold text-foreground mb-4">Shadows</h3>
+        <p class="text-sm text-muted-foreground mb-6">
+          6 elevation levels for creating depth hierarchy in your interface.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6">
+          @for (token of shadowTokens; track token.name) {
+            <app-token-preview [token]="token" />
+          }
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold text-foreground mb-4">Typography</h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Base font family with fallback stack for consistent typography.
+        </p>
+        <div class="bg-muted/30 rounded-lg p-6">
+          <p
+            class="text-base text-foreground mb-2"
+            style="font-family: var(--font-family-base)"
+          >
+            The quick brown fox jumps over the lazy dog
+          </p>
+          <p class="text-xs text-muted-foreground font-mono">
+            Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

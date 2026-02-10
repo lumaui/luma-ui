@@ -22,38 +22,7 @@ export interface TokenPreviewData {
   selector: 'app-token-preview',
   imports: [CommonModule, CodeBlockComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="mb-8">
-      <h4 class="text-base font-semibold text-foreground mb-2">
-        {{ token().name }} - {{ token().description }}
-      </h4>
-
-      <!-- Visual Preview -->
-      <div
-        class="bg-gray-1 rounded-lg p-10 flex items-center justify-center border border-border"
-      >
-        @if (token().category === 'shadow') {
-          <div
-            class="w-[120px] h-[80px] bg-background rounded-lg"
-            [style.box-shadow]="token().value"
-          ></div>
-        } @else if (token().category === 'radius') {
-          <div
-            class="w-[120px] h-[80px] bg-primary/20"
-            [style.border-radius]="token().value"
-          ></div>
-        }
-      </div>
-
-      <!-- Code Example with Shiki Highlighting -->
-      <app-code-block
-        [code]="token().cssExample"
-        [highlightedCode]="highlightedCssExample()"
-        language="css"
-        [showLineNumbers]="false"
-      />
-    </div>
-  `,
+  templateUrl: './token-preview.component.html',
   styles: [
     `
       :host {

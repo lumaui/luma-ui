@@ -1,0 +1,289 @@
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">
+  <app-sidebar />
+  <div class="flex-1 px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+    <!-- Hero -->
+    <div class="mb-12">
+      <h1
+        class="text-4xl font-bold text-foreground mb-4 tracking-tight leading-tight"
+      >
+        Customizing
+      </h1>
+      <p class="text-lg text-muted-foreground leading-relaxed">
+        Learn how to customize Luma's design tokens using CSS variables and
+        Tailwind utilities. All tokens can be overridden at runtime without
+        rebuilding your application.
+      </p>
+    </div>
+
+    <!-- Overview -->
+    <section class="mb-16">
+      <h2
+        class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+      >
+        Overview
+      </h2>
+      <p class="text-muted-foreground leading-relaxed mb-4">
+        Luma uses <strong>CSS custom properties</strong> (CSS variables) for all
+        design tokens. This enables powerful runtime customization patterns:
+      </p>
+      <div class="bg-muted/30 rounded-lg p-6 space-y-3 my-6">
+        <ul class="space-y-2 text-sm text-muted-foreground">
+          <li class="flex items-start gap-3">
+            <span class="text-primary font-bold text-lg leading-none mt-0.5"
+              >✓</span
+            >
+            <span
+              ><strong class="text-foreground">Global theme overrides:</strong>
+              Change one token, update all components</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-primary font-bold text-lg leading-none mt-0.5"
+              >✓</span
+            >
+            <span
+              ><strong class="text-foreground"
+                >Component-specific styling:</strong
+              >
+              Use Tailwind utilities for instance-level customization</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-primary font-bold text-lg leading-none mt-0.5"
+              >✓</span
+            >
+            <span
+              ><strong class="text-foreground">Scoped overrides:</strong> Apply
+              custom tokens to specific sections of your app</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-primary font-bold text-lg leading-none mt-0.5"
+              >✓</span
+            >
+            <span
+              ><strong class="text-foreground"
+                >Dark theme customization:</strong
+              >
+              Different values for light and dark modes</span
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- All Customizable Tokens -->
+    <section class="mb-16">
+      <h2
+        class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+      >
+        All Customizable Tokens
+      </h2>
+      <p class="text-muted-foreground leading-relaxed mb-6">
+        Complete reference of all 57 design tokens available for customization.
+      </p>
+
+      <!-- Primary Colors -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Primary Color Scale (12 steps)
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Radix UI inspired 12-step scale. Step 5 is the base brand color.
+        </p>
+        <app-code-preview
+          [code]="primaryColorsExample"
+          [highlightedCode]="getHighlightedCode('primaryColorsExample')"
+        />
+      </div>
+
+      <!-- Gray Scale -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Gray Scale (12 steps)
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Theme-independent neutral colors for structural elements.
+        </p>
+        <app-code-preview
+          [code]="grayColorsExample"
+          [highlightedCode]="getHighlightedCode('grayColorsExample')"
+        />
+      </div>
+
+      <!-- Surface Colors -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Surface Colors
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Background and foreground colors for app surfaces.
+        </p>
+        <app-code-preview
+          [code]="surfaceColorsExample"
+          [highlightedCode]="getHighlightedCode('surfaceColorsExample')"
+        />
+      </div>
+
+      <!-- Semantic States -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Semantic State Colors
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Colors for destructive, warning, and success states.
+        </p>
+        <app-code-preview
+          [code]="semanticColorsExample"
+          [highlightedCode]="getHighlightedCode('semanticColorsExample')"
+        />
+      </div>
+
+      <!-- Border Radius -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Border Radius (6 tokens)
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Consistent rounded corners across components.
+        </p>
+        <app-code-preview
+          [code]="radiusExample"
+          [highlightedCode]="getHighlightedCode('radiusExample')"
+        />
+      </div>
+
+      <!-- Shadows -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Shadows (6 tokens)
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Elevation levels for depth hierarchy.
+        </p>
+        <app-code-preview
+          [code]="shadowsExample"
+          [highlightedCode]="getHighlightedCode('shadowsExample')"
+        />
+      </div>
+
+      <!-- Typography -->
+      <div class="mb-10">
+        <h3 class="text-xl font-semibold text-foreground mb-3">
+          Typography (1 token)
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Base font family with fallback stack.
+        </p>
+        <app-code-preview
+          [code]="typographyExample"
+          [highlightedCode]="getHighlightedCode('typographyExample')"
+        />
+      </div>
+    </section>
+
+    <!-- Customization Patterns -->
+    <section class="mb-16">
+      <h2
+        class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+      >
+        Customization Patterns
+      </h2>
+
+      <!-- Pattern 1: Global Theme Override -->
+      <div class="mb-10">
+        <h3 class="text-lg font-semibold text-foreground mb-3">
+          Override Primary Color
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Change your brand color globally by overriding the primary token in
+          your app's CSS. This affects all buttons, badges, toasts, and any
+          component using <code class="text-xs">bg-primary</code>.
+        </p>
+        <app-code-preview
+          [code]="globalOverrideExample"
+          [highlightedCode]="getHighlightedCode('globalOverrideExample')"
+        />
+      </div>
+
+      <!-- Pattern 2: Component-Specific Overrides -->
+      <div class="mb-10">
+        <h3 class="text-lg font-semibold text-foreground mb-3">
+          Component-Specific Overrides
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Use Tailwind utilities via the
+          <code class="text-xs">class</code> or
+          <code class="text-xs">className</code> prop to customize individual
+          component instances without affecting others.
+        </p>
+        <app-code-preview
+          [code]="componentOverrideExample"
+          [highlightedCode]="getHighlightedCode('componentOverrideExample')"
+        />
+      </div>
+
+      <!-- Pattern 3: Dark Theme Customization -->
+      <div class="mb-10">
+        <h3 class="text-lg font-semibold text-foreground mb-3">
+          Dark Theme Customization
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Customize token values specifically for dark mode. These values apply
+          automatically when
+          <code class="text-xs">&lt;html class="dark"&gt;</code> is set.
+        </p>
+        <app-code-preview
+          [code]="darkThemeExample"
+          [highlightedCode]="getHighlightedCode('darkThemeExample')"
+        />
+      </div>
+
+      <!-- Pattern 4: Scoped Token Overrides -->
+      <div class="mb-10">
+        <h3 class="text-lg font-semibold text-foreground mb-3">
+          Scoped Token Overrides
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Apply custom token values to specific sections of your app. All Luma
+          components inside the scoped selector will use the overridden values.
+        </p>
+        <app-code-preview
+          [code]="scopedOverrideExample"
+          [highlightedCode]="getHighlightedCode('scopedOverrideExample')"
+        />
+      </div>
+
+      <!-- Pattern 5: Using Tailwind Utilities -->
+      <div class="mb-10">
+        <h3 class="text-lg font-semibold text-foreground mb-3">
+          Using Tailwind Utilities
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          All semantic tokens are available as standard Tailwind utilities. Use
+          them to compose custom styles without writing CSS.
+        </p>
+        <app-code-preview
+          [code]="tailwindUtilitiesExample"
+          [highlightedCode]="getHighlightedCode('tailwindUtilitiesExample')"
+        />
+      </div>
+
+      <!-- Pattern 6: Opacity Modifiers -->
+      <div class="mb-10">
+        <h3 class="text-lg font-semibold text-foreground mb-3">
+          Opacity Modifiers
+        </h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Tailwind's inline opacity modifiers work with all Luma semantic
+          tokens. Use them for subtle backgrounds, hover states, and layered
+          effects.
+        </p>
+        <app-code-preview
+          [code]="opacityModifiersExample"
+          [highlightedCode]="getHighlightedCode('opacityModifiersExample')"
+        />
+      </div>
+    </section>
+  </div>
+</div>

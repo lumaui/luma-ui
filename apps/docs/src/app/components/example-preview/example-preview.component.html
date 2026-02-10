@@ -1,0 +1,75 @@
+<div class="rounded-lg overflow-hidden border border-border">
+  <luma-tabs [lmDefaultValue]="defaultTab()" [lmLazy]="false">
+    <!-- Header with tabs -->
+    <div class="px-4 py-2">
+      <div lumaTabsList class="flex gap-4">
+        @if (isPreviewable()) {
+          <button lumaTabsTrigger="preview" class="text-xs font-medium">
+            Preview
+          </button>
+        }
+        <button lumaTabsTrigger="code" class="text-xs font-medium">Code</button>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    @if (isPreviewable()) {
+      <div
+        lumaTabsPanel="preview"
+        class="p-6 flex items-center justify-center min-h-[140px]"
+      >
+        @switch (componentSlug()) {
+          @case ('button') {
+            <app-button-previews [exampleId]="exampleId()" />
+          }
+          @case ('card') {
+            <div class="w-full max-w-lg">
+              <app-card-previews [exampleId]="exampleId()" />
+            </div>
+          }
+          @case ('accordion') {
+            <div class="w-full max-w-lg">
+              <app-accordion-previews [exampleId]="exampleId()" />
+            </div>
+          }
+          @case ('badge') {
+            <app-badge-previews [exampleId]="exampleId()" />
+          }
+          @case ('tooltip') {
+            <app-tooltip-previews [exampleId]="exampleId()" />
+          }
+          @case ('tabs') {
+            <div class="w-full max-w-lg">
+              <app-tabs-previews [exampleId]="exampleId()" />
+            </div>
+          }
+          @case ('modal') {
+            <div class="w-full max-w-xl">
+              <app-modal-previews [exampleId]="exampleId()" />
+            </div>
+          }
+          @case ('toast') {
+            <app-toast-previews [exampleId]="exampleId()" />
+          }
+          @default {
+            <div class="lm-text-secondary text-sm">Preview not available</div>
+          }
+        }
+      </div>
+    }
+
+    <!-- Code Panel -->
+    <div lumaTabsPanel="code">
+      @if (sanitizedCode()) {
+        <div
+          class="p-4 overflow-x-auto text-sm [&_code]:font-mono"
+          [innerHTML]="sanitizedCode()"
+        ></div>
+      } @else {
+        <pre
+          class="p-4 overflow-x-auto text-sm"
+        ><code class="font-mono lm-text-primary whitespace-pre">{{ code() }}</code></pre>
+      }
+    </div>
+  </luma-tabs>
+</div>

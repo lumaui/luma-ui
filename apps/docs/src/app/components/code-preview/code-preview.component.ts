@@ -30,23 +30,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-code-preview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="rounded-lg overflow-hidden border border-border">
-      <!-- Code Panel -->
-      <div class="bg-card">
-        @if (safeHighlightedCode()) {
-          <div
-            class="overflow-x-auto text-sm [&_code]:font-mono"
-            [innerHTML]="safeHighlightedCode()"
-          ></div>
-        } @else {
-          <pre
-            class="p-4 overflow-x-auto text-sm"
-          ><code class="font-mono text-foreground whitespace-pre">{{ code() }}</code></pre>
-        }
-      </div>
-    </div>
-  `,
+  templateUrl: './code-preview.component.html',
   host: {
     class: 'block',
   },

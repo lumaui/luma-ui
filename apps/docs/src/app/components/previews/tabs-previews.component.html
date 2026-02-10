@@ -1,0 +1,236 @@
+@switch (exampleId()) {
+  @case ('basic-tabs') {
+    <luma-tabs lmDefaultValue="tab-1" class="w-full">
+      <div lumaTabsList>
+        <button lumaTabsTrigger="tab-1">Overview</button>
+        <button lumaTabsTrigger="tab-2">Features</button>
+        <button lumaTabsTrigger="tab-3">Pricing</button>
+        <luma-tabs-indicator />
+      </div>
+
+      <div lumaTabsPanel="tab-1">
+        <p class="text-muted-foreground">
+          Welcome to our product overview. Here you'll find everything you need
+          to get started.
+        </p>
+      </div>
+      <div lumaTabsPanel="tab-2">
+        <p class="text-muted-foreground">
+          Explore our powerful features designed to boost your productivity.
+        </p>
+      </div>
+      <div lumaTabsPanel="tab-3">
+        <p class="text-muted-foreground">
+          Simple, transparent pricing that scales with your needs.
+        </p>
+      </div>
+    </luma-tabs>
+  }
+  @case ('variants') {
+    <div class="w-full space-y-6">
+      <div>
+        <p class="text-xs text-muted-foreground mb-2">Underline (default)</p>
+        <luma-tabs lmDefaultValue="account" lmVariant="underline">
+          <div lumaTabsList>
+            <button lumaTabsTrigger="account">Account</button>
+            <button lumaTabsTrigger="security">Security</button>
+            <button lumaTabsTrigger="notifications">Notifications</button>
+            <luma-tabs-indicator />
+          </div>
+
+          <div lumaTabsPanel="account">
+            <p class="text-muted-foreground">
+              Manage your account settings and preferences.
+            </p>
+          </div>
+          <div lumaTabsPanel="security">
+            <p class="text-muted-foreground">
+              Configure passwords, two-factor authentication, and sessions.
+            </p>
+          </div>
+          <div lumaTabsPanel="notifications">
+            <p class="text-muted-foreground">
+              Choose which notifications you'd like to receive.
+            </p>
+          </div>
+        </luma-tabs>
+      </div>
+
+      <div>
+        <p class="text-xs text-muted-foreground mb-2">Pills</p>
+        <luma-tabs lmDefaultValue="all" lmVariant="pills">
+          <div lumaTabsList>
+            <button lumaTabsTrigger="all">All</button>
+            <button lumaTabsTrigger="active">Active</button>
+            <button lumaTabsTrigger="completed">Completed</button>
+            <button lumaTabsTrigger="archived" [lmDisabled]="true">
+              Archived
+            </button>
+          </div>
+
+          <div lumaTabsPanel="all">
+            <p class="text-muted-foreground">Showing all items in the list.</p>
+          </div>
+          <div lumaTabsPanel="active">
+            <p class="text-muted-foreground">
+              Showing only active items that need attention.
+            </p>
+          </div>
+          <div lumaTabsPanel="completed">
+            <p class="text-muted-foreground">
+              Showing completed items for reference.
+            </p>
+          </div>
+          <div lumaTabsPanel="archived">
+            <p class="text-muted-foreground">Archived items are read-only.</p>
+          </div>
+        </luma-tabs>
+      </div>
+    </div>
+  }
+  @case ('controlled-tabs') {
+    <div class="w-full space-y-3">
+      <div class="text-xs text-muted-foreground px-1">
+        Selected:
+        <code class="bg-muted px-1.5 py-0.5 rounded font-mono">{{
+          selectedTab() || 'none'
+        }}</code>
+      </div>
+      <luma-tabs
+        [lmValue]="selectedTab()"
+        (lmValueChange)="selectedTab.set($event)"
+      >
+        <div lumaTabsList>
+          <button lumaTabsTrigger="account">Account</button>
+          <button lumaTabsTrigger="security">Security</button>
+          <button lumaTabsTrigger="notifications">Notifications</button>
+          <luma-tabs-indicator />
+        </div>
+
+        <div lumaTabsPanel="account">
+          <p class="text-muted-foreground">Manage your account settings.</p>
+        </div>
+        <div lumaTabsPanel="security">
+          <p class="text-muted-foreground">Configure security options.</p>
+        </div>
+        <div lumaTabsPanel="notifications">
+          <p class="text-muted-foreground">
+            Set your notification preferences.
+          </p>
+        </div>
+      </luma-tabs>
+    </div>
+  }
+  @case ('scrollable-tabs') {
+    <luma-tabs lmDefaultValue="mon" class="w-full">
+      <div lumaTabsList [lmScrollable]="true">
+        <button lumaTabsTrigger="mon">Monday</button>
+        <button lumaTabsTrigger="tue">Tuesday</button>
+        <button lumaTabsTrigger="wed">Wednesday</button>
+        <button lumaTabsTrigger="thu">Thursday</button>
+        <button lumaTabsTrigger="fri">Friday</button>
+        <button lumaTabsTrigger="sat">Saturday</button>
+        <button lumaTabsTrigger="sun">Sunday</button>
+        <button lumaTabsTrigger="summary">Weekly Summary</button>
+        <luma-tabs-indicator />
+      </div>
+
+      <div lumaTabsPanel="mon">
+        <p class="text-muted-foreground">Monday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="tue">
+        <p class="text-muted-foreground">Tuesday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="wed">
+        <p class="text-muted-foreground">Wednesday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="thu">
+        <p class="text-muted-foreground">Thursday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="fri">
+        <p class="text-muted-foreground">Friday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="sat">
+        <p class="text-muted-foreground">Saturday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="sun">
+        <p class="text-muted-foreground">Sunday schedule and tasks.</p>
+      </div>
+      <div lumaTabsPanel="summary">
+        <p class="text-muted-foreground">Overview of the entire week.</p>
+      </div>
+    </luma-tabs>
+  }
+  @case ('custom-styled') {
+    <luma-tabs lmDefaultValue="design" lmVariant="pills" class="w-full">
+      <div
+        lumaTabsList
+        class="[--color-muted:oklch(0.94_0.04_270)] [--color-foreground:oklch(0.35_0.05_270)]"
+      >
+        <button lumaTabsTrigger="design">Design</button>
+        <button lumaTabsTrigger="develop">Develop</button>
+        <button lumaTabsTrigger="deploy">Deploy</button>
+      </div>
+
+      <div lumaTabsPanel="design">
+        <div class="space-y-2">
+          <h4 class="text-sm font-medium">Design Phase</h4>
+          <p class="text-sm text-muted-foreground">
+            Create wireframes, mockups, and prototypes for your project.
+          </p>
+          <div class="flex gap-2 pt-1">
+            <span
+              class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+              >Figma</span
+            >
+            <span
+              class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+              >Prototype</span
+            >
+          </div>
+        </div>
+      </div>
+      <div lumaTabsPanel="develop">
+        <div class="space-y-2">
+          <h4 class="text-sm font-medium">Development Phase</h4>
+          <p class="text-sm text-muted-foreground">
+            Write code, run tests, and iterate on your implementation.
+          </p>
+          <div class="flex gap-2 pt-1">
+            <span
+              class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+              >Angular</span
+            >
+            <span
+              class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+              >Tailwind</span
+            >
+          </div>
+        </div>
+      </div>
+      <div lumaTabsPanel="deploy">
+        <div class="space-y-2">
+          <h4 class="text-sm font-medium">Deployment Phase</h4>
+          <p class="text-sm text-muted-foreground">
+            Ship to production with CI/CD pipelines and monitoring.
+          </p>
+          <div class="flex gap-2 pt-1">
+            <span
+              class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+              >CI/CD</span
+            >
+            <span
+              class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+              >Docker</span
+            >
+          </div>
+        </div>
+      </div>
+    </luma-tabs>
+  }
+  @default {
+    <div class="text-muted-foreground text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

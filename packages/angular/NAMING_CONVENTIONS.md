@@ -60,6 +60,8 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 
 ### 3. Nomes de Classes
 
+**Prefixo obrigatório:** `Lm`
+
 **Sufixo obrigatório:** `Component` ou `Directive`
 
 **Formato:** `PascalCase`
@@ -67,18 +69,19 @@ Todos os componentes do Luma Design System devem seguir estas convenções para 
 **Exemplos válidos:**
 
 ```typescript
-export class ButtonComponent {} // ✅ Correto
-export class CardComponent {} // ✅ Correto
-export class DataTableComponent {} // ✅ Correto
-export class TooltipDirective {} // ✅ Correto
+export class LmButtonDirective {} // ✅ Correto
+export class LmCardComponent {} // ✅ Correto
+export class LmTooltipDirective {} // ✅ Correto
+export class LmTabsComponent {} // ✅ Correto
 ```
 
 **Exemplos inválidos:**
 
 ```typescript
-export class Button {} // ❌ Sem sufixo
-export class ButtonComp {} // ❌ Sufixo errado
-export class button_component {} // ❌ Formato errado
+export class Button {} // ❌ Sem prefixo e sem sufixo
+export class ButtonComponent {} // ❌ Sem prefixo Lm
+export class LmButtonComp {} // ❌ Sufixo errado
+export class lm_button_directive {} // ❌ Formato errado
 ```
 
 ### 4. Estrutura de Arquivos
@@ -86,27 +89,28 @@ export class button_component {} // ❌ Formato errado
 **Padrão:**
 
 ```
-packages/components/src/lib/
+packages/angular/src/lib/
 ├── button/
-│   ├── button.component.ts       # Classe: ButtonComponent
-│   ├── button.component.html     # Template
-│   ├── button.component.css      # Estilos
-│   └── button.component.spec.ts  # Testes
+│   ├── button.directive.ts       # Classe: LmButtonDirective
+│   ├── button.directive.spec.ts  # Testes
+│   ├── button.docs.md            # Documentação
+│   └── index.ts                  # Exports
 └── card/
-    ├── card.component.ts
-    ├── card.component.html
-    ├── card.component.css
-    └── card.component.spec.ts
+    ├── card.component.ts         # Classe: LmCardComponent
+    ├── card.component.html       # Template
+    ├── card.component.spec.ts    # Testes
+    ├── card.docs.md              # Documentação
+    └── index.ts                  # Exports
 ```
 
 ### 5. Exports Públicos
 
-**Arquivo:** `packages/components/src/index.ts`
+**Arquivo:** `packages/angular/src/index.ts`
 
 ```typescript
 // ✅ Exportar componentes e diretivas públicos
-export * from './lib/button/button.component';
-export * from './lib/card/card.component';
+export * from './lib/button';
+export * from './lib/card';
 ```
 
 ## 🔍 Validação Automática
@@ -114,7 +118,7 @@ export * from './lib/card/card.component';
 O ESLint está configurado para validar automaticamente estas regras:
 
 ```javascript
-// packages/components/eslint.config.mjs
+// packages/angular/eslint.config.mjs
 {
   '@angular-eslint/directive-selector': [
     'error',
@@ -154,13 +158,13 @@ O ESLint está configurado para validar automaticamente estas regras:
 Quando importado em outros projetos:
 
 ```typescript
-import { ButtonComponent, CardComponent } from '@lumaui/angular';
+import { LmButtonDirective, LmCardComponent } from '@lumaui/angular';
 
 @Component({
-  imports: [ButtonComponent, CardComponent],
+  imports: [LmButtonDirective, LmCardComponent],
   template: `
     <!-- Claramente identificável como componente Luma -->
-    <luma-button>Click me</luma-button>
+    <button lumaButton lmVariant="primary">Click me</button>
     <luma-card>
       <h3>Card content</h3>
     </luma-card>
