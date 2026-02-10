@@ -1,3 +1,9 @@
+import { Component, computed, inject } from '@angular/core';
+import {
+  DocImport,
+  DocsRegistryService,
+} from '../../services/docs-registry.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   LmCardComponent,
   LmTabsComponent,
@@ -6,13 +12,8 @@ import {
   LmTabsPanelDirective,
   LmTabsTriggerDirective,
 } from '@lumaui/angular';
-import { Component, computed, inject } from '@angular/core';
 
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import {
-  DocsRegistryService,
-  DocImport,
-} from '../../services/docs-registry.service';
+import { ActivatedRoute } from '@angular/router';
 import { ExamplePreviewComponent } from '../../components/example-preview/example-preview.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { map } from 'rxjs';
@@ -29,7 +30,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
     LmTabsTriggerDirective,
     LmTabsPanelDirective,
     LmTabsIndicatorComponent,
-    RouterLink,
   ],
   template: `
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">
@@ -63,39 +63,44 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
           <!-- Import Statement (always visible above tabs) -->
           @if (comp.imports && comp.imports.length > 0) {
-            <luma-card lmVariant="elevated" class="mb-6 sm:mb-8">
-              <div class="-m-5 overflow-hidden rounded-[inherit]">
-                <div
-                  class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
+            <div
+              class="rounded-lg overflow-hidden border border-border mb-6 sm:mb-8"
+            >
+              <div
+                class="px-4 py-2 flex items-center justify-between border-b border-border"
+              >
+                <span class="text-xs lm-text-secondary font-mono">Import</span>
+                <button
+                  (click)="copyCode(getImportStatement(comp.imports))"
+                  class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
                 >
-                  <span class="text-xs lm-text-secondary font-mono"
-                    >Import</span
+                  <svg
+                    class="w-3.5 h-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                  <button
-                    (click)="copyCode(getImportStatement(comp.imports))"
-                    class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
-                  >
-                    <svg
-                      class="w-3.5 h-3.5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <span>Copy</span>
-                  </button>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              @if (sanitizedImportCode()) {
+                <div
+                  class="overflow-x-auto text-sm [&_code]:font-mono"
+                  [innerHTML]="sanitizedImportCode()"
+                ></div>
+              } @else {
                 <pre
                   class="p-4 overflow-x-auto text-sm"
                 ><code class="font-mono lm-text-primary whitespace-pre">{{ getImportStatement(comp.imports) }}</code></pre>
-              </div>
-            </luma-card>
+              }
+            </div>
           }
 
           <!-- Tabs -->
@@ -348,39 +353,37 @@ import { toSignal } from '@angular/core/rxjs-interop';
                         {{ example.description }}
                       </p>
                     }
-                    <luma-card lmVariant="elevated">
-                      <div class="-m-5 overflow-hidden rounded-[inherit]">
-                        <div
-                          class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
+                    <div
+                      class="rounded-lg overflow-hidden border border-border"
+                    >
+                      <div class="px-4 py-2 flex items-center justify-between ">
+                        <span class="text-xs lm-text-secondary font-mono"
+                          >CSS</span
                         >
-                          <span class="text-xs lm-text-secondary font-mono"
-                            >CSS</span
+                        <button
+                          (click)="copyCode(example.code)"
+                          class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
+                        >
+                          <svg
+                            class="w-3.5 h-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
                           >
-                          <button
-                            (click)="copyCode(example.code)"
-                            class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
-                          >
-                            <svg
-                              class="w-3.5 h-3.5"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                              />
-                            </svg>
-                            <span>Copy</span>
-                          </button>
-                        </div>
-                        <pre
-                          class="p-4 overflow-x-auto text-sm"
-                        ><code class="font-mono lm-text-primary whitespace-pre">{{ example.code }}</code></pre>
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <span>Copy</span>
+                        </button>
                       </div>
-                    </luma-card>
+                      <pre
+                        class="p-4 overflow-x-auto text-sm"
+                      ><code class="font-mono lm-text-primary whitespace-pre">{{ example.code }}</code></pre>
+                    </div>
                   </section>
                 }
               </div>
@@ -478,39 +481,39 @@ import { toSignal } from '@angular/core/rxjs-interop';
                   </p>
 
                   <!-- Code Example -->
-                  <luma-card lmVariant="elevated" class="mb-6">
-                    <div class="-m-5 overflow-hidden rounded-[inherit]">
-                      <div
-                        class="px-4 py-2 flex items-center justify-between border-b lm-border-neutral-70"
+                  <div
+                    class="rounded-lg overflow-hidden border border-border mb-6"
+                  >
+                    <div
+                      class="px-4 py-2 flex items-center justify-between border-b border-border"
+                    >
+                      <span class="text-xs lm-text-secondary font-mono"
+                        >app.config.ts</span
                       >
-                        <span class="text-xs lm-text-secondary font-mono"
-                          >app.config.ts</span
+                      <button
+                        (click)="copyCode(comp.globalConfig.code)"
+                        class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
-                        <button
-                          (click)="copyCode(comp.globalConfig.code)"
-                          class="text-xs lm-text-secondary hover:lm-text-primary transition-colors flex items-center gap-1.5"
-                        >
-                          <svg
-                            class="w-3.5 h-3.5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                            />
-                          </svg>
-                          <span>Copy</span>
-                        </button>
-                      </div>
-                      <pre
-                        class="p-4 overflow-x-auto text-sm"
-                      ><code class="font-mono lm-text-primary whitespace-pre">{{ comp.globalConfig.code }}</code></pre>
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                        <span>Copy</span>
+                      </button>
                     </div>
-                  </luma-card>
+                    <pre
+                      class="p-4 overflow-x-auto text-sm"
+                    ><code class="font-mono lm-text-primary whitespace-pre">{{ comp.globalConfig.code }}</code></pre>
+                  </div>
 
                   <!-- Options Table -->
                   @if (
@@ -642,72 +645,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
               </div>
             }
           </luma-tabs>
-
-          <!-- Prev/Next Navigation -->
-          <div
-            class="mt-12 pt-8 border-t lm-border-neutral-70 flex items-center justify-between"
-          >
-            <div class="flex-1">
-              @if (prevComponent()) {
-                <a
-                  [routerLink]="['/components', prevComponent()!.slug]"
-                  class="inline-flex items-center gap-2 text-sm lm-text-secondary hover:lm-text-primary transition-colors group"
-                >
-                  <svg
-                    class="w-4 h-4 group-hover:-translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                  <div class="flex flex-col items-start">
-                    <span class="text-xs uppercase tracking-wide">Previous</span>
-                    <span class="font-medium">{{ prevComponent()!.name }}</span>
-                  </div>
-                </a>
-              }
-            </div>
-
-            <a
-              routerLink="/components"
-              class="text-sm lm-text-secondary hover:lm-text-primary transition-colors"
-            >
-              All Components
-            </a>
-
-            <div class="flex-1 flex justify-end">
-              @if (nextComponent()) {
-                <a
-                  [routerLink]="['/components', nextComponent()!.slug]"
-                  class="inline-flex items-center gap-2 text-sm lm-text-secondary hover:lm-text-primary transition-colors group"
-                >
-                  <div class="flex flex-col items-end">
-                    <span class="text-xs uppercase tracking-wide">Next</span>
-                    <span class="font-medium">{{ nextComponent()!.name }}</span>
-                  </div>
-                  <svg
-                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </a>
-              }
-            </div>
-          </div>
         } @else {
           <div class="text-center py-16">
             <h2 class="text-xl font-medium lm-text-primary mb-2">
@@ -728,6 +665,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class ComponentDocsComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly registry = inject(DocsRegistryService);
+  private readonly sanitizer = inject(DomSanitizer);
 
   private readonly slug = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('slug') ?? '')),
@@ -739,21 +677,22 @@ export class ComponentDocsComponent {
     return this.registry.getComponent(slug);
   });
 
-  readonly prevComponent = computed(() => {
-    const components = this.registry.components();
-    const currentSlug = this.slug();
-    const idx = components.findIndex((c) => c.slug === currentSlug);
-    return idx > 0 ? components[idx - 1] : null;
-  });
-
-  readonly nextComponent = computed(() => {
-    const components = this.registry.components();
-    const currentSlug = this.slug();
-    const idx = components.findIndex((c) => c.slug === currentSlug);
-    return idx < components.length - 1 ? components[idx + 1] : null;
+  /**
+   * Sanitized version of highlightedImportCode that bypasses Angular's default HTML sanitization.
+   * This is safe because:
+   * 1. The HTML comes from our build process (Shiki), not user input
+   * 2. Shiki is a trusted library that generates safe HTML
+   * 3. We only bypass sanitization for inline style attributes used for syntax colors
+   */
+  readonly sanitizedImportCode = computed(() => {
+    const comp = this.component();
+    if (!comp?.highlightedImportCode) return null;
+    return this.sanitizer.bypassSecurityTrustHtml(comp.highlightedImportCode);
   });
 
   slugify(title: string): string {
+    // Note: This duplicates tools/utils/slugify.ts logic
+    // Cannot import from tools in Angular app due to build constraints
     return title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')

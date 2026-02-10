@@ -22,10 +22,17 @@ export const routes: Routes = [
           ).then((m) => m.GettingStartedPageComponent),
       },
       {
-        path: 'components',
+        path: 'styling',
         loadComponent: () =>
-          import('./pages/docs-overview/docs-overview.component').then(
-            (m) => m.DocsOverviewComponent,
+          import('./pages/styling-page/styling-page.component').then(
+            (m) => m.StylingPageComponent,
+          ),
+      },
+      {
+        path: 'customizing',
+        loadComponent: () =>
+          import('./pages/customizing-page/customizing-page.component').then(
+            (m) => m.CustomizingPageComponent,
           ),
       },
       {

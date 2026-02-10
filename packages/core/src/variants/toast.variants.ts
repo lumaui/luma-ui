@@ -62,39 +62,19 @@ export const toastItemVariants = cva(
   {
     variants: {
       variant: {
-        info: [
-          'bg-primary-2',
-          'text-primary-12',
-          'border-primary-7',
-        ],
-        success: [
-          'bg-success-background',
-          'text-success-foreground',
-          'border-success-background',
-        ],
-        warning: [
-          'bg-warning-background',
-          'text-warning-foreground',
-          'border-warning-background',
-        ],
+        info: ['bg-primary/10', 'text-primary', 'border-primary/30'],
+        success: ['bg-success/10', 'text-success', 'border-success/30'],
+        warning: ['bg-warning/15', 'text-warning', 'border-warning/30'],
         error: [
-          'bg-destructive-background',
-          'text-destructive-foreground',
-          'border-destructive-background',
+          'bg-destructive/10',
+          'text-destructive',
+          'border-destructive/30',
         ],
       },
       state: {
-        entering: [
-          'animate-in',
-          'slide-in-from-top-2',
-          'fade-in',
-        ],
+        entering: ['animate-in', 'slide-in-from-top-2', 'fade-in'],
         visible: ['opacity-100'],
-        exiting: [
-          'animate-out',
-          'slide-out-to-top-2',
-          'fade-out',
-        ],
+        exiting: ['animate-out', 'slide-out-to-top-2', 'fade-out'],
       },
     },
     defaultVariants: {
@@ -111,10 +91,10 @@ export const toastItemVariants = cva(
 export const toastIconVariants = cva(['shrink-0', 'h-5', 'w-5'], {
   variants: {
     variant: {
-      info: ['text-primary-12'],
-      success: ['text-success-foreground'],
-      warning: ['text-warning-foreground'],
-      error: ['text-destructive-foreground'],
+      info: ['text-primary/85'],
+      success: ['text-success/75'],
+      warning: ['text-warning/70'],
+      error: ['text-destructive/80'],
     },
   },
   defaultVariants: {
@@ -148,11 +128,7 @@ export const toastTitleVariants = cva([
  * Toast Message Variants
  * Message text styling
  */
-export const toastMessageVariants = cva([
-  'text-sm',
-  'leading-relaxed',
-  'opacity-90',
-]);
+export const toastMessageVariants = cva(['text-sm', 'leading-relaxed']);
 
 /**
  * Toast Close Button Variants
@@ -168,7 +144,7 @@ export const toastCloseVariants = cva(
     'hover:opacity-100',
     'focus:outline-none',
     'focus:ring-2',
-    'focus:ring-primary-9',
+    'focus:ring-primary',
     'cursor-pointer',
     '-mr-1',
     '-mt-0.5',
@@ -176,10 +152,10 @@ export const toastCloseVariants = cva(
   {
     variants: {
       variant: {
-        info: ['text-primary-12'],
-        success: ['text-success-foreground'],
-        warning: ['text-warning-foreground'],
-        error: ['text-destructive-foreground'],
+        info: ['text-primary'],
+        success: ['text-success'],
+        warning: ['text-warning'],
+        error: ['text-destructive'],
       },
     },
     defaultVariants: {

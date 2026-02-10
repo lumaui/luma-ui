@@ -7,16 +7,15 @@ export const cardVariants = cva(
   [
     // Base layout
     'relative',
-    'flex',
-    'flex-col',
-    'h-full',
     'w-full',
     // Semantic styling
     'rounded-[var(--radius-5)]',
     'border',
-    'border-gray-200',
-    'bg-white',
-    'text-gray-900',
+    'border-border',
+    'bg-card',
+    'text-card-foreground',
+    // Padding - moved from content to wrapper for flexibility
+    'p-6',
   ],
   {
     variants: {
@@ -36,9 +35,9 @@ export const cardVariants = cva(
 );
 
 /**
- * Card content area - provides padding
+ * Card content area - layout without padding (padding on wrapper)
  */
-export const cardContentVariants = cva(['p-6', 'flex', 'flex-col', 'gap-4']);
+export const cardContentVariants = cva(['flex', 'flex-col', 'gap-4', 'mt-4']);
 
 /**
  * Card header - typically contains title and description
@@ -67,31 +66,30 @@ export const cardTitleVariants = cva(
 /**
  * Card description - supporting text
  */
-export const cardDescriptionVariants = cva(['text-sm', 'text-gray-600'], {
-  variants: {
-    size: {
-      sm: 'text-xs',
-      md: 'text-sm',
-      lg: 'text-base',
+export const cardDescriptionVariants = cva(
+  ['text-sm', 'text-muted-foreground'],
+  {
+    variants: {
+      size: {
+        sm: 'text-xs',
+        md: 'text-sm',
+        lg: 'text-base',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
     },
   },
-  defaultVariants: {
-    size: 'md',
-  },
-});
-
-/**
- * Card footer - actions area at bottom
- */
-export const cardFooterVariants = cva(['flex', 'items-center', 'gap-2']);
+);
 
 // Export types
 export type CardVariants = VariantProps<typeof cardVariants>;
 export type CardContentVariants = VariantProps<typeof cardContentVariants>;
 export type CardHeaderVariants = VariantProps<typeof cardHeaderVariants>;
 export type CardTitleVariants = VariantProps<typeof cardTitleVariants>;
-export type CardDescriptionVariants = VariantProps<typeof cardDescriptionVariants>;
-export type CardFooterVariants = VariantProps<typeof cardFooterVariants>;
+export type CardDescriptionVariants = VariantProps<
+  typeof cardDescriptionVariants
+>;
 
 export type CardVariant = NonNullable<CardVariants['variant']>;
 export type CardTitleSize = NonNullable<CardTitleVariants['size']>;

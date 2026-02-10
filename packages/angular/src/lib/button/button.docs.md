@@ -47,17 +47,18 @@ Buttons use the following semantic tokens:
 - **Destructive variant:** `bg-destructive`, `text-destructive-foreground`
 
 All variants share common tokens for:
+
 - **Border radius:** Controlled by `lmRadius` input (default uses `--radius-4`)
 - **Focus ring:** `ring-ring` (uses `--color-ring`)
 - **Spacing:** Padding-based sizing (not fixed height) for natural button dimensions
 
 ## Size Specifications
 
-| Size | Font Size | Padding X | Padding Y | Height |
-|------|-----------|-----------|-----------|--------|
-| sm   | 12px (text-xs) | 12px (px-3) | 8px (py-2) | Natural (~28px) |
-| md   | 14px (text-sm) | 16px (px-4) | 10px (py-2.5) | Natural (~34px) |
-| lg   | 16px (text-base) | 20px (px-5) | 12px (py-3) | Natural (~40px) |
+| Size | Font Size        | Padding X   | Padding Y     | Height          |
+| ---- | ---------------- | ----------- | ------------- | --------------- |
+| sm   | 12px (text-xs)   | 12px (px-3) | 8px (py-2)    | Natural (~28px) |
+| md   | 14px (text-sm)   | 16px (px-4) | 10px (py-2.5) | Natural (~34px) |
+| lg   | 16px (text-base) | 20px (px-5) | 12px (py-3)   | Natural (~40px) |
 
 **Note:** Border radius is now controlled independently via the `lmRadius` input (not size-dependent). Buttons use padding-based sizing (not fixed `h-*` classes) to accommodate text naturally. This follows Neo-Minimal principles of organic form over rigid geometry.
 
@@ -136,9 +137,9 @@ Change button colors across your entire application:
 ```css
 /* In your global styles.css */
 :root {
-  --color-primary: oklch(0.60 0.15 180);  /* Cyan brand color */
-  --color-primary-foreground: oklch(1 0 0);  /* White text */
-  --radius-md: 0.25rem;  /* Sharper corners (4px) */
+  --color-primary: oklch(0.6 0.15 180); /* Cyan brand color */
+  --color-primary-foreground: oklch(1 0 0); /* White text */
+  --radius-md: 0.25rem; /* Sharper corners (4px) */
 }
 /* All primary buttons automatically use cyan */
 ```
@@ -152,9 +153,7 @@ Override colors for a specific button using `className`:
   Custom Color Button
 </button>
 
-<button lumaButton className="rounded-full">
-  Pill Button
-</button>
+<button lumaButton className="rounded-full">Pill Button</button>
 ```
 
 ### Pattern 3: Scoped Override
@@ -164,12 +163,12 @@ Apply custom colors to buttons in specific sections:
 ```css
 /* Only buttons in the header */
 .header {
-  --color-primary: oklch(0.70 0.12 340);  /* Pink */
+  --color-primary: oklch(0.7 0.12 340); /* Pink */
 }
 
 /* Only buttons in cards */
 .card-actions {
-  --radius-md: 1rem;  /* More rounded */
+  --radius-md: 1rem; /* More rounded */
 }
 ```
 
@@ -187,16 +186,16 @@ Buttons automatically adapt to dark mode:
 
 ### Available Customization Tokens
 
-| Token | Default (Light) | Default (Dark) | Affects |
-|-------|----------------|----------------|---------|
-| `--color-primary` | oklch(0.48 0.09 300) | oklch(0.72 0.12 300) | Primary variant background |
-| `--color-primary-foreground` | oklch(1 0 0) | oklch(1 0 0) | Primary variant text |
-| `--color-secondary` | oklch(0.97 0.006 290) | oklch(0.22 0.008 290) | Secondary variant background |
-| `--color-destructive` | oklch(0.63 0.10 28) | oklch(0.72 0.12 28) | Destructive variant background |
-| `--color-accent` | oklch(0.65 0.10 232) | oklch(0.78 0.09 232) | Ghost/outline hover background |
-| `--color-border` | oklch(0.97 0.006 290) | oklch(0.28 0.01 290) | Outline variant border |
-| `--radius-4` | 0.5rem (8px) | 0.5rem (8px) | Border radius |
-| `--color-ring` | oklch(0.55 0.10 300 / 0.35) | oklch(0.78 0.12 300 / 0.4) | Focus ring |
+| Token                        | Default (Light)             | Default (Dark)             | Affects                        |
+| ---------------------------- | --------------------------- | -------------------------- | ------------------------------ |
+| `--color-primary`            | oklch(0.48 0.09 300)        | oklch(0.72 0.12 300)       | Primary variant background     |
+| `--color-primary-foreground` | oklch(1 0 0)                | oklch(1 0 0)               | Primary variant text           |
+| `--color-secondary`          | oklch(0.97 0.006 290)       | oklch(0.22 0.008 290)      | Secondary variant background   |
+| `--color-destructive`        | oklch(0.63 0.10 28)         | oklch(0.72 0.12 28)        | Destructive variant background |
+| `--color-accent`             | oklch(0.65 0.10 232)        | oklch(0.78 0.09 232)       | Ghost/outline hover background |
+| `--color-border`             | oklch(0.97 0.006 290)       | oklch(0.28 0.01 290)       | Outline variant border         |
+| `--radius-4`                 | 0.5rem (8px)                | 0.5rem (8px)               | Border radius                  |
+| `--color-ring`               | oklch(0.55 0.10 300 / 0.35) | oklch(0.78 0.12 300 / 0.4) | Focus ring                     |
 
 ## Neo-Minimal Principles
 
@@ -225,3 +224,81 @@ The button design embodies core Neo-Minimal values:
 - OnPush change detection for optimal performance
 - Works as both `<button>` and `<a>` elements
 - Zero component-specific tokens - fully customizable via semantic tokens
+
+## Shiki Enhancement Demo
+
+This section demonstrates the new syntax highlighting features powered by Shiki v3 transformers.
+
+### Line Highlighting
+
+Highlight specific lines using meta syntax `{1,3-5}`:
+
+```typescript {1,5-7}
+import { LmButtonDirective } from '@lumaui/angular';
+
+@Component({
+  selector: 'app-example',
+  template: `
+    <button lumaButton lmVariant="primary">Primary</button>
+    <button lumaButton lmVariant="secondary">Secondary</button>
+  `,
+})
+```
+
+### Line Numbers
+
+Add line numbers using `{lineNumbers}` meta:
+
+```typescript {lineNumbers}
+import { Component } from '@angular/core';
+import { LmButtonDirective } from '@lumaui/angular';
+
+@Component({
+  selector: 'app-button-example',
+  template: ` <button lumaButton>Click me</button> `,
+  imports: [LmButtonDirective],
+})
+export class ButtonExampleComponent {}
+```
+
+### Diff Highlighting
+
+Show code changes using `[!code ++]` and `[!code --]`:
+
+```typescript
+- <button lumaButton variant="danger">Delete</button>  // [!code --]
++ <button lumaButton lmVariant="destructive">Delete</button>  // [!code ++]
+
+- <button lumaButton size="large">Big Button</button>  // [!code --]
++ <button lumaButton lmSize="lg">Big Button</button>  // [!code ++]
+```
+
+### Focus Lines
+
+Focus on specific lines using `[!code focus]`:
+
+```typescript
+function handleButtonClick(event: Event) {
+  // [!code focus:3]
+  const button = event.target as HTMLButtonElement;
+  button.disabled = true;
+  performAction().finally(() => (button.disabled = false));
+}
+```
+
+### Combined Features
+
+Line numbers + highlighting + diff together:
+
+```typescript {lineNumbers} {2,6-8}
+import { LmButtonDirective } from '@lumaui/angular';
+
+- const buttonVariants = ['primary', 'danger', 'success'];  // [!code --]
++ const buttonVariants = ['primary', 'destructive', 'secondary'];  // [!code ++]
+
+@Component({
+  template: `
+    <button lumaButton [lmVariant]="variant">Click</button>
+  `,
+})
+```

@@ -1,7 +1,6 @@
 import {
   LmCardContentDirective,
   LmCardDescriptionDirective,
-  LmCardFooterDirective,
   LmCardHeaderDirective,
   LmCardTitleDirective,
 } from './';
@@ -43,12 +42,6 @@ class CardHeaderTestComponent {}
 class CardContentTestComponent {}
 
 @Component({
-  template: `<div lumaCardFooter>Test Footer</div>`,
-  imports: [LmCardFooterDirective],
-})
-class CardFooterTestComponent {}
-
-@Component({
   template: `
     <luma-card [lmVariant]="variant">
       <div lumaCardHeader>
@@ -58,9 +51,6 @@ class CardFooterTestComponent {}
       <div lumaCardContent>
         <p>Card content</p>
       </div>
-      <div lumaCardFooter>
-        <button>Action</button>
-      </div>
     </luma-card>
   `,
   imports: [
@@ -69,7 +59,6 @@ class CardFooterTestComponent {}
     LmCardTitleDirective,
     LmCardDescriptionDirective,
     LmCardContentDirective,
-    LmCardFooterDirective,
   ],
 })
 class FullCardTestComponent {
@@ -275,56 +264,17 @@ describe('LmCardContentDirective', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should apply padding and flex layout classes', () => {
+  it('should apply flex layout classes', () => {
     fixture.detectChanges();
     const element = contentElement.nativeElement as HTMLElement;
-    expect(element.className).toContain('p-6');
     expect(element.className).toContain('flex');
     expect(element.className).toContain('flex-col');
     expect(element.className).toContain('gap-4');
+    // Note: padding moved to wrapper, not on content
   });
 
   it('should exist as semantic marker without applying styles', () => {
     expect(directive).toBeTruthy();
-  });
-
-  it('should be a structural directive with no inputs', () => {
-    expect(directive).toBeDefined();
-    expect(directive).toBeTruthy();
-  });
-});
-
-// ============================================================
-// CARD FOOTER TESTS
-// ============================================================
-
-describe('LmCardFooterDirective', () => {
-  let fixture: ComponentFixture<CardFooterTestComponent>;
-  let footerElement: DebugElement;
-  let directive: LmCardFooterDirective;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LmCardFooterDirective, CardFooterTestComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(CardFooterTestComponent);
-    footerElement = fixture.debugElement.query(
-      By.directive(LmCardFooterDirective),
-    );
-    directive = footerElement.injector.get(LmCardFooterDirective);
-  });
-
-  it('should create', () => {
-    expect(directive).toBeTruthy();
-  });
-
-  it('should apply flex layout and gap classes', () => {
-    fixture.detectChanges();
-    const element = footerElement.nativeElement as HTMLElement;
-    expect(element.className).toContain('flex');
-    expect(element.className).toContain('items-center');
-    expect(element.className).toContain('gap-2');
   });
 
   it('should be a structural directive with no inputs', () => {
@@ -349,7 +299,6 @@ describe('Full Card Composition', () => {
         LmCardTitleDirective,
         LmCardDescriptionDirective,
         LmCardContentDirective,
-        LmCardFooterDirective,
         FullCardTestComponent,
       ],
     }).compileComponents();
@@ -365,15 +314,14 @@ describe('Full Card Composition', () => {
     const header = fixture.debugElement.query(
       By.directive(LmCardHeaderDirective),
     );
-    const title = fixture.debugElement.query(By.directive(LmCardTitleDirective));
+    const title = fixture.debugElement.query(
+      By.directive(LmCardTitleDirective),
+    );
     const description = fixture.debugElement.query(
       By.directive(LmCardDescriptionDirective),
     );
     const content = fixture.debugElement.query(
       By.directive(LmCardContentDirective),
-    );
-    const footer = fixture.debugElement.query(
-      By.directive(LmCardFooterDirective),
     );
 
     expect(card).toBeTruthy();
@@ -381,7 +329,6 @@ describe('Full Card Composition', () => {
     expect(title).toBeTruthy();
     expect(description).toBeTruthy();
     expect(content).toBeTruthy();
-    expect(footer).toBeTruthy();
   });
 
   it('should apply all directive classes correctly', () => {
@@ -398,7 +345,7 @@ describe('Full Card Composition', () => {
     ).nativeElement;
 
     // Card should have base classes
-    expect(cardInnerDiv.className).toContain('rounded-lg');
+    expect(cardInnerDiv.className).toContain('rounded-[var(--radius-5)]');
     expect(cardInnerDiv.className).toContain('border');
     expect(cardInnerDiv.className).toContain('bg-card');
 
@@ -417,6 +364,6 @@ describe('Full Card Composition', () => {
     const card = fixture.debugElement.query(By.directive(LmCardComponent));
     const cardInnerDiv = card.nativeElement.querySelector('div');
 
-    expect(cardInnerDiv.className).toContain('shadow-sm');
+    expect(cardInnerDiv.className).toContain('shadow-[var(--shadow-3)]');
   });
 });

@@ -1,0 +1,66 @@
+{
+  "luma": {
+    "gray": {
+      "1": {
+        "value": "oklch(0.13 0.000 0)",
+        "type": "color",
+        "description": "Darkest gray - subtle backgrounds"
+      },
+      "2": {
+        "value": "oklch(0.16 0.000 0)",
+        "type": "color",
+        "description": "Dark gray - card/panel backgrounds"
+      },
+      "3": {
+        "value": "oklch(0.20 0.000 0)",
+        "type": "color",
+        "description": "Dark gray - primary border color"
+      },
+      "4": {
+        "value": "oklch(0.23 0.000 0)",
+        "type": "color",
+        "description": "Subtle gray - hover state backgrounds"
+      },
+      "5": {
+        "value": "oklch(0.26 0.000 0)",
+        "type": "color",
+        "description": "Medium dark gray - active state backgrounds"
+      },
+      "6": {
+        "value": "oklch(0.30 0.000 0)",
+        "type": "color",
+        "description": "Medium gray - subtle dividers"
+      },
+      "7": {
+        "value": "oklch(0.35 0.000 0)",
+        "type": "color",
+        "description": "Medium light gray - prominent dividers"
+      },
+      "8": {
+        "value": "oklch(0.45 0.000 0)",
+        "type": "color",
+        "description": "Light gray - solid backgrounds"
+      },
+      "9": {
+        "value": "oklch(0.50 0.000 0)",
+        "type": "color",
+        "description": "Muted gray - secondary text"
+      },
+      "10": {
+        "value": "oklch(0.54 0.000 0)",
+        "type": "color",
+        "description": "Muted light gray - secondary text hover"
+      },
+      "11": {
+        "value": "oklch(0.74 0.000 0)",
+        "type": "color",
+        "description": "Low contrast gray - tertiary text"
+      },
+      "12": {
+        "value": "oklch(0.94 0.000 0)",
+        "type": "color",
+        "description": "Lightest gray - primary text"
+      }
+    }
+  }
+}

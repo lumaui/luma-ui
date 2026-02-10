@@ -17,57 +17,128 @@ import {
   template: `
     @switch (exampleId()) {
       @case ('basic-toast') {
-        <div class="flex justify-center">
-          <button lumaButton lmVariant="primary" (click)="showInfo()">
-            Show Toast
-          </button>
-        </div>
+        <button
+          lumaButton
+          lmVariant="primary"
+          (click)="toast.info('Operation successful')"
+        >
+          Show Toast
+        </button>
       }
       @case ('all-variants') {
-        <div class="flex flex-wrap gap-2 justify-center">
-          <button lumaButton lmVariant="outline" (click)="showInfo()">
+        <div class="flex flex-wrap gap-2">
+          <button
+            lumaButton
+            lmVariant="outline"
+            (click)="toast.info('Information')"
+          >
             Info
           </button>
-          <button lumaButton lmVariant="outline" (click)="showSuccess()">
+          <button
+            lumaButton
+            lmVariant="outline"
+            (click)="toast.success('Success!')"
+          >
             Success
           </button>
-          <button lumaButton lmVariant="outline" (click)="showWarning()">
+          <button
+            lumaButton
+            lmVariant="outline"
+            (click)="toast.warning('Warning!')"
+          >
             Warning
           </button>
-          <button lumaButton lmVariant="outline" (click)="showError()">
+          <button
+            lumaButton
+            lmVariant="outline"
+            (click)="toast.error('Error!')"
+          >
             Error
           </button>
         </div>
       }
       @case ('persistent-toast') {
-        <div class="flex flex-col items-center gap-4">
-          <button lumaButton lmVariant="primary" (click)="showPersistent()">
+        <div class="flex flex-wrap gap-2">
+          <button
+            lumaButton
+            lmVariant="primary"
+            (click)="toast.info('Processing...', { duration: 0 })"
+          >
             Show Persistent Toast
           </button>
-          <button lumaButton lmVariant="ghost" (click)="dismissAll()">
+          <button lumaButton lmVariant="ghost" (click)="toast.dismissAll()">
             Dismiss All
           </button>
         </div>
       }
       @case ('different-positions') {
-        <div class="flex flex-wrap gap-2 justify-center">
-          @for (pos of positions; track pos) {
-            <button
-              lumaButton
-              lmVariant="outline"
-              (click)="showAtPosition(pos)"
-            >
-              {{ pos }}
-            </button>
-          }
+        <div class="grid grid-cols-3 gap-2">
+          <button
+            lumaButton
+            lmVariant="outline"
+            lmSize="sm"
+            (click)="toast.success('Top left', { position: 'top-left' })"
+          >
+            top-left
+          </button>
+          <button
+            lumaButton
+            lmVariant="outline"
+            lmSize="sm"
+            (click)="toast.success('Top center', { position: 'top-center' })"
+          >
+            top-center
+          </button>
+          <button
+            lumaButton
+            lmVariant="outline"
+            lmSize="sm"
+            (click)="toast.success('Top right', { position: 'top-right' })"
+          >
+            top-right
+          </button>
+          <button
+            lumaButton
+            lmVariant="outline"
+            lmSize="sm"
+            (click)="toast.success('Bottom left', { position: 'bottom-left' })"
+          >
+            bottom-left
+          </button>
+          <button
+            lumaButton
+            lmVariant="outline"
+            lmSize="sm"
+            (click)="
+              toast.success('Bottom center', { position: 'bottom-center' })
+            "
+          >
+            bottom-center
+          </button>
+          <button
+            lumaButton
+            lmVariant="outline"
+            lmSize="sm"
+            (click)="
+              toast.success('Bottom right', { position: 'bottom-right' })
+            "
+          >
+            bottom-right
+          </button>
         </div>
       }
       @case ('toast-with-title') {
-        <div class="flex flex-wrap gap-2 justify-center">
-          <button lumaButton lmVariant="outline" (click)="showWithTitle()">
-            With Title
-          </button>
-        </div>
+        <button
+          lumaButton
+          lmVariant="outline"
+          (click)="
+            toast.error('Unable to connect to server', {
+              title: 'Connection Failed',
+            })
+          "
+        >
+          Show Toast with Title
+        </button>
       }
       @default {
         <div class="lm-text-secondary text-sm text-center">
@@ -79,48 +150,5 @@ import {
 })
 export class ToastPreviewsComponent {
   exampleId = input.required<string>();
-  private toast = inject(LmToastService);
-
-  positions: ToastPosition[] = [
-    'top-left',
-    'top-center',
-    'top-right',
-    'bottom-left',
-    'bottom-center',
-    'bottom-right',
-  ];
-
-  showInfo(): void {
-    this.toast.info('This is an info message');
-  }
-
-  showSuccess(): void {
-    this.toast.success('Changes saved successfully!');
-  }
-
-  showWarning(): void {
-    this.toast.warning('Your session will expire soon');
-  }
-
-  showError(): void {
-    this.toast.error('Failed to save changes');
-  }
-
-  showPersistent(): void {
-    this.toast.info('Processing...', { duration: 0 });
-  }
-
-  dismissAll(): void {
-    this.toast.dismissAll();
-  }
-
-  showAtPosition(position: ToastPosition): void {
-    this.toast.success(`Toast at ${position}`, { position });
-  }
-
-  showWithTitle(): void {
-    this.toast.error('Unable to connect to server', {
-      title: 'Connection Failed',
-    });
-  }
+  toast = inject(LmToastService);
 }

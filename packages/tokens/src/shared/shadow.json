@@ -2,34 +2,34 @@
   "luma": {
     "shadow": {
       "1": {
-        "value": "inset 0 0 0 1px var(--color-gray-a5), inset 0 1.5px 2px 0 var(--color-gray-a2)",
+        "value": "inset 0 0 0 1px oklch(0.5 0 0 / 0.03)",
         "type": "boxShadow",
-        "description": "Inset shadow - subtle depth"
+        "description": "Subtle inset border - for input fields"
       },
       "2": {
-        "value": "0 0 0 1px var(--color-gray-a3), 0 1px 1px 0 var(--color-gray-a2), 0 2px 1px -1px var(--color-black-a1)",
+        "value": "0 1px 2px 0 oklch(0 0 0 / 0.03), 0 0 0 1px oklch(0.5 0 0 / 0.02)",
         "type": "boxShadow",
-        "description": "Subtle elevation - cards, containers"
+        "description": "Minimal elevation - default cards"
       },
       "3": {
-        "value": "0 0 0 1px var(--color-gray-a3), 0 2px 3px -2px var(--color-gray-a3), 0 3px 12px -4px var(--color-black-a2)",
+        "value": "0 2px 4px 0 oklch(0 0 0 / 0.04), 0 0 0 1px oklch(0.5 0 0 / 0.02)",
         "type": "boxShadow",
-        "description": "Medium elevation - hover cards, dropdowns"
+        "description": "Low elevation - elevated cards, hover states"
       },
       "4": {
-        "value": "0 0 0 1px var(--color-gray-a3), 0 8px 40px var(--color-black-a1), 0 12px 32px -16px var(--color-gray-a3)",
+        "value": "0 4px 8px 0 oklch(0 0 0 / 0.06), 0 0 0 1px oklch(0.5 0 0 / 0.02)",
         "type": "boxShadow",
-        "description": "High elevation - popovers, tooltips"
+        "description": "Medium elevation - toasts, dropdowns"
       },
       "5": {
-        "value": "0 0 0 1px var(--color-gray-a3), 0 12px 60px var(--color-black-a3), 0 12px 32px -16px var(--color-gray-a5)",
+        "value": "0 8px 16px 0 oklch(0 0 0 / 0.08), 0 0 0 1px oklch(0.5 0 0 / 0.02)",
         "type": "boxShadow",
-        "description": "Very high elevation - modals, dialogs"
+        "description": "High elevation - popovers, dialogs"
       },
       "6": {
-        "value": "0 0 0 1px var(--color-gray-a3), 0 12px 60px var(--color-black-a3), 0 16px 64px var(--color-gray-a2)",
+        "value": "0 16px 32px 0 oklch(0 0 0 / 0.10), 0 0 0 1px oklch(0.5 0 0 / 0.02)",
         "type": "boxShadow",
-        "description": "Maximum elevation - full-screen overlays"
+        "description": "Maximum elevation - modals, full overlays"
       }
     }
   }

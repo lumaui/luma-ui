@@ -39,40 +39,39 @@ import {
           <button lumaButton lmVariant="primary" (click)="basicOpen.set(true)">
             Open Modal
           </button>
-          <luma-modal
-            [lmOpen]="basicOpen()"
-            (lmOpenChange)="basicOpen.set($event)"
-          >
-            <luma-modal-overlay>
-              <luma-modal-container>
-                <luma-modal-close />
-                <div lumaModalHeader>
-                  <h2 lumaModalTitle>Modal Title</h2>
-                </div>
-                <div lumaModalContent>
-                  <p class="lm-text-secondary">Modal content goes here...</p>
-                </div>
-                <div lumaModalFooter>
-                  <button
-                    lumaButton
-                    lmVariant="ghost"
-                    lmSize="sm"
-                    (click)="basicOpen.set(false)"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    lumaButton
-                    lmVariant="primary"
-                    lmSize="sm"
-                    (click)="basicOpen.set(false)"
-                  >
-                    Confirm
-                  </button>
-                </div>
-              </luma-modal-container>
-            </luma-modal-overlay>
-          </luma-modal>
+          @if (basicOpen()) {
+            <luma-modal [lmOpen]="true" (lmOpenChange)="basicOpen.set($event)">
+              <luma-modal-overlay>
+                <luma-modal-container>
+                  <luma-modal-close />
+                  <div lumaModalHeader>
+                    <h2 lumaModalTitle>Modal Title</h2>
+                  </div>
+                  <div lumaModalContent>
+                    <p class="lm-text-secondary">Modal content goes here...</p>
+                  </div>
+                  <div lumaModalFooter>
+                    <button
+                      lumaButton
+                      lmVariant="ghost"
+                      lmSize="sm"
+                      (click)="basicOpen.set(false)"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      lumaButton
+                      lmVariant="primary"
+                      lmSize="sm"
+                      (click)="basicOpen.set(false)"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                </luma-modal-container>
+              </luma-modal-overlay>
+            </luma-modal>
+          }
         </div>
       }
       @case ('sizes') {
@@ -82,35 +81,39 @@ import {
               {{ size }}
             </button>
           }
-          <luma-modal
-            [lmOpen]="sizeOpen()"
-            [lmSize]="currentSize()"
-            (lmOpenChange)="sizeOpen.set($event)"
-          >
-            <luma-modal-overlay>
-              <luma-modal-container>
-                <luma-modal-close />
-                <div lumaModalHeader>
-                  <h2 lumaModalTitle>{{ currentSize() | uppercase }} Modal</h2>
-                </div>
-                <div lumaModalContent>
-                  <p class="lm-text-secondary">
-                    This is a {{ currentSize() }} sized modal.
-                  </p>
-                </div>
-                <div lumaModalFooter>
-                  <button
-                    lumaButton
-                    lmVariant="primary"
-                    lmSize="sm"
-                    (click)="sizeOpen.set(false)"
-                  >
-                    Close
-                  </button>
-                </div>
-              </luma-modal-container>
-            </luma-modal-overlay>
-          </luma-modal>
+          @if (sizeOpen()) {
+            <luma-modal
+              [lmOpen]="true"
+              [lmSize]="currentSize()"
+              (lmOpenChange)="sizeOpen.set($event)"
+            >
+              <luma-modal-overlay>
+                <luma-modal-container>
+                  <luma-modal-close />
+                  <div lumaModalHeader>
+                    <h2 lumaModalTitle>
+                      {{ currentSize() | uppercase }} Modal
+                    </h2>
+                  </div>
+                  <div lumaModalContent>
+                    <p class="lm-text-secondary">
+                      This is a {{ currentSize() }} sized modal.
+                    </p>
+                  </div>
+                  <div lumaModalFooter>
+                    <button
+                      lumaButton
+                      lmVariant="primary"
+                      lmSize="sm"
+                      (click)="sizeOpen.set(false)"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </luma-modal-container>
+              </luma-modal-overlay>
+            </luma-modal>
+          }
         </div>
       }
       @case ('scrollable-content') {
@@ -118,43 +121,45 @@ import {
           <button lumaButton lmVariant="primary" (click)="scrollOpen.set(true)">
             Open Scrollable Modal
           </button>
-          <luma-modal
-            [lmOpen]="scrollOpen()"
-            lmSize="md"
-            (lmOpenChange)="scrollOpen.set($event)"
-          >
-            <luma-modal-overlay>
-              <luma-modal-container>
-                <luma-modal-close />
-                <div lumaModalHeader>
-                  <h2 lumaModalTitle>Terms of Service</h2>
-                </div>
-                <div lumaModalContent [lmScrollable]="true">
-                  @for (i of scrollSections; track i) {
-                    <div class="mb-4">
-                      <h3 class="font-medium mb-1">Section {{ i }}</h3>
-                      <p class="lm-text-secondary text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation.
-                      </p>
-                    </div>
-                  }
-                </div>
-                <div lumaModalFooter>
-                  <button
-                    lumaButton
-                    lmVariant="primary"
-                    lmSize="sm"
-                    (click)="scrollOpen.set(false)"
-                  >
-                    Accept
-                  </button>
-                </div>
-              </luma-modal-container>
-            </luma-modal-overlay>
-          </luma-modal>
+          @if (scrollOpen()) {
+            <luma-modal
+              [lmOpen]="true"
+              lmSize="md"
+              (lmOpenChange)="scrollOpen.set($event)"
+            >
+              <luma-modal-overlay>
+                <luma-modal-container>
+                  <luma-modal-close />
+                  <div lumaModalHeader>
+                    <h2 lumaModalTitle>Terms of Service</h2>
+                  </div>
+                  <div lumaModalContent [lmScrollable]="true">
+                    @for (i of scrollSections; track i) {
+                      <div class="mb-4">
+                        <h3 class="font-medium mb-1">Section {{ i }}</h3>
+                        <p class="lm-text-secondary text-sm">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation.
+                        </p>
+                      </div>
+                    }
+                  </div>
+                  <div lumaModalFooter>
+                    <button
+                      lumaButton
+                      lmVariant="primary"
+                      lmSize="sm"
+                      (click)="scrollOpen.set(false)"
+                    >
+                      Accept
+                    </button>
+                  </div>
+                </luma-modal-container>
+              </luma-modal-overlay>
+            </luma-modal>
+          }
         </div>
       }
       @case ('uncontrolled-mode') {
@@ -166,39 +171,41 @@ import {
           >
             Open Confirmation
           </button>
-          <luma-modal
-            [lmDefaultOpen]="false"
-            [lmOpen]="uncontrolledOpen()"
-            (lmOpenChange)="uncontrolledOpen.set($event)"
-          >
-            <luma-modal-overlay>
-              <luma-modal-container>
-                <div lumaModalContent>
-                  <p class="lm-text-secondary">
-                    Are you sure you want to proceed?
-                  </p>
-                </div>
-                <div lumaModalFooter>
-                  <button
-                    lumaButton
-                    lmVariant="ghost"
-                    lmSize="sm"
-                    (click)="uncontrolledOpen.set(false)"
-                  >
-                    No
-                  </button>
-                  <button
-                    lumaButton
-                    lmVariant="primary"
-                    lmSize="sm"
-                    (click)="uncontrolledOpen.set(false)"
-                  >
-                    Yes
-                  </button>
-                </div>
-              </luma-modal-container>
-            </luma-modal-overlay>
-          </luma-modal>
+          @if (uncontrolledOpen()) {
+            <luma-modal
+              [lmDefaultOpen]="false"
+              [lmOpen]="true"
+              (lmOpenChange)="uncontrolledOpen.set($event)"
+            >
+              <luma-modal-overlay>
+                <luma-modal-container>
+                  <div lumaModalContent>
+                    <p class="lm-text-secondary">
+                      Are you sure you want to proceed?
+                    </p>
+                  </div>
+                  <div lumaModalFooter>
+                    <button
+                      lumaButton
+                      lmVariant="ghost"
+                      lmSize="sm"
+                      (click)="uncontrolledOpen.set(false)"
+                    >
+                      No
+                    </button>
+                    <button
+                      lumaButton
+                      lmVariant="primary"
+                      lmSize="sm"
+                      (click)="uncontrolledOpen.set(false)"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </luma-modal-container>
+              </luma-modal-overlay>
+            </luma-modal>
+          }
         </div>
       }
       @case ('footer-alignment') {
@@ -210,40 +217,39 @@ import {
               </button>
             }
           </div>
-          <luma-modal
-            [lmOpen]="alignOpen()"
-            (lmOpenChange)="alignOpen.set($event)"
-          >
-            <luma-modal-overlay>
-              <luma-modal-container>
-                <luma-modal-close />
-                <div lumaModalHeader>
-                  <h2 lumaModalTitle>Footer: {{ currentAlign() }}</h2>
-                </div>
-                <div lumaModalContent>
-                  <p class="lm-text-secondary">Footer alignment example.</p>
-                </div>
-                <div lumaModalFooter [lmAlign]="currentAlign()">
-                  <button
-                    lumaButton
-                    lmVariant="ghost"
-                    lmSize="sm"
-                    (click)="alignOpen.set(false)"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    lumaButton
-                    lmVariant="primary"
-                    lmSize="sm"
-                    (click)="alignOpen.set(false)"
-                  >
-                    Confirm
-                  </button>
-                </div>
-              </luma-modal-container>
-            </luma-modal-overlay>
-          </luma-modal>
+          @if (alignOpen()) {
+            <luma-modal [lmOpen]="true" (lmOpenChange)="alignOpen.set($event)">
+              <luma-modal-overlay>
+                <luma-modal-container>
+                  <luma-modal-close />
+                  <div lumaModalHeader>
+                    <h2 lumaModalTitle>Footer: {{ currentAlign() }}</h2>
+                  </div>
+                  <div lumaModalContent>
+                    <p class="lm-text-secondary">Footer alignment example.</p>
+                  </div>
+                  <div lumaModalFooter [lmAlign]="currentAlign()">
+                    <button
+                      lumaButton
+                      lmVariant="ghost"
+                      lmSize="sm"
+                      (click)="alignOpen.set(false)"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      lumaButton
+                      lmVariant="primary"
+                      lmSize="sm"
+                      (click)="alignOpen.set(false)"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                </luma-modal-container>
+              </luma-modal-overlay>
+            </luma-modal>
+          }
         </div>
       }
       @default {

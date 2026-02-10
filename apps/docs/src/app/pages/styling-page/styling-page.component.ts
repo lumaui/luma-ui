@@ -1,0 +1,531 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import {
+  ColorGridComponent,
+  type ColorSwatch,
+} from '../../components/color-grid/color-grid.component';
+import {
+  TokenPreviewComponent,
+  type TokenPreviewData,
+} from '../../components/token-preview/token-preview.component';
+
+@Component({
+  selector: 'app-styling-page',
+  imports: [
+    RouterLink,
+    SidebarComponent,
+    ColorGridComponent,
+    TokenPreviewComponent,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row mt-8 md:mt-16">
+      <app-sidebar />
+      <div class="flex-1 px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+        <!-- Hero Section -->
+        <div class="mb-12">
+          <h1
+            class="text-4xl font-bold text-foreground mb-4 tracking-tight leading-tight"
+          >
+            Styling
+          </h1>
+          <p class="text-lg text-muted-foreground leading-relaxed">
+            Visual reference of Luma's semantic design tokens. These tokens
+            power all components and can be customized via CSS variables. See
+            the
+            <a
+              routerLink="/docs/customizing"
+              class="text-primary hover:underline font-medium"
+              >Customizing</a
+            >
+            page for implementation details.
+          </p>
+        </div>
+
+        <!-- Tailwind-First Philosophy -->
+        <section class="mb-16">
+          <h2
+            class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+          >
+            Tailwind-First Philosophy
+          </h2>
+          <div class="prose prose-neutral max-w-none">
+            <p class="text-muted-foreground leading-relaxed mb-4">
+              Luma leverages Tailwind's utility system with semantic design
+              tokens. This provides unmatched flexibility and a familiar
+              developer experience—if you know Tailwind, you know Luma.
+            </p>
+            <div class="bg-muted/30 rounded-lg p-6 space-y-3 my-6">
+              <h3 class="text-base font-semibold text-foreground mb-3">
+                Key Benefits:
+              </h3>
+              <ul class="space-y-2 text-sm text-muted-foreground">
+                <li class="flex items-start gap-3">
+                  <span
+                    class="text-primary font-bold text-lg leading-none mt-0.5"
+                    >✓</span
+                  >
+                  <span
+                    ><strong class="text-foreground"
+                      >Customize with CSS variables:</strong
+                    >
+                    Change one token, update all components</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <span
+                    class="text-primary font-bold text-lg leading-none mt-0.5"
+                    >✓</span
+                  >
+                  <span
+                    ><strong class="text-foreground"
+                      >Standard Tailwind utilities:</strong
+                    >
+                    <code class="text-xs">bg-primary</code>,
+                    <code class="text-xs">text-foreground</code>,
+                    <code class="text-xs">rounded-md</code> just work</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <span
+                    class="text-primary font-bold text-lg leading-none mt-0.5"
+                    >✓</span
+                  >
+                  <span
+                    ><strong class="text-foreground">No learning curve:</strong>
+                    Familiar Tailwind patterns</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <span
+                    class="text-primary font-bold text-lg leading-none mt-0.5"
+                    >✓</span
+                  >
+                  <span
+                    ><strong class="text-foreground">Runtime theming:</strong>
+                    Override tokens without rebuilding</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why Semantic Tokens -->
+        <section class="mb-16">
+          <h2
+            class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+          >
+            Why Semantic Tokens?
+          </h2>
+          <p class="text-muted-foreground leading-relaxed mb-4">
+            Luma uses semantic tokens instead of hundreds of component-specific
+            tokens. This dramatically simplifies customization while maintaining
+            full design flexibility.
+          </p>
+          <div class="grid md:grid-cols-2 gap-4 my-6">
+            <div class="bg-muted/30 rounded-lg p-5">
+              <h3 class="text-sm font-semibold text-foreground mb-2">
+                ✓ Simple customization
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                Change 1 token, update all components that use it
+              </p>
+            </div>
+            <div class="bg-muted/30 rounded-lg p-5">
+              <h3 class="text-sm font-semibold text-foreground mb-2">
+                ✓ Predictable behavior
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                <code class="text-xs">bg-primary</code> means the same
+                everywhere
+              </p>
+            </div>
+            <div class="bg-muted/30 rounded-lg p-5">
+              <h3 class="text-sm font-semibold text-foreground mb-2">
+                ✓ Zero bloat
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                Standard Tailwind utilities, no custom classes
+              </p>
+            </div>
+            <div class="bg-muted/30 rounded-lg p-5">
+              <h3 class="text-sm font-semibold text-foreground mb-2">
+                ✓ Designer-friendly
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                Semantic names like "primary", "success", "muted"
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Design Tokens Visual Reference -->
+        <section class="mb-16">
+          <h2
+            class="text-2xl font-semibold text-foreground mb-4 tracking-tight border-b border-border pb-2"
+          >
+            Design Tokens
+          </h2>
+          <p class="text-muted-foreground leading-relaxed mb-8">
+            Visual reference of all design tokens. For implementation details
+            and CSS variable names, see the
+            <a
+              routerLink="/docs/customizing"
+              class="text-primary hover:underline font-medium"
+              >Customizing</a
+            >
+            page.
+          </p>
+
+          <!-- Primary Colors -->
+          <div class="mb-12">
+            <app-color-grid
+              title="Primary Color Scale"
+              description="12-step color scale for nuanced color usage. Step 5 is the base brand color used in buttons and primary actions."
+              [colors]="primaryColors"
+            />
+          </div>
+
+          <!-- Gray Scale -->
+          <div class="mb-12">
+            <app-color-grid
+              title="Gray Scale"
+              description="Theme-independent neutral colors for structural elements like borders, dividers, and backgrounds."
+              [colors]="grayColors"
+            />
+          </div>
+
+          <!-- Surface Colors -->
+          <div class="mb-12">
+            <app-color-grid
+              title="Surface Colors"
+              description="Background and foreground colors for app surfaces and elevated elements like popovers."
+              [colors]="surfaceColors"
+            />
+          </div>
+
+          <!-- Semantic State Colors -->
+          <div class="mb-12">
+            <app-color-grid
+              title="Semantic State Colors"
+              description="Colors for destructive, warning, and success states with paired foreground colors for text."
+              [colors]="semanticColors"
+            />
+          </div>
+
+          <!-- Border Radius -->
+          <div class="mb-12">
+            <h3 class="text-xl font-semibold text-foreground mb-4">
+              Border Radius
+            </h3>
+            <p class="text-sm text-muted-foreground mb-6">
+              6 radius values for consistent rounded corners across all
+              components.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+              @for (token of radiusTokens; track token.name) {
+                <app-token-preview [token]="token" />
+              }
+            </div>
+          </div>
+
+          <!-- Shadows -->
+          <div class="mb-12">
+            <h3 class="text-xl font-semibold text-foreground mb-4">Shadows</h3>
+            <p class="text-sm text-muted-foreground mb-6">
+              6 elevation levels for creating depth hierarchy in your interface.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+              @for (token of shadowTokens; track token.name) {
+                <app-token-preview [token]="token" />
+              }
+            </div>
+          </div>
+
+          <!-- Typography -->
+          <div class="mb-12">
+            <h3 class="text-xl font-semibold text-foreground mb-4">
+              Typography
+            </h3>
+            <p class="text-sm text-muted-foreground mb-4">
+              Base font family with fallback stack for consistent typography.
+            </p>
+            <div class="bg-muted/30 rounded-lg p-6">
+              <p
+                class="text-base text-foreground mb-2"
+                style="font-family: var(--font-family-base)"
+              >
+                The quick brown fox jumps over the lazy dog
+              </p>
+              <p class="text-xs text-muted-foreground font-mono">
+                Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
+})
+export class StylingPageComponent {
+  /**
+   * Primary color scale (12 steps)
+   */
+  readonly primaryColors: ColorSwatch[] = [
+    { step: 1, value: 'oklch(1 0 300)', description: 'Subtle backgrounds' },
+    { step: 2, value: 'oklch(0.94 0.020 300)', description: 'Hover states' },
+    {
+      step: 3,
+      value: 'oklch(0.88 0.035 300)',
+      description: 'Secondary backgrounds',
+    },
+    {
+      step: 4,
+      value: 'oklch(0.78 0.060 300)',
+      description: 'Interactive elements',
+    },
+    {
+      step: 5,
+      value: 'oklch(0.48 0.090 300)',
+      description: 'BASE COLOR - buttons',
+    },
+    {
+      step: 6,
+      value: 'oklch(0.43 0.085 300)',
+      description: 'Button hover',
+    },
+    { step: 7, value: 'oklch(0.38 0.080 300)', description: 'Borders' },
+    { step: 8, value: 'oklch(0.33 0.075 300)', description: 'Active borders' },
+    {
+      step: 9,
+      value: 'oklch(0.28 0.065 300)',
+      description: 'Pressed states',
+    },
+    { step: 10, value: 'oklch(0.23 0.055 300)', description: 'High emphasis' },
+    {
+      step: 11,
+      value: 'oklch(0.18 0.045 300)',
+      description: 'High-contrast text',
+    },
+    { step: 12, value: 'oklch(0.13 0.030 300)', description: 'Text, links' },
+  ];
+
+  /**
+   * Gray scale (12 steps)
+   */
+  readonly grayColors: ColorSwatch[] = [
+    {
+      step: 1,
+      value: 'oklch(0.99 0.000 0)',
+      description: 'Subtle backgrounds',
+    },
+    {
+      step: 2,
+      value: 'oklch(0.98 0.000 0)',
+      description: 'Card backgrounds',
+    },
+    {
+      step: 3,
+      value: 'oklch(0.95 0.000 0)',
+      description: 'Primary border color',
+    },
+    {
+      step: 4,
+      value: 'oklch(0.92 0.000 0)',
+      description: 'Hover backgrounds',
+    },
+    {
+      step: 5,
+      value: 'oklch(0.89 0.000 0)',
+      description: 'Active backgrounds',
+    },
+    { step: 6, value: 'oklch(0.86 0.000 0)', description: 'Subtle dividers' },
+    {
+      step: 7,
+      value: 'oklch(0.82 0.000 0)',
+      description: 'Prominent dividers',
+    },
+    {
+      step: 8,
+      value: 'oklch(0.76 0.000 0)',
+      description: 'Solid backgrounds',
+    },
+    { step: 9, value: 'oklch(0.60 0.000 0)', description: 'Secondary text' },
+    {
+      step: 10,
+      value: 'oklch(0.57 0.000 0)',
+      description: 'Secondary text hover',
+    },
+    { step: 11, value: 'oklch(0.45 0.000 0)', description: 'Tertiary text' },
+    { step: 12, value: 'oklch(0.20 0.000 0)', description: 'Primary text' },
+  ];
+
+  /**
+   * Surface colors
+   */
+  readonly surfaceColors: ColorSwatch[] = [
+    {
+      step: 1,
+      value: 'oklch(1 0 0)',
+      description: 'App background (white)',
+    },
+    {
+      step: 2,
+      value: 'oklch(0.22 0.014 290)',
+      description: 'Primary text color',
+    },
+    {
+      step: 3,
+      value: 'oklch(0.13 0.030 300)',
+      description: 'Popover background',
+    },
+    {
+      step: 4,
+      value: 'oklch(1 0 0)',
+      description: 'Popover text',
+    },
+  ];
+
+  /**
+   * Semantic state colors
+   */
+  readonly semanticColors: ColorSwatch[] = [
+    {
+      step: 1,
+      value: 'oklch(0.63 0.10 28)',
+      description: 'Destructive - errors',
+    },
+    {
+      step: 2,
+      value: 'oklch(1 0 0)',
+      description: 'Destructive text',
+    },
+    {
+      step: 3,
+      value: 'oklch(0.80 0.09 95)',
+      description: 'Warning - caution',
+    },
+    {
+      step: 4,
+      value: 'oklch(0.22 0.014 290)',
+      description: 'Warning text',
+    },
+    {
+      step: 5,
+      value: 'oklch(0.72 0.07 155)',
+      description: 'Success - confirmations',
+    },
+    {
+      step: 6,
+      value: 'oklch(1 0 0)',
+      description: 'Success text',
+    },
+  ];
+
+  /**
+   * Border radius tokens with visual previews
+   */
+  readonly radiusTokens: TokenPreviewData[] = [
+    {
+      name: 'Radius 1',
+      description: 'Minimal (2px)',
+      value: '0.125rem',
+      category: 'radius',
+      cssExample: `.element {\n  border-radius: var(--radius-1);\n}`,
+    },
+    {
+      name: 'Radius 2',
+      description: 'Small (4px) - badges, pills',
+      value: '0.25rem',
+      category: 'radius',
+      cssExample: `.badge {\n  border-radius: var(--radius-2);\n}`,
+    },
+    {
+      name: 'Radius 3',
+      description: 'Medium-small (6px) - tooltips',
+      value: '0.375rem',
+      category: 'radius',
+      cssExample: `.tooltip {\n  border-radius: var(--radius-3);\n}`,
+    },
+    {
+      name: 'Radius 4',
+      description: 'Medium (8px) - buttons, inputs',
+      value: '0.5rem',
+      category: 'radius',
+      cssExample: `.button {\n  border-radius: var(--radius-4);\n}`,
+    },
+    {
+      name: 'Radius 5',
+      description: 'Large (12px) - cards',
+      value: '0.75rem',
+      category: 'radius',
+      cssExample: `.card {\n  border-radius: var(--radius-5);\n}`,
+    },
+    {
+      name: 'Radius 6',
+      description: 'Extra large (16px) - modals',
+      value: '1rem',
+      category: 'radius',
+      cssExample: `.modal {\n  border-radius: var(--radius-6);\n}`,
+    },
+  ];
+
+  /**
+   * Shadow tokens with visual previews
+   */
+  readonly shadowTokens: TokenPreviewData[] = [
+    {
+      name: 'Shadow 1',
+      description: 'Subtle inset - input fields',
+      value: 'inset 0 0 0 1px oklch(0.5 0 0 / 0.03)',
+      category: 'shadow',
+      cssExample: `.input {\n  box-shadow: var(--shadow-1);\n}`,
+    },
+    {
+      name: 'Shadow 2',
+      description: 'Minimal elevation - default cards',
+      value: '0 1px 2px 0 oklch(0 0 0 / 0.03), 0 0 0 1px oklch(0.5 0 0 / 0.02)',
+      category: 'shadow',
+      cssExample: `.card {\n  box-shadow: var(--shadow-2);\n}`,
+    },
+    {
+      name: 'Shadow 3',
+      description: 'Low elevation - elevated cards',
+      value: '0 2px 4px 0 oklch(0 0 0 / 0.04), 0 0 0 1px oklch(0.5 0 0 / 0.02)',
+      category: 'shadow',
+      cssExample: `.card:hover {\n  box-shadow: var(--shadow-3);\n}`,
+    },
+    {
+      name: 'Shadow 4',
+      description: 'Medium elevation - toasts, dropdowns',
+      value: '0 4px 8px 0 oklch(0 0 0 / 0.06), 0 0 0 1px oklch(0.5 0 0 / 0.02)',
+      category: 'shadow',
+      cssExample: `.toast {\n  box-shadow: var(--shadow-4);\n}`,
+    },
+    {
+      name: 'Shadow 5',
+      description: 'High elevation - popovers',
+      value:
+        '0 8px 16px 0 oklch(0 0 0 / 0.08), 0 0 0 1px oklch(0.5 0 0 / 0.02)',
+      category: 'shadow',
+      cssExample: `.popover {\n  box-shadow: var(--shadow-5);\n}`,
+    },
+    {
+      name: 'Shadow 6',
+      description: 'Maximum elevation - modals',
+      value:
+        '0 16px 32px 0 oklch(0 0 0 / 0.10), 0 0 0 1px oklch(0.5 0 0 / 0.02)',
+      category: 'shadow',
+      cssExample: `.modal {\n  box-shadow: var(--shadow-6);\n}`,
+    },
+  ];
+}

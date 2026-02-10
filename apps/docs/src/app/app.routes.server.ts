@@ -15,7 +15,11 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
-    path: 'docs/components',
+    path: 'docs/styling',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'docs/customizing',
     renderMode: RenderMode.Prerender,
   },
   {
@@ -23,7 +27,9 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
       // Return all theme page slugs from the registry for prerendering
-      const themePages = (registryData.themePages ?? []) as Array<{ slug: string }>;
+      const themePages = (registryData.themePages ?? []) as Array<{
+        slug: string;
+      }>;
       return themePages.map((page) => ({
         slug: page.slug,
       }));

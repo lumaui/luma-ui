@@ -12,7 +12,7 @@ export const accordionItemVariants = cva(
     'relative',
     'w-full',
     'border-b',
-    'border-gray-200',
+    'border-border',
   ],
   {
     variants: {
@@ -23,6 +23,7 @@ export const accordionItemVariants = cva(
           'rounded-[var(--radius-4)]',
           'mb-2',
           'bg-primary-2',
+          'px-4',
         ],
       },
     },
@@ -46,10 +47,9 @@ export const accordionTriggerVariants = cva([
   'px-0',
   'font-medium',
   'transition-all',
-  'hover:bg-primary-2',
   'focus:outline-none',
   'focus-visible:ring-2',
-  'focus-visible:ring-primary-9',
+  'focus-visible:ring-primary',
   'focus-visible:ring-offset-2',
   'disabled:opacity-50',
   'disabled:cursor-not-allowed',
@@ -60,19 +60,16 @@ export const accordionTriggerVariants = cva([
  * Accordion Title Variants
  * Typography for the accordion header
  */
-export const accordionTitleVariants = cva(
-  ['flex-1', 'text-gray-900'],
-  {
-    variants: {
-      size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
-      },
+export const accordionTitleVariants = cva(['flex-1', 'text-gray-900'], {
+  variants: {
+    size: {
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
     },
-    defaultVariants: { size: 'md' },
   },
-);
+  defaultVariants: { size: 'md' },
+});
 
 /**
  * Accordion Icon Variants
@@ -83,7 +80,7 @@ export const accordionIconVariants = cva(
     'shrink-0',
     'h-4',
     'w-4',
-    'text-gray-600',
+    'text-muted-foreground',
     'transition-transform',
     'duration-200',
   ],
@@ -123,7 +120,7 @@ export const accordionContentVariants = cva(
   [
     'overflow-hidden',
     'text-sm',
-    'text-gray-600',
+    'text-muted-foreground',
     'pb-4',
     'pt-0',
     'transition-opacity',

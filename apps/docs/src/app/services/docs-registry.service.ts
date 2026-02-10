@@ -118,6 +118,7 @@ export interface DocComponent {
   examples: DocExample[];
   useCases: DocUseCase[];
   customization: DocCustomization;
+  highlightedImportCode?: string;
   directives?: DocDirective[];
   sections: {
     purpose?: string;
@@ -129,9 +130,26 @@ export interface DocComponent {
   markdownContent: string;
 }
 
+export interface CustomizingCodeBlock {
+  id: string;
+  code: string;
+  language: string;
+  highlightedCode?: string;
+}
+
+export interface StylingCodeBlock {
+  id: string;
+  code: string;
+  language: string;
+  highlightedCode?: string;
+}
+
 export interface DocsRegistry {
   components: DocComponent[];
   themePages: ThemePage[];
+  customizingBlocks: CustomizingCodeBlock[];
+  gettingStartedBlocks: CustomizingCodeBlock[];
+  stylingBlocks: StylingCodeBlock[];
   categories: string[];
   generatedAt: string;
 }
@@ -194,5 +212,52 @@ export class DocsRegistryService {
    */
   getThemePage(slug: string): ThemePage | undefined {
     return this.registry().themePages?.find((p) => p.slug === slug);
+  }
+
+  /**
+   * Get all customizing page code blocks from the registry
+   */
+  readonly customizingBlocks = computed(
+    () => this.registry().customizingBlocks ?? [],
+  );
+
+  /**
+   * Get a specific customizing code block by its ID
+   */
+  getCustomizingBlock(id: string): CustomizingCodeBlock | undefined {
+    return this.registry().customizingBlocks?.find((b) => b.id === id);
+  }
+
+  /**
+   * Get all getting started page code blocks from the registry
+   */
+  readonly gettingStartedBlocks = computed(
+    () => this.registry().gettingStartedBlocks ?? [],
+  );
+
+  /**
+   * Get a specific getting started code block by its ID
+   */
+  getGettingStartedBlock(id: string): CustomizingCodeBlock | undefined {
+    return this.registry().gettingStartedBlocks?.find((b) => b.id === id);
+  }
+
+  /**
+   * Get all styling page code blocks from the registry
+   */
+  readonly stylingBlocks = computed(() => this.registry().stylingBlocks ?? []);
+
+  /**
+   * Get a specific styling code block by its ID
+   */
+  getStylingBlock(id: string): StylingCodeBlock | undefined {
+    return this.registry().stylingBlocks?.find((b) => b.id === id);
+  }
+
+  /**
+   * Get highlighted code for a styling block by ID
+   */
+  getHighlightedStylingCode(blockId: string): string | undefined {
+    return this.getStylingBlock(blockId)?.highlightedCode;
   }
 }

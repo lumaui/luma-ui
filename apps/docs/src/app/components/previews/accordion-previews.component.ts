@@ -190,6 +190,92 @@ import {
           </luma-accordion-group>
         </div>
       }
+      @case ('custom-styled') {
+        <!-- Custom accordion with Neo-Minimal design principles -->
+        <luma-accordion-item
+          lmVariant="filled"
+          class="w-full overflow-hidden rounded-lg"
+        >
+          <div
+            lumaAccordionTrigger
+            class="px-6 py-4 hover:bg-muted/50 transition-colors"
+          >
+            <span lumaAccordionTitle lmSize="lg" class="font-semibold">
+              Advanced Component Features
+            </span>
+            <span lumaAccordionIcon class="h-5 w-5">
+              <svg viewBox="0 0 24 24" class="w-full h-full">
+                <path
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </span>
+          </div>
+
+          <div lumaAccordionContent class="px-6 pb-5">
+            <div class="space-y-4 pt-1">
+              <!-- Introduction paragraph -->
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                This accordion demonstrates custom styling using Tailwind
+                utilities while maintaining Neo-Minimal design principles—visual
+                calm, functional whitespace, and semantic color usage.
+              </p>
+
+              <!-- Simple feature list (no colored badges) -->
+              <div class="space-y-2.5">
+                <h4
+                  class="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+                >
+                  Key Features
+                </h4>
+                <ul class="space-y-2 text-sm">
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="mt-1 h-1.5 w-1.5 rounded-full bg-foreground/40 shrink-0"
+                    ></span>
+                    <span class="leading-relaxed"
+                      >Responsive design across all viewport sizes</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="mt-1 h-1.5 w-1.5 rounded-full bg-foreground/40 shrink-0"
+                    ></span>
+                    <span class="leading-relaxed"
+                      >WCAG AA compliant accessibility standards</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="mt-1 h-1.5 w-1.5 rounded-full bg-foreground/40 shrink-0"
+                    ></span>
+                    <span class="leading-relaxed"
+                      >Seamless dark mode support with semantic tokens</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Refined info callout -->
+              <div
+                class="rounded-md bg-secondary/30 px-4 py-3.5 border-l-2 border-primary/40"
+              >
+                <p class="text-sm leading-relaxed">
+                  <span class="font-semibold text-foreground">Pro Tip:</span>
+                  <span class="text-muted-foreground">
+                    Combine Luma's semantic design tokens with Tailwind's
+                    utility classes for rapid customization while maintaining
+                    design system consistency.
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </luma-accordion-item>
+      }
       @default {
         <div class="lm-text-secondary text-sm text-center">
           Preview not available for this example

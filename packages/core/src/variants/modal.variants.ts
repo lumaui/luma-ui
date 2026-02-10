@@ -4,18 +4,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
  * Modal Overlay Variants
  * Semi-transparent backdrop behind the modal
  */
-export const modalOverlayVariants = cva(
-  [
-    'fixed',
-    'inset-0',
-    'z-50',
-    'bg-black/80',
-    'data-[state=open]:animate-in',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out-0',
-    'data-[state=open]:fade-in-0',
-  ],
-);
+export const modalOverlayVariants = cva([
+  'fixed',
+  'inset-0',
+  'z-50',
+  'bg-black/80',
+  'transition-opacity',
+  'duration-200',
+  'data-[state=closed]:opacity-0',
+  'data-[state=open]:opacity-100',
+]);
 
 /**
  * Modal Container Variants
@@ -37,18 +35,11 @@ export const modalContainerVariants = cva(
     'bg-white',
     'p-6',
     'shadow-[var(--shadow-6)]',
-    'duration-200',
-    'data-[state=open]:animate-in',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out-0',
-    'data-[state=open]:fade-in-0',
-    'data-[state=closed]:zoom-out-95',
-    'data-[state=open]:zoom-in-95',
-    'data-[state=closed]:slide-out-to-left-1/2',
-    'data-[state=closed]:slide-out-to-top-[48%]',
-    'data-[state=open]:slide-in-from-left-1/2',
-    'data-[state=open]:slide-in-from-top-[48%]',
     'rounded-[var(--radius-6)]',
+    'transition-opacity',
+    'duration-200',
+    'data-[state=closed]:opacity-0',
+    'data-[state=open]:opacity-100',
   ],
   {
     variants: {
@@ -82,48 +73,42 @@ export const modalHeaderVariants = cva([
  * Modal Title Variants
  * Typography for modal title
  */
-export const modalTitleVariants = cva(
-  ['text-lg', 'font-semibold', 'leading-none', 'tracking-tight'],
-);
+export const modalTitleVariants = cva([
+  'text-lg',
+  'font-semibold',
+  'leading-none',
+  'tracking-tight',
+]);
 
 /**
  * Modal Description Variants
  * Supporting text below title
  */
-export const modalDescriptionVariants = cva([
-  'text-sm',
-  'text-gray-600',
-]);
+export const modalDescriptionVariants = cva(['text-sm', 'text-gray-600']);
 
 /**
  * Modal Content Variants
  * Main content area with optional scrolling
  */
-export const modalContentVariants = cva([
-  'max-h-[60vh]',
-  'overflow-y-auto',
-]);
+export const modalContentVariants = cva(['max-h-[60vh]', 'overflow-y-auto']);
 
 /**
  * Modal Footer Variants
  * Container for action buttons
  */
-export const modalFooterVariants = cva(
-  ['flex', 'gap-2'],
-  {
-    variants: {
-      align: {
-        start: 'justify-start',
-        center: 'justify-center',
-        end: 'justify-end',
-        between: 'justify-between',
-      },
-    },
-    defaultVariants: {
-      align: 'end',
+export const modalFooterVariants = cva(['flex', 'gap-2'], {
+  variants: {
+    align: {
+      start: 'justify-start',
+      center: 'justify-center',
+      end: 'justify-end',
+      between: 'justify-between',
     },
   },
-);
+  defaultVariants: {
+    align: 'end',
+  },
+});
 
 /**
  * Modal Close Button Variants
@@ -154,7 +139,9 @@ export type ModalContainerVariants = VariantProps<
 >;
 export type ModalHeaderVariants = VariantProps<typeof modalHeaderVariants>;
 export type ModalTitleVariants = VariantProps<typeof modalTitleVariants>;
-export type ModalDescriptionVariants = VariantProps<typeof modalDescriptionVariants>;
+export type ModalDescriptionVariants = VariantProps<
+  typeof modalDescriptionVariants
+>;
 export type ModalContentVariants = VariantProps<typeof modalContentVariants>;
 export type ModalFooterVariants = VariantProps<typeof modalFooterVariants>;
 export type ModalCloseVariants = VariantProps<typeof modalCloseVariants>;

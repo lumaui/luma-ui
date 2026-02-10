@@ -11,7 +11,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
-import { codeToHtml } from 'shiki';
+import { codeToHtml, type ShikiTransformer } from 'shiki';
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationFocus,
+} from '@shikijs/transformers';
 
 // ES Module compatibility
 const __filename = fileURLToPath(import.meta.url);
@@ -152,6 +157,7 @@ interface DocComponent {
   examples: DocExample[];
   useCases: DocUseCase[];
   customization: DocCustomization;
+  highlightedImportCode?: string;
   sections: {
     purpose?: string;
     accessibility?: string;
@@ -162,9 +168,26 @@ interface DocComponent {
   markdownContent: string;
 }
 
+interface CustomizingCodeBlock {
+  id: string;
+  code: string;
+  language: string;
+  highlightedCode?: string;
+}
+
+interface StylingCodeBlock {
+  id: string;
+  code: string;
+  language: string;
+  highlightedCode?: string;
+}
+
 interface DocsRegistry {
   components: DocComponent[];
   themePages: ThemePage[];
+  customizingBlocks: CustomizingCodeBlock[];
+  gettingStartedBlocks: CustomizingCodeBlock[];
+  stylingBlocks: StylingCodeBlock[];
   categories: string[];
   generatedAt: string;
 }
@@ -176,6 +199,18 @@ const TOKENS_SRC_PATH = path.resolve(__dirname, '../packages/tokens/src');
 const PREVIEW_COMPONENTS_PATH = path.resolve(
   __dirname,
   '../apps/docs/src/app/components/previews',
+);
+const CUSTOMIZING_PAGE_PATH = path.resolve(
+  __dirname,
+  '../apps/docs/src/app/pages/customizing-page/customizing-page.component.ts',
+);
+const GETTING_STARTED_PAGE_PATH = path.resolve(
+  __dirname,
+  '../apps/docs/src/app/pages/getting-started-page/getting-started-page.component.ts',
+);
+const STYLING_PAGE_PATH = path.resolve(
+  __dirname,
+  '../apps/docs/src/app/pages/styling-page/styling-page.component.ts',
 );
 const OUTPUT_PATH = path.resolve(
   __dirname,
@@ -803,6 +838,74 @@ function mergePreviewCode(
 }
 
 /**
+ * Language name mapping for display labels
+ */
+const LANGUAGE_DISPLAY_NAMES: Record<string, string> = {
+  html: 'HTML',
+  typescript: 'TypeScript',
+  ts: 'TypeScript',
+  javascript: 'JavaScript',
+  js: 'JavaScript',
+  css: 'CSS',
+  scss: 'SCSS',
+  json: 'JSON',
+  bash: 'Bash',
+  shell: 'Shell',
+  markdown: 'Markdown',
+  md: 'Markdown',
+};
+
+/**
+ * Custom transformer that adds language label to code blocks
+ */
+function transformerLanguageLabel(): ShikiTransformer {
+  return {
+    name: 'luma:language-label',
+    pre(node) {
+      const lang = this.options.lang || 'text';
+      const displayName =
+        LANGUAGE_DISPLAY_NAMES[lang] ||
+        lang.charAt(0).toUpperCase() + lang.slice(1);
+
+      // Add data-language attribute
+      node.properties['data-language'] = displayName;
+
+      // Insert language label as first child
+      const labelNode = {
+        type: 'element',
+        tagName: 'div',
+        properties: {
+          class: 'shiki-language-label',
+          'aria-hidden': 'true',
+        },
+        children: [{ type: 'text', value: displayName }],
+      };
+
+      node.children.unshift(labelNode);
+    },
+  };
+}
+
+/**
+ * Custom transformer for CSS counter-based line numbers
+ * Activated via: ```typescript {lineNumbers}
+ */
+function transformerLineNumbers(): ShikiTransformer {
+  return {
+    name: 'luma:line-numbers',
+    pre(node) {
+      const meta = this.options.meta?.__raw || '';
+      if (meta.includes('lineNumbers')) {
+        node.properties['data-line-numbers'] = 'true';
+      }
+    },
+    line(node, line) {
+      node.properties['data-line'] = line;
+    },
+  };
+}
+
+/**
  * Add syntax highlighting to all examples
  */
 async function highlightExamples(components: DocComponent[]): Promise<void> {
@@ -818,9 +921,18 @@ async function highlightExamples(components: DocComponent[]): Promise<void> {
               light: 'min-light',
               dark: 'nord',
             },
+            transformers: [
+              transformerLanguageLabel(),
+              transformerLineNumbers(),
+              transformerMetaHighlight(),
+              transformerNotationDiff(),
+              transformerNotationFocus(),
+            ],
           });
         } catch (error) {
-          console.warn(`  Warning: Failed to highlight ${component.slug}/${example.id}: ${error}`);
+          console.warn(
+            `  Warning: Failed to highlight ${component.slug}/${example.id}: ${error}`,
+          );
         }
       }
     }
@@ -830,8 +942,265 @@ async function highlightExamples(components: DocComponent[]): Promise<void> {
 }
 
 /**
+ * Generate formatted import statement from DocImport array
+ * Mirrors the logic from component-docs.component.ts getImportStatement()
+ */
+function generateImportStatement(imports: DocImport[]): string {
+  if (!imports || imports.length === 0) return '';
+
+  // Group imports by module
+  const byModule = new Map<string, string[]>();
+  for (const imp of imports) {
+    const names = byModule.get(imp.module) || [];
+    names.push(imp.name);
+    byModule.set(imp.module, names);
+  }
+
+  // Generate import statements
+  const statements: string[] = [];
+  for (const [module, names] of byModule) {
+    if (names.length <= 2) {
+      // Single line for 1-2 imports
+      statements.push(`import { ${names.join(', ')} } from '${module}';`);
+    } else {
+      // Multi-line for 3+ imports
+      const formattedNames = names.map((n) => `  ${n},`).join('\n');
+      statements.push(`import {\n${formattedNames}\n} from '${module}';`);
+    }
+  }
+
+  return statements.join('\n\n');
+}
+
+/**
+ * Add syntax highlighting to import statements
+ */
+async function highlightImports(components: DocComponent[]): Promise<void> {
+  console.log('\nAdding syntax highlighting to imports...');
+
+  for (const component of components) {
+    if (component.imports && component.imports.length > 0) {
+      try {
+        const importCode = generateImportStatement(component.imports);
+        component.highlightedImportCode = await codeToHtml(importCode, {
+          lang: 'typescript',
+          themes: {
+            light: 'min-light',
+            dark: 'nord',
+          },
+          transformers: [
+            transformerLanguageLabel(),
+            transformerLineNumbers(),
+            transformerMetaHighlight(),
+            transformerNotationDiff(),
+            transformerNotationFocus(),
+          ],
+        });
+      } catch (error) {
+        console.warn(
+          `  Warning: Failed to highlight imports for ${component.slug}: ${error}`,
+        );
+      }
+    }
+  }
+
+  console.log('Import highlighting complete');
+}
+
+/**
  * Generate the docs registry
  */
+/**
+ * Extract code blocks from customizing-page.component.ts
+ */
+function extractCustomizingBlocks(
+  componentPath: string,
+): CustomizingCodeBlock[] {
+  if (!fs.existsSync(componentPath)) {
+    console.warn(`  Warning: Customizing page not found at ${componentPath}`);
+    return [];
+  }
+
+  const content = fs.readFileSync(componentPath, 'utf-8');
+  const blocks: CustomizingCodeBlock[] = [];
+
+  // Regex to find readonly properties with code (template strings)
+  // Matches: readonly propertyName = `code`
+  const propertyRegex = /readonly (\w+(?:Example|Command)) = `([^`]+)`/gs;
+
+  let match;
+  while ((match = propertyRegex.exec(content)) !== null) {
+    const [, id, code] = match;
+
+    // Infer language from property name and code content
+    let language = 'text';
+
+    // Check for shell commands (npm, npx, cd, etc.)
+    if (
+      code.startsWith('npm ') ||
+      code.startsWith('npx ') ||
+      code.startsWith('yarn ')
+    ) {
+      language = 'bash';
+    }
+    // Check for CSS
+    else if (
+      code.includes(':root') ||
+      code.includes('--') ||
+      code.includes('@import')
+    ) {
+      language = 'css';
+    }
+    // Check for HTML
+    else if (code.includes('<') && code.includes('>') && code.includes('</')) {
+      language = 'html';
+    }
+    // Check for TypeScript/JavaScript
+    else if (
+      code.includes('import {') ||
+      code.includes('export ') ||
+      code.includes('function') ||
+      code.includes('const ')
+    ) {
+      language = 'typescript';
+    }
+    // Check for JavaScript config files
+    else if (code.includes('export default') && code.includes('content:')) {
+      language = 'javascript';
+    }
+
+    blocks.push({ id, code, language });
+  }
+
+  return blocks;
+}
+
+/**
+ * Add syntax highlighting to customizing blocks
+ */
+async function highlightCustomizingBlocks(
+  blocks: CustomizingCodeBlock[],
+): Promise<void> {
+  console.log('\nHighlighting customizing page blocks...');
+
+  for (const block of blocks) {
+    try {
+      block.highlightedCode = await codeToHtml(block.code, {
+        lang: block.language,
+        themes: {
+          light: 'min-light',
+          dark: 'nord',
+        },
+        transformers: [
+          transformerLanguageLabel(),
+          transformerLineNumbers(),
+          transformerMetaHighlight(),
+          transformerNotationDiff(),
+          transformerNotationFocus(),
+        ],
+      });
+      console.log(`  ✓ ${block.id} (${block.language})`);
+    } catch (error) {
+      console.warn(`  Warning: Failed to highlight ${block.id}: ${error}`);
+    }
+  }
+
+  console.log(`Highlighted ${blocks.length} customizing blocks`);
+}
+
+/**
+ * Process template literal escape sequences
+ * Converts literal \n, \t, \r to actual characters
+ */
+function processEscapeSequences(str: string): string {
+  return str.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\r/g, '\r');
+}
+
+/**
+ * Extract code blocks from styling-page.component.ts
+ * Extracts cssExample from radiusTokens and shadowTokens arrays
+ */
+function extractStylingPageCodeBlocks(
+  componentPath: string,
+): StylingCodeBlock[] {
+  if (!fs.existsSync(componentPath)) {
+    console.warn(`  Warning: Styling page not found at ${componentPath}`);
+    return [];
+  }
+
+  const content = fs.readFileSync(componentPath, 'utf-8');
+  const blocks: StylingCodeBlock[] = [];
+
+  // Extract radiusTokens array
+  const radiusMatch = content.match(
+    /readonly radiusTokens: TokenPreviewData\[\] = \[([\s\S]*?)\];/,
+  );
+  if (radiusMatch) {
+    const radiusContent = radiusMatch[1];
+    // Extract each token with name and cssExample
+    const tokenRegex = /{\s*name:\s*'([^']+)',[\s\S]*?cssExample:\s*`([^`]+)`/g;
+    let match;
+    while ((match = tokenRegex.exec(radiusContent)) !== null) {
+      const [, name, cssExample] = match;
+      const id = name.toLowerCase().replace(/\s+/g, '-') + '-example';
+      const processedCode = processEscapeSequences(cssExample);
+      blocks.push({ id, code: processedCode, language: 'css' });
+    }
+  }
+
+  // Extract shadowTokens array
+  const shadowMatch = content.match(
+    /readonly shadowTokens: TokenPreviewData\[\] = \[([\s\S]*?)\];/,
+  );
+  if (shadowMatch) {
+    const shadowContent = shadowMatch[1];
+    // Extract each token with name and cssExample
+    const tokenRegex = /{\s*name:\s*'([^']+)',[\s\S]*?cssExample:\s*`([^`]+)`/g;
+    let match;
+    while ((match = tokenRegex.exec(shadowContent)) !== null) {
+      const [, name, cssExample] = match;
+      const id = name.toLowerCase().replace(/\s+/g, '-') + '-example';
+      const processedCode = processEscapeSequences(cssExample);
+      blocks.push({ id, code: processedCode, language: 'css' });
+    }
+  }
+
+  return blocks;
+}
+
+/**
+ * Add syntax highlighting to styling blocks
+ */
+async function highlightStylingBlocks(
+  blocks: StylingCodeBlock[],
+): Promise<void> {
+  console.log('\nHighlighting styling page blocks...');
+
+  for (const block of blocks) {
+    try {
+      block.highlightedCode = await codeToHtml(block.code, {
+        lang: block.language,
+        themes: {
+          light: 'min-light',
+          dark: 'nord',
+        },
+        transformers: [
+          transformerLanguageLabel(),
+          transformerLineNumbers(),
+          transformerMetaHighlight(),
+          transformerNotationDiff(),
+          transformerNotationFocus(),
+        ],
+      });
+      console.log(`  ✓ ${block.id} (${block.language})`);
+    } catch (error) {
+      console.warn(`  Warning: Failed to highlight ${block.id}: ${error}`);
+    }
+  }
+
+  console.log(`Highlighted ${blocks.length} styling blocks`);
+}
+
 async function generateRegistry(): Promise<DocsRegistry> {
   console.log('Scanning for component .docs.md files...');
 
@@ -863,6 +1232,9 @@ async function generateRegistry(): Promise<DocsRegistry> {
   // Add syntax highlighting to all examples
   await highlightExamples(components);
 
+  // Add syntax highlighting to import statements
+  await highlightImports(components);
+
   // Sort categories
   const categories = Array.from(categoriesSet).sort();
 
@@ -885,9 +1257,32 @@ async function generateRegistry(): Promise<DocsRegistry> {
   // Sort theme pages by name
   themePages.sort((a, b) => a.name.localeCompare(b.name));
 
+  // Extract and highlight customizing blocks
+  console.log('\nProcessing customizing page code blocks...');
+  const customizingBlocks = extractCustomizingBlocks(CUSTOMIZING_PAGE_PATH);
+  console.log(`Found ${customizingBlocks.length} code blocks`);
+  await highlightCustomizingBlocks(customizingBlocks);
+
+  // Extract and highlight getting started blocks
+  console.log('\nProcessing getting started page code blocks...');
+  const gettingStartedBlocks = extractCustomizingBlocks(
+    GETTING_STARTED_PAGE_PATH,
+  );
+  console.log(`Found ${gettingStartedBlocks.length} code blocks`);
+  await highlightCustomizingBlocks(gettingStartedBlocks);
+
+  // Extract and highlight styling blocks
+  console.log('\nProcessing styling page code blocks...');
+  const stylingBlocks = extractStylingPageCodeBlocks(STYLING_PAGE_PATH);
+  console.log(`Found ${stylingBlocks.length} code blocks`);
+  await highlightStylingBlocks(stylingBlocks);
+
   return {
     components,
     themePages,
+    customizingBlocks,
+    gettingStartedBlocks,
+    stylingBlocks,
     categories,
     generatedAt: new Date().toISOString(),
   };
@@ -907,6 +1302,11 @@ function writeRegistry(registry: DocsRegistry): void {
   console.log(`\nRegistry written to: ${OUTPUT_PATH}`);
   console.log(`  Components: ${registry.components.length}`);
   console.log(`  Theme Pages: ${registry.themePages.length}`);
+  console.log(`  Customizing Blocks: ${registry.customizingBlocks.length}`);
+  console.log(
+    `  Getting Started Blocks: ${registry.gettingStartedBlocks.length}`,
+  );
+  console.log(`  Styling Blocks: ${registry.stylingBlocks.length}`);
   console.log(`  Categories: ${registry.categories.join(', ')}`);
 }
 

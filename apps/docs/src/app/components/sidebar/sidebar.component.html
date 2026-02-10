@@ -64,7 +64,7 @@
 
       <!-- Drawer Content (same as desktop sidebar) -->
       <nav class="p-4 space-y-6">
-        <!-- Getting Started Link -->
+        <!-- Top-Level Links -->
         <div>
           <a
             routerLink="/docs/getting-started"
@@ -75,12 +75,19 @@
           </a>
 
           <a
-            routerLink="/docs/components"
+            routerLink="/docs/styling"
             routerLinkActive="active-sidebar"
-            [routerLinkActiveOptions]="{ exact: true }"
             class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
           >
-            All Components
+            Styling
+          </a>
+
+          <a
+            routerLink="/docs/customizing"
+            routerLinkActive="active-sidebar"
+            class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+          >
+            Customizing
           </a>
         </div>
 
@@ -132,7 +139,7 @@
   class="hidden md:block w-64 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto"
 >
   <nav class="p-6 pt-2 space-y-6">
-    <!-- Getting Started Link -->
+    <!-- Top-Level Links -->
     <div>
       <a
         routerLink="/docs/getting-started"
@@ -143,12 +150,19 @@
       </a>
 
       <a
-        routerLink="/docs/components"
+        routerLink="/docs/styling"
         routerLinkActive="active-sidebar"
-        [routerLinkActiveOptions]="{ exact: true }"
         class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
       >
-        All Components
+        Styling
+      </a>
+
+      <a
+        routerLink="/docs/customizing"
+        routerLinkActive="active-sidebar"
+        class="block py-2 px-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+      >
+        Customizing
       </a>
     </div>
 

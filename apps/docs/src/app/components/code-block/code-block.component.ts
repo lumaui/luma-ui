@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
 } from '@angular/core';
+import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 
 /**
  * Supported languages for code blocks
@@ -25,6 +27,8 @@ export type CodeLanguage =
   },
 })
 export class CodeBlockComponent {
+  private sanitizer = inject(DomSanitizer);
+
   /** Code content to display */
   code = input.required<string>();
 
@@ -37,8 +41,8 @@ export class CodeBlockComponent {
   /** Optional title/label for the code block */
   title = input<string>('');
 
-  /** Copy state for feedback */
-  copied = false;
+  /** Optional pre-highlighted HTML from Shiki (build-time highlighting) */
+  highlightedCode = input<string | undefined>(undefined);
 
   /** Language display label */
   languageLabel = computed(() => {
@@ -58,16 +62,10 @@ export class CodeBlockComponent {
     return this.code().split('\n');
   });
 
-  /** Copy code to clipboard */
-  async copyCode(): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(this.code());
-      this.copied = true;
-      setTimeout(() => {
-        this.copied = false;
-      }, 2000);
-    } catch (err) {
-      console.error('Failed to copy code:', err);
-    }
-  }
+  /** Safe HTML for Shiki highlighted code */
+  readonly safeHighlightedCode = computed<SafeHtml | null>(() => {
+    const html = this.highlightedCode();
+    if (!html) return null;
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  });
 }

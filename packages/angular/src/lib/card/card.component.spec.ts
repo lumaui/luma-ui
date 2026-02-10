@@ -17,7 +17,7 @@ import { LmCardComponent } from './card.component';
   imports: [LmCardComponent],
 })
 class CardTestHostComponent {
-  variant: 'default' | 'elevated' | 'subtle' = 'default';
+  variant: 'default' | 'elevated' | 'ghost' = 'default';
 }
 
 // ============================================================
@@ -121,7 +121,7 @@ describe('LmCardComponent', () => {
       const card = fixture.debugElement.query(By.directive(LmCardComponent));
       const cardEl = card.injector.get(LmCardComponent);
       const classes = cardEl.classes();
-      expect(classes).toContain('rounded-lg');
+      expect(classes).toContain('rounded-[var(--radius-5)]');
       expect(classes).toContain('border');
       expect(classes).toContain('text-card-foreground');
     });
@@ -129,8 +129,14 @@ describe('LmCardComponent', () => {
     it('should apply classes to inner div', () => {
       const card = fixture.debugElement.query(By.directive(LmCardComponent));
       const innerDiv = card.nativeElement.querySelector('div');
-      expect(innerDiv.className).toContain('rounded-lg');
+      expect(innerDiv.className).toContain('rounded-[var(--radius-5)]');
       expect(innerDiv.className).toContain('border');
+    });
+
+    it('should apply padding to card wrapper', () => {
+      const card = fixture.debugElement.query(By.directive(LmCardComponent));
+      const innerDiv = card.nativeElement.querySelector('div');
+      expect(innerDiv.className).toContain('p-6');
     });
   });
 
@@ -175,38 +181,39 @@ describe('LmCardComponent', () => {
       const cardEl = card.injector.get(LmCardComponent);
       const classes = cardEl.classes();
       expect(classes).toContain('bg-card');
-      expect(classes).toContain('shadow-sm');
+      expect(classes).toContain('shadow-[var(--shadow-3)]');
     });
 
     it('should apply shadow to DOM', () => {
       const card = fixture.debugElement.query(By.directive(LmCardComponent));
       const innerDiv = card.nativeElement.querySelector('div');
-      expect(innerDiv.className).toContain('shadow-sm');
+      expect(innerDiv.className).toContain('shadow-[var(--shadow-3)]');
     });
   });
 
   // ============================================================
-  // SUBTLE VARIANT
+  // GHOST VARIANT
   // ============================================================
 
-  describe('Subtle Variant', () => {
+  describe('Ghost Variant', () => {
     beforeEach(() => {
-      hostComponent.variant = 'subtle';
+      hostComponent.variant = 'ghost';
       fixture.detectChanges();
     });
 
-    it('should apply subtle variant classes', () => {
+    it('should apply ghost variant classes', () => {
       const card = fixture.debugElement.query(By.directive(LmCardComponent));
       const cardEl = card.injector.get(LmCardComponent);
       const classes = cardEl.classes();
-      expect(classes).toContain('bg-muted');
       expect(classes).toContain('border-transparent');
+      expect(classes).toContain('shadow-none');
     });
 
-    it('should apply muted background to DOM', () => {
+    it('should apply transparent border to DOM', () => {
       const card = fixture.debugElement.query(By.directive(LmCardComponent));
       const innerDiv = card.nativeElement.querySelector('div');
-      expect(innerDiv.className).toContain('bg-muted');
+      expect(innerDiv.className).toContain('border-transparent');
+      expect(innerDiv.className).toContain('shadow-none');
     });
   });
 
@@ -258,5 +265,4 @@ describe('LmCardComponent', () => {
       expect(variant).toBe('default');
     });
   });
-
 });
