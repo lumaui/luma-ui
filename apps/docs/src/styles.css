@@ -1,17 +1,13 @@
-/* Import Google Fonts - Inter Variable Font */
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 
-/* Import Tailwind CSS + Luma UI */
 @import '../../../packages/tokens/build/luma-complete.css';
 @import '../../../packages/tokens/build/luma-dark.css';
 
-/* Font smoothing for better typography */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Base body styles */
 body {
   font-family: var(--font-family-base);
   background: var(--color-background);
@@ -20,12 +16,10 @@ body {
   padding: 0;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Active link styles for navigation */
 a.active {
   color: var(--color-primary);
   position: relative;
@@ -46,7 +40,6 @@ a.active-mobile {
   background-color: oklch(from var(--color-primary) l c h / 0.1);
 }
 
-/* Code blocks styling */
 pre {
   margin: 0;
   font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
@@ -60,7 +53,6 @@ pre code.hljs {
   border-radius: var(--radius-md);
 }
 
-/* Inline code */
 :not(pre) > code {
   background-color: oklch(from var(--color-muted-foreground) l c h / 0.1);
   padding: 0.125rem 0.375rem;
@@ -68,20 +60,17 @@ pre code.hljs {
   font-size: 0.875em;
 }
 
-/* Focus styles for accessibility */
 *:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* Selection color */
 ::selection,
 ::-moz-selection {
   background-color: var(--color-primary-3);
   color: var(--color-background);
 }
 
-/* Scrollbar styling (WebKit browsers) */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -110,7 +99,6 @@ pre code.hljs {
   display: none; /* Chrome, Safari, Opera */
 }
 
-/* Print styles */
 @media print {
   header {
     display: none;
@@ -122,17 +110,10 @@ pre code.hljs {
   }
 }
 
-/* :root {
-  --luma-button-radius: 3px;
-  --luma-button-primary-bg: #ffffff;
-} */
-
-/* Logo invert in dark mode (synced with .dark class) */
 .dark .logo-invert {
   filter: invert(1);
 }
 
-/* Table striped rows (synced with .dark class) */
 .table-row-striped:nth-child(even) {
   background-color: var(--color-muted);
 }

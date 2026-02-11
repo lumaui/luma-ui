@@ -5,6 +5,7 @@
   "prefix": "app",
   "sourceRoot": "apps/docs/src",
   "tags": [],
+  "implicitDependencies": ["tokens"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
