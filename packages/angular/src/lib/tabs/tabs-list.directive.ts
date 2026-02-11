@@ -97,7 +97,9 @@ import { TABS_GROUP, TABS_LIST, type TabsListBase } from './tabs.tokens';
     }
   `,
 })
-export class LmTabsListDirective implements TabsListBase, AfterViewInit, OnDestroy {
+export class LmTabsListDirective
+  implements TabsListBase, AfterViewInit, OnDestroy
+{
   readonly elementRef = inject(ElementRef<HTMLElement>);
   protected readonly tabsGroup = inject(TABS_GROUP);
   private readonly platformId = inject(PLATFORM_ID);
@@ -141,8 +143,8 @@ export class LmTabsListDirective implements TabsListBase, AfterViewInit, OnDestr
     if (this.lmScrollable()) {
       const scrollClasses = [
         ...baseClasses,
-        'flex-1',           // Fill available space in flex wrapper
-        'relative',         // For indicator absolute positioning
+        'flex-1', // Fill available space in flex wrapper
+        'relative', // For indicator absolute positioning
         'overflow-x-auto',
         'scrollbar-none',
         'scroll-smooth',
@@ -250,7 +252,10 @@ export class LmTabsListDirective implements TabsListBase, AfterViewInit, OnDestr
    */
   getListContainer(): HTMLElement {
     if (this.lmScrollable()) {
-      return this.scrollContainerRef()?.nativeElement ?? this.elementRef.nativeElement;
+      return (
+        this.scrollContainerRef()?.nativeElement ??
+        this.elementRef.nativeElement
+      );
     }
     return this.elementRef.nativeElement;
   }
@@ -331,7 +336,8 @@ export class LmTabsListDirective implements TabsListBase, AfterViewInit, OnDestr
       // Update individual arrow states based on scroll position
       const isAtStart = container.scrollLeft <= 1;
       const isAtEnd =
-        container.scrollLeft >= container.scrollWidth - container.clientWidth - 1;
+        container.scrollLeft >=
+        container.scrollWidth - container.clientWidth - 1;
 
       const newShowLeft = !isAtStart;
       const newShowRight = !isAtEnd;

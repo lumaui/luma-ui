@@ -76,6 +76,7 @@ Expandable content sections with smooth height animations. Uses semantic tokens 
 \`\`\`html
 <luma-accordion-group>
 <luma-accordion-item lmId="item-1">
+
 <div lumaAccordionTrigger>
 <span lumaAccordionTitle>First</span>
 </div>

@@ -27,11 +27,11 @@ Luma is a design system built on **Neo-Minimalism** - a design philosophy that c
 
 ## Packages
 
-| Package                                                            | Description                                 |
-| ------------------------------------------------------------------ | ------------------------------------------- |
-| [`@lumaui/tokens`](https://www.npmjs.com/package/@lumaui/tokens)   | 24 semantic design tokens (light + dark)    |
-| [`@lumaui/angular`](https://www.npmjs.com/package/@lumaui/angular) | Angular components and directives           |
-| [`@lumaui/core`](https://www.npmjs.com/package/@lumaui/core)       | Framework-agnostic CVA variant definitions  |
+| Package                                                            | Description                                |
+| ------------------------------------------------------------------ | ------------------------------------------ |
+| [`@lumaui/tokens`](https://www.npmjs.com/package/@lumaui/tokens)   | 24 semantic design tokens (light + dark)   |
+| [`@lumaui/angular`](https://www.npmjs.com/package/@lumaui/angular) | Angular components and directives          |
+| [`@lumaui/core`](https://www.npmjs.com/package/@lumaui/core)       | Framework-agnostic CVA variant definitions |
 
 ## Quick Start
 
@@ -69,9 +69,7 @@ import { LmButtonDirective } from '@lumaui/angular';
   selector: 'app-example',
   imports: [LmButtonDirective],
   template: `
-    <button lumaButton lmVariant="primary" lmSize="md">
-      Click me
-    </button>
+    <button lumaButton lmVariant="primary" lmSize="md">Click me</button>
   `,
 })
 export class ExampleComponent {}
@@ -139,11 +137,7 @@ Compositional card with header, title, description, and content directives.
 Contextual information overlay.
 
 ```html
-<button
-  lumaButton
-  lumaTooltip="Click to save changes"
-  lmPosition="top"
->
+<button lumaButton lumaTooltip="Click to save changes" lmPosition="top">
   Save
 </button>
 ```
@@ -220,16 +214,16 @@ Luma uses **24 semantic design tokens** for consistent, runtime-customizable the
 
 ### Semantic Color Tokens
 
-| Token                      | Purpose                          |
-| -------------------------- | -------------------------------- |
-| `--color-primary`          | Primary actions (buttons, links) |
-| `--color-primary-foreground` | Text on primary backgrounds    |
-| `--color-secondary`        | Secondary actions, subtle backgrounds |
-| `--color-destructive`      | Destructive actions, errors      |
-| `--color-muted`            | Disabled states, subtle elements |
-| `--color-background`       | App background                   |
-| `--color-foreground`       | Primary text color               |
-| `--color-border`           | Borders, dividers                |
+| Token                        | Purpose                               |
+| ---------------------------- | ------------------------------------- |
+| `--color-primary`            | Primary actions (buttons, links)      |
+| `--color-primary-foreground` | Text on primary backgrounds           |
+| `--color-secondary`          | Secondary actions, subtle backgrounds |
+| `--color-destructive`        | Destructive actions, errors           |
+| `--color-muted`              | Disabled states, subtle elements      |
+| `--color-background`         | App background                        |
+| `--color-foreground`         | Primary text color                    |
+| `--color-border`             | Borders, dividers                     |
 
 [See all 24 tokens in CLAUDE.md](./CLAUDE.md#semantic-token-system)
 
@@ -241,8 +235,8 @@ Change colors globally (affects all components):
 
 ```css
 :root {
-  --color-primary: oklch(0.60 0.15 180);  /* Cyan brand */
-  --color-primary-foreground: oklch(1 0 0);  /* White text */
+  --color-primary: oklch(0.6 0.15 180); /* Cyan brand */
+  --color-primary-foreground: oklch(1 0 0); /* White text */
 }
 ```
 
@@ -252,8 +246,8 @@ Customize dark theme colors:
 
 ```css
 html.dark {
-  --color-primary: oklch(0.75 0.12 180);  /* Brighter cyan for dark mode */
-  --color-background: oklch(0.15 0.005 290);  /* Darker background */
+  --color-primary: oklch(0.75 0.12 180); /* Brighter cyan for dark mode */
+  --color-background: oklch(0.15 0.005 290); /* Darker background */
 }
 ```
 
@@ -262,9 +256,7 @@ html.dark {
 Override specific component instances using Tailwind utilities:
 
 ```html
-<button lumaButton class="bg-accent hover:bg-accent/80">
-  Custom Color
-</button>
+<button lumaButton class="bg-accent hover:bg-accent/80">Custom Color</button>
 ```
 
 #### 4. Scoped Theme Override
@@ -294,10 +286,7 @@ export class ThemeService {
   }
 
   setCustomTheme(primaryColor: string) {
-    document.documentElement.style.setProperty(
-      '--color-primary',
-      primaryColor
-    );
+    document.documentElement.style.setProperty('--color-primary', primaryColor);
   }
 }
 ```

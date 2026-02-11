@@ -1,10 +1,10 @@
 {
   "name": "@lumaui/angular",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Angular components for Luma UI - Neo-Minimal design system",
   "dependencies": {
-    "@lumaui/core": "^0.3.0",
-    "@lumaui/tokens": "^0.3.0"
+    "@lumaui/core": "^0.3.1",
+    "@lumaui/tokens": "^0.3.1"
   },
   "peerDependencies": {
     "@angular/common": ">=19.0.0",

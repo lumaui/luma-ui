@@ -163,7 +163,11 @@ export class LmTooltipDirective implements OnDestroy {
     }
     // Remove capture-phase scroll listener
     if (this.captureScrollHandler) {
-      this.document.removeEventListener('scroll', this.captureScrollHandler, true);
+      this.document.removeEventListener(
+        'scroll',
+        this.captureScrollHandler,
+        true,
+      );
       this.captureScrollHandler = null;
     }
   }

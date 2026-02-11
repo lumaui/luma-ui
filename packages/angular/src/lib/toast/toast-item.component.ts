@@ -19,7 +19,7 @@ import {
   toastMessageVariants,
   ToastState,
 } from '@lumaui/core';
-import { Toast, ToastVariant } from './toast.tokens';
+import { Toast } from './toast.tokens';
 import { LmToastCloseComponent } from './toast-close.component';
 
 /**

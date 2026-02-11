@@ -47,7 +47,10 @@ Small, inline status indicators and labels. Designed with intentional minimalism
 <span lumaBadge class="bg-purple-500 text-white border-purple-600">
   Custom Colors
 </span>
-<span lumaBadge class="bg-gradient-to-r from-blue-500 to-purple-600 text-white border-transparent">
+<span
+  lumaBadge
+  class="bg-gradient-to-r from-blue-500 to-purple-600 text-white border-transparent"
+>
   Gradient Badge
 </span>
 ```

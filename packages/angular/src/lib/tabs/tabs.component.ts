@@ -5,7 +5,6 @@ import {
   output,
   signal,
   effect,
-  computed,
 } from '@angular/core';
 import { type TabsVariant } from '@lumaui/core';
 import { TABS_GROUP, type TabsGroupBase } from './tabs.tokens';

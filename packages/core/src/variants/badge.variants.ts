@@ -15,21 +15,13 @@ export const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: [
-          'bg-primary-2',
-          'text-primary-12',
-          'border-transparent',
-        ],
-        outline: [
-          'bg-transparent',
-          'text-primary-12',
-          'border-primary-7',
-        ],
+        default: ['bg-primary-2', 'text-primary-12', 'border-transparent'],
+        outline: ['bg-transparent', 'text-primary-12', 'border-primary-7'],
       },
       radius: {
-        default: ['rounded-[var(--radius-4)]'],  // 8px - uses radius-4 token
-        square: ['rounded-none'],                // 0px - sharp corners
-        full: ['rounded-full'],                  // 9999px - pill shape
+        default: ['rounded-[var(--radius-4)]'], // 8px - uses radius-4 token
+        square: ['rounded-none'], // 0px - sharp corners
+        full: ['rounded-full'], // 9999px - pill shape
       },
     },
     defaultVariants: {

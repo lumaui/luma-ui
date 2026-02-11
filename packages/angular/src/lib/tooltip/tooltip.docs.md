@@ -49,9 +49,7 @@ Displays contextual information on hover/focus using a portal pattern for reliab
 ### Basic Tooltip
 
 ```html
-<button lumaButton lumaTooltip="Click to save">
-  Save
-</button>
+<button lumaButton lumaTooltip="Click to save">Save</button>
 ```
 
 ### Positioning
@@ -74,9 +72,7 @@ Displays contextual information on hover/focus using a portal pattern for reliab
 ### Click Trigger
 
 ```html
-<button lumaTooltip="Click to toggle" lmTrigger="click">
-  Click me
-</button>
+<button lumaTooltip="Click to toggle" lmTrigger="click">Click me</button>
 ```
 
 ## Customizing
@@ -85,7 +81,7 @@ Displays contextual information on hover/focus using a portal pattern for reliab
 
 ```css
 :root {
-  --color-popover: oklch(0.20 0.010 270);
+  --color-popover: oklch(0.2 0.01 270);
   --color-popover-foreground: oklch(0.95 0.01 270);
   --radius-md: 0.25rem;
 }

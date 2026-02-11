@@ -12,189 +12,6 @@ import { LmToastService } from './toast.service';
 import { LmToastItemComponent } from './toast-item.component';
 
 // ============================================
-// TOKEN CONSTANTS
-// ============================================
-
-const TOAST_TOKENS = {
-  info: {
-    bg: 'oklch(0.95 0.02 232)',
-    iconColor: 'var(--luma-color-info-50)',
-  },
-  success: {
-    bg: 'oklch(0.94 0.025 155)',
-    iconColor: 'var(--luma-color-success-50)',
-  },
-  warning: {
-    bg: 'oklch(0.96 0.03 95)',
-    iconColor: 'var(--luma-color-warning-60)',
-  },
-  error: {
-    bg: 'oklch(0.93 0.025 28)',
-    iconColor: 'var(--luma-color-error-50)',
-  },
-  container: {
-    radius: '12px',
-    paddingX: '16px',
-    paddingY: '12px',
-    gap: '12px',
-    shadow: '0 4px 12px oklch(0 0 0 / 0.08)',
-  },
-  title: {
-    fontSize: '14px',
-    fontWeight: '500',
-    lineHeight: '1.4',
-  },
-  message: {
-    fontSize: '14px',
-    lineHeight: '1.5',
-  },
-  icon: {
-    size: '20px',
-  },
-  close: {
-    size: '16px',
-    radius: '4px',
-  },
-  transition: {
-    duration: '200ms',
-    timing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-} as const;
-
-// ============================================
-// SETUP AND CLEANUP FUNCTIONS
-// ============================================
-
-function setupToastTokens(): void {
-  const root = document.documentElement;
-
-  // Variant tokens
-  root.style.setProperty('--luma-toast-info-bg', TOAST_TOKENS.info.bg);
-  root.style.setProperty(
-    '--luma-toast-info-icon-color',
-    TOAST_TOKENS.info.iconColor,
-  );
-  root.style.setProperty('--luma-toast-success-bg', TOAST_TOKENS.success.bg);
-  root.style.setProperty(
-    '--luma-toast-success-icon-color',
-    TOAST_TOKENS.success.iconColor,
-  );
-  root.style.setProperty('--luma-toast-warning-bg', TOAST_TOKENS.warning.bg);
-  root.style.setProperty(
-    '--luma-toast-warning-icon-color',
-    TOAST_TOKENS.warning.iconColor,
-  );
-  root.style.setProperty('--luma-toast-error-bg', TOAST_TOKENS.error.bg);
-  root.style.setProperty(
-    '--luma-toast-error-icon-color',
-    TOAST_TOKENS.error.iconColor,
-  );
-
-  // Container tokens
-  root.style.setProperty(
-    '--luma-toast-container-radius',
-    TOAST_TOKENS.container.radius,
-  );
-  root.style.setProperty(
-    '--luma-toast-container-padding-x',
-    TOAST_TOKENS.container.paddingX,
-  );
-  root.style.setProperty(
-    '--luma-toast-container-padding-y',
-    TOAST_TOKENS.container.paddingY,
-  );
-  root.style.setProperty(
-    '--luma-toast-container-gap',
-    TOAST_TOKENS.container.gap,
-  );
-  root.style.setProperty(
-    '--luma-toast-container-shadow',
-    TOAST_TOKENS.container.shadow,
-  );
-
-  // Typography tokens
-  root.style.setProperty(
-    '--luma-toast-title-font-size',
-    TOAST_TOKENS.title.fontSize,
-  );
-  root.style.setProperty(
-    '--luma-toast-title-font-weight',
-    TOAST_TOKENS.title.fontWeight,
-  );
-  root.style.setProperty(
-    '--luma-toast-title-line-height',
-    TOAST_TOKENS.title.lineHeight,
-  );
-  root.style.setProperty(
-    '--luma-toast-message-font-size',
-    TOAST_TOKENS.message.fontSize,
-  );
-  root.style.setProperty(
-    '--luma-toast-message-line-height',
-    TOAST_TOKENS.message.lineHeight,
-  );
-
-  // Icon tokens
-  root.style.setProperty('--luma-toast-icon-size', TOAST_TOKENS.icon.size);
-
-  // Close button tokens
-  root.style.setProperty('--luma-toast-close-size', TOAST_TOKENS.close.size);
-  root.style.setProperty(
-    '--luma-toast-close-radius',
-    TOAST_TOKENS.close.radius,
-  );
-
-  // Transition tokens
-  root.style.setProperty(
-    '--luma-toast-transition-duration',
-    TOAST_TOKENS.transition.duration,
-  );
-  root.style.setProperty(
-    '--luma-toast-transition-timing',
-    TOAST_TOKENS.transition.timing,
-  );
-}
-
-function cleanupToastTokens(): void {
-  const root = document.documentElement;
-
-  // Variant tokens
-  root.style.removeProperty('--luma-toast-info-bg');
-  root.style.removeProperty('--luma-toast-info-icon-color');
-  root.style.removeProperty('--luma-toast-success-bg');
-  root.style.removeProperty('--luma-toast-success-icon-color');
-  root.style.removeProperty('--luma-toast-warning-bg');
-  root.style.removeProperty('--luma-toast-warning-icon-color');
-  root.style.removeProperty('--luma-toast-error-bg');
-  root.style.removeProperty('--luma-toast-error-icon-color');
-
-  // Container tokens
-  root.style.removeProperty('--luma-toast-container-radius');
-  root.style.removeProperty('--luma-toast-container-padding-x');
-  root.style.removeProperty('--luma-toast-container-padding-y');
-  root.style.removeProperty('--luma-toast-container-gap');
-  root.style.removeProperty('--luma-toast-container-shadow');
-
-  // Typography tokens
-  root.style.removeProperty('--luma-toast-title-font-size');
-  root.style.removeProperty('--luma-toast-title-font-weight');
-  root.style.removeProperty('--luma-toast-title-line-height');
-  root.style.removeProperty('--luma-toast-message-font-size');
-  root.style.removeProperty('--luma-toast-message-line-height');
-
-  // Icon tokens
-  root.style.removeProperty('--luma-toast-icon-size');
-
-  // Close button tokens
-  root.style.removeProperty('--luma-toast-close-size');
-  root.style.removeProperty('--luma-toast-close-radius');
-
-  // Transition tokens
-  root.style.removeProperty('--luma-toast-transition-duration');
-  root.style.removeProperty('--luma-toast-transition-timing');
-}
-
-// ============================================
 // HELPER FUNCTIONS
 // ============================================
 
@@ -528,11 +345,6 @@ describe('LmToastItemComponent', () => {
       }).compileComponents();
 
       fixture = TestBed.createComponent(ToastItemTestHostComponent);
-      setupToastTokens();
-    });
-
-    afterEach(() => {
-      cleanupToastTokens();
     });
 
     it('should create the component', () => {
@@ -563,11 +375,6 @@ describe('LmToastItemComponent', () => {
       }).compileComponents();
 
       fixture = TestBed.createComponent(ToastItemWithTitleTestHostComponent);
-      setupToastTokens();
-    });
-
-    afterEach(() => {
-      cleanupToastTokens();
     });
 
     it('should display title when provided', () => {
@@ -589,11 +396,6 @@ describe('LmToastItemComponent', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(ToastItemTestHostComponent);
-        setupToastTokens();
-      });
-
-      afterEach(() => {
-        cleanupToastTokens();
       });
 
       it('should have role="status" for non-error variants', () => {
@@ -637,11 +439,6 @@ describe('LmToastItemComponent', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(ToastItemErrorTestHostComponent);
-        setupToastTokens();
-      });
-
-      afterEach(() => {
-        cleanupToastTokens();
       });
 
       it('should have role="alert" for error variant', () => {
@@ -678,11 +475,6 @@ describe('LmToastItemComponent', () => {
 
         fixture = TestBed.createComponent(ToastItemTestHostComponent);
         hostComponent = fixture.componentInstance;
-        setupToastTokens();
-      });
-
-      afterEach(() => {
-        cleanupToastTokens();
       });
 
       it('should render close button when dismissible', () => {
@@ -718,11 +510,6 @@ describe('LmToastItemComponent', () => {
         fixture = TestBed.createComponent(
           ToastItemNonDismissibleTestHostComponent,
         );
-        setupToastTokens();
-      });
-
-      afterEach(() => {
-        cleanupToastTokens();
       });
 
       it('should not render close button when not dismissible', () => {
@@ -747,11 +534,6 @@ describe('LmToastItemComponent', () => {
 
       fixture = TestBed.createComponent(ToastItemTestHostComponent);
       hostComponent = fixture.componentInstance;
-      setupToastTokens();
-    });
-
-    afterEach(() => {
-      cleanupToastTokens();
     });
 
     it('should dismiss on Escape key when dismissible', () => {
@@ -785,11 +567,6 @@ describe('LmToastItemComponent', () => {
       }).compileComponents();
 
       fixture = TestBed.createComponent(ToastItemTestHostComponent);
-      setupToastTokens();
-    });
-
-    afterEach(() => {
-      cleanupToastTokens();
     });
 
     it('should apply base item classes', () => {
@@ -803,93 +580,6 @@ describe('LmToastItemComponent', () => {
 
       expect(classes).toContain('flex');
       expect(classes).toContain('items-start');
-    });
-  });
-});
-
-// ============================================
-// DESIGN TOKEN TESTS
-// ============================================
-
-describe('Toast Token Tests', () => {
-  beforeEach(() => setupToastTokens());
-  afterEach(() => cleanupToastTokens());
-
-  describe('Variant Background Tokens', () => {
-    it('should define --luma-toast-info-bg CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-info-bg')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.info.bg);
-    });
-
-    it('should define --luma-toast-success-bg CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-success-bg')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.success.bg);
-    });
-
-    it('should define --luma-toast-warning-bg CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-warning-bg')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.warning.bg);
-    });
-
-    it('should define --luma-toast-error-bg CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-error-bg')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.error.bg);
-    });
-  });
-
-  describe('Container Tokens', () => {
-    it('should define --luma-toast-container-radius CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-container-radius')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.container.radius);
-    });
-
-    it('should define --luma-toast-container-padding-x CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-container-padding-x')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.container.paddingX);
-    });
-  });
-
-  describe('Transition Tokens', () => {
-    it('should define --luma-toast-transition-duration CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-transition-duration')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.transition.duration);
-    });
-
-    it('should define --luma-toast-transition-timing CSS variable', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-transition-timing')
-        .trim();
-      expect(value).toBe(TOAST_TOKENS.transition.timing);
-    });
-  });
-
-  describe('Token Override', () => {
-    it('should respect custom token override', () => {
-      const customBg = 'oklch(0.5 0.1 200 / 0.15)';
-      document.documentElement.style.setProperty(
-        '--luma-toast-info-bg',
-        customBg,
-      );
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--luma-toast-info-bg')
-        .trim();
-
-      expect(value).toBe(customBg);
     });
   });
 });

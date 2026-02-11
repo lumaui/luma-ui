@@ -10,13 +10,7 @@ export const tabsListVariants = cva(
     variants: {
       variant: {
         underline: ['border-b', 'border-border'], // Removed gap-4 (now in scroll container)
-        pills: [
-          'p-1',
-          'bg-muted',
-          'rounded-lg',
-          'inline-flex',
-          'w-auto',
-        ], // Removed gap-1 (now in scroll container)
+        pills: ['p-1', 'bg-muted', 'rounded-lg', 'inline-flex', 'w-auto'], // Removed gap-1 (now in scroll container)
       },
     },
     defaultVariants: {
@@ -159,7 +153,12 @@ export const tabsScrollArrowVariants = cva(
  * Content panel (role="tabpanel")
  */
 export const tabsPanelVariants = cva(
-  ['mt-2', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-ring'],
+  [
+    'mt-2',
+    'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-ring',
+  ],
   {
     variants: {
       visible: {
@@ -177,9 +176,13 @@ export const tabsPanelVariants = cva(
 export type TabsListVariants = VariantProps<typeof tabsListVariants>;
 export type TabsTriggerVariants = VariantProps<typeof tabsTriggerVariants>;
 export type TabsIndicatorVariants = VariantProps<typeof tabsIndicatorVariants>;
-export type TabsScrollArrowVariants = VariantProps<typeof tabsScrollArrowVariants>;
+export type TabsScrollArrowVariants = VariantProps<
+  typeof tabsScrollArrowVariants
+>;
 export type TabsPanelVariants = VariantProps<typeof tabsPanelVariants>;
 
 // Convenience types
 export type TabsVariant = NonNullable<TabsListVariants['variant']>;
-export type TabsScrollArrowDirection = NonNullable<TabsScrollArrowVariants['direction']>;
+export type TabsScrollArrowDirection = NonNullable<
+  TabsScrollArrowVariants['direction']
+>;

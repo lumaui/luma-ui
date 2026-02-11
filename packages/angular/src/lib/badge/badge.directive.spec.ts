@@ -8,8 +8,10 @@ import { LmBadgeDirective } from './badge.directive';
 // ============================================================
 
 @Component({
-  selector: 'badge-test-host',
-  template: `<span lumaBadge [lmVariant]="variant" [lmRadius]="radius">Test Badge</span>`,
+  selector: 'luma-badge-test-host',
+  template: `<span lumaBadge [lmVariant]="variant" [lmRadius]="radius"
+    >Test Badge</span
+  >`,
   imports: [LmBadgeDirective],
 })
 class BadgeTestHostComponent {
@@ -18,60 +20,11 @@ class BadgeTestHostComponent {
 }
 
 @Component({
-  selector: 'div-badge-test-host',
+  selector: 'luma-div-badge-test-host',
   template: `<div lumaBadge>Badge on Div</div>`,
   imports: [LmBadgeDirective],
 })
 class DivBadgeTestHostComponent {}
-
-// ============================================================
-// SEMANTIC TOKEN DEFINITIONS
-// ============================================================
-
-const SEMANTIC_TOKENS = {
-  colors: {
-    primary: 'oklch(0.48 0.09 300)',
-    primaryForeground: 'oklch(1 0 0)',
-    foreground: 'oklch(0.22 0.014 290)',
-    border: 'oklch(0.89 0.004 286)',
-  },
-  radius: {
-    radius4: '0.5rem',    // 8px - default radius
-    radiusFull: '9999px', // pill shape
-  },
-} as const;
-
-// ============================================================
-// SETUP & CLEANUP FUNCTIONS
-// ============================================================
-
-function setupSemanticTokens(): void {
-  const root = document.documentElement;
-
-  // Color tokens
-  root.style.setProperty('--color-primary', SEMANTIC_TOKENS.colors.primary);
-  root.style.setProperty('--color-primary-foreground', SEMANTIC_TOKENS.colors.primaryForeground);
-  root.style.setProperty('--color-foreground', SEMANTIC_TOKENS.colors.foreground);
-  root.style.setProperty('--color-border', SEMANTIC_TOKENS.colors.border);
-
-  // Radius tokens
-  root.style.setProperty('--radius-4', SEMANTIC_TOKENS.radius.radius4);
-  root.style.setProperty('--radius-full', SEMANTIC_TOKENS.radius.radiusFull);
-}
-
-function cleanupSemanticTokens(): void {
-  const root = document.documentElement;
-
-  // Color tokens
-  root.style.removeProperty('--color-primary');
-  root.style.removeProperty('--color-primary-foreground');
-  root.style.removeProperty('--color-foreground');
-  root.style.removeProperty('--color-border');
-
-  // Radius tokens
-  root.style.removeProperty('--radius-4');
-  root.style.removeProperty('--radius-full');
-}
 
 // ============================================================
 // TEST SUITE
@@ -96,11 +49,6 @@ describe('LmBadgeDirective', () => {
     hostComponent = fixture.componentInstance;
     badgeElement = fixture.debugElement.query(By.directive(LmBadgeDirective));
     directive = badgeElement.injector.get(LmBadgeDirective);
-    setupSemanticTokens();
-  });
-
-  afterEach(() => {
-    cleanupSemanticTokens();
   });
 
   // ============================================================
@@ -178,13 +126,6 @@ describe('LmBadgeDirective', () => {
     it('should apply transparent border', () => {
       expect(directive.classes()).toContain('border-transparent');
     });
-
-    it('should have access to --color-primary token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
-    });
   });
 
   // ============================================================
@@ -208,13 +149,6 @@ describe('LmBadgeDirective', () => {
     it('should apply border color', () => {
       expect(directive.classes()).toContain('border-primary-7');
     });
-
-    it('should have access to --color-border token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-border')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.border);
-    });
   });
 
   // ============================================================
@@ -229,13 +163,6 @@ describe('LmBadgeDirective', () => {
 
     it('should apply default radius class', () => {
       expect(directive.classes()).toContain('rounded-[var(--radius-4)]');
-    });
-
-    it('should have access to --radius-4 token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--radius-4')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.radius.radius4);
     });
   });
 
@@ -273,13 +200,6 @@ describe('LmBadgeDirective', () => {
     it('should apply full radius class', () => {
       expect(directive.classes()).toContain('rounded-full');
     });
-
-    it('should have access to --radius-full token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--radius-full')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.radius.radiusFull);
-    });
   });
 
   // ============================================================
@@ -308,80 +228,6 @@ describe('LmBadgeDirective', () => {
 
       expect(divDirective.classes()).toContain('inline-flex');
       expect(divDirective.classes()).toContain('rounded-[var(--radius-4)]');
-    });
-  });
-
-  // ============================================================
-  // SIGNAL-BASED INPUT TESTS
-  // ============================================================
-
-  describe('Signal-Based Inputs', () => {
-    it('should use signal-based input for variant', () => {
-      expect(typeof directive.lmVariant).toBe('function');
-      const variant = directive.lmVariant();
-      expect(variant).toBe('default');
-    });
-
-    it('should use signal-based input for radius', () => {
-      expect(typeof directive.lmRadius).toBe('function');
-      const radius = directive.lmRadius();
-      expect(radius).toBe('default');
-    });
-
-    describe('when variant is default', () => {
-      beforeEach(() => {
-        hostComponent.variant = 'default';
-        fixture.detectChanges();
-      });
-
-      it('should apply default variant classes', () => {
-        expect(directive.classes()).toContain('bg-primary-2');
-      });
-    });
-
-    describe('when variant is outline', () => {
-      beforeEach(() => {
-        hostComponent.variant = 'outline';
-        fixture.detectChanges();
-      });
-
-      it('should apply outline variant classes', () => {
-        expect(directive.classes()).toContain('bg-transparent');
-        expect(directive.classes()).toContain('border-primary-7');
-      });
-    });
-
-    describe('when radius is default', () => {
-      beforeEach(() => {
-        hostComponent.radius = 'default';
-        fixture.detectChanges();
-      });
-
-      it('should apply default radius classes', () => {
-        expect(directive.classes()).toContain('rounded-[var(--radius-4)]');
-      });
-    });
-
-    describe('when radius is square', () => {
-      beforeEach(() => {
-        hostComponent.radius = 'square';
-        fixture.detectChanges();
-      });
-
-      it('should apply square radius classes', () => {
-        expect(directive.classes()).toContain('rounded-none');
-      });
-    });
-
-    describe('when radius is full', () => {
-      beforeEach(() => {
-        hostComponent.radius = 'full';
-        fixture.detectChanges();
-      });
-
-      it('should apply full radius classes', () => {
-        expect(directive.classes()).toContain('rounded-full');
-      });
     });
   });
 });

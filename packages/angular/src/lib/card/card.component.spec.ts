@@ -8,7 +8,7 @@ import { LmCardComponent } from './card.component';
 // ============================================================
 
 @Component({
-  selector: 'card-test-host',
+  selector: 'luma-card-test-host',
   template: `
     <luma-card [lmVariant]="variant">
       <div class="test-content">Card content</div>
@@ -18,42 +18,6 @@ import { LmCardComponent } from './card.component';
 })
 class CardTestHostComponent {
   variant: 'default' | 'elevated' | 'ghost' = 'default';
-}
-
-// ============================================================
-// SEMANTIC TOKEN DEFINITIONS
-// ============================================================
-
-const SEMANTIC_TOKENS = {
-  colors: {
-    card: 'oklch(1 0 0)',
-    cardForeground: 'oklch(0.22 0.014 290)',
-    border: 'oklch(0.97 0.006 290)',
-    muted: 'oklch(0.97 0.006 290)',
-  },
-} as const;
-
-// ============================================================
-// SETUP & CLEANUP FUNCTIONS
-// ============================================================
-
-function setupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.setProperty('--color-card', SEMANTIC_TOKENS.colors.card);
-  root.style.setProperty(
-    '--color-card-foreground',
-    SEMANTIC_TOKENS.colors.cardForeground,
-  );
-  root.style.setProperty('--color-border', SEMANTIC_TOKENS.colors.border);
-  root.style.setProperty('--color-muted', SEMANTIC_TOKENS.colors.muted);
-}
-
-function cleanupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.removeProperty('--color-card');
-  root.style.removeProperty('--color-card-foreground');
-  root.style.removeProperty('--color-border');
-  root.style.removeProperty('--color-muted');
 }
 
 // ============================================================
@@ -72,11 +36,6 @@ describe('LmCardComponent', () => {
 
     fixture = TestBed.createComponent(CardTestHostComponent);
     hostComponent = fixture.componentInstance;
-    setupSemanticTokens();
-  });
-
-  afterEach(() => {
-    cleanupSemanticTokens();
   });
 
   // ============================================================
@@ -214,37 +173,6 @@ describe('LmCardComponent', () => {
       const innerDiv = card.nativeElement.querySelector('div');
       expect(innerDiv.className).toContain('border-transparent');
       expect(innerDiv.className).toContain('shadow-none');
-    });
-  });
-
-  // ============================================================
-  // SEMANTIC TOKENS
-  // ============================================================
-
-  describe('Semantic Tokens', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
-
-    it('should have access to --color-card token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-card')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.card);
-    });
-
-    it('should have access to --color-border token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-border')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.border);
-    });
-
-    it('should have access to --color-muted token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-muted')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.muted);
     });
   });
 

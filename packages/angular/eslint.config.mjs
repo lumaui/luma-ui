@@ -33,6 +33,15 @@ export default [
     },
   },
   {
+    files: ['**/tabs/tabs-list.directive.ts'],
+    rules: {
+      // LmTabsListDirective is a hybrid component with directive-style selector
+      // Uses @Component for template (scroll arrows) but [attribute] selector
+      '@angular-eslint/component-selector': 'off',
+      '@angular-eslint/component-class-suffix': 'off',
+    },
+  },
+  {
     files: ['**/*.html'],
     // Override or add rules here
     rules: {},

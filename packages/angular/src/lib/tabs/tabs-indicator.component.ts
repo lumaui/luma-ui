@@ -112,7 +112,9 @@ export class LmTabsIndicatorComponent implements AfterViewInit, OnDestroy {
     const listRect = listContainer.getBoundingClientRect();
 
     // Horizontal positioning (account for scroll offset in scrollable mode)
-    this.indicatorPosition.set(triggerRect.left - listRect.left + listContainer.scrollLeft);
+    this.indicatorPosition.set(
+      triggerRect.left - listRect.left + listContainer.scrollLeft,
+    );
     this.indicatorWidth.set(triggerRect.width);
   }
 }

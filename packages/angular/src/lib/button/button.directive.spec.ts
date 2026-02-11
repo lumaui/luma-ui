@@ -56,143 +56,6 @@ class SubmitButtonTestHostComponent {}
 class ResetButtonTestHostComponent {}
 
 // ============================================================
-// SEMANTIC TOKEN DEFINITIONS
-// ============================================================
-
-const SEMANTIC_TOKENS = {
-  colors: {
-    primary: 'oklch(0.48 0.09 300)',
-    primaryForeground: 'oklch(1 0 0)',
-    secondary: 'oklch(0.97 0.006 290)',
-    secondaryForeground: 'oklch(0.22 0.014 290)',
-    destructive: 'oklch(0.63 0.10 28)',
-    destructiveForeground: 'oklch(1 0 0)',
-    accent: 'oklch(0.97 0.006 290)',
-    accentForeground: 'oklch(0.22 0.014 290)',
-    background: 'oklch(1 0 0)',
-    foreground: 'oklch(0.22 0.014 290)',
-    input: 'oklch(0.97 0.006 290)',
-    ring: 'oklch(0.55 0.10 300 / 0.35)',
-  },
-} as const;
-
-const DARK_SEMANTIC_TOKENS = {
-  colors: {
-    primary: 'oklch(0.72 0.12 300)',
-    primaryForeground: 'oklch(1 0 0)',
-    secondary: 'oklch(0.22 0.008 290)',
-    secondaryForeground: 'oklch(0.92 0.01 290)',
-    destructive: 'oklch(0.72 0.12 28)',
-    destructiveForeground: 'oklch(1 0 0)',
-    accent: 'oklch(0.22 0.008 290)',
-    accentForeground: 'oklch(0.92 0.01 290)',
-    background: 'oklch(0.16 0.006 290)',
-    foreground: 'oklch(0.92 0.01 290)',
-    input: 'oklch(0.22 0.008 290)',
-    ring: 'oklch(0.78 0.12 300 / 0.4)',
-  },
-} as const;
-
-// ============================================================
-// SETUP & CLEANUP FUNCTIONS
-// ============================================================
-
-function setupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.setProperty('--color-primary', SEMANTIC_TOKENS.colors.primary);
-  root.style.setProperty(
-    '--color-primary-foreground',
-    SEMANTIC_TOKENS.colors.primaryForeground,
-  );
-  root.style.setProperty('--color-secondary', SEMANTIC_TOKENS.colors.secondary);
-  root.style.setProperty(
-    '--color-secondary-foreground',
-    SEMANTIC_TOKENS.colors.secondaryForeground,
-  );
-  root.style.setProperty(
-    '--color-destructive',
-    SEMANTIC_TOKENS.colors.destructive,
-  );
-  root.style.setProperty(
-    '--color-destructive-foreground',
-    SEMANTIC_TOKENS.colors.destructiveForeground,
-  );
-  root.style.setProperty('--color-accent', SEMANTIC_TOKENS.colors.accent);
-  root.style.setProperty(
-    '--color-accent-foreground',
-    SEMANTIC_TOKENS.colors.accentForeground,
-  );
-  root.style.setProperty(
-    '--color-background',
-    SEMANTIC_TOKENS.colors.background,
-  );
-  root.style.setProperty(
-    '--color-foreground',
-    SEMANTIC_TOKENS.colors.foreground,
-  );
-  root.style.setProperty('--color-input', SEMANTIC_TOKENS.colors.input);
-  root.style.setProperty('--color-ring', SEMANTIC_TOKENS.colors.ring);
-}
-
-function cleanupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.removeProperty('--color-primary');
-  root.style.removeProperty('--color-primary-foreground');
-  root.style.removeProperty('--color-secondary');
-  root.style.removeProperty('--color-secondary-foreground');
-  root.style.removeProperty('--color-destructive');
-  root.style.removeProperty('--color-destructive-foreground');
-  root.style.removeProperty('--color-accent');
-  root.style.removeProperty('--color-accent-foreground');
-  root.style.removeProperty('--color-background');
-  root.style.removeProperty('--color-foreground');
-  root.style.removeProperty('--color-input');
-  root.style.removeProperty('--color-ring');
-  root.classList.remove('dark');
-}
-
-function applyDarkTheme(): void {
-  document.documentElement.classList.add('dark');
-  const root = document.documentElement;
-  root.style.setProperty('--color-primary', DARK_SEMANTIC_TOKENS.colors.primary);
-  root.style.setProperty(
-    '--color-primary-foreground',
-    DARK_SEMANTIC_TOKENS.colors.primaryForeground,
-  );
-  root.style.setProperty(
-    '--color-secondary',
-    DARK_SEMANTIC_TOKENS.colors.secondary,
-  );
-  root.style.setProperty(
-    '--color-secondary-foreground',
-    DARK_SEMANTIC_TOKENS.colors.secondaryForeground,
-  );
-  root.style.setProperty(
-    '--color-destructive',
-    DARK_SEMANTIC_TOKENS.colors.destructive,
-  );
-  root.style.setProperty(
-    '--color-destructive-foreground',
-    DARK_SEMANTIC_TOKENS.colors.destructiveForeground,
-  );
-  root.style.setProperty('--color-accent', DARK_SEMANTIC_TOKENS.colors.accent);
-  root.style.setProperty(
-    '--color-accent-foreground',
-    DARK_SEMANTIC_TOKENS.colors.accentForeground,
-  );
-  root.style.setProperty(
-    '--color-background',
-    DARK_SEMANTIC_TOKENS.colors.background,
-  );
-  root.style.setProperty(
-    '--color-foreground',
-    DARK_SEMANTIC_TOKENS.colors.foreground,
-  );
-  root.style.setProperty('--color-input', DARK_SEMANTIC_TOKENS.colors.input);
-  root.style.setProperty('--color-ring', DARK_SEMANTIC_TOKENS.colors.ring);
-}
-
-// ============================================================
 // TEST SUITE
 // ============================================================
 
@@ -217,11 +80,6 @@ describe('LmButtonDirective', () => {
     hostComponent = fixture.componentInstance;
     buttonElement = fixture.debugElement.query(By.directive(LmButtonDirective));
     directive = buttonElement.injector.get(LmButtonDirective);
-    setupSemanticTokens();
-  });
-
-  afterEach(() => {
-    cleanupSemanticTokens();
   });
 
   // ============================================================
@@ -290,26 +148,12 @@ describe('LmButtonDirective', () => {
       expect(directive.classes()).toContain('bg-primary');
     });
 
-    it('should apply primary foreground text class', () => {
-      expect(directive.classes()).toContain('text-primary-foreground');
+    it('should apply white text class', () => {
+      expect(directive.classes()).toContain('text-white');
     });
 
     it('should apply primary hover background class', () => {
       expect(directive.classes()).toContain('hover:bg-primary/90');
-    });
-
-    it('should have access to --color-primary token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
-    });
-
-    it('should have access to --color-primary-foreground token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary-foreground')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.primaryForeground);
     });
   });
 
@@ -350,20 +194,16 @@ describe('LmButtonDirective', () => {
       expect(directive.classes()).toContain('border');
     });
 
-    it('should apply border-input class', () => {
-      expect(directive.classes()).toContain('border-input');
+    it('should apply border-primary class', () => {
+      expect(directive.classes()).toContain('border-primary');
     });
 
-    it('should apply background class', () => {
-      expect(directive.classes()).toContain('bg-background');
+    it('should apply primary text class', () => {
+      expect(directive.classes()).toContain('text-primary');
     });
 
-    it('should apply hover accent background class', () => {
-      expect(directive.classes()).toContain('hover:bg-accent');
-    });
-
-    it('should apply hover accent foreground text class', () => {
-      expect(directive.classes()).toContain('hover:text-accent-foreground');
+    it('should apply hover background class', () => {
+      expect(directive.classes()).toContain('hover:bg-primary/10');
     });
   });
 
@@ -377,17 +217,18 @@ describe('LmButtonDirective', () => {
       fixture.detectChanges();
     });
 
-    it('should apply hover accent background class', () => {
-      expect(directive.classes()).toContain('hover:bg-accent');
+    it('should apply primary text class', () => {
+      expect(directive.classes()).toContain('text-primary');
     });
 
-    it('should apply hover accent foreground text class', () => {
-      expect(directive.classes()).toContain('hover:text-accent-foreground');
+    it('should apply hover background class', () => {
+      expect(directive.classes()).toContain('hover:bg-primary/10');
     });
 
-    it('should not have base background class', () => {
-      expect(directive.classes()).not.toContain('bg-primary');
-      expect(directive.classes()).not.toContain('bg-secondary');
+    it('should not have solid background class', () => {
+      const classList = directive.classes().split(' ');
+      expect(classList).not.toContain('bg-primary');
+      expect(classList).not.toContain('bg-secondary');
     });
   });
 
@@ -411,13 +252,6 @@ describe('LmButtonDirective', () => {
 
     it('should apply destructive hover background class', () => {
       expect(directive.classes()).toContain('hover:bg-destructive/90');
-    });
-
-    it('should have access to --color-destructive token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-destructive')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.destructive);
     });
   });
 
@@ -498,20 +332,6 @@ describe('LmButtonDirective', () => {
       it('should apply default radius class with CSS variable', () => {
         const classes = directive.classes();
         expect(classes).toContain('rounded-[var(--radius-4)]');
-      });
-
-      it('should use radius-4 token (8px)', () => {
-        // Set up radius-4 token
-        document.documentElement.style.setProperty('--radius-4', '0.5rem');
-
-        const value = getComputedStyle(document.documentElement)
-          .getPropertyValue('--radius-4')
-          .trim();
-
-        expect(value).toBe('0.5rem');
-
-        // Cleanup
-        document.documentElement.style.removeProperty('--radius-4');
       });
     });
 
@@ -660,7 +480,7 @@ describe('LmButtonDirective', () => {
       hostComponent.lmVariant = 'outline';
       fixture.detectChanges();
       expect(directive.classes()).toContain('border');
-      expect(directive.classes()).toContain('border-input');
+      expect(directive.classes()).toContain('border-primary');
     });
 
     it('should apply sm size classes', () => {
@@ -675,59 +495,6 @@ describe('LmButtonDirective', () => {
       fixture.detectChanges();
       expect(directive.classes()).toContain('px-5');
       expect(directive.classes()).toContain('text-base');
-    });
-  });
-
-  // ============================================================
-  // DARK THEME TESTS
-  // ============================================================
-
-  describe('Dark Theme', () => {
-    beforeEach(() => {
-      applyDarkTheme();
-    });
-
-    it('should have access to dark theme primary color', () => {
-      hostComponent.lmVariant = 'primary';
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
-        .trim();
-      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.primary);
-    });
-
-    it('should have access to dark theme primary foreground', () => {
-      hostComponent.lmVariant = 'primary';
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary-foreground')
-        .trim();
-      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.primaryForeground);
-    });
-
-    it('should have access to dark theme destructive color', () => {
-      hostComponent.lmVariant = 'destructive';
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-destructive')
-        .trim();
-      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.destructive);
-    });
-
-    it('should have access to dark theme ring color', () => {
-      fixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-ring')
-        .trim();
-      expect(value).toBe(DARK_SEMANTIC_TOKENS.colors.ring);
-    });
-
-    it('should have dark class on document element', () => {
-      expect(document.documentElement.classList.contains('dark')).toBe(true);
     });
   });
 
@@ -776,7 +543,7 @@ describe('LmButtonDirective', () => {
       const anchorDirective = anchorButton.injector.get(LmButtonDirective);
 
       expect(anchorDirective.classes()).toContain('bg-primary');
-      expect(anchorDirective.classes()).toContain('text-primary-foreground');
+      expect(anchorDirective.classes()).toContain('text-white');
     });
 
     it('should preserve href attribute', () => {
@@ -788,18 +555,6 @@ describe('LmButtonDirective', () => {
         By.directive(LmButtonDirective),
       );
       expect(anchorButton.nativeElement.getAttribute('href')).toBe('/test');
-    });
-
-    it('should have access to tokens on anchor element', () => {
-      const anchorFixture = TestBed.createComponent(
-        AnchorButtonTestHostComponent,
-      );
-      anchorFixture.detectChanges();
-
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
     });
   });
 });

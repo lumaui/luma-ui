@@ -73,11 +73,13 @@ Tab navigation for switching between content panels. Uses semantic tokens with d
 ## Semantic Token Usage
 
 **Underline variant:**
+
 - Active: `data-[state=active]:border-primary-9`, `data-[state=active]:text-primary-9`
 - Inactive: `text-gray-600`
 - Indicator: `bg-primary-9`
 
 **Pills variant:**
+
 - Container: `bg-gray-100`, `rounded-[var(--radius-4)]`
 - Active: `data-[state=active]:bg-white`, `data-[state=active]:shadow-[var(--shadow-1)]`
 - Inactive: `text-gray-600`
@@ -96,7 +98,10 @@ Tab navigation for switching between content panels. Uses semantic tokens with d
   </div>
 
   <div lumaTabsPanel="tab-1">
-    <p>Welcome to our product overview. Here you'll find everything you need to get started.</p>
+    <p>
+      Welcome to our product overview. Here you'll find everything you need to
+      get started.
+    </p>
   </div>
   <div lumaTabsPanel="tab-2">
     <p>Explore our powerful features designed to boost your productivity.</p>
@@ -226,6 +231,7 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
 ```
 
 **Features:**
+
 - **Arrow Navigation**: Left/right arrow buttons appear automatically when content overflows
 - **Smart Visibility**: Arrows hide when at start/end positions
 - **Smooth Scrolling**: Arrows scroll by 85% of container width for visual continuity
@@ -235,6 +241,7 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
 - **Automatic Detection**: ResizeObserver detects overflow when tabs are added/removed dynamically
 
 **Accessibility:**
+
 - Arrow buttons have `aria-label` for screen readers
 - Disabled state at scroll boundaries (`opacity-30`, `cursor-not-allowed`)
 - 32×32px touch targets
@@ -261,8 +268,14 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
         Create wireframes, mockups, and prototypes for your project.
       </p>
       <div class="flex gap-2 pt-1">
-        <span class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full">Figma</span>
-        <span class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full">Prototype</span>
+        <span
+          class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+          >Figma</span
+        >
+        <span
+          class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+          >Prototype</span
+        >
       </div>
     </div>
   </div>
@@ -273,8 +286,14 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
         Write code, run tests, and iterate on your implementation.
       </p>
       <div class="flex gap-2 pt-1">
-        <span class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full">Angular</span>
-        <span class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full">Tailwind</span>
+        <span
+          class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+          >Angular</span
+        >
+        <span
+          class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+          >Tailwind</span
+        >
       </div>
     </div>
   </div>
@@ -285,8 +304,14 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
         Ship to production with CI/CD pipelines and monitoring.
       </p>
       <div class="flex gap-2 pt-1">
-        <span class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full">CI/CD</span>
-        <span class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full">Docker</span>
+        <span
+          class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+          >CI/CD</span
+        >
+        <span
+          class="text-xs bg-primary-2 text-primary-9 px-2 py-0.5 rounded-full"
+          >Docker</span
+        >
       </div>
     </div>
   </div>
@@ -299,7 +324,7 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
 
 ```css
 :root {
-  --color-primary-9: oklch(0.60 0.15 180);  /* Cyan indicator/active color */
+  --color-primary-9: oklch(0.6 0.15 180); /* Cyan indicator/active color */
 }
 ```
 
@@ -307,7 +332,7 @@ Enable horizontal scrolling with arrow navigation for tabs that overflow the con
 
 ```css
 .my-section {
-  --color-primary-9: oklch(0.70 0.12 340);  /* Pink tabs in this section */
+  --color-primary-9: oklch(0.7 0.12 340); /* Pink tabs in this section */
 }
 ```
 

@@ -23,9 +23,7 @@ const PREVIEW_COMPONENTS_PATH = path.resolve(
 /**
  * Extract template code from a single preview component file
  */
-function extractFromFile(
-  filePath: string,
-): Record<string, string> | undefined {
+function extractFromFile(filePath: string): Record<string, string> | undefined {
   const content = fs.readFileSync(filePath, 'utf-8');
 
   // Extract component slug from filename
@@ -95,14 +93,13 @@ function extractFromFile(
 /**
  * Extract all preview code from all preview component files
  */
-export function extractPreviewCode(): Record<
-  string,
-  Record<string, string>
-> {
+export function extractPreviewCode(): Record<string, Record<string, string>> {
   const previewMap: Record<string, Record<string, string>> = {};
 
   if (!fs.existsSync(PREVIEW_COMPONENTS_PATH)) {
-    console.warn(`⚠️  Preview components directory not found: ${PREVIEW_COMPONENTS_PATH}`);
+    console.warn(
+      `⚠️  Preview components directory not found: ${PREVIEW_COMPONENTS_PATH}`,
+    );
     return previewMap;
   }
 

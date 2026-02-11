@@ -48,11 +48,7 @@ export const buttonVariants = cva(
           'hover:bg-primary/10',
           'active:bg-primary/10',
         ],
-        ghost: [
-          'text-primary',
-          'hover:bg-primary/10',
-          'active:bg-primary/90',
-        ],
+        ghost: ['text-primary', 'hover:bg-primary/10', 'active:bg-primary/90'],
         destructive: [
           'bg-destructive',
           'text-destructive-foreground',
@@ -62,25 +58,25 @@ export const buttonVariants = cva(
       },
       size: {
         sm: [
-          'text-xs',        // 12px
-          'px-3',           // 12px
-          'py-2',           // 8px
+          'text-xs', // 12px
+          'px-3', // 12px
+          'py-2', // 8px
         ],
         md: [
-          'text-sm',        // 14px
-          'px-4',           // 16px
-          'py-2.5',         // 10px
+          'text-sm', // 14px
+          'px-4', // 16px
+          'py-2.5', // 10px
         ],
         lg: [
-          'text-base',      // 16px
-          'px-5',           // 20px
-          'py-3',           // 12px
+          'text-base', // 16px
+          'px-5', // 20px
+          'py-3', // 12px
         ],
       },
       radius: {
-        default: ['rounded-[var(--radius-4)]'],  // 8px - uses radius-4 token
-        square: ['rounded-none'],                // 0px - sharp corners
-        full: ['rounded-full'],                  // 9999px - pill shape
+        default: ['rounded-[var(--radius-4)]'], // 8px - uses radius-4 token
+        square: ['rounded-none'], // 0px - sharp corners
+        full: ['rounded-full'], // 9999px - pill shape
       },
     },
     defaultVariants: {

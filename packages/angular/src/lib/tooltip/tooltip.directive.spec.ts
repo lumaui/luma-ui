@@ -8,7 +8,7 @@ import { LmTooltipDirective } from './tooltip.directive';
 // ============================================================
 
 @Component({
-  selector: 'tooltip-test-host',
+  selector: 'luma-tooltip-test-host',
   template: `
     <button [lumaTooltip]="tooltipText" [lmPosition]="position">
       Hover me
@@ -22,31 +22,8 @@ class TooltipTestHostComponent {
 }
 
 // ============================================================
-// SEMANTIC TOKEN DEFINITIONS
+// CLEANUP FUNCTIONS
 // ============================================================
-
-const SEMANTIC_TOKENS = {
-  colors: {
-    popover: 'oklch(0.13 0.030 300)',
-    popoverForeground: 'oklch(1 0 0)',
-  },
-} as const;
-
-// ============================================================
-// SETUP & CLEANUP FUNCTIONS
-// ============================================================
-
-function setupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.setProperty('--color-popover', SEMANTIC_TOKENS.colors.popover);
-  root.style.setProperty('--color-popover-foreground', SEMANTIC_TOKENS.colors.popoverForeground);
-}
-
-function cleanupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.removeProperty('--color-popover');
-  root.style.removeProperty('--color-popover-foreground');
-}
 
 function cleanupPortalTooltips(): void {
   document.querySelectorAll('[role="tooltip"]').forEach((el) => el.remove());
@@ -70,12 +47,10 @@ describe('LmTooltipDirective', () => {
     fixture = TestBed.createComponent(TooltipTestHostComponent);
     hostComponent = fixture.componentInstance;
     buttonElement = fixture.debugElement.query(By.css('button'));
-    setupSemanticTokens();
     // Do NOT get directive here - get it after detectChanges() in each test
   });
 
   afterEach(() => {
-    cleanupSemanticTokens();
     cleanupPortalTooltips();
   });
 
@@ -261,7 +236,8 @@ describe('LmTooltipDirective', () => {
     it('should render tooltip as a child of document.body', () => {
       const tooltip = document.getElementById(directive.tooltipId);
       expect(tooltip).toBeTruthy();
-      expect(tooltip!.parentElement).toBe(document.body);
+      expect(tooltip).not.toBeNull();
+      expect(tooltip?.parentElement).toBe(document.body);
     });
 
     it('should NOT render tooltip inside the trigger element', () => {
@@ -282,31 +258,6 @@ describe('LmTooltipDirective', () => {
       fixture.destroy();
 
       expect(document.getElementById(tooltipId)).toBeNull();
-    });
-  });
-
-  // ============================================================
-  // SEMANTIC TOKENS
-  // ============================================================
-
-  describe('Semantic Tokens', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-      directive = buttonElement.injector.get(LmTooltipDirective);
-    });
-
-    it('should have access to --color-popover token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-popover')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.popover);
-    });
-
-    it('should have access to --color-popover-foreground token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-popover-foreground')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.popoverForeground);
     });
   });
 

@@ -11,7 +11,7 @@ import { LmTabsPanelDirective } from './tabs-panel.directive';
 // ============================================================
 
 @Component({
-  selector: 'tabs-test-host',
+  selector: 'luma-tabs-test-host',
   template: `
     <luma-tabs
       [lmValue]="lmValue()"
@@ -56,7 +56,7 @@ class TabsTestHostComponent {
 }
 
 @Component({
-  selector: 'tabs-pills-test-host',
+  selector: 'luma-tabs-pills-test-host',
   template: `
     <luma-tabs lmDefaultValue="tab-1" lmVariant="pills">
       <div lumaTabsList>
@@ -77,7 +77,7 @@ class TabsTestHostComponent {
 class TabsPillsTestHostComponent {}
 
 @Component({
-  selector: 'tabs-no-lazy-test-host',
+  selector: 'luma-tabs-no-lazy-test-host',
   template: `
     <luma-tabs lmDefaultValue="tab-1" [lmLazy]="false">
       <div lumaTabsList>
@@ -98,60 +98,25 @@ class TabsPillsTestHostComponent {}
 class TabsNoLazyTestHostComponent {}
 
 // ============================================================
-// SEMANTIC TOKEN DEFINITIONS
-// ============================================================
-
-const SEMANTIC_TOKENS = {
-  colors: {
-    primary: 'oklch(0.48 0.09 300)',
-    mutedForeground: 'oklch(0.48 0.01 290)',
-    foreground: 'oklch(0.22 0.014 290)',
-    border: 'oklch(0.97 0.006 290)',
-    background: 'oklch(1 0 0)',
-    muted: 'oklch(0.97 0.006 290)',
-  },
-} as const;
-
-// ============================================================
-// SETUP & CLEANUP FUNCTIONS
-// ============================================================
-
-function setupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.setProperty('--color-primary', SEMANTIC_TOKENS.colors.primary);
-  root.style.setProperty(
-    '--color-muted-foreground',
-    SEMANTIC_TOKENS.colors.mutedForeground,
-  );
-  root.style.setProperty('--color-foreground', SEMANTIC_TOKENS.colors.foreground);
-  root.style.setProperty('--color-border', SEMANTIC_TOKENS.colors.border);
-  root.style.setProperty('--color-background', SEMANTIC_TOKENS.colors.background);
-  root.style.setProperty('--color-muted', SEMANTIC_TOKENS.colors.muted);
-}
-
-function cleanupSemanticTokens(): void {
-  const root = document.documentElement;
-  root.style.removeProperty('--color-primary');
-  root.style.removeProperty('--color-muted-foreground');
-  root.style.removeProperty('--color-foreground');
-  root.style.removeProperty('--color-border');
-  root.style.removeProperty('--color-background');
-  root.style.removeProperty('--color-muted');
-}
-
-// ============================================================
 // MOCK RESIZE OBSERVER
 // ============================================================
 
 class ResizeObserverMock {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe() {
+    /* noop */
+  }
+  unobserve() {
+    /* noop */
+  }
+  disconnect() {
+    /* noop */
+  }
 }
 
 // Install ResizeObserver mock globally
 if (typeof window !== 'undefined' && !window.ResizeObserver) {
-  (window as any).ResizeObserver = ResizeObserverMock;
+  (window as unknown as Record<string, unknown>)['ResizeObserver'] =
+    ResizeObserverMock;
 }
 
 // ============================================================
@@ -174,11 +139,6 @@ describe('Tabs', () => {
 
     fixture = TestBed.createComponent(TabsTestHostComponent);
     hostComponent = fixture.componentInstance;
-    setupSemanticTokens();
-  });
-
-  afterEach(() => {
-    cleanupSemanticTokens();
   });
 
   // ============================================================
@@ -645,37 +605,6 @@ describe('Tabs', () => {
         expect(firstPanel.shouldRender()).toBe(true);
         expect(secondPanel.shouldRender()).toBe(true);
       });
-    });
-  });
-
-  // ============================================================
-  // SEMANTIC TOKENS
-  // ============================================================
-
-  describe('Semantic Tokens', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
-
-    it('should have access to --color-primary token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.primary);
-    });
-
-    it('should have access to --color-muted-foreground token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-muted-foreground')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.mutedForeground);
-    });
-
-    it('should have access to --color-border token', () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-border')
-        .trim();
-      expect(value).toBe(SEMANTIC_TOKENS.colors.border);
     });
   });
 

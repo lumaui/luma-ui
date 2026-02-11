@@ -106,6 +106,7 @@ Dialog overlay for focused interactions. Uses semantic tokens with data-state an
 <luma-modal-overlay>
 <luma-modal-container>
 <luma-modal-close />
+
 <div lumaModalHeader>
 <h2 lumaModalTitle>Terms of Service</h2>
 </div>
@@ -132,6 +133,7 @@ Dialog overlay for focused interactions. Uses semantic tokens with data-state an
 <luma-modal #modal [lmDefaultOpen]="false">
 <luma-modal-overlay>
 <luma-modal-container>
+
 <div lumaModalContent>
 <p>Are you sure you want to proceed?</p>
 </div>
@@ -158,6 +160,7 @@ Yes
 <luma-modal [(lmOpen)]="isOpen">
 <luma-modal-overlay>
 <luma-modal-container>
+
 <div lumaModalHeader>
 <h2 lumaModalTitle>Footer Alignment</h2>
 </div>
