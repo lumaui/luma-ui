@@ -27,14 +27,24 @@ npm install @lumaui/angular
 
 ## Setup
 
+**IMPORTANT:** Luma tokens files do NOT import Tailwind CSS. Your project MUST import Tailwind separately.
+
 Add to your `styles.css`:
 
 ```css
+/* Required - your project's responsibility */
 @import 'tailwindcss';
-@import '@lumaui/tokens';
 
-/* Optional: Dark theme support */
-@import '@lumaui/tokens/dark.css';
+/* Import Luma design tokens */
+@import '@lumaui/tokens/build/luma.css'; /* Light theme */
+@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+```
+
+**Alternative (convenience bundle):**
+
+```css
+@import 'tailwindcss'; /* Required */
+@import '@lumaui/tokens/build/luma-complete.css'; /* Both themes */
 ```
 
 ## Usage

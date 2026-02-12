@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 
-@import '../../../packages/tokens/build/luma-complete.css';
+/* Import Tailwind CSS - required for Luma tokens to work */
+@import 'tailwindcss';
+
+/* Import Luma design tokens */
+@import '../../../packages/tokens/build/luma.css';
 @import '../../../packages/tokens/build/luma-dark.css';
 
 * {

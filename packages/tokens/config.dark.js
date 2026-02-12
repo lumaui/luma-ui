@@ -9,7 +9,7 @@ import StyleDictionary from 'style-dictionary';
 StyleDictionary.registerFormat({
   name: 'css/theme-dark',
   format: ({ dictionary }) => {
-    let output = `@import "tailwindcss";\n\n`;
+    let output = '';
     output += `.dark {\n`;
     output += `  /* Luma Design System - Purple Theme (Dark) */\n\n`;
 

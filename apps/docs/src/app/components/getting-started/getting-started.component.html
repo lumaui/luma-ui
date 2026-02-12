@@ -91,21 +91,25 @@
         </div>
         <div lumaCardContent class="relative">
           <p class="text-sm lm-text-secondary mb-4 leading-relaxed">
-            Import tokens in your
+            Import Tailwind + tokens in your
             <code
               class="lm-bg-surface px-1.5 py-0.5 lm-rounded font-mono text-xs"
               >styles.css</code
             >
           </p>
           <div
-            class="lm-bg-surface lm-rounded p-3 font-mono text-xs overflow-x-auto"
+            class="lm-bg-surface lm-rounded p-3 font-mono text-xs overflow-x-auto mb-2"
           >
             <pre
               class="lm-text-primary leading-relaxed"
             ><code>&#64;import 'tailwindcss';
-&#64;import '&#64;lumaui/tokens';
-&#64;import '&#64;lumaui/tokens/dark.css';</code></pre>
+&#64;import '&#64;lumaui/tokens/build/luma.css';
+&#64;import '&#64;lumaui/tokens/build/luma-dark.css';</code></pre>
           </div>
+          <p class="text-xs lm-text-secondary leading-relaxed">
+            <strong>Important:</strong> Tailwind import is required. Luma tokens
+            do NOT include Tailwind internally.
+          </p>
         </div>
       </luma-card>
     </div>

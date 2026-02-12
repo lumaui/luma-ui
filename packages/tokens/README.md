@@ -2,6 +2,35 @@
 
 Design tokens do Luma UI - Neo-Minimal para Tailwind CSS v4.
 
+## ⚠️ Breaking Change in v0.4.0
+
+**Luma tokens files no longer import Tailwind CSS internally.** Your project is now responsible for importing Tailwind.
+
+### Migration Guide
+
+**Before (v0.3.x):**
+
+```css
+@import '@lumaui/tokens/build/luma.css'; /* Tailwind was included */
+```
+
+**After (v0.4.0+):**
+
+```css
+/* ALWAYS import Tailwind explicitly */
+@import 'tailwindcss'; /* Your project's responsibility */
+@import '@lumaui/tokens/build/luma.css'; /* Tokens only */
+@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+```
+
+**Why this change?**
+Importing Tailwind is the project's responsibility, not the design system's. This provides:
+
+- ✅ Better separation of concerns
+- ✅ No duplicate imports
+- ✅ More flexibility (use any Tailwind version/config)
+- ✅ Clearer architecture
+
 ## Instalação
 
 ```bash
@@ -9,6 +38,10 @@ npm install @lumaui/tokens @lumaui/angular tailwindcss@next @tailwindcss/postcss
 ```
 
 ## Uso
+
+### ⚠️ IMPORTANTE: Responsabilidade do Tailwind CSS
+
+**Luma tokens files do NOT import Tailwind CSS internally.** Your project is responsible for importing Tailwind.
 
 ### Setup Básico
 
@@ -23,23 +56,51 @@ export default {
 };
 ```
 
-**2. Importe tokens no CSS:**
+**2. Importe Tailwind + tokens no CSS:**
+
+**Option A: Individual files (recommended)**
 
 ```css
-@import '@lumaui/tokens/luma.css';
-@import '@lumaui/tokens/luma-dark.css';
+/* styles.css */
+@import 'tailwindcss'; /* Required - project's responsibility */
+@import '@lumaui/tokens/build/luma.css'; /* Light theme */
+@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+```
+
+**Option B: Convenience bundle**
+
+```css
+/* styles.css */
+@import 'tailwindcss'; /* Required */
+@import '@lumaui/tokens/build/luma-complete.css'; /* Both themes */
+```
+
+**Option C: Without postcss-import (angular.json)**
+
+```json
+// angular.json
+"styles": [
+  "node_modules/@lumaui/tokens/build/luma.css",
+  "node_modules/@lumaui/tokens/build/luma-dark.css",
+  "src/styles.css"
+]
+```
+
+```css
+/* styles.css */
+@import 'tailwindcss'; /* Required */
 ```
 
 **3. Use as classes:**
 
 ```html
-<button class="lm-bg-primary text-white lm-rounded-md px-6 py-3">
+<button class="bg-primary text-primary-foreground rounded-md px-6 py-3">
   Continuar
 </button>
 
-<div class="lm-bg-surface-base lm-text-primary">
-  <h1 class="lm-text-lg">Título</h1>
-  <p class="lm-text-secondary">Descrição</p>
+<div class="bg-card text-card-foreground">
+  <h1 class="text-lg">Título</h1>
+  <p class="text-muted-foreground">Descrição</p>
 </div>
 ```
 
