@@ -27,25 +27,46 @@ npm install @lumaui/angular
 
 ## Setup
 
-**IMPORTANT:** Luma tokens files do NOT import Tailwind CSS. Your project MUST import Tailwind separately.
-
 Add to your `styles.css`:
 
 ```css
-/* Required - your project's responsibility */
-@import 'tailwindcss';
+/* Import Luma design tokens (light theme + component classes) */
+@import '@lumaui/tokens/build/luma.css';
 
-/* Import Luma design tokens */
-@import '@lumaui/tokens/build/luma.css'; /* Light theme */
-@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+/* Optional: Dark theme support */
+@import '@lumaui/tokens/build/luma-dark.css';
 ```
+
+**That's it!** The `luma.css` file includes everything needed:
+
+- ✅ Tailwind CSS v4 base
+- ✅ Design tokens (@theme block with 45 tokens)
+- ✅ Component class manifest (@source directive)
+- ✅ Automatic class discovery (99 component classes)
 
 **Alternative (convenience bundle):**
 
 ```css
-@import 'tailwindcss'; /* Required */
-@import '@lumaui/tokens/build/luma-complete.css'; /* Both themes */
+/* Single import for both light and dark themes */
+@import '@lumaui/tokens/build/luma-complete.css';
 ```
+
+---
+
+**Verify it works:**
+
+After setting up, check your compiled CSS includes component classes:
+
+```bash
+# Build your Angular app
+ng build
+
+# Check for Luma component classes in output
+grep -o "bg-primary" dist/your-app/browser/styles*.css
+# Expected: Multiple matches (bg-primary, hover:bg-primary/90, etc.)
+```
+
+If you see the classes, setup is correct! ✅
 
 ## Usage
 

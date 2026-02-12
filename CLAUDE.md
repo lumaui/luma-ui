@@ -400,6 +400,9 @@ Style Dictionary generates:
 /* luma.css */
 @import 'tailwindcss';
 
+/* Component class manifest - enables automatic class discovery */
+@source "./luma-classes.js";
+
 @theme {
   /* Primary Color Scale (12-step Radix-inspired) */
   --color-primary-1: oklch(0.98 0.01 300);
@@ -426,6 +429,42 @@ Style Dictionary generates:
   /* ... */
 }
 ```
+
+### @source Directive (Simplified Architecture)
+
+**Design Decision:** The `@source "./luma-classes.js"` directive is embedded **inside** `luma.css` (generated file).
+
+**Why this works:**
+
+When users import `@import '@lumaui/tokens/build/luma.css'`, Tailwind processes this file. The @source directive inside the file tells Tailwind to scan `luma-classes.js` (in the same directory). Since Tailwind is already processing `luma.css`, it follows the relative path and scans the manifest.
+
+**Developer Experience:**
+
+```css
+/* User's styles.css - SIMPLE! */
+@import '@lumaui/tokens/build/luma.css'; /* Everything included */
+@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme (optional) */
+```
+
+No @source configuration required by consumers. Maximum simplicity.
+
+**Technical Flow:**
+
+1. User imports `luma.css` in their CSS
+2. Tailwind processes `luma.css` (it's in the import chain)
+3. Tailwind encounters `@source "./luma-classes.js"` inside `luma.css`
+4. Resolves to `node_modules/@lumaui/tokens/build/luma-classes.js`
+5. Scans the manifest (99 classes)
+6. Includes all classes in final CSS
+7. ✅ Components render with full styling
+
+**Files:**
+
+- `packages/tokens/build/luma.css` - Generated with embedded `@source`
+- `packages/tokens/build/luma-classes.js` - Manifest of 99 component classes
+- `packages/tokens/config.js` - Style Dictionary config with custom format that injects `@source`
+
+**Key Insight:** @source works when embedded in a CSS file that Tailwind is processing. It doesn't work when embedded in a "wrapper" file that only does @import.
 
 **Using Tokens in Components:**
 

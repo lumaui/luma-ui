@@ -35,35 +35,64 @@ Luma is a design system built on **Neo-Minimalism** - a design philosophy that c
 
 ## Quick Start
 
-### Installation
+### 1. Install
 
 ```bash
-npm install @lumaui/angular
+npm install @lumaui/angular @lumaui/tokens tailwindcss@next @tailwindcss/postcss@next
 ```
 
-### Setup
+### 2. Configure PostCSS
 
-**IMPORTANT:** Luma tokens files do NOT import Tailwind CSS. Your project MUST import Tailwind separately.
+```javascript
+// postcss.config.mjs
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
 
-Add to your global styles (e.g., `src/styles.css`):
+### 3. Import Styles
 
 ```css
-/* Required - your project's responsibility */
-@import 'tailwindcss';
+/* src/styles.css */
 
-/* Import Luma design tokens */
-@import '@lumaui/tokens/build/luma.css'; /* Light theme */
-@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+/* Luma design tokens (includes Tailwind, tokens, and component classes) */
+@import '@lumaui/tokens/build/luma.css';
+
+/* Optional: Dark theme */
+@import '@lumaui/tokens/build/luma-dark.css';
 ```
 
-**Alternative (convenience bundle):**
+**That's it!** No additional configuration needed. The `luma.css` file includes everything:
 
-```css
-@import 'tailwindcss'; /* Required */
-@import '@lumaui/tokens/build/luma-complete.css'; /* Both themes */
+- ✅ Tailwind CSS v4 base
+- ✅ 45 design tokens
+- ✅ Component class manifest
+- ✅ Automatic class discovery
+
+### 4. Use Components
+
+```typescript
+import { LmButtonDirective } from '@lumaui/angular';
+
+@Component({
+  selector: 'app-root',
+  imports: [LmButtonDirective],
+  template: `<button lumaButton lmVariant="primary">Click me</button>`,
+})
+export class AppComponent {}
 ```
 
-Dark theme toggle:
+**See it in action:**
+
+```bash
+ng serve
+```
+
+Open http://localhost:4200 - you should see a styled purple button! 🎉
+
+**Dark theme toggle:**
 
 ```html
 <!-- Toggle dark theme by adding 'dark' class to <html> -->

@@ -2,34 +2,34 @@
 
 Design tokens do Luma UI - Neo-Minimal para Tailwind CSS v4.
 
-## ⚠️ Breaking Change in v0.4.0
+## ⚠️ Breaking Change in v0.4.1
 
-**Luma tokens files no longer import Tailwind CSS internally.** Your project is now responsible for importing Tailwind.
+**Simplificação completa!** Agora `luma.css` já inclui tudo o que você precisa.
 
 ### Migration Guide
 
-**Before (v0.3.x):**
+**Before (v0.4.0):**
 
 ```css
-@import '@lumaui/tokens/build/luma.css'; /* Tailwind was included */
+@import 'tailwindcss'; /* Manual */
+@import '@lumaui/tokens/build/luma.css';
+@import '@lumaui/tokens/build/luma-dark.css';
 ```
 
-**After (v0.4.0+):**
+**After (v0.4.1+):**
 
 ```css
-/* ALWAYS import Tailwind explicitly */
-@import 'tailwindcss'; /* Your project's responsibility */
-@import '@lumaui/tokens/build/luma.css'; /* Tokens only */
-@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+/* MUITO MAIS SIMPLES! */
+@import '@lumaui/tokens/build/luma.css'; /* Inclui tudo */
+@import '@lumaui/tokens/build/luma-dark.css'; /* Tema escuro */
 ```
 
-**Why this change?**
-Importing Tailwind is the project's responsibility, not the design system's. This provides:
+**O que mudou?**
 
-- ✅ Better separation of concerns
-- ✅ No duplicate imports
-- ✅ More flexibility (use any Tailwind version/config)
-- ✅ Clearer architecture
+- ✅ `luma.css` agora importa Tailwind CSS automaticamente
+- ✅ `luma.css` agora inclui @source para descoberta de classes
+- ✅ Zero configuração necessária
+- ✅ Funciona imediatamente após importar
 
 ## Instalação
 
@@ -37,61 +37,104 @@ Importing Tailwind is the project's responsibility, not the design system's. Thi
 npm install @lumaui/tokens @lumaui/angular tailwindcss@next @tailwindcss/postcss@next
 ```
 
-## Uso
+## Uso Básico
 
-### ⚠️ IMPORTANTE: Responsabilidade do Tailwind CSS
-
-**Luma tokens files do NOT import Tailwind CSS internally.** Your project is responsible for importing Tailwind.
-
-### Setup Básico
-
-**1. Configure PostCSS:**
-
-```javascript
-// postcss.config.mjs
-export default {
-  plugins: {
-    '@tailwindcss/postcss': {},
-  },
-};
-```
-
-**2. Importe Tailwind + tokens no CSS:**
-
-**Option A: Individual files (recommended)**
+### Importar no seu CSS
 
 ```css
 /* styles.css */
-@import 'tailwindcss'; /* Required - project's responsibility */
-@import '@lumaui/tokens/build/luma.css'; /* Light theme */
-@import '@lumaui/tokens/build/luma-dark.css'; /* Dark theme */
+
+/* Design tokens (tema light + classes dos componentes) */
+@import '@lumaui/tokens/build/luma.css';
+
+/* Opcional: Suporte a tema escuro */
+@import '@lumaui/tokens/build/luma-dark.css';
 ```
 
-**Option B: Convenience bundle**
+**O que está incluído no `luma.css`:**
+
+- ✅ Tailwind CSS v4 base (`@import 'tailwindcss'`)
+- ✅ 45 design tokens no bloco `@theme`
+- ✅ Manifesto de classes dos componentes (`@source`)
+- ✅ Descoberta automática de 99 classes
+
+**Bundle de conveniência:**
 
 ```css
-/* styles.css */
-@import 'tailwindcss'; /* Required */
-@import '@lumaui/tokens/build/luma-complete.css'; /* Both themes */
+/* Importa light + dark em um arquivo */
+@import '@lumaui/tokens/build/luma-complete.css';
 ```
 
-**Option C: Without postcss-import (angular.json)**
+---
 
-```json
-// angular.json
-"styles": [
-  "node_modules/@lumaui/tokens/build/luma.css",
-  "node_modules/@lumaui/tokens/build/luma-dark.css",
-  "src/styles.css"
-]
-```
+### Opções de Uso
+
+#### Opção A: Imports Individuais (Recomendado)
 
 ```css
-/* styles.css */
-@import 'tailwindcss'; /* Required */
+@import '@lumaui/tokens/build/luma.css'; /* Tema light + classes */
+@import '@lumaui/tokens/build/luma-dark.css'; /* Tema escuro */
 ```
 
-**3. Use as classes:**
+**Vantagens:**
+
+- Controle granular (pode omitir dark theme se não usar)
+- Carregamento condicional via media query
+- Melhor para produção
+
+#### Opção B: Bundle Completo (Simples)
+
+```css
+@import '@lumaui/tokens/build/luma-complete.css'; /* Tudo junto */
+```
+
+**Vantagens:**
+
+- Um único import
+- Mais simples para protótipos
+- Fácil de copiar/colar
+
+---
+
+### Verificar se Funciona
+
+Após configurar, verifique se as classes dos componentes foram incluídas:
+
+```bash
+# Build do projeto
+npm run build
+
+# Verificar se as classes Luma estão no CSS final
+grep "bg-primary" dist/styles.css
+# Esperado: Várias correspondências (bg-primary, hover:bg-primary/90, etc.)
+```
+
+Se você vê as classes, está funcionando corretamente! ✅
+
+---
+
+### Troubleshooting
+
+**Problema:** Componentes aparecem sem estilos
+
+**Causa:** Tailwind não descobriu as classes dos componentes
+
+**Solução:**
+
+1. Verifique se está importando `@lumaui/tokens/build/luma.css` (não apenas `@lumaui/tokens`)
+2. Verifique se o CSS compilado contém classes como `bg-primary`
+3. Certifique-se que está usando Tailwind CSS v4 (não v3)
+
+**Verificar versão do Tailwind:**
+
+```bash
+npm list tailwindcss
+# Esperado: tailwindcss@4.x.x (não 3.x.x)
+```
+
+---
+
+### Use as classes
 
 ```html
 <button class="bg-primary text-primary-foreground rounded-md px-6 py-3">

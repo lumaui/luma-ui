@@ -10,6 +10,11 @@ StyleDictionary.registerFormat({
   name: 'css/theme',
   format: ({ dictionary }) => {
     let output = '';
+    // Add Tailwind import and @source directive at the top
+    output += `@import 'tailwindcss';\n\n`;
+    output += `/* Component class manifest - enables automatic class discovery */\n`;
+    output += `@source "./luma-classes.js";\n\n`;
+
     output += `@theme {\n`;
     output += `  /* Luma Design System - Purple Theme (Light) */\n\n`;
 

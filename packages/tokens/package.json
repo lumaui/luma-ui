@@ -1,19 +1,45 @@
 {
   "name": "@lumaui/tokens",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Design tokens for Luma UI - Neo-Minimal design system",
   "type": "module",
-  "main": "./build/luma-complete.css",
+  "main": "./build/luma.css",
   "exports": {
-    ".": "./build/luma-complete.css",
-    "./styles.css": "./build/luma-complete.css",
-    "./tokens": "./build/luma.css",
-    "./dark.css": "./build/luma-dark.css",
-    "./styles/dark.css": "./build/luma-dark.css",
-    "./build/luma.css": "./build/luma.css",
-    "./build/luma-dark.css": "./build/luma-dark.css",
-    "./luma.css": "./build/luma.css",
-    "./luma-dark.css": "./build/luma-dark.css"
+    ".": {
+      "style": "./build/luma.css",
+      "default": "./build/luma.css"
+    },
+    "./tokens": {
+      "style": "./build/luma.css",
+      "default": "./build/luma.css"
+    },
+    "./dark.css": {
+      "style": "./build/luma-dark.css",
+      "default": "./build/luma-dark.css"
+    },
+    "./build/luma.css": {
+      "style": "./build/luma.css",
+      "default": "./build/luma.css"
+    },
+    "./build/luma-dark.css": {
+      "style": "./build/luma-dark.css",
+      "default": "./build/luma-dark.css"
+    },
+    "./build/luma-complete.css": {
+      "style": "./build/luma-complete.css",
+      "default": "./build/luma-complete.css"
+    },
+    "./luma.css": {
+      "style": "./build/luma.css",
+      "default": "./build/luma.css"
+    },
+    "./luma-dark.css": {
+      "style": "./build/luma-dark.css",
+      "default": "./build/luma-dark.css"
+    },
+    "./classes": {
+      "default": "./build/luma-classes.js"
+    }
   },
   "files": [
     "build/",
