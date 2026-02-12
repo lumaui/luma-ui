@@ -1,6 +1,6 @@
 {
   "name": "@lumaui/tokens",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Design tokens for Luma UI - Neo-Minimal design system",
   "type": "module",
   "main": "./build/luma-complete.css",
@@ -9,7 +9,11 @@
     "./styles.css": "./build/luma-complete.css",
     "./tokens": "./build/luma.css",
     "./dark.css": "./build/luma-dark.css",
-    "./styles/dark.css": "./build/luma-dark.css"
+    "./styles/dark.css": "./build/luma-dark.css",
+    "./build/luma.css": "./build/luma.css",
+    "./build/luma-dark.css": "./build/luma-dark.css",
+    "./luma.css": "./build/luma.css",
+    "./luma-dark.css": "./build/luma-dark.css"
   },
   "files": [
     "build/",
