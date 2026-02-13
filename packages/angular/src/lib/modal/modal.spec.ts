@@ -124,8 +124,8 @@ describe('Modal', () => {
       it('should apply styling classes', () => {
         const container =
           fixture.nativeElement.querySelector('[role="dialog"]');
-        expect(container.className).toContain('bg-white');
-        expect(container.className).toContain('border-gray-200');
+        expect(container.className).toContain('bg-card');
+        expect(container.className).toContain('border-border');
         expect(container.className).toContain('rounded-[var(--radius-6)]');
       });
 

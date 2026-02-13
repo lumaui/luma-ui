@@ -579,7 +579,7 @@ describe('LmToastItemComponent', () => {
       const classes = component['itemClasses']();
 
       expect(classes).toContain('flex');
-      expect(classes).toContain('items-start');
+      expect(classes).toContain('items-center');
     });
   });
 });
