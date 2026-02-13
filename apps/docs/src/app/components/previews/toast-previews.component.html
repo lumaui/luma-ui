@@ -115,6 +115,22 @@
       Show Toast with Title
     </button>
   }
+  @case ('custom-with-tailwind') {
+    <div class="custom-toast-section rounded-lg bg-muted/30 p-6">
+      <button
+        lumaButton
+        lmVariant="outline"
+        (click)="
+          toast.info('Custom styled toast with Tailwind!', {
+            title: 'Custom Design',
+            duration: 6000,
+          })
+        "
+      >
+        Show Custom Toast
+      </button>
+    </div>
+  }
   @default {
     <div class="lm-text-secondary text-sm text-center">
       Preview not available for this example

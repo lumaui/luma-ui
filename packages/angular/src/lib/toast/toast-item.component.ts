@@ -37,6 +37,7 @@ import { LmToastCloseComponent } from './toast-close.component';
       @switch (toast().variant) {
         @case ('info') {
           <svg
+            class="h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -50,6 +51,7 @@ import { LmToastCloseComponent } from './toast-close.component';
         }
         @case ('success') {
           <svg
+            class="h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -63,6 +65,7 @@ import { LmToastCloseComponent } from './toast-close.component';
         }
         @case ('warning') {
           <svg
+            class="h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -76,6 +79,7 @@ import { LmToastCloseComponent } from './toast-close.component';
         }
         @case ('error') {
           <svg
+            class="h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"

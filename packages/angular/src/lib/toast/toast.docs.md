@@ -165,6 +165,34 @@ Show Toast with Title
 </button>
 \`\`\`
 
+### Custom With Tailwind
+
+You can customize toasts for a specific section by wrapping the trigger in a container with scoped CSS variables:
+
+\`\`\`html
+
+<div class="custom-toast-section rounded-lg bg-muted/30 p-6">
+  <button
+    lumaButton
+    lmVariant="outline"
+    (click)="toast.info('Custom styled toast with Tailwind!', {
+      title: 'Custom Design',
+      duration: 6000
+    })"
+  >
+    Show Custom Toast
+  </button>
+</div>
+
+<style>
+  .custom-toast-section luma-toast-item {
+    --color-primary: oklch(0.65 0.20 270);
+    --color-primary-foreground: oklch(1 0 0);
+  }
+</style>
+
+\`\`\`
+
 ## Customizing
 
 ### Global Override

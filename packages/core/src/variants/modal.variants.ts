@@ -31,8 +31,8 @@ export const modalContainerVariants = cva(
     'w-full',
     'gap-4',
     'border',
-    'border-gray-200',
-    'bg-white',
+    'border-border',
+    'bg-card',
     'p-6',
     'shadow-[var(--shadow-6)]',
     'rounded-[var(--radius-6)]',
@@ -84,7 +84,10 @@ export const modalTitleVariants = cva([
  * Modal Description Variants
  * Supporting text below title
  */
-export const modalDescriptionVariants = cva(['text-sm', 'text-gray-600']);
+export const modalDescriptionVariants = cva([
+  'text-sm',
+  'text-muted-foreground',
+]);
 
 /**
  * Modal Content Variants
@@ -129,7 +132,7 @@ export const modalCloseVariants = cva([
   'focus:ring-offset-2',
   'disabled:pointer-events-none',
   'data-[state=open]:bg-primary-2',
-  'data-[state=open]:text-gray-600',
+  'data-[state=open]:text-muted-foreground',
 ]);
 
 // Type exports
