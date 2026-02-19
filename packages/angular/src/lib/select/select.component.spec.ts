@@ -693,7 +693,9 @@ describe('LmSelectComponent', () => {
     it('should return chip classes from chipClasses computed', () => {
       const classes = selectEl.chipClasses();
       expect(classes).toContain('rounded-full');
-      expect(classes).toContain('bg-primary-1');
+      expect(classes).toContain(
+        'inline-flex items-center gap-0.5 bg-gray-3 text-foreground rounded-full max-w-full text-xs px-2 py-0.5',
+      );
     });
   });
 
