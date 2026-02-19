@@ -31,7 +31,7 @@
         <!-- With line numbers -->
         <div class="flex">
           <div class="select-none pr-4 text-right lm-text-code opacity-40">
-            @for (line of codeLines(); track $index) {
+            @for (line of codeLines(); track line + $index) {
               <div class="text-xs font-mono leading-relaxed">
                 {{ $index + 1 }}
               </div>

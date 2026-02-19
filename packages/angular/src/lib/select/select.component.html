@@ -1,0 +1,255 @@
+<!-- Hidden slot: options run lifecycle hooks and register themselves via SELECT_CONTEXT,
+     but are never shown from this slot. The visible listbox is rendered below. -->
+<div class="hidden" aria-hidden="true">
+  <ng-content />
+</div>
+
+<!-- Trigger (id placed here for <label for="…"> association; host id removed via host binding) -->
+<div
+  #triggerEl
+  [attr.id]="selectId()"
+  [class]="triggerClasses()"
+  [attr.tabindex]="isDisabled() ? -1 : 0"
+  [attr.aria-expanded]="isOpen()"
+  [attr.aria-haspopup]="'listbox'"
+  [attr.aria-controls]="listboxId()"
+  [attr.aria-invalid]="hasError()"
+  [attr.aria-required]="lmRequired()"
+  [attr.aria-disabled]="isDisabled()"
+  role="combobox"
+  (click)="!isOpen() ? toggle() : null"
+  (keydown)="!isOpen() ? onTriggerKeydown($event) : null"
+>
+  @if (isOpen()) {
+    <!-- Open state -->
+    @if (lmMultiple() && selectedChips().length > 0) {
+      <!-- Multi-select open: chips + inline search -->
+      @for (chip of selectedChips(); track chip.value) {
+        <span [class]="chipClasses()">
+          <span class="truncate">{{ chip.label }}</span>
+          <button
+            type="button"
+            [class]="chipDismissClasses()"
+            [attr.aria-label]="'Remove ' + chip.label"
+            (click)="removeChip($event, chip.value)"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              class="h-full w-full"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 5l6 6M11 5l-6 6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </span>
+      }
+      <input
+        #searchInputEl
+        type="text"
+        [id]="searchInputId()"
+        class="flex-1 bg-transparent outline-none border-none min-w-15 text-foreground placeholder:text-muted-foreground"
+        [value]="searchQuery()"
+        [placeholder]="lmSearchPlaceholder()"
+        [attr.aria-label]="lmSearchPlaceholder()"
+        aria-autocomplete="list"
+        [attr.aria-controls]="listboxId()"
+        [attr.aria-activedescendant]="activeDescendantId()"
+        autocomplete="off"
+        (input)="onSearchInput($event)"
+        (keydown)="onSearchKeydown($event)"
+        (click)="$event.stopPropagation()"
+      />
+    } @else {
+      <!-- Single-select or empty multi: just the search input -->
+      <input
+        #searchInputEl
+        type="text"
+        [id]="searchInputId()"
+        [class]="searchInputClasses"
+        [value]="searchQuery()"
+        [placeholder]="lmSearchPlaceholder()"
+        [attr.aria-label]="lmSearchPlaceholder()"
+        aria-autocomplete="list"
+        [attr.aria-controls]="listboxId()"
+        [attr.aria-activedescendant]="activeDescendantId()"
+        autocomplete="off"
+        (input)="onSearchInput($event)"
+        (keydown)="onSearchKeydown($event)"
+        (click)="$event.stopPropagation()"
+      />
+    }
+  } @else {
+    <!-- Closed state -->
+    @if (lmMultiple() && selectedChips().length > 0) {
+      <!-- Multi-select closed: show chips -->
+      <div class="flex flex-wrap gap-1 flex-1 min-w-0 max-h-32 overflow-y-auto">
+        @for (chip of selectedChips(); track chip.value) {
+          <span [class]="chipClasses()">
+            <span class="truncate">{{ chip.label }}</span>
+            <button
+              type="button"
+              [class]="chipDismissClasses()"
+              [attr.aria-label]="'Remove ' + chip.label"
+              (click)="removeChip($event, chip.value)"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                class="h-full w-full"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 5l6 6M11 5l-6 6"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          </span>
+        }
+      </div>
+    } @else {
+      <!-- Single-select or empty multi: label/placeholder -->
+      <span
+        class="flex-1 truncate min-w-0"
+        [class.text-muted-foreground]="!triggerLabel()"
+      >
+        {{ triggerLabel() ?? lmPlaceholder() }}
+      </span>
+    }
+  }
+
+  <!-- Clear button — shown when clearable and has value -->
+  @if (lmClearable() && hasValue() && !isDisabled() && !isOpen()) {
+    <button
+      type="button"
+      class="shrink-0 h-4 w-4 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+      aria-label="Clear selection"
+      (click)="clear($event)"
+    >
+      <svg
+        viewBox="0 0 16 16"
+        fill="none"
+        class="h-3.5 w-3.5"
+        aria-hidden="true"
+      >
+        <path
+          d="M4 4l8 8M12 4l-8 8"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+  }
+
+  <!-- Chevron icon — rotates 180° when open -->
+  <svg
+    class="ml-auto shrink-0 h-4 w-4 text-muted-foreground transition-transform duration-200"
+    [class.rotate-180]="isOpen()"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M4 6l4 4 4-4"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</div>
+
+<!-- Listbox panel (absolute positioning — CSS-only, no JS tracking) -->
+@if (isOpen()) {
+  <div
+    #listboxEl
+    [id]="listboxId()"
+    role="listbox"
+    [attr.aria-label]="lmPlaceholder()"
+    [attr.aria-multiselectable]="lmMultiple()"
+    [class]="listboxClasses()"
+  >
+    @if (filteredOptionsWithState().length === 0) {
+      <div class="px-3 py-4 text-sm text-center text-muted-foreground">
+        {{ lmEmptyMessage() }}
+      </div>
+    }
+
+    @for (
+      item of filteredOptionsWithState();
+      track item.entry.value;
+      let i = $index
+    ) {
+      <div
+        [id]="selectId() + '-opt-' + i"
+        role="option"
+        [attr.aria-selected]="item.isSelected"
+        [attr.aria-disabled]="item.entry.disabled()"
+        [attr.tabindex]="item.entry.disabled() ? -1 : 0"
+        [class]="
+          optionClasses(
+            item.isSelected,
+            item.entry.disabled(),
+            focusedOptionIndex() === i
+          )
+        "
+        (click)="selectValue(item.entry.value)"
+        (keydown.enter)="selectValue(item.entry.value)"
+        (keydown.space)="selectValue(item.entry.value)"
+        (mouseenter)="focusedOptionIndex.set(i)"
+      >
+        @if (lmMultiple()) {
+          <!-- Mini checkbox indicator for multi-select -->
+          <span
+            class="h-4 w-4 shrink-0 flex items-center justify-center rounded-(--radius-2) border transition-colors duration-200"
+            [class.bg-primary]="item.isSelected"
+            [class.border-primary]="item.isSelected"
+            [class.border-gray-5]="!item.isSelected"
+            aria-hidden="true"
+          >
+            @if (item.isSelected) {
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 8l3 3 5-5"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            }
+          </span>
+        } @else {
+          <!-- Checkmark for single-select, spacer otherwise -->
+          @if (item.isSelected) {
+            <svg
+              class="h-4 w-4 shrink-0 text-primary"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M3 8l4 4 6-7"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          }
+        }
+
+        <span class="truncate">{{ item.entry.label() }}</span>
+      </div>
+    }
+  </div>
+}

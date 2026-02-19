@@ -50,6 +50,7 @@ export interface ThemePage {
 }
 
 export interface DocExample {
+  id: string;
   title: string;
   code: string;
   language: string;

@@ -18,10 +18,15 @@ import { AccordionPreviewsComponent } from '../previews/accordion-previews.compo
 import { BadgePreviewsComponent } from '../previews/badge-previews.component';
 import { ButtonPreviewsComponent } from '../previews/button-previews.component';
 import { CardPreviewsComponent } from '../previews/card-previews.component';
+import { InputPreviewsComponent } from '../previews/input-previews.component';
+import { TextareaPreviewsComponent } from '../previews/textarea-previews.component';
+import { CheckboxPreviewsComponent } from '../previews/checkbox-previews.component';
+import { RadioPreviewsComponent } from '../previews/radio-previews.component';
 import { ModalPreviewsComponent } from '../previews/modal-previews.component';
 import { TabsPreviewsComponent } from '../previews/tabs-previews.component';
 import { ToastPreviewsComponent } from '../previews/toast-previews.component';
 import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component';
+import { SelectPreviewsComponent } from '../previews/select-previews.component';
 
 @Component({
   selector: 'app-example-preview',
@@ -30,10 +35,15 @@ import { TooltipPreviewsComponent } from '../previews/tooltip-previews.component
     BadgePreviewsComponent,
     ButtonPreviewsComponent,
     CardPreviewsComponent,
+    InputPreviewsComponent,
+    TextareaPreviewsComponent,
+    CheckboxPreviewsComponent,
+    RadioPreviewsComponent,
     TooltipPreviewsComponent,
     TabsPreviewsComponent,
     ModalPreviewsComponent,
     ToastPreviewsComponent,
+    SelectPreviewsComponent,
     LmTabsComponent,
     LmTabsListDirective,
     LmTabsTriggerDirective,
@@ -55,10 +65,15 @@ export class ExamplePreviewComponent {
   code = input.required<string>();
   language = input<string>('html');
   highlightedCode = input<string | undefined>();
+  hasPreview = input<boolean | undefined>(undefined);
 
   isPreviewable = computed(() => {
+    // If explicitly provided, use the declared value
+    const explicit = this.hasPreview();
+    if (explicit !== undefined) return explicit;
+
+    // Fallback: infer from language (original behavior)
     const lang = this.language();
-    // CSS, TypeScript, and JavaScript examples are code-only
     return (
       lang !== 'css' &&
       lang !== 'typescript' &&

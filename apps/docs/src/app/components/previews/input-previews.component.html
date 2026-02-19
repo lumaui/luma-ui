@@ -1,0 +1,97 @@
+@switch (exampleId()) {
+  @case ('basic-input') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="email">Email</label>
+      <input
+        lumaInput
+        [formControl]="emailControl"
+        id="email"
+        type="email"
+        placeholder="Enter your email"
+      />
+      <span lumaHelperText>We'll never share your email.</span>
+    </div>
+  }
+
+  @case ('input-sizes') {
+    <div class="w-full max-w-sm space-y-4">
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="sm" for="small-input">Small Input</label>
+        <input lumaInput lmSize="sm" id="small-input" placeholder="Small" />
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="md" for="medium-input">Medium Input</label>
+        <input lumaInput lmSize="md" id="medium-input" placeholder="Medium" />
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="lg" for="large-input">Large Input</label>
+        <input lumaInput lmSize="lg" id="large-input" placeholder="Large" />
+      </div>
+    </div>
+  }
+
+  @case ('input-with-error-state') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="error-email">Email</label>
+      <input
+        lumaInput
+        [formControl]="emailErrorControl"
+        id="error-email"
+        type="email"
+      />
+      @if (emailErrorControl.invalid && emailErrorControl.touched) {
+        <span lumaErrorText>Please enter a valid email address.</span>
+      }
+    </div>
+  }
+
+  @case ('disabled-state') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="disabled-input">Disabled Input</label>
+      <input
+        lumaInput
+        [formControl]="disabledControl"
+        id="disabled-input"
+        placeholder="Disabled input"
+      />
+      <span lumaHelperText>This input is disabled</span>
+    </div>
+  }
+
+  @case ('label-with-required-indicator') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel [lmRequired]="true" for="required-name">Full Name</label>
+      <input
+        lumaInput
+        [formControl]="requiredNameControl"
+        id="required-name"
+        type="text"
+        placeholder="Enter your full name"
+      />
+      <span lumaHelperText>This field is required</span>
+    </div>
+  }
+
+  @case ('custom-label-sizes') {
+    <div class="w-full max-w-sm space-y-4">
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="sm" for="small-label">Small Label</label>
+        <input lumaInput lmSize="sm" id="small-label" placeholder="Input" />
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="md" for="medium-label">Medium Label</label>
+        <input lumaInput lmSize="md" id="medium-label" placeholder="Input" />
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="lg" for="large-label">Large Label</label>
+        <input lumaInput lmSize="lg" id="large-label" placeholder="Input" />
+      </div>
+    </div>
+  }
+
+  @default {
+    <div class="text-muted-foreground text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

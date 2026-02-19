@@ -64,7 +64,7 @@ pre code.hljs {
   font-size: 0.875em;
 }
 
-*:focus-visible {
+*:focus-visible:not(input):not(textarea):not(select) {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@lumaui/tokens",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Design tokens for Luma UI - Neo-Minimal design system",
   "type": "module",
   "main": "./build/luma.css",
@@ -63,6 +63,9 @@
     "css-variables",
     "tailwind"
   ],
+  "peerDependencies": {
+    "tw-animate-css": "^1.0.0"
+  },
   "devDependencies": {
     "style-dictionary": "^5.1.4"
   },

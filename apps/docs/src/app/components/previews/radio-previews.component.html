@@ -1,0 +1,129 @@
+@switch (exampleId()) {
+  @case ('basic-radio-group') {
+    <fieldset class="space-y-2 border-none p-0">
+      <legend class="text-sm font-medium mb-2 text-foreground">
+        Choose a plan
+      </legend>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          lmValue="starter"
+          [formControl]="planControl"
+          name="preview-plan"
+          id="preview-plan-starter"
+        />
+        <label lumaLabel [lmInline]="true" for="preview-plan-starter"
+          >Starter</label
+        >
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          lmValue="pro"
+          [formControl]="planControl"
+          name="preview-plan"
+          id="preview-plan-pro"
+        />
+        <label lumaLabel [lmInline]="true" for="preview-plan-pro">Pro</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          lmValue="enterprise"
+          [formControl]="planControl"
+          name="preview-plan"
+          id="preview-plan-enterprise"
+        />
+        <label lumaLabel [lmInline]="true" for="preview-plan-enterprise"
+          >Enterprise</label
+        >
+      </div>
+    </fieldset>
+  }
+
+  @case ('radio-states') {
+    <div class="space-y-3">
+      <div class="flex items-center gap-2">
+        <input type="radio" lumaRadio id="r-default" name="states-preview" />
+        <label lumaLabel [lmInline]="true" for="r-default">Option A</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          id="r-checked"
+          name="states-preview"
+          checked
+        />
+        <label lumaLabel [lmInline]="true" for="r-checked"
+          >Option B (selected)</label
+        >
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          id="r-disabled"
+          name="states-disabled-preview"
+          [lmDisabled]="true"
+        />
+        <label lumaLabel [lmInline]="true" for="r-disabled">Disabled</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          id="r-disabled-checked"
+          name="states-disabled-preview"
+          [lmDisabled]="true"
+          checked
+        />
+        <label lumaLabel [lmInline]="true" for="r-disabled-checked"
+          >Disabled Selected</label
+        >
+      </div>
+    </div>
+  }
+
+  @case ('radio-with-error-state') {
+    <fieldset class="space-y-2 border-none p-0">
+      <legend class="text-sm font-medium mb-2 text-foreground">
+        Delivery method
+      </legend>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          lmValue="email"
+          [formControl]="deliveryControl"
+          name="preview-delivery"
+          id="preview-d-email"
+        />
+        <label lumaLabel [lmInline]="true" for="preview-d-email">Email</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="radio"
+          lumaRadio
+          lmValue="sms"
+          [formControl]="deliveryControl"
+          name="preview-delivery"
+          id="preview-d-sms"
+        />
+        <label lumaLabel [lmInline]="true" for="preview-d-sms">SMS</label>
+      </div>
+      @if (deliveryControl.invalid && deliveryControl.touched) {
+        <span lumaErrorText>Please select a delivery method.</span>
+      }
+    </fieldset>
+  }
+
+  @default {
+    <div class="text-muted-foreground text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

@@ -1,0 +1,74 @@
+@switch (exampleId()) {
+  @case ('basic-checkbox') {
+    <div class="flex items-center gap-2">
+      <input
+        type="checkbox"
+        lumaCheckbox
+        [formControl]="agreedControl"
+        id="preview-agree"
+      />
+      <label lumaLabel [lmInline]="true" for="preview-agree"
+        >I agree to the terms</label
+      >
+    </div>
+  }
+
+  @case ('checkbox-states') {
+    <div class="space-y-3">
+      <div class="flex items-center gap-2">
+        <input type="checkbox" lumaCheckbox id="cb-default" />
+        <label lumaLabel [lmInline]="true" for="cb-default">Default</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" lumaCheckbox id="cb-checked" checked />
+        <label lumaLabel [lmInline]="true" for="cb-checked">Checked</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          lumaCheckbox
+          id="cb-disabled"
+          [lmDisabled]="true"
+        />
+        <label lumaLabel [lmInline]="true" for="cb-disabled">Disabled</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          lumaCheckbox
+          id="cb-disabled-checked"
+          [lmDisabled]="true"
+          checked
+        />
+        <label lumaLabel [lmInline]="true" for="cb-disabled-checked"
+          >Disabled Checked</label
+        >
+      </div>
+    </div>
+  }
+
+  @case ('checkbox-with-error-state') {
+    <div class="space-y-1.5">
+      <div class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          lumaCheckbox
+          [formControl]="requiredControl"
+          id="preview-terms"
+        />
+        <label lumaLabel [lmInline]="true" for="preview-terms"
+          >Accept terms and conditions</label
+        >
+      </div>
+      @if (requiredControl.invalid && requiredControl.touched) {
+        <span lumaErrorText>You must accept the terms to continue.</span>
+      }
+    </div>
+  }
+
+  @default {
+    <div class="text-muted-foreground text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

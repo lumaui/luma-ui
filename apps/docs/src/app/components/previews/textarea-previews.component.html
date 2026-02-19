@@ -1,0 +1,94 @@
+@switch (exampleId()) {
+  @case ('basic-textarea') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="bio">Bio</label>
+      <textarea
+        lumaTextarea
+        [formControl]="bioControl"
+        id="bio"
+        placeholder="Tell us about yourself"
+      ></textarea>
+      <span lumaHelperText>Maximum 500 characters.</span>
+    </div>
+  }
+
+  @case ('textarea-sizes') {
+    <div class="w-full max-w-sm space-y-4">
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="sm" for="small-textarea">Small</label>
+        <textarea
+          lumaTextarea
+          lmSize="sm"
+          id="small-textarea"
+          placeholder="Small textarea"
+        ></textarea>
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="md" for="medium-textarea">Medium</label>
+        <textarea
+          lumaTextarea
+          lmSize="md"
+          id="medium-textarea"
+          placeholder="Medium textarea"
+        ></textarea>
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="lg" for="large-textarea">Large</label>
+        <textarea
+          lumaTextarea
+          lmSize="lg"
+          id="large-textarea"
+          placeholder="Large textarea"
+        ></textarea>
+      </div>
+    </div>
+  }
+
+  @case ('textarea-with-error-state') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="error-message">Message</label>
+      <textarea
+        lumaTextarea
+        [formControl]="messageErrorControl"
+        id="error-message"
+        placeholder="Enter your message"
+      ></textarea>
+      @if (messageErrorControl.invalid && messageErrorControl.touched) {
+        <span lumaErrorText>Message must be at least 20 characters.</span>
+      }
+    </div>
+  }
+
+  @case ('disabled-textarea') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="disabled-textarea">Bio</label>
+      <textarea
+        lumaTextarea
+        [formControl]="disabledControl"
+        id="disabled-textarea"
+      ></textarea>
+      <span lumaHelperText>This field cannot be edited.</span>
+    </div>
+  }
+
+  @case ('label-with-required-indicator') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel [lmRequired]="true" for="required-message"
+        >Message</label
+      >
+      <textarea
+        lumaTextarea
+        [formControl]="requiredMessageControl"
+        id="required-message"
+        placeholder="Your message is required"
+      ></textarea>
+      <span lumaHelperText>This field is required</span>
+    </div>
+  }
+
+  @default {
+    <div class="text-muted-foreground text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

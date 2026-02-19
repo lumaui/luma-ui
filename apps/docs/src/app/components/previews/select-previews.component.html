@@ -1,0 +1,87 @@
+@switch (exampleId()) {
+  @case ('basic-usage') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="fruit-select">Favourite fruit</label>
+      <luma-select
+        id="fruit-select"
+        [formControl]="fruitControl"
+        lmPlaceholder="Select a fruit…"
+      >
+        <luma-select-option [lmValue]="'apple'">Apple</luma-select-option>
+        <luma-select-option [lmValue]="'banana'">Banana</luma-select-option>
+        <luma-select-option [lmValue]="'cherry'">Cherry</luma-select-option>
+        <luma-select-option [lmValue]="'grape'">Grape</luma-select-option>
+        <luma-select-option [lmValue]="'mango'">Mango</luma-select-option>
+      </luma-select>
+    </div>
+  }
+
+  @case ('multi-select') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel for="colors-select">Favourite colours</label>
+      <luma-select
+        id="colors-select"
+        [formControl]="colorsControl"
+        [lmMultiple]="true"
+        lmPlaceholder="Select colours…"
+      >
+        <luma-select-option [lmValue]="'red'">Red</luma-select-option>
+        <luma-select-option [lmValue]="'green'">Green</luma-select-option>
+        <luma-select-option [lmValue]="'blue'">Blue</luma-select-option>
+        <luma-select-option [lmValue]="'yellow'">Yellow</luma-select-option>
+        <luma-select-option [lmValue]="'purple'">Purple</luma-select-option>
+      </luma-select>
+    </div>
+  }
+
+  @case ('sizes') {
+    <div class="w-full max-w-sm space-y-4">
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="sm" for="select-sm">Small</label>
+        <luma-select id="select-sm" lmSize="sm" lmPlaceholder="Small select">
+          <luma-select-option [lmValue]="'a'">Option A</luma-select-option>
+          <luma-select-option [lmValue]="'b'">Option B</luma-select-option>
+        </luma-select>
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="md" for="select-md">Medium</label>
+        <luma-select id="select-md" lmSize="md" lmPlaceholder="Medium select">
+          <luma-select-option [lmValue]="'a'">Option A</luma-select-option>
+          <luma-select-option [lmValue]="'b'">Option B</luma-select-option>
+        </luma-select>
+      </div>
+      <div class="space-y-1.5">
+        <label lumaLabel lmSize="lg" for="select-lg">Large</label>
+        <luma-select id="select-lg" lmSize="lg" lmPlaceholder="Large select">
+          <luma-select-option [lmValue]="'a'">Option A</luma-select-option>
+          <luma-select-option [lmValue]="'b'">Option B</luma-select-option>
+        </luma-select>
+      </div>
+    </div>
+  }
+
+  @case ('error-state') {
+    <div class="w-full max-w-sm space-y-1.5">
+      <label lumaLabel [lmRequired]="true" for="required-select">Country</label>
+      <luma-select
+        id="required-select"
+        [formControl]="requiredControl"
+        lmPlaceholder="Select a country…"
+      >
+        <luma-select-option [lmValue]="'us'">United States</luma-select-option>
+        <luma-select-option [lmValue]="'uk'">United Kingdom</luma-select-option>
+        <luma-select-option [lmValue]="'ca'">Canada</luma-select-option>
+        <luma-select-option [lmValue]="'au'">Australia</luma-select-option>
+      </luma-select>
+      @if (requiredControl.invalid && requiredControl.touched) {
+        <span lumaErrorText>Please select a country.</span>
+      }
+    </div>
+  }
+
+  @default {
+    <div class="text-muted-foreground text-sm text-center">
+      Preview not available for this example
+    </div>
+  }
+}

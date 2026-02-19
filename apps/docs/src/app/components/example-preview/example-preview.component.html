@@ -1,4 +1,4 @@
-<div class="rounded-lg overflow-hidden border border-border">
+<div class="rounded-lg border border-border">
   <luma-tabs [lmDefaultValue]="defaultTab()" [lmLazy]="false">
     <!-- Header with tabs -->
     <div class="px-4 py-2">
@@ -50,6 +50,23 @@
           }
           @case ('toast') {
             <app-toast-previews [exampleId]="exampleId()" />
+          }
+          @case ('input') {
+            <app-input-previews [exampleId]="exampleId()" />
+          }
+          @case ('textarea') {
+            <app-textarea-previews [exampleId]="exampleId()" />
+          }
+          @case ('checkbox') {
+            <app-checkbox-previews [exampleId]="exampleId()" />
+          }
+          @case ('radio') {
+            <app-radio-previews [exampleId]="exampleId()" />
+          }
+          @case ('select') {
+            <div class="w-full max-w-sm">
+              <app-select-previews [exampleId]="exampleId()" />
+            </div>
           }
           @default {
             <div class="lm-text-secondary text-sm">Preview not available</div>

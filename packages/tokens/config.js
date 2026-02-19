@@ -11,7 +11,8 @@ StyleDictionary.registerFormat({
   format: ({ dictionary }) => {
     let output = '';
     // Add Tailwind import and @source directive at the top
-    output += `@import 'tailwindcss';\n\n`;
+    output += `@import 'tailwindcss';\n`;
+    output += `@import 'tw-animate-css';\n\n`;
     output += `/* Configure class-based dark mode */\n`;
     output += `@variant dark (.dark &);\n\n`;
     output += `/* Component class manifest - enables automatic class discovery */\n`;

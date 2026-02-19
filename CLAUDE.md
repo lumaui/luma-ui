@@ -1566,6 +1566,94 @@ Following the Neo-Minimal principle of avoiding over-engineering:
 - Don't test exact RGB values (OKLCH conversion varies)
 - Don't test animation/transition timing (flaky)
 
+## Form Components Pattern
+
+The form element family (`lumaInput`, `lumaTextarea`, `lumaLabel`, `lumaHelperText`, `lumaErrorText`) establishes definitive patterns for building accessible, reactive form controls. Follow these patterns for any future form element directive.
+
+### CSS Cascade Pattern (Mutually Exclusive Variants)
+
+When a CVA `base` class and a variant class both target the same CSS property (e.g. `border-color`), Tailwind v4 resolves the conflict by **stylesheet order** — NOT DOM class order. The solution: move the default-state class to the `false` branch of the variant so they're never on the element simultaneously.
+
+```typescript
+// ❌ WRONG — base always present → cascade conflict when error: true
+cva(['border-gray-5'], {
+  variants: { error: { true: ['border-destructive'], false: [] } },
+});
+
+// ✅ CORRECT — mutually exclusive, no conflict possible
+cva(['border'], {
+  // only non-conflicting base classes
+  variants: {
+    error: {
+      true: ['border-destructive', 'focus-visible:border-destructive'],
+      false: [
+        'border-gray-5',
+        'hover:border-gray-9',
+        'focus-visible:border-gray-9',
+      ],
+    },
+  },
+});
+```
+
+### Signal Reactivity in Host Bindings
+
+`@HostBinding` is a legacy decorator that does NOT track Angular signal dependencies. Always use the `host` object in the `@Directive`/`@Component` decorator — the Angular compiler generates reactive template binding instructions (`ɵɵclassMap`) for `host` entries, properly wiring them into the signal graph.
+
+```typescript
+// ❌ LEGACY — @HostBinding getter is not reactive to signals
+@HostBinding('class') get hostClasses() { return this.classes(); }
+@HostListener('blur') onBlur() { ... }
+
+// ✅ MODERN — reactive, consistent with Angular 20+ conventions
+host: {
+  '[class]': 'classes()',
+  '(blur)': 'onBlur()',
+}
+```
+
+### FormControl → Signal Bridge
+
+`statusChanges` alone does NOT emit for `markAsTouched()`. Use `control.events` (Angular 18+) which emits for ALL state changes: value, status, touched, and pristine transitions.
+
+```typescript
+control.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+  this._formInvalid.set(control.invalid);
+  this._formTouched.set(control.touched);
+});
+```
+
+Always capture initial state immediately in `ngOnInit` in case the control was already touched/invalid before the directive was created.
+
+### Compositional Form Elements
+
+Form elements are composed of separate directives, each managing its own ARIA identity:
+
+| Directive        | Selector                 | Class                   |
+| ---------------- | ------------------------ | ----------------------- |
+| `lumaLabel`      | `label[lumaLabel]`       | `LmLabelDirective`      |
+| `lumaInput`      | `input[lumaInput]`       | `LmInputDirective`      |
+| `lumaTextarea`   | `textarea[lumaTextarea]` | `LmTextareaDirective`   |
+| `lumaHelperText` | `[lumaHelperText]`       | `LmHelperTextDirective` |
+| `lumaErrorText`  | `[lumaErrorText]`        | `LmErrorTextDirective`  |
+
+Each input/textarea directive:
+
+- Auto-generates a unique `id` (`luma-input-N`, `luma-textarea-N`)
+- Sets `aria-invalid` reactively based on `hasError` computed signal
+- Exposes `setDescribedBy(value: string | null)` for ARIA association with helper/error text
+- Bridges `FormControl.disable()` into a `_formDisabled` signal via `setDisabledState()`
+- Uses `Injector` to get `NgControl` lazily in `ngOnInit` (avoids circular dependency)
+
+### Input vs Textarea Differences
+
+| Feature         | `lumaInput`                | `lumaTextarea`                            |
+| --------------- | -------------------------- | ----------------------------------------- |
+| Size dimension  | Fixed height (`h-8/10/12`) | Min-height (`min-h-20/24/32`) + `py`/`px` |
+| Resize          | Not applicable             | `resize-y` (vertical only)                |
+| Disabled resize | Not applicable             | `disabled:resize-none`                    |
+| Type input      | Has `lmType`               | No type input                             |
+
 ## Adding New Components
 
 This comprehensive protocol ensures every component in Lumo is consistent, scalable, accessible, and aligned with the Neo-Minimal design philosophy.

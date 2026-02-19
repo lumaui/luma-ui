@@ -6,3 +6,8 @@ export * from './tooltip-previews.component';
 export * from './modal-previews.component';
 export * from './tabs-previews.component';
 export * from './toast-previews.component';
+export * from './input-previews.component';
+export * from './textarea-previews.component';
+export * from './checkbox-previews.component';
+export * from './radio-previews.component';
+export * from './select-previews.component';
